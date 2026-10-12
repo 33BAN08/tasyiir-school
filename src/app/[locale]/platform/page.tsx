@@ -2,6 +2,7 @@ import { Ban, Banknote, CheckCircle2, Clock, School } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 
+import { NewSchoolButton } from "@/components/features/platform/new-school-button";
 import { SchoolsTable, SchoolsTableSkeleton } from "@/components/features/platform/schools-table";
 import { StatCard, StatCardSkeleton } from "@/components/features/platform/stat-card";
 import { EmptyState } from "@/components/layout/empty-state";
@@ -21,7 +22,11 @@ export default async function PlatformHomePage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader title={t("title")} description={t("welcome", { name: user.fullName })} />
+      <PageHeader
+        title={t("title")}
+        description={t("welcome", { name: user.fullName })}
+        actions={<NewSchoolButton />}
+      />
       <Suspense fallback={<StatsSkeleton />}>
         <Stats />
       </Suspense>

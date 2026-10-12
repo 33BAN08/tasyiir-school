@@ -128,7 +128,8 @@
       "noResultsTitle": "Aucun résultat",
       "noResultsDescription": "Aucun établissement ne correspond à votre recherche ou à vos filtres.",
       "clearFilters": "Effacer les filtres",
-      "count": "{count, plural, =0 {Aucun établissement} one {# établissement} other {# établissements}}"
+      "count": "{count, plural, =0 {Aucun établissement} one {# établissement} other {# établissements}}",
+      "newSchool": "Nouvel établissement"
     },
     "schoolStatus": {
       "active": "Actif",
@@ -139,6 +140,96 @@
       "active": "Actif",
       "suspended": "Suspendu",
       "expired": "Expiré"
+    },
+    "wizard": {
+      "title": "Nouvel établissement",
+      "description": "Créez l'établissement, le compte du directeur et l'abonnement en une seule fois.",
+      "backToList": "Retour à la liste",
+      "noPlansTitle": "Aucune formule active",
+      "noPlansDescription": "Activez au moins une formule avant de créer un établissement.",
+      "stepsLabel": "Étapes de création",
+      "steps": {
+        "school": "Établissement",
+        "director": "Directeur",
+        "plan": "Formule et abonnement"
+      },
+      "optional": "facultatif",
+      "back": "Retour",
+      "next": "Suivant",
+      "create": "Créer l'établissement",
+      "creating": "Création en cours…",
+      "school": {
+        "name": "Nom de l'établissement",
+        "slug": "Identifiant",
+        "slugHint": "Lettres minuscules, chiffres et tirets. Unique sur la plateforme.",
+        "city": "Ville",
+        "phone": "Téléphone",
+        "address": "Adresse"
+      },
+      "director": {
+        "name": "Nom complet du directeur",
+        "email": "Adresse e-mail",
+        "emailHint": "Elle servira à se connecter.",
+        "locale": "Langue de l'interface",
+        "password": "Mot de passe temporaire",
+        "passwordHint": "Le directeur devra le changer lors de sa première connexion.",
+        "regenerate": "Générer un autre mot de passe"
+      },
+      "plan": {
+        "plan": "Formule",
+        "choosePlan": "Choisissez une formule",
+        "perMonth": "/ mois",
+        "includedModules": "Modules inclus",
+        "status": "Type d'abonnement",
+        "statusTrial": "Période d'essai",
+        "statusActive": "Abonnement payant",
+        "statusTrialHint": "Tous les modules de la formule sont disponibles jusqu'à la fin de l'essai.",
+        "statusActiveHint": "L'abonnement est compté dans le revenu mensuel.",
+        "startDate": "Date de début",
+        "trialEndsOn": "Fin de l'essai",
+        "endDate": "Date de fin"
+      },
+      "success": {
+        "toast": "« {name} » a été créé.",
+        "title": "« {name} » est prêt",
+        "description": "Transmettez ces identifiants au directeur. Il devra choisir son propre mot de passe à la première connexion.",
+        "email": "Adresse e-mail",
+        "password": "Mot de passe temporaire",
+        "warning": "Ce mot de passe ne sera plus affiché. Copiez-le maintenant et transmettez-le par un moyen sûr.",
+        "createAnother": "Créer un autre établissement",
+        "backToList": "Voir les établissements"
+      },
+      "errors": {
+        "nameRequired": "Veuillez saisir un nom (au moins 2 caractères).",
+        "tooLong": "Ce texte est trop long.",
+        "slugInvalid": "Utilisez 3 à 60 lettres minuscules, chiffres ou tirets (ex. : ecole-al-amal).",
+        "slugTaken": "Cet identifiant est déjà utilisé par un autre établissement.",
+        "phoneInvalid": "Numéro de téléphone invalide.",
+        "invalidEmail": "Veuillez saisir une adresse e-mail valide.",
+        "emailTaken": "Un compte existe déjà avec cette adresse e-mail.",
+        "passwordTooShort": "Le mot de passe doit contenir entre 8 et 72 caractères.",
+        "passwordWeak": "Le mot de passe doit contenir au moins une lettre et un chiffre.",
+        "planRequired": "Veuillez choisir une formule active.",
+        "invalidDate": "Date invalide.",
+        "trialEndRequired": "Veuillez indiquer la fin de la période d'essai.",
+        "dateBeforeStart": "Cette date doit être postérieure à la date de début.",
+        "forbidden": "Vous n'avez pas l'autorisation d'effectuer cette action.",
+        "generic": "Une erreur inattendue s'est produite. Rien n'a été créé. Veuillez réessayer."
+      }
     }
+  },
+  "common": {
+    "copy": "Copier",
+    "copyFailed": "Impossible de copier. Veuillez sélectionner le texte manuellement."
+  },
+  "modules": {
+    "attendance": "Absences",
+    "timetable": "Emploi du temps",
+    "messaging": "Messagerie",
+    "grades": "Notes et bulletins",
+    "alerts": "Alertes automatiques",
+    "massar": "Export Massar",
+    "fees": "Frais et paiements",
+    "transport": "Transport"
   }
 }

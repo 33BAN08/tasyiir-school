@@ -1,9 +1,9 @@
+import { TIME_ZONE } from "@/lib/dates";
+
 /**
  * Display formats from docs/DESIGN.md, identical in every UI language:
  * amounts `1 250,00 DH`, dates `dd/MM/yyyy` in Africa/Casablanca.
  */
-
-const TIME_ZONE = "Africa/Casablanca";
 
 const amountFormat = new Intl.NumberFormat("fr-MA", {
   minimumFractionDigits: 2,

@@ -128,7 +128,8 @@
       "noResultsTitle": "No results",
       "noResultsDescription": "No school matches your search or filters.",
       "clearFilters": "Clear filters",
-      "count": "{count, plural, =0 {No schools} one {# school} other {# schools}}"
+      "count": "{count, plural, =0 {No schools} one {# school} other {# schools}}",
+      "newSchool": "New school"
     },
     "schoolStatus": {
       "active": "Active",
@@ -139,6 +140,96 @@
       "active": "Active",
       "suspended": "Suspended",
       "expired": "Expired"
+    },
+    "wizard": {
+      "title": "New school",
+      "description": "Create the school, the director's account and the subscription in one go.",
+      "backToList": "Back to the list",
+      "noPlansTitle": "No active plan",
+      "noPlansDescription": "Activate at least one plan before creating a school.",
+      "stepsLabel": "Creation steps",
+      "steps": {
+        "school": "School",
+        "director": "Director",
+        "plan": "Plan & subscription"
+      },
+      "optional": "optional",
+      "back": "Back",
+      "next": "Next",
+      "create": "Create school",
+      "creating": "Creating…",
+      "school": {
+        "name": "School name",
+        "slug": "Identifier",
+        "slugHint": "Lowercase letters, digits and hyphens. Unique on the platform.",
+        "city": "City",
+        "phone": "Phone",
+        "address": "Address"
+      },
+      "director": {
+        "name": "Director's full name",
+        "email": "Email address",
+        "emailHint": "Used to sign in.",
+        "locale": "Interface language",
+        "password": "Temporary password",
+        "passwordHint": "The director must change it at first sign-in.",
+        "regenerate": "Generate another password"
+      },
+      "plan": {
+        "plan": "Plan",
+        "choosePlan": "Choose a plan",
+        "perMonth": "/ month",
+        "includedModules": "Included modules",
+        "status": "Subscription type",
+        "statusTrial": "Trial",
+        "statusActive": "Paid subscription",
+        "statusTrialHint": "All the plan's modules are available until the trial ends.",
+        "statusActiveHint": "The subscription counts towards monthly revenue.",
+        "startDate": "Start date",
+        "trialEndsOn": "Trial ends on",
+        "endDate": "End date"
+      },
+      "success": {
+        "toast": "“{name}” has been created.",
+        "title": "“{name}” is ready",
+        "description": "Give these credentials to the director. They will choose their own password at first sign-in.",
+        "email": "Email address",
+        "password": "Temporary password",
+        "warning": "This password will not be shown again. Copy it now and share it through a secure channel.",
+        "createAnother": "Create another school",
+        "backToList": "View schools"
+      },
+      "errors": {
+        "nameRequired": "Please enter a name (at least 2 characters).",
+        "tooLong": "This text is too long.",
+        "slugInvalid": "Use 3 to 60 lowercase letters, digits or hyphens (e.g. al-amal-school).",
+        "slugTaken": "This identifier is already used by another school.",
+        "phoneInvalid": "Invalid phone number.",
+        "invalidEmail": "Please enter a valid email address.",
+        "emailTaken": "An account already exists with this email address.",
+        "passwordTooShort": "The password must be 8 to 72 characters long.",
+        "passwordWeak": "The password must contain at least one letter and one digit.",
+        "planRequired": "Please choose an active plan.",
+        "invalidDate": "Invalid date.",
+        "trialEndRequired": "Please set the end of the trial.",
+        "dateBeforeStart": "This date must be after the start date.",
+        "forbidden": "You are not allowed to do this.",
+        "generic": "An unexpected error occurred. Nothing was created. Please try again."
+      }
     }
+  },
+  "common": {
+    "copy": "Copy",
+    "copyFailed": "Could not copy. Please select the text manually."
+  },
+  "modules": {
+    "attendance": "Attendance",
+    "timetable": "Timetable",
+    "messaging": "Messaging",
+    "grades": "Grades & report cards",
+    "alerts": "Automatic alerts",
+    "massar": "Massar export",
+    "fees": "Fees & payments",
+    "transport": "Transport"
   }
 }

@@ -2,6 +2,7 @@ import { School, SearchX } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 
+import { NewSchoolButton } from "@/components/features/platform/new-school-button";
 import { SchoolsFilters } from "@/components/features/platform/schools-filters";
 import { SchoolsTable, SchoolsTableSkeleton } from "@/components/features/platform/schools-table";
 import { EmptyState } from "@/components/layout/empty-state";
@@ -26,7 +27,11 @@ export default async function SchoolsPage({ searchParams }: PageProps<"/[locale]
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader title={t("title")} description={t("description")} />
+      <PageHeader
+        title={t("title")}
+        description={t("description")}
+        actions={<NewSchoolButton />}
+      />
       <Suspense fallback={<Skeleton className="h-9 w-full max-w-md" />}>
         <SchoolsFilters />
       </Suspense>
@@ -57,7 +62,12 @@ async function SchoolsResults({ params }: { params: SchoolListParams }) {
         }
       />
     ) : (
-      <EmptyState icon={School} title={t("emptyTitle")} description={t("emptyDescription")} />
+      <EmptyState
+        icon={School}
+        title={t("emptyTitle")}
+        description={t("emptyDescription")}
+        action={<NewSchoolButton />}
+      />
     );
   }
 
