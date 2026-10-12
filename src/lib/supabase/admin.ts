@@ -2,6 +2,8 @@ import "server-only";
 
 import { createClient } from "@supabase/supabase-js";
 
+import type { Database } from "@/types/database";
+
 /**
  * Supabase admin client using the SECRET key. Bypasses RLS.
  * Server only (Server Actions, Route Handlers). Never import from client code.
@@ -12,7 +14,7 @@ export function createAdminClient() {
     throw new Error("SUPABASE_SECRET_KEY is not set");
   }
 
-  return createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, secretKey, {
+  return createClient<Database>(process.env.NEXT_PUBLIC_SUPABASE_URL!, secretKey, {
     auth: { autoRefreshToken: false, persistSession: false },
   });
 }
