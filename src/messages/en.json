@@ -31,6 +31,10 @@
       "submit": "Save password",
       "submitting": "Saving…"
     },
+    "suspended": {
+      "title": "School suspended",
+      "description": "Access to your school has been temporarily suspended. Please contact your school's administration or the Tasyiir team for more information."
+    },
     "logout": "Sign out",
     "errors": {
       "invalidEmail": "Please enter a valid email address.",

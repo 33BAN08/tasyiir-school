@@ -30,6 +30,7 @@ export default function ChangePasswordPage() {
 async function ForcedChangeGate() {
   const user = await getCurrentUser();
   if (!user) return redirect({ href: "/login", locale: await getLocale() });
+  if (user.schoolSuspended) return redirect({ href: "/suspended", locale: await getLocale() });
   if (!user.mustChangePassword) return redirect({ href: "/", locale: await getLocale() });
   return <ChangePasswordForm />;
 }

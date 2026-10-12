@@ -408,6 +408,7 @@ export type Database = {
           settings: Json
           slug: string
           status: string
+          suspended_at: string | null
           updated_at: string
         }
         Insert: {
@@ -421,6 +422,7 @@ export type Database = {
           settings?: Json
           slug: string
           status?: string
+          suspended_at?: string | null
           updated_at?: string
         }
         Update: {
@@ -434,6 +436,7 @@ export type Database = {
           settings?: Json
           slug?: string
           status?: string
+          suspended_at?: string | null
           updated_at?: string
         }
         Relationships: []

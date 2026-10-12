@@ -31,6 +31,10 @@
       "submit": "Enregistrer le mot de passe",
       "submitting": "Enregistrement…"
     },
+    "suspended": {
+      "title": "Établissement suspendu",
+      "description": "L'accès à votre établissement est temporairement suspendu. Veuillez contacter la direction de votre établissement ou l'équipe Tasyiir pour plus d'informations."
+    },
     "logout": "Se déconnecter",
     "errors": {
       "invalidEmail": "Veuillez saisir une adresse e-mail valide.",

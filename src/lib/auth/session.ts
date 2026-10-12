@@ -18,6 +18,8 @@ export type CurrentUser = {
   roleName: string;
   locale: string;
   mustChangePassword: boolean;
+  /** The user's school is suspended. roleKey/roleName are then empty: never use them. */
+  schoolSuspended: boolean;
 };
 
 /**
@@ -35,11 +37,18 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("id, full_name, school_id, role_id, locale, must_change_password, role:roles(key, name)")
+    .select(
+      "id, full_name, school_id, role_id, locale, must_change_password, role:roles(key, name), school:schools(id)",
+    )
     .eq("id", claims.sub)
     .maybeSingle();
 
-  if (!profile?.role) return null;
+  if (!profile) return null;
+
+  // RLS hides a suspended school AND its roles: such a user is still signed in
+  // (so pages can send them to /suspended) but has no usable role.
+  const schoolSuspended = profile.school_id !== null && !profile.school;
+  if (!profile.role && !schoolSuspended) return null;
 
   return {
     id: profile.id,
@@ -47,17 +56,22 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
     fullName: profile.full_name,
     schoolId: profile.school_id,
     roleId: profile.role_id,
-    roleKey: profile.role.key,
-    roleName: profile.role.name,
+    roleKey: profile.role?.key ?? "",
+    roleName: profile.role?.name ?? "",
     locale: profile.locale,
     mustChangePassword: profile.must_change_password,
+    schoolSuspended,
   };
 });
 
-/** For protected pages: signed-in user with a profile who has set their own password. */
+/**
+ * For protected pages: signed-in user with a profile, whose school is active,
+ * and who has set their own password.
+ */
 export async function requireUser(): Promise<CurrentUser> {
   const user = await getCurrentUser();
   if (!user) return redirect({ href: "/login", locale: await getLocale() });
+  if (user.schoolSuspended) return redirect({ href: "/suspended", locale: await getLocale() });
   if (user.mustChangePassword) {
     return redirect({ href: "/change-password", locale: await getLocale() });
   }
