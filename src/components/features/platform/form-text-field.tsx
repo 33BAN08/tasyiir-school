@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import type { ComponentProps } from "react";
-import type { UseFormReturn } from "react-hook-form";
+import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -11,13 +11,9 @@ import type { NewSchoolFormValues, NewSchoolInput } from "@/lib/validations/plat
 /** The wizard's form: raw string values in, zod-transformed values out. */
 export type NewSchoolForm = UseFormReturn<NewSchoolFormValues, unknown, NewSchoolInput>;
 
-type TextFieldName = {
-  [K in keyof NewSchoolFormValues]: NewSchoolFormValues[K] extends string ? K : never;
-}[keyof NewSchoolFormValues];
-
-type Props = Omit<ComponentProps<typeof Input>, "name" | "form"> & {
-  form: NewSchoolForm;
-  name: TextFieldName;
+type Props<TValues extends FieldValues, TOutput> = Omit<ComponentProps<typeof Input>, "name" | "form"> & {
+  form: UseFormReturn<TValues, unknown, TOutput>;
+  name: Path<TValues>;
   label: string;
   description?: string;
   optional?: boolean;
@@ -25,8 +21,11 @@ type Props = Omit<ComponentProps<typeof Input>, "name" | "form"> & {
   onValueChange?: (value: string) => void;
 };
 
-/** Label above, input, hint, translated inline error (docs/DESIGN.md form rules). */
-export function WizardTextField({
+/**
+ * Label above, input, hint, translated inline error (docs/DESIGN.md form rules).
+ * Error messages are keys under `platform.errors`.
+ */
+export function FormTextField<TValues extends FieldValues, TOutput>({
   form,
   name,
   label,
@@ -34,10 +33,11 @@ export function WizardTextField({
   optional,
   onValueChange,
   ...inputProps
-}: Props) {
-  const t = useTranslations("platform.wizard");
-  const error = form.formState.errors[name]?.message;
-  const id = `wizard-${name}`;
+}: Props<TValues, TOutput>) {
+  const t = useTranslations("common");
+  const tErrors = useTranslations("platform.errors");
+  const error = form.getFieldState(name, form.formState).error?.message;
+  const id = `field-${name}`;
   const registered = form.register(name);
 
   return (
@@ -53,14 +53,14 @@ export function WizardTextField({
         {...registered}
         onChange={async (e) => {
           await registered.onChange(e);
-          // Steps validate with trigger() (no submit), so RHF would not re-check on
-          // change: do it while an error is shown, so it clears as soon as it is fixed.
+          // Wizard steps validate with trigger() (no submit), so RHF would not re-check
+          // on change: do it while an error is shown, so it clears once fixed.
           if (form.getFieldState(name).error) void form.trigger(name);
           onValueChange?.(e.target.value);
         }}
       />
       {description && <FieldDescription>{description}</FieldDescription>}
-      {error && <FieldError>{t(`errors.${error}`)}</FieldError>}
+      {error && <FieldError>{tErrors(error)}</FieldError>}
     </Field>
   );
 }

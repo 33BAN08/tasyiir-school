@@ -26,8 +26,8 @@ export const schoolListParamsSchema = z.object({
 export type SchoolListParams = z.infer<typeof schoolListParamsSchema>;
 
 // ---------------------------------------------------------------------------
-// New-school wizard. Error messages are next-intl keys under
-// `platform.wizard.errors`. Shared by the form (per step) and the Server Action.
+// Platform forms (new-school wizard, school detail). Error messages are
+// next-intl keys under `platform.errors`. Shared by forms and Server Actions.
 // ---------------------------------------------------------------------------
 
 const optionalText = (max: number) =>
@@ -41,23 +41,50 @@ const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/, { error: "invalidDate" }
 
 export const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 
+/** Editable school identity (the slug is chosen once, at creation). */
+const schoolInfoFields = {
+  name: z.string().trim().min(2, { error: "nameRequired" }).max(120, { error: "tooLong" }),
+  city: optionalText(80),
+  phone: z
+    .string()
+    .trim()
+    .regex(/^(\+?[0-9][0-9 .-]{5,18})?$/, { error: "phoneInvalid" })
+    .transform((v) => v || null),
+  address: optionalText(200),
+};
+
+const subscriptionFields = {
+  planId: z.uuid({ error: "planRequired" }),
+  startDate: isoDate,
+  trialEndsOn: isoDate.or(z.literal("")),
+  endDate: isoDate.or(z.literal("")),
+};
+
+type SubscriptionDates = { subscriptionStatus: string; startDate: string; trialEndsOn: string; endDate: string };
+
+function checkSubscriptionDates(v: SubscriptionDates, ctx: z.RefinementCtx) {
+  if (v.subscriptionStatus === "trial" && !v.trialEndsOn) {
+    ctx.addIssue({ code: "custom", path: ["trialEndsOn"], message: "trialEndRequired" });
+  }
+  // ISO dates compare correctly as strings.
+  if (v.subscriptionStatus === "trial" && v.trialEndsOn && v.trialEndsOn < v.startDate) {
+    ctx.addIssue({ code: "custom", path: ["trialEndsOn"], message: "dateBeforeStart" });
+  }
+  if (v.endDate && v.endDate < v.startDate) {
+    ctx.addIssue({ code: "custom", path: ["endDate"], message: "dateBeforeStart" });
+  }
+}
+
 export const newSchoolSchema = z
   .object({
     // Step 1 — school
-    name: z.string().trim().min(2, { error: "nameRequired" }).max(120, { error: "tooLong" }),
+    ...schoolInfoFields,
     slug: z
       .string()
       .trim()
       .min(3, { error: "slugInvalid" })
       .max(60, { error: "slugInvalid" })
       .regex(SLUG_PATTERN, { error: "slugInvalid" }),
-    city: optionalText(80),
-    phone: z
-      .string()
-      .trim()
-      .regex(/^(\+?[0-9][0-9 .-]{5,18})?$/, { error: "phoneInvalid" })
-      .transform((v) => v || null),
-    address: optionalText(200),
     // Step 2 — director
     directorName: z.string().trim().min(2, { error: "nameRequired" }).max(120, { error: "tooLong" }),
     directorEmail: z.string().trim().toLowerCase().pipe(z.email({ error: "invalidEmail" })),
@@ -69,28 +96,42 @@ export const newSchoolSchema = z
       .max(72, { error: "passwordTooShort" })
       .regex(/\p{L}/u, { error: "passwordWeak" })
       .regex(/\p{N}/u, { error: "passwordWeak" }),
-    // Step 3 — plan & subscription
-    planId: z.uuid({ error: "planRequired" }),
+    // Step 3 — plan & subscription (a new school starts on trial or paid)
+    ...subscriptionFields,
     subscriptionStatus: z.enum(["trial", "active"]),
-    startDate: isoDate,
-    trialEndsOn: isoDate.or(z.literal("")),
-    endDate: isoDate.or(z.literal("")),
   })
-  .superRefine((v, ctx) => {
-    if (v.subscriptionStatus === "trial" && !v.trialEndsOn) {
-      ctx.addIssue({ code: "custom", path: ["trialEndsOn"], message: "trialEndRequired" });
-    }
-    // ISO dates compare correctly as strings.
-    if (v.subscriptionStatus === "trial" && v.trialEndsOn && v.trialEndsOn < v.startDate) {
-      ctx.addIssue({ code: "custom", path: ["trialEndsOn"], message: "dateBeforeStart" });
-    }
-    if (v.endDate && v.endDate < v.startDate) {
-      ctx.addIssue({ code: "custom", path: ["endDate"], message: "dateBeforeStart" });
-    }
-  });
+  .superRefine(checkSubscriptionDates);
 
 export type NewSchoolFormValues = z.input<typeof newSchoolSchema>;
 export type NewSchoolInput = z.output<typeof newSchoolSchema>;
+
+// School detail page ----------------------------------------------------------
+
+export const schoolIdSchema = z.uuid();
+
+export const schoolInfoSchema = z.object(schoolInfoFields);
+export type SchoolInfoFormValues = z.input<typeof schoolInfoSchema>;
+export type SchoolInfoInput = z.output<typeof schoolInfoSchema>;
+
+/** Access is cut with the school's own suspend switch, not with a subscription status. */
+export const EDITABLE_SUBSCRIPTION_STATUSES = ["trial", "active", "expired"] as const;
+
+export const subscriptionSchema = z
+  .object({ ...subscriptionFields, subscriptionStatus: z.enum(EDITABLE_SUBSCRIPTION_STATUSES) })
+  .superRefine(checkSubscriptionDates);
+export type SubscriptionFormValues = z.input<typeof subscriptionSchema>;
+export type SubscriptionInput = z.output<typeof subscriptionSchema>;
+
+/** Per-school module switch: follow the plan, or force on / off. */
+export const MODULE_OVERRIDES = ["plan", "on", "off"] as const;
+export type ModuleOverride = (typeof MODULE_OVERRIDES)[number];
+
+export const moduleOverrideSchema = z.object({
+  moduleKey: z.string().regex(/^[a-z_]+$/),
+  override: z.enum(MODULE_OVERRIDES),
+});
+
+export const schoolStatusSchema = z.enum(SCHOOL_STATUSES);
 
 /** Fields validated before leaving each wizard step. */
 export const WIZARD_STEPS = [

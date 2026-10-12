@@ -2,7 +2,7 @@
 
 import { Check, Languages } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { useTransition } from "react";
+import { Suspense, useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +11,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Skeleton } from "@/components/ui/skeleton";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { getDirection, LOCALE_NAMES, routing, type Locale } from "@/i18n/routing";
 import { saveLocalePreference } from "@/lib/i18n/actions";
@@ -20,7 +21,19 @@ type Props = {
   persist?: boolean;
 };
 
-export function LocaleSwitcher({ persist = false }: Props) {
+/**
+ * usePathname() is request-time data: on dynamic routes (e.g. /schools/[id]) it must
+ * sit inside <Suspense>, so the switcher brings its own boundary.
+ */
+export function LocaleSwitcher(props: Props) {
+  return (
+    <Suspense fallback={<Skeleton className="h-8 w-24" />}>
+      <LocaleSwitcherMenu {...props} />
+    </Suspense>
+  );
+}
+
+function LocaleSwitcherMenu({ persist = false }: Props) {
   const t = useTranslations("localeSwitcher");
   const current = useLocale() as Locale;
   const pathname = usePathname();

@@ -60,6 +60,7 @@ type Props = {
 
 export function NewSchoolWizard({ plans, initialPassword, today }: Props) {
   const t = useTranslations("platform.wizard");
+  const tErrors = useTranslations("platform.errors");
   const locale = useLocale();
   const [step, setStep] = useState(0);
   const [slugEdited, setSlugEdited] = useState(false);
@@ -91,7 +92,7 @@ export function NewSchoolWizard({ plans, initialPassword, today }: Props) {
           const target = WIZARD_STEPS.findIndex((s) => (s.fields as readonly string[]).includes(field));
           if (target >= 0) setStep(target);
         }
-        toast.error(t(`errors.${error}`));
+        toast.error(tErrors(error));
         return;
       }
       toast.success(t("success.toast", { name: values.name }));

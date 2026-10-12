@@ -31,3 +31,17 @@ export function formatDate(value: string | Date): string {
       : new Date(value);
   return dateFormat.format(date);
 }
+
+const dateTimeFormat = new Intl.DateTimeFormat("fr-FR", {
+  timeZone: TIME_ZONE,
+  day: "2-digit",
+  month: "2-digit",
+  year: "numeric",
+  hour: "2-digit",
+  minute: "2-digit",
+});
+
+/** UTC timestamp → `dd/MM/yyyy HH:mm` (Casablanca time). */
+export function formatDateTime(value: string | Date): string {
+  return dateTimeFormat.format(new Date(value)).replace(",", "");
+}

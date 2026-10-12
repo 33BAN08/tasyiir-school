@@ -6,10 +6,10 @@ import { getPlatformOwner } from "@/lib/platform/guard";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { newSchoolSchema, type NewSchoolFormValues } from "@/lib/validations/platform";
 
-/** `error` is a next-intl key under `platform.wizard.errors`; `field` points the form at it. */
-export type PlatformActionResult<T> =
+/** `error` is a next-intl key under `platform.errors`; `field` points the form at it. */
+export type PlatformActionResult<T, F extends string = keyof NewSchoolFormValues> =
   | { ok: true; data: T }
-  | { ok: false; error: string; field?: keyof NewSchoolFormValues };
+  | { ok: false; error: string; field?: F };
 
 /** A failure the platform owner can fix (vs. an unexpected one → "generic"). */
 class KnownError extends Error {

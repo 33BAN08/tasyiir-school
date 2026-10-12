@@ -4,13 +4,16 @@ import { createClient } from "@/lib/supabase/server";
 
 export type PlanOption = { id: string; key: string; name: string; priceMonthly: number; modules: string[] };
 
-/** Active plans with their modules, cheapest first (any signed-in user may read plans). */
-export async function listActivePlans(): Promise<PlanOption[]> {
+/**
+ * Active plans with their modules, cheapest first (any signed-in user may read plans).
+ * `alsoPlanId` (a validated uuid) adds a school's current plan even if it was deactivated.
+ */
+export async function listActivePlans(alsoPlanId?: string): Promise<PlanOption[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("plans")
     .select("id, key, name, price_monthly, plan_modules(module_key, module:modules(sort_order))")
-    .eq("is_active", true)
+    .or(alsoPlanId ? `is_active.eq.true,id.eq.${alsoPlanId}` : "is_active.eq.true")
     .order("price_monthly")
     .order("name");
   if (error) throw new Error(`listActivePlans failed: ${error.code}`);

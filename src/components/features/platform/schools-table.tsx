@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Link } from "@/i18n/navigation";
 import { formatDate } from "@/lib/format";
 import type { SchoolListItem } from "@/lib/platform/schools";
 
@@ -28,7 +29,12 @@ export function SchoolsTable({ items }: { items: SchoolListItem[] }) {
           <TableRow key={school.id}>
             <TableCell>
               <div className="flex flex-col">
-                <span className="font-medium">{school.name}</span>
+                <Link
+                  href={`/platform/schools/${school.id}`}
+                  className="w-fit font-medium text-primary underline-offset-4 hover:underline"
+                >
+                  {school.name}
+                </Link>
                 <span className="text-xs text-muted-foreground">
                   <bdi>{school.slug}</bdi>
                 </span>

@@ -153,7 +153,6 @@
         "director": "Directeur",
         "plan": "Formule et abonnement"
       },
-      "optional": "facultatif",
       "back": "Retour",
       "next": "Suivant",
       "create": "Créer l'établissement",
@@ -198,29 +197,111 @@
         "warning": "Ce mot de passe ne sera plus affiché. Copiez-le maintenant et transmettez-le par un moyen sûr.",
         "createAnother": "Créer un autre établissement",
         "backToList": "Voir les établissements"
-      },
-      "errors": {
-        "nameRequired": "Veuillez saisir un nom (au moins 2 caractères).",
-        "tooLong": "Ce texte est trop long.",
-        "slugInvalid": "Utilisez 3 à 60 lettres minuscules, chiffres ou tirets (ex. : ecole-al-amal).",
-        "slugTaken": "Cet identifiant est déjà utilisé par un autre établissement.",
-        "phoneInvalid": "Numéro de téléphone invalide.",
-        "invalidEmail": "Veuillez saisir une adresse e-mail valide.",
-        "emailTaken": "Un compte existe déjà avec cette adresse e-mail.",
-        "passwordTooShort": "Le mot de passe doit contenir entre 8 et 72 caractères.",
-        "passwordWeak": "Le mot de passe doit contenir au moins une lettre et un chiffre.",
-        "planRequired": "Veuillez choisir une formule active.",
-        "invalidDate": "Date invalide.",
-        "trialEndRequired": "Veuillez indiquer la fin de la période d'essai.",
-        "dateBeforeStart": "Cette date doit être postérieure à la date de début.",
-        "forbidden": "Vous n'avez pas l'autorisation d'effectuer cette action.",
-        "generic": "Une erreur inattendue s'est produite. Rien n'a été créé. Veuillez réessayer."
       }
+    },
+    "errors": {
+      "nameRequired": "Veuillez saisir un nom (au moins 2 caractères).",
+      "tooLong": "Ce texte est trop long.",
+      "slugInvalid": "Utilisez 3 à 60 lettres minuscules, chiffres ou tirets (ex. : ecole-al-amal).",
+      "slugTaken": "Cet identifiant est déjà utilisé par un autre établissement.",
+      "phoneInvalid": "Numéro de téléphone invalide.",
+      "invalidEmail": "Veuillez saisir une adresse e-mail valide.",
+      "emailTaken": "Un compte existe déjà avec cette adresse e-mail.",
+      "passwordTooShort": "Le mot de passe doit contenir entre 8 et 72 caractères.",
+      "passwordWeak": "Le mot de passe doit contenir au moins une lettre et un chiffre.",
+      "planRequired": "Veuillez choisir une formule active.",
+      "invalidDate": "Date invalide.",
+      "trialEndRequired": "Veuillez indiquer la fin de la période d'essai.",
+      "dateBeforeStart": "Cette date doit être postérieure à la date de début.",
+      "forbidden": "Vous n'avez pas l'autorisation d'effectuer cette action.",
+      "generic": "Une erreur inattendue s'est produite. Rien n'a été créé. Veuillez réessayer.",
+      "notFound": "Cet établissement est introuvable."
+    },
+    "schoolDetail": {
+      "backToList": "Tous les établissements",
+      "createdOn": "Créé le {date}",
+      "suspendedBanner": {
+        "title": "Établissement suspendu",
+        "since": "Suspendu depuis le {date}. Ses utilisateurs n'ont plus accès à aucune donnée ; rien n'a été supprimé.",
+        "description": "Ses utilisateurs n'ont plus accès à aucune donnée ; rien n'a été supprimé."
+      },
+      "statusControl": {
+        "cancel": "Annuler",
+        "suspend": {
+          "button": "Suspendre",
+          "title": "Suspendre « {name} » ?",
+          "description": "Tous les utilisateurs de cet établissement perdront immédiatement l'accès à ses données. Aucune donnée n'est supprimée : vous pourrez le réactiver à tout moment.",
+          "confirm": "Suspendre l'établissement",
+          "done": "« {name} » a été suspendu."
+        },
+        "activate": {
+          "button": "Réactiver",
+          "title": "Réactiver « {name} » ?",
+          "description": "Les utilisateurs de cet établissement retrouveront l'accès à leurs données, selon leur abonnement.",
+          "confirm": "Réactiver l'établissement",
+          "done": "« {name} » a été réactivé."
+        }
+      },
+      "info": {
+        "title": "Informations",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "saved": "Informations enregistrées."
+      },
+      "subscription": {
+        "title": "Abonnement",
+        "none": "Cet établissement n'a pas encore d'abonnement. L'enregistrement en créera un.",
+        "status": "Statut",
+        "save": "Enregistrer l'abonnement",
+        "saving": "Enregistrement…",
+        "saved": "Abonnement enregistré."
+      },
+      "modules": {
+        "title": "Modules",
+        "description": "Par défaut, un module suit la formule de l'abonnement. Vous pouvez le forcer pour cet établissement.",
+        "module": "Module",
+        "inPlan": "Dans la formule",
+        "setting": "Réglage",
+        "settingFor": "Réglage du module {module}",
+        "effective": "Résultat",
+        "yes": "Oui",
+        "no": "Non",
+        "enabled": "Activé",
+        "disabled": "Désactivé",
+        "saved": "Module « {module} » mis à jour.",
+        "override": {
+          "plan": "Selon la formule",
+          "on": "Toujours activé",
+          "off": "Toujours désactivé"
+        }
+      },
+      "director": {
+        "title": "Direction",
+        "noneTitle": "Aucun directeur",
+        "noneDescription": "Aucun compte directeur n'est rattaché à cet établissement.",
+        "pendingFirstLogin": "En attente de la première connexion",
+        "activeAccount": "Compte activé"
+      },
+      "audit": {
+        "title": "Activité récente",
+        "emptyTitle": "Aucune activité",
+        "emptyDescription": "Les actions effectuées sur cet établissement apparaîtront ici.",
+        "actions": {
+          "school_create": "Établissement créé",
+          "school_update": "Informations modifiées",
+          "school_suspend": "Établissement suspendu",
+          "school_activate": "Établissement réactivé",
+          "subscription_update": "Abonnement modifié",
+          "module_override": "Réglage de module modifié"
+        }
+      },
+      "subscriptionLabel": "· Abonnement {plan} :"
     }
   },
   "common": {
     "copy": "Copier",
-    "copyFailed": "Impossible de copier. Veuillez sélectionner le texte manuellement."
+    "copyFailed": "Impossible de copier. Veuillez sélectionner le texte manuellement.",
+    "optional": "facultatif"
   },
   "modules": {
     "attendance": "Absences",

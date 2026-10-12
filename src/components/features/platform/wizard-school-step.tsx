@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { FieldGroup } from "@/components/ui/field";
 import { slugify } from "@/lib/validations/platform";
 
-import { WizardTextField, type NewSchoolForm } from "./wizard-text-field";
+import { FormTextField, type NewSchoolForm } from "./form-text-field";
 
 type Props = {
   form: NewSchoolForm;
@@ -18,7 +18,7 @@ export function WizardSchoolStep({ form, slugEdited, onSlugEdited }: Props) {
   const t = useTranslations("platform.wizard.school");
   return (
     <FieldGroup>
-      <WizardTextField
+      <FormTextField
         form={form}
         name="name"
         label={t("name")}
@@ -29,7 +29,7 @@ export function WizardSchoolStep({ form, slugEdited, onSlugEdited }: Props) {
           }
         }}
       />
-      <WizardTextField
+      <FormTextField
         form={form}
         name="slug"
         label={t("slug")}
@@ -40,10 +40,10 @@ export function WizardSchoolStep({ form, slugEdited, onSlugEdited }: Props) {
         onValueChange={onSlugEdited}
       />
       <div className="grid gap-4 sm:grid-cols-2">
-        <WizardTextField form={form} name="city" label={t("city")} optional />
-        <WizardTextField form={form} name="phone" label={t("phone")} type="tel" dir="ltr" optional />
+        <FormTextField form={form} name="city" label={t("city")} optional />
+        <FormTextField form={form} name="phone" label={t("phone")} type="tel" dir="ltr" optional />
       </div>
-      <WizardTextField form={form} name="address" label={t("address")} optional />
+      <FormTextField form={form} name="address" label={t("address")} optional />
     </FieldGroup>
   );
 }

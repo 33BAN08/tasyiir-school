@@ -2,9 +2,16 @@
 
 export const TIME_ZONE = "Africa/Casablanca";
 
+const isoDateFormat = new Intl.DateTimeFormat("en-CA", { timeZone: TIME_ZONE });
+
+/** Calendar date in Casablanca of an instant, as `yyyy-MM-dd`. */
+export function dateInCasablanca(at: Date | string): string {
+  return isoDateFormat.format(new Date(at));
+}
+
 /** Today's date in Casablanca as `yyyy-MM-dd`. */
-export function todayInCasablanca(now = new Date()): string {
-  return new Intl.DateTimeFormat("en-CA", { timeZone: TIME_ZONE }).format(now);
+export function todayInCasablanca(): string {
+  return dateInCasablanca(new Date());
 }
 
 const offsetFormat = new Intl.DateTimeFormat("en-US", {

@@ -12,17 +12,18 @@ import { LOCALE_NAMES, routing } from "@/i18n/routing";
 import { generateTemporaryPassword } from "@/lib/password";
 
 import { CopyButton } from "./copy-button";
-import { WizardTextField, type NewSchoolForm } from "./wizard-text-field";
+import { FormTextField, type NewSchoolForm } from "./form-text-field";
 
 export function WizardDirectorStep({ form }: { form: NewSchoolForm }) {
   const t = useTranslations("platform.wizard");
+  const tErrors = useTranslations("platform.errors");
   const passwordError = form.formState.errors.directorPassword?.message;
   const password = useWatch({ control: form.control, name: "directorPassword" });
 
   return (
     <FieldGroup>
-      <WizardTextField form={form} name="directorName" label={t("director.name")} autoComplete="off" />
-      <WizardTextField
+      <FormTextField form={form} name="directorName" label={t("director.name")} autoComplete="off" />
+      <FormTextField
         form={form}
         name="directorEmail"
         label={t("director.email")}
@@ -78,7 +79,7 @@ export function WizardDirectorStep({ form }: { form: NewSchoolForm }) {
           </Button>
         </div>
         <FieldDescription>{t("director.passwordHint")}</FieldDescription>
-        {passwordError && <FieldError>{t(`errors.${passwordError}`)}</FieldError>}
+        {passwordError && <FieldError>{tErrors(passwordError)}</FieldError>}
       </Field>
     </FieldGroup>
   );

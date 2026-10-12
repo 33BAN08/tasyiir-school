@@ -9,13 +9,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { formatMoney } from "@/lib/format";
 import type { PlanOption } from "@/lib/platform/plans";
 
-import { WizardTextField, type NewSchoolForm } from "./wizard-text-field";
+import { FormTextField, type NewSchoolForm } from "./form-text-field";
 
 type Props = { form: NewSchoolForm; plans: PlanOption[] };
 
 export function WizardPlanStep({ form, plans }: Props) {
   const t = useTranslations("platform.wizard");
   const tModules = useTranslations("modules");
+  const tErrors = useTranslations("platform.errors");
   const [planId, status] = useWatch({ control: form.control, name: ["planId", "subscriptionStatus"] });
   const plan = plans.find((p) => p.id === planId);
   const planError = form.formState.errors.planId?.message;
@@ -50,7 +51,7 @@ export function WizardPlanStep({ form, plans }: Props) {
                 ))}
               </ul>
             )}
-            {planError && <FieldError>{t(`errors.${planError}`)}</FieldError>}
+            {planError && <FieldError>{tErrors(planError)}</FieldError>}
           </Field>
         )}
       />
@@ -76,11 +77,11 @@ export function WizardPlanStep({ form, plans }: Props) {
         )}
       />
       <div className="grid gap-4 sm:grid-cols-3">
-        <WizardTextField form={form} name="startDate" label={t("plan.startDate")} type="date" />
+        <FormTextField form={form} name="startDate" label={t("plan.startDate")} type="date" />
         {status === "trial" && (
-          <WizardTextField form={form} name="trialEndsOn" label={t("plan.trialEndsOn")} type="date" />
+          <FormTextField form={form} name="trialEndsOn" label={t("plan.trialEndsOn")} type="date" />
         )}
-        <WizardTextField form={form} name="endDate" label={t("plan.endDate")} type="date" optional />
+        <FormTextField form={form} name="endDate" label={t("plan.endDate")} type="date" optional />
       </div>
     </FieldGroup>
   );

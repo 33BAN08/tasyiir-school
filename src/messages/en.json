@@ -153,7 +153,6 @@
         "director": "Director",
         "plan": "Plan & subscription"
       },
-      "optional": "optional",
       "back": "Back",
       "next": "Next",
       "create": "Create school",
@@ -198,29 +197,111 @@
         "warning": "This password will not be shown again. Copy it now and share it through a secure channel.",
         "createAnother": "Create another school",
         "backToList": "View schools"
-      },
-      "errors": {
-        "nameRequired": "Please enter a name (at least 2 characters).",
-        "tooLong": "This text is too long.",
-        "slugInvalid": "Use 3 to 60 lowercase letters, digits or hyphens (e.g. al-amal-school).",
-        "slugTaken": "This identifier is already used by another school.",
-        "phoneInvalid": "Invalid phone number.",
-        "invalidEmail": "Please enter a valid email address.",
-        "emailTaken": "An account already exists with this email address.",
-        "passwordTooShort": "The password must be 8 to 72 characters long.",
-        "passwordWeak": "The password must contain at least one letter and one digit.",
-        "planRequired": "Please choose an active plan.",
-        "invalidDate": "Invalid date.",
-        "trialEndRequired": "Please set the end of the trial.",
-        "dateBeforeStart": "This date must be after the start date.",
-        "forbidden": "You are not allowed to do this.",
-        "generic": "An unexpected error occurred. Nothing was created. Please try again."
       }
+    },
+    "errors": {
+      "nameRequired": "Please enter a name (at least 2 characters).",
+      "tooLong": "This text is too long.",
+      "slugInvalid": "Use 3 to 60 lowercase letters, digits or hyphens (e.g. al-amal-school).",
+      "slugTaken": "This identifier is already used by another school.",
+      "phoneInvalid": "Invalid phone number.",
+      "invalidEmail": "Please enter a valid email address.",
+      "emailTaken": "An account already exists with this email address.",
+      "passwordTooShort": "The password must be 8 to 72 characters long.",
+      "passwordWeak": "The password must contain at least one letter and one digit.",
+      "planRequired": "Please choose an active plan.",
+      "invalidDate": "Invalid date.",
+      "trialEndRequired": "Please set the end of the trial.",
+      "dateBeforeStart": "This date must be after the start date.",
+      "forbidden": "You are not allowed to do this.",
+      "generic": "An unexpected error occurred. Nothing was created. Please try again.",
+      "notFound": "This school could not be found."
+    },
+    "schoolDetail": {
+      "backToList": "All schools",
+      "createdOn": "Created on {date}",
+      "suspendedBanner": {
+        "title": "School suspended",
+        "since": "Suspended since {date}. Its users can no longer access any data; nothing has been deleted.",
+        "description": "Its users can no longer access any data; nothing has been deleted."
+      },
+      "statusControl": {
+        "cancel": "Cancel",
+        "suspend": {
+          "button": "Suspend",
+          "title": "Suspend “{name}”?",
+          "description": "All users of this school will immediately lose access to its data. Nothing is deleted: you can reactivate it at any time.",
+          "confirm": "Suspend school",
+          "done": "“{name}” has been suspended."
+        },
+        "activate": {
+          "button": "Reactivate",
+          "title": "Reactivate “{name}”?",
+          "description": "This school's users will get access to their data again, according to their subscription.",
+          "confirm": "Reactivate school",
+          "done": "“{name}” has been reactivated."
+        }
+      },
+      "info": {
+        "title": "Information",
+        "save": "Save",
+        "saving": "Saving…",
+        "saved": "Information saved."
+      },
+      "subscription": {
+        "title": "Subscription",
+        "none": "This school has no subscription yet. Saving will create one.",
+        "status": "Status",
+        "save": "Save subscription",
+        "saving": "Saving…",
+        "saved": "Subscription saved."
+      },
+      "modules": {
+        "title": "Modules",
+        "description": "By default a module follows the subscription's plan. You can force it for this school.",
+        "module": "Module",
+        "inPlan": "In plan",
+        "setting": "Setting",
+        "settingFor": "Setting for {module}",
+        "effective": "Result",
+        "yes": "Yes",
+        "no": "No",
+        "enabled": "On",
+        "disabled": "Off",
+        "saved": "Module “{module}” updated.",
+        "override": {
+          "plan": "Follow the plan",
+          "on": "Always on",
+          "off": "Always off"
+        }
+      },
+      "director": {
+        "title": "Management",
+        "noneTitle": "No director",
+        "noneDescription": "No director account is linked to this school.",
+        "pendingFirstLogin": "Waiting for first sign-in",
+        "activeAccount": "Account activated"
+      },
+      "audit": {
+        "title": "Recent activity",
+        "emptyTitle": "No activity",
+        "emptyDescription": "Actions on this school will appear here.",
+        "actions": {
+          "school_create": "School created",
+          "school_update": "Information updated",
+          "school_suspend": "School suspended",
+          "school_activate": "School reactivated",
+          "subscription_update": "Subscription updated",
+          "module_override": "Module setting changed"
+        }
+      },
+      "subscriptionLabel": "· {plan} subscription:"
     }
   },
   "common": {
     "copy": "Copy",
-    "copyFailed": "Could not copy. Please select the text manually."
+    "copyFailed": "Could not copy. Please select the text manually.",
+    "optional": "optional"
   },
   "modules": {
     "attendance": "Attendance",
