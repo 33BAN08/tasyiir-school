@@ -1,8 +1,10 @@
 import "server-only";
 
-import { redirect } from "next/navigation";
+import { getLocale } from "next-intl/server";
+import { connection } from "next/server";
 import { cache } from "react";
 
+import { redirect } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
 
 export type CurrentUser = {
@@ -20,6 +22,8 @@ export type CurrentUser = {
  * Deduplicated per request. Reads cookies, so callers must sit inside <Suspense>.
  */
 export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
+  // Never during prerendering: the Supabase client reads the clock (token expiry).
+  await connection();
   const supabase = await createClient();
 
   const { data } = await supabase.auth.getClaims();
@@ -48,7 +52,9 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
 /** For protected pages: signed-in user with a profile who has set their own password. */
 export async function requireUser(): Promise<CurrentUser> {
   const user = await getCurrentUser();
-  if (!user) redirect("/login");
-  if (user.mustChangePassword) redirect("/change-password");
+  if (!user) return redirect({ href: "/login", locale: await getLocale() });
+  if (user.mustChangePassword) {
+    return redirect({ href: "/change-password", locale: await getLocale() });
+  }
   return user;
 }

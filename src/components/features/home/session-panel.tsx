@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 
 import { LogoutButton } from "@/components/features/auth/logout-button";
+import { LocaleSwitcher } from "@/components/features/i18n/locale-switcher";
 import { Badge } from "@/components/ui/badge";
 import { requireUser } from "@/lib/auth/session";
 
@@ -13,7 +14,10 @@ export async function SessionPanel() {
     <div className="flex flex-col items-center gap-3">
       <p className="font-medium">{t("home.welcome", { name: user.fullName })}</p>
       <Badge variant="secondary">{t(`roles.${user.roleKey}`)}</Badge>
-      <LogoutButton />
+      <div className="flex items-center gap-2">
+        <LocaleSwitcher persist />
+        <LogoutButton />
+      </div>
     </div>
   );
 }

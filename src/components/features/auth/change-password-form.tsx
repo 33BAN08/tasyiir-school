@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -20,6 +20,7 @@ import { changePasswordSchema, type ChangePasswordInput } from "@/lib/validation
 
 export function ChangePasswordForm() {
   const t = useTranslations("auth");
+  const locale = useLocale();
   const [isPending, startTransition] = useTransition();
 
   const form = useForm<ChangePasswordInput>({
@@ -31,7 +32,7 @@ export function ChangePasswordForm() {
   const onSubmit = form.handleSubmit((values) => {
     startTransition(async () => {
       // On success the action redirects and never returns.
-      const result = await changePassword(values);
+      const result = await changePassword(values, locale);
       if (!result.ok) toast.error(t(`errors.${result.error}`));
     });
   });

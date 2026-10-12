@@ -1,10 +1,11 @@
 import { useTranslations } from "next-intl";
-import { redirect } from "next/navigation";
+import { getLocale } from "next-intl/server";
 import { Suspense } from "react";
 
 import { ChangePasswordForm } from "@/components/features/auth/change-password-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
+import { redirect } from "@/i18n/navigation";
 import { getCurrentUser } from "@/lib/auth/session";
 
 export default function ChangePasswordPage() {
@@ -28,7 +29,7 @@ export default function ChangePasswordPage() {
 /** Only reachable while the account still has its temporary password. */
 async function ForcedChangeGate() {
   const user = await getCurrentUser();
-  if (!user) redirect("/login");
-  if (!user.mustChangePassword) redirect("/");
+  if (!user) return redirect({ href: "/login", locale: await getLocale() });
+  if (!user.mustChangePassword) return redirect({ href: "/", locale: await getLocale() });
   return <ChangePasswordForm />;
 }

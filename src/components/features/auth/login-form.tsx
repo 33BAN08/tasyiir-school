@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useSearchParams } from "next/navigation";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -15,6 +15,7 @@ import { loginSchema, type LoginInput } from "@/lib/validations/auth";
 
 export function LoginForm() {
   const t = useTranslations("auth");
+  const locale = useLocale();
   const next = useSearchParams().get("next") ?? undefined;
   const [isPending, startTransition] = useTransition();
 
@@ -27,7 +28,7 @@ export function LoginForm() {
   const onSubmit = form.handleSubmit((values) => {
     startTransition(async () => {
       // On success the action redirects and never returns.
-      const result = await signIn(values, next);
+      const result = await signIn(values, next, locale);
       if (!result.ok) toast.error(t(`errors.${result.error}`));
     });
   });

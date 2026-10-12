@@ -1,12 +1,18 @@
+import { hasLocale } from "next-intl";
 import { getRequestConfig } from "next-intl/server";
+import { locale as rootLocale } from "next/root-params";
 
-// Step 2: Arabic only. Step 3 adds [locale] routing (ar/fr/en) and RTL/LTR switching.
-const DEFAULT_LOCALE = "ar";
+import { routing } from "./routing";
 
-export default getRequestConfig(async () => {
-  const locale = DEFAULT_LOCALE;
+export default getRequestConfig(async ({ locale }) => {
+  // An explicit `locale` (e.g. getTranslations({ locale })) wins; otherwise
+  // read the [locale] root param, which keeps pages statically renderable.
+  const requested = locale ?? (await rootLocale());
+  const resolved = hasLocale(routing.locales, requested) ? requested : routing.defaultLocale;
+
   return {
-    locale,
-    messages: (await import(`../messages/${locale}.json`)).default,
+    locale: resolved,
+    messages: (await import(`../messages/${resolved}.json`)).default,
+    timeZone: "Africa/Casablanca",
   };
 });

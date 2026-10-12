@@ -1,7 +1,9 @@
 "use server";
 
-import { redirect } from "next/navigation";
+import { hasLocale } from "next-intl";
 
+import { redirect } from "@/i18n/navigation";
+import { routing, type Locale } from "@/i18n/routing";
 import { getCurrentUser } from "@/lib/auth/session";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -15,7 +17,16 @@ function safeNext(next: unknown): string {
   return typeof next === "string" && /^\/(?![/\\])/.test(next) ? next : "/";
 }
 
-export async function signIn(input: unknown, next?: unknown): Promise<AuthActionResult> {
+/** Server Actions cannot read the [locale] segment: the client passes it in. */
+function safeLocale(locale: unknown): Locale {
+  return hasLocale(routing.locales, locale) ? locale : routing.defaultLocale;
+}
+
+export async function signIn(
+  input: unknown,
+  next: unknown,
+  locale: unknown,
+): Promise<AuthActionResult> {
   const parsed = loginSchema.safeParse(input);
   if (!parsed.success) {
     return { ok: false, error: parsed.error.issues[0]?.message ?? "generic" };
@@ -42,10 +53,13 @@ export async function signIn(input: unknown, next?: unknown): Promise<AuthAction
     return { ok: false, error: "noAccess" };
   }
 
-  redirect(profile.must_change_password ? "/change-password" : safeNext(next));
+  return redirect({
+    href: profile.must_change_password ? "/change-password" : safeNext(next),
+    locale: safeLocale(locale),
+  });
 }
 
-export async function changePassword(input: unknown): Promise<AuthActionResult> {
+export async function changePassword(input: unknown, locale: unknown): Promise<AuthActionResult> {
   const user = await getCurrentUser();
   if (!user) return { ok: false, error: "sessionExpired" };
 
@@ -72,11 +86,11 @@ export async function changePassword(input: unknown): Promise<AuthActionResult> 
 
   if (profileError) return { ok: false, error: "generic" };
 
-  redirect("/");
+  return redirect({ href: "/", locale: safeLocale(locale) });
 }
 
-export async function signOut(): Promise<void> {
+export async function signOut(locale: unknown): Promise<void> {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  redirect("/login");
+  redirect({ href: "/login", locale: safeLocale(locale) });
 }
