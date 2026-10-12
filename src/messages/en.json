@@ -1,0 +1,54 @@
+{
+  "home": {
+    "tagline": "Private school management",
+    "supabaseOk": "Supabase connected",
+    "supabaseError": "Supabase not connected",
+    "welcome": "Hello, {name}"
+  },
+  "roles": {
+    "platform_owner": "Platform owner",
+    "director": "Director",
+    "surveillant": "Supervisor",
+    "accountant": "Accountant",
+    "transport_manager": "Transport manager",
+    "teacher": "Teacher",
+    "parent": "Parent",
+    "student": "Student",
+    "driver": "Driver"
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Enter your email and password to access your account.",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in…"
+    },
+    "changePassword": {
+      "title": "Choose a new password",
+      "subtitle": "This is your first sign-in. To protect your account, please replace the temporary password with your own.",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm password",
+      "hint": "At least 8 characters, including a letter and a number.",
+      "submit": "Save password",
+      "submitting": "Saving…"
+    },
+    "logout": "Sign out",
+    "errors": {
+      "invalidEmail": "Please enter a valid email address.",
+      "passwordRequired": "Please enter your password.",
+      "passwordTooShort": "Password must be at least 8 characters.",
+      "passwordTooLong": "Password is too long (72 characters max).",
+      "passwordWeak": "Password must contain at least one letter and one number.",
+      "passwordMismatch": "The two passwords do not match.",
+      "invalidCredentials": "Incorrect email or password.",
+      "tooManyAttempts": "Too many attempts. Please wait a moment and try again.",
+      "noAccess": "This account is not activated on the platform. Please contact your school administration.",
+      "samePassword": "The new password must be different from the current one.",
+      "weakPassword": "This password is too weak or has been leaked. Please choose another one.",
+      "sessionExpired": "Your session has expired. Please sign in again.",
+      "generic": "Something went wrong. Please try again."
+    }
+  }
+}

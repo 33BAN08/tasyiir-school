@@ -1,13 +1,8 @@
 import { CircleCheck, CircleX } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 import { connection } from "next/server";
 
 import { Badge } from "@/components/ui/badge";
-
-// TEMP (Phase 0): hard-coded labels; move to next-intl messages in Phase 1.
-const LABELS = {
-  ok: "Supabase متصل · connecté",
-  error: "Supabase غير متصل · non connecté",
-} as const;
 
 async function checkSupabase(): Promise<boolean> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -30,16 +25,17 @@ async function checkSupabase(): Promise<boolean> {
 export async function SupabaseStatus() {
   await connection();
   const ok = await checkSupabase();
+  const t = await getTranslations("home");
 
   return ok ? (
     <Badge className="bg-success text-success-foreground">
       <CircleCheck aria-hidden />
-      {LABELS.ok}
+      {t("supabaseOk")}
     </Badge>
   ) : (
     <Badge className="bg-danger text-danger-foreground">
       <CircleX aria-hidden />
-      {LABELS.error}
+      {t("supabaseError")}
     </Badge>
   );
 }

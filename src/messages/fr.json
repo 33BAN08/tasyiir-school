@@ -1,0 +1,54 @@
+{
+  "home": {
+    "tagline": "Gestion des écoles privées",
+    "supabaseOk": "Supabase connecté",
+    "supabaseError": "Supabase non connecté",
+    "welcome": "Bonjour, {name}"
+  },
+  "roles": {
+    "platform_owner": "Propriétaire de la plateforme",
+    "director": "Directeur",
+    "surveillant": "Surveillant général",
+    "accountant": "Comptable",
+    "transport_manager": "Responsable transport",
+    "teacher": "Enseignant",
+    "parent": "Parent",
+    "student": "Élève",
+    "driver": "Chauffeur"
+  },
+  "auth": {
+    "login": {
+      "title": "Connexion",
+      "subtitle": "Saisissez votre adresse e-mail et votre mot de passe pour accéder à votre compte.",
+      "email": "Adresse e-mail",
+      "password": "Mot de passe",
+      "submit": "Se connecter",
+      "submitting": "Connexion en cours…"
+    },
+    "changePassword": {
+      "title": "Choisissez un nouveau mot de passe",
+      "subtitle": "C'est votre première connexion. Pour protéger votre compte, veuillez remplacer le mot de passe temporaire par votre propre mot de passe.",
+      "newPassword": "Nouveau mot de passe",
+      "confirmPassword": "Confirmer le mot de passe",
+      "hint": "Au moins 8 caractères, dont une lettre et un chiffre.",
+      "submit": "Enregistrer le mot de passe",
+      "submitting": "Enregistrement…"
+    },
+    "logout": "Se déconnecter",
+    "errors": {
+      "invalidEmail": "Veuillez saisir une adresse e-mail valide.",
+      "passwordRequired": "Veuillez saisir votre mot de passe.",
+      "passwordTooShort": "Le mot de passe doit contenir au moins 8 caractères.",
+      "passwordTooLong": "Le mot de passe est trop long (72 caractères maximum).",
+      "passwordWeak": "Le mot de passe doit contenir au moins une lettre et un chiffre.",
+      "passwordMismatch": "Les deux mots de passe ne correspondent pas.",
+      "invalidCredentials": "Adresse e-mail ou mot de passe incorrect.",
+      "tooManyAttempts": "Trop de tentatives. Veuillez patienter un instant puis réessayer.",
+      "noAccess": "Ce compte n'est pas activé sur la plateforme. Veuillez contacter la direction de votre établissement.",
+      "samePassword": "Le nouveau mot de passe doit être différent de l'actuel.",
+      "weakPassword": "Ce mot de passe est trop faible ou a déjà fuité. Veuillez en choisir un autre.",
+      "sessionExpired": "Votre session a expiré. Veuillez vous reconnecter.",
+      "generic": "Une erreur inattendue s'est produite. Veuillez réessayer."
+    }
+  }
+}

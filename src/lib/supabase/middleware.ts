@@ -35,8 +35,36 @@ export async function updateSession(request: NextRequest) {
 
   // Do not run code between createServerClient and getClaims():
   // it validates the JWT and triggers the token refresh if needed.
-  await supabase.auth.getClaims();
+  const { data } = await supabase.auth.getClaims();
+  const isSignedIn = Boolean(data?.claims?.sub);
 
-  // Phase 1 adds locale, auth, role and module guards here.
+  // Optimistic check only (no DB query). Pages re-check the profile via
+  // requireUser(), and every Server Action re-verifies the session.
+  const { pathname, search } = request.nextUrl;
+  const isPublic = PUBLIC_PATHS.includes(pathname);
+
+  if (!isSignedIn && !isPublic) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    url.search = pathname === "/" ? "" : `?next=${encodeURIComponent(pathname + search)}`;
+    return redirectWithCookies(url, response);
+  }
+
+  if (isSignedIn && pathname === "/login") {
+    const url = request.nextUrl.clone();
+    url.pathname = "/";
+    url.search = "";
+    return redirectWithCookies(url, response);
+  }
+
   return response;
+}
+
+const PUBLIC_PATHS = ["/login"];
+
+/** Redirect while keeping any refreshed auth cookies set on `from`. */
+function redirectWithCookies(url: URL, from: NextResponse) {
+  const redirect = NextResponse.redirect(url);
+  from.cookies.getAll().forEach((cookie) => redirect.cookies.set(cookie));
+  return redirect;
 }

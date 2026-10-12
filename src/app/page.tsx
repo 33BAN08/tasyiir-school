@@ -1,15 +1,18 @@
 import { CalendarCheck } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { Suspense } from "react";
 
+import { SessionPanel } from "@/components/features/home/session-panel";
 import { SupabaseStatus } from "@/components/features/home/supabase-status";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { BRAND } from "@/lib/brand";
 
-// TEMP (Phase 0): placeholder home page; replaced by the real landing / login later.
-const TAGLINE = "منصة تسيير المؤسسات التعليمية الخاصة · Gestion des écoles privées";
+// TEMP: placeholder home page; replaced by the app shell + role-based redirect in Phase 1 step 4.
 
 export default function Home() {
+  const t = useTranslations("home");
+
   return (
     <main className="flex flex-1 items-center justify-center p-6">
       <Card className="w-full max-w-md">
@@ -24,8 +27,12 @@ export default function Home() {
               {BRAND.product}
             </p>
             <span className="mx-auto mt-2 h-1 w-10 rounded-full bg-accent" aria-hidden />
-            <p className="mt-2 text-sm text-muted-foreground">{TAGLINE}</p>
+            <p className="mt-2 text-sm text-muted-foreground">{t("tagline")}</p>
           </div>
+
+          <Suspense fallback={<Skeleton className="h-24 w-56" />}>
+            <SessionPanel />
+          </Suspense>
 
           <Suspense fallback={<Skeleton className="h-6 w-56" />}>
             <SupabaseStatus />

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
+import { NextIntlClientProvider } from "next-intl";
 
 import { DirectionProvider } from "@/components/ui/direction";
 import { Toaster } from "@/components/ui/sonner";
@@ -34,10 +35,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${plexArabic.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
-        <DirectionProvider dir="rtl">
-          {children}
-          <Toaster />
-        </DirectionProvider>
+        <NextIntlClientProvider>
+          <DirectionProvider dir="rtl">
+            {children}
+            <Toaster />
+          </DirectionProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
