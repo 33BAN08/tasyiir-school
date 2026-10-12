@@ -8,7 +8,7 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 - **Always read both before starting a phase.** Work on ONE phase at a time. Don't build ahead.
 
 ## Current phase
-> **Phase 2 — Platform dashboard** (update this line when a phase is finished). Phases 0–1 done — live at https://tasyiir-school.vercel.app
+> **Phase 3 — Staff management (director)** (update this line when a phase is finished). Phases 0–2 done — live at https://tasyiir-school.vercel.app
 
 ## Tech stack (do not change without asking)
 - Next.js (latest, App Router) + TypeScript (strict)
@@ -46,6 +46,6 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 ## Definition of done (every phase)
 1. `npm run build` and `npm run lint` pass with no errors.
 2. Works in Arabic (RTL) and French.
-3. RLS tested: a user from school A cannot read school B data.
+3. RLS tested: a user from school A cannot read school B data — `npm run test:rls` passes (add the phase's cases to `scripts/rls/`).
 4. Update "Current phase" above and tick the phase in `docs/PLAN.md`.
 5. Commit with a clear message, push to GitHub (Vercel deploys automatically).

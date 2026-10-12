@@ -37,6 +37,8 @@ export async function signIn(
 
   if (error || !data.user) {
     if (error?.code === "invalid_credentials") return { ok: false, error: "invalidCredentials" };
+    // Deactivated accounts are also banned in Supabase Auth.
+    if (error?.code === "user_banned") return { ok: false, error: "accountDeactivated" };
     if (error?.status === 429) return { ok: false, error: "tooManyAttempts" };
     return { ok: false, error: "generic" };
   }
@@ -44,13 +46,17 @@ export async function signIn(
   // Accounts are created by admins together with a profile. No profile = no access.
   const { data: profile } = await supabase
     .from("profiles")
-    .select("must_change_password")
+    .select("must_change_password, deactivated_at")
     .eq("id", data.user.id)
     .maybeSingle();
 
   if (!profile) {
     await supabase.auth.signOut();
     return { ok: false, error: "noAccess" };
+  }
+  if (profile.deactivated_at) {
+    await supabase.auth.signOut();
+    return { ok: false, error: "accountDeactivated" };
   }
 
   return redirect({

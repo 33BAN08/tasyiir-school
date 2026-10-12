@@ -9,5 +9,5 @@ import { getCurrentUser, type CurrentUser } from "@/lib/auth/session";
 export async function getPlatformOwner(): Promise<CurrentUser | null> {
   const user = await getCurrentUser();
   if (!user || user.mustChangePassword) return null;
-  return user.roleKey === "platform_owner" && user.schoolId === null ? user : null;
+  return user.isPlatformOwner ? user : null;
 }

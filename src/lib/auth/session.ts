@@ -5,7 +5,7 @@ import { connection } from "next/server";
 import { cache } from "react";
 
 import { redirect } from "@/i18n/navigation";
-import { areaForRole, homeForRole, type Area } from "@/lib/auth/roles";
+import { areaFor, homeFor, type Area } from "@/lib/auth/roles";
 import { createClient } from "@/lib/supabase/server";
 
 export type CurrentUser = {
@@ -20,6 +20,13 @@ export type CurrentUser = {
   mustChangePassword: boolean;
   /** The user's school is suspended. roleKey/roleName are then empty: never use them. */
   schoolSuspended: boolean;
+  /** The director deactivated this account. roleKey/roleName are then empty: never use them. */
+  accountDeactivated: boolean;
+  /**
+   * Same rule as the DB's private.is_platform_owner(): the system platform_owner
+   * role, with no school on the profile NOR on the role. Never decide this from roleKey.
+   */
+  isPlatformOwner: boolean;
 };
 
 /**
@@ -38,17 +45,23 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
   const { data: profile } = await supabase
     .from("profiles")
     .select(
-      "id, full_name, school_id, role_id, locale, must_change_password, role:roles(key, name), school:schools(id)",
+      "id, full_name, school_id, role_id, locale, must_change_password, deactivated_at, role:roles(key, name, school_id), school:schools(id)",
     )
     .eq("id", claims.sub)
     .maybeSingle();
 
   if (!profile) return null;
 
-  // RLS hides a suspended school AND its roles: such a user is still signed in
-  // (so pages can send them to /suspended) but has no usable role.
-  const schoolSuspended = profile.school_id !== null && !profile.school;
-  if (!profile.role && !schoolSuspended) return null;
+  // RLS hides the school AND its roles from a deactivated account or a
+  // suspended school: such a user is still signed in (so pages can send them
+  // to /deactivated or /suspended) but has no usable role.
+  const accountDeactivated = profile.deactivated_at !== null;
+  const schoolSuspended = !accountDeactivated && profile.school_id !== null && !profile.school;
+  if (!profile.role && !schoolSuspended && !accountDeactivated) return null;
+  const isPlatformOwner =
+    profile.school_id === null && profile.role?.school_id === null && profile.role.key === "platform_owner";
+  // A "platform_owner" key that fails that rule is never trusted (the DB forbids it too).
+  if (profile.role?.key === "platform_owner" && !isPlatformOwner) return null;
 
   return {
     id: profile.id,
@@ -61,6 +74,8 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
     locale: profile.locale,
     mustChangePassword: profile.must_change_password,
     schoolSuspended,
+    accountDeactivated,
+    isPlatformOwner,
   };
 });
 
@@ -71,11 +86,19 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
 export async function requireUser(): Promise<CurrentUser> {
   const user = await getCurrentUser();
   if (!user) return redirect({ href: "/login", locale: await getLocale() });
-  if (user.schoolSuspended) return redirect({ href: "/suspended", locale: await getLocale() });
+  const blocked = blockedPath(user);
+  if (blocked) return redirect({ href: blocked, locale: await getLocale() });
   if (user.mustChangePassword) {
     return redirect({ href: "/change-password", locale: await getLocale() });
   }
   return user;
+}
+
+/** Where a signed-in user who has lost access must go, or null. */
+export function blockedPath(user: CurrentUser): "/deactivated" | "/suspended" | null {
+  if (user.accountDeactivated) return "/deactivated";
+  if (user.schoolSuspended) return "/suspended";
+  return null;
 }
 
 /**
@@ -84,8 +107,8 @@ export async function requireUser(): Promise<CurrentUser> {
  */
 export async function requireArea(area: Area): Promise<CurrentUser> {
   const user = await requireUser();
-  if (areaForRole(user.roleKey) !== area) {
-    return redirect({ href: homeForRole(user.roleKey), locale: await getLocale() });
+  if (areaFor(user) !== area) {
+    return redirect({ href: homeFor(user), locale: await getLocale() });
   }
   return user;
 }

@@ -3,7 +3,7 @@ import { Suspense } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { redirect } from "@/i18n/navigation";
-import { homeForRole } from "@/lib/auth/roles";
+import { homeFor } from "@/lib/auth/roles";
 import { requireUser } from "@/lib/auth/session";
 
 /** "/" sends each user to their area: platform, school dashboard, parent portal or driver. */
@@ -19,5 +19,5 @@ export default function RootPage() {
 
 async function RoleRedirect(): Promise<never> {
   const user = await requireUser();
-  return redirect({ href: homeForRole(user.roleKey), locale: await getLocale() });
+  return redirect({ href: homeFor(user), locale: await getLocale() });
 }

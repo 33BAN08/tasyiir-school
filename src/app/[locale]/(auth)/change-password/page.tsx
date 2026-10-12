@@ -6,7 +6,7 @@ import { ChangePasswordForm } from "@/components/features/auth/change-password-f
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { redirect } from "@/i18n/navigation";
-import { getCurrentUser } from "@/lib/auth/session";
+import { blockedPath, getCurrentUser } from "@/lib/auth/session";
 
 export default function ChangePasswordPage() {
   const t = useTranslations("auth.changePassword");
@@ -30,7 +30,8 @@ export default function ChangePasswordPage() {
 async function ForcedChangeGate() {
   const user = await getCurrentUser();
   if (!user) return redirect({ href: "/login", locale: await getLocale() });
-  if (user.schoolSuspended) return redirect({ href: "/suspended", locale: await getLocale() });
+  const blocked = blockedPath(user);
+  if (blocked) return redirect({ href: blocked, locale: await getLocale() });
   if (!user.mustChangePassword) return redirect({ href: "/", locale: await getLocale() });
   return <ChangePasswordForm />;
 }

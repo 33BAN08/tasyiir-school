@@ -35,6 +35,10 @@
       "title": "Établissement suspendu",
       "description": "L'accès à votre établissement est temporairement suspendu. Veuillez contacter la direction de votre établissement ou l'équipe Tasyiir pour plus d'informations."
     },
+    "deactivated": {
+      "title": "Compte désactivé",
+      "description": "Votre compte a été désactivé par la direction de votre établissement. Si vous pensez qu'il s'agit d'une erreur, veuillez la contacter."
+    },
     "logout": "Se déconnecter",
     "errors": {
       "invalidEmail": "Veuillez saisir une adresse e-mail valide.",
@@ -49,7 +53,8 @@
       "samePassword": "Le nouveau mot de passe doit être différent de l'actuel.",
       "weakPassword": "Ce mot de passe est trop faible ou a déjà fuité. Veuillez en choisir un autre.",
       "sessionExpired": "Votre session a expiré. Veuillez vous reconnecter.",
-      "generic": "Une erreur inattendue s'est produite. Veuillez réessayer."
+      "generic": "Une erreur inattendue s'est produite. Veuillez réessayer.",
+      "accountDeactivated": "Ce compte a été désactivé. Veuillez contacter la direction de votre établissement."
     }
   },
   "localeSwitcher": {
