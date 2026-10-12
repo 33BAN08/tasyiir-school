@@ -377,9 +377,6 @@
       "success": {
         "title": "{name}'s account is ready",
         "description": "Give these credentials to the person. They will choose their own password at first sign-in.",
-        "email": "Email address",
-        "password": "Temporary password",
-        "warning": "This password will not be shown again. Copy it now and share it securely.",
         "addAnother": "Add another staff member",
         "done": "Done"
       }
@@ -395,7 +392,78 @@
       "roleTooPowerful": "You cannot assign a role with more rights than your own.",
       "emailTaken": "An account with this email address already exists.",
       "forbidden": "You are not allowed to do this.",
-      "generic": "An unexpected error occurred. Nothing was created. Please try again."
+      "generic": "An unexpected error occurred. Nothing was created. Please try again.",
+      "notFound": "This account cannot be found.",
+      "selfRole": "You cannot change your own role.",
+      "selfPassword": "You cannot reset your own password here.",
+      "selfDeactivate": "You cannot deactivate your own account.",
+      "lastDirector": "The school must keep at least one active director.",
+      "accountDeactivated": "This account is deactivated. Reactivate it first.",
+      "readOnly": "Read only: you are not allowed to manage staff."
+    },
+    "credentials": {
+      "email": "Email address",
+      "password": "Temporary password",
+      "warning": "This password will not be shown again. Copy it now and share it securely."
+    },
+    "detail": {
+      "back": "Staff",
+      "you": "you",
+      "details": {
+        "title": "Details",
+        "description": "Name, phone and interface language. The email address is the sign-in identity and is not changed here.",
+        "save": "Save",
+        "saving": "Saving…",
+        "saved": "Details saved."
+      },
+      "role": {
+        "title": "Role",
+        "description": "The role decides what this account can see and do.",
+        "label": "Role",
+        "save": "Change role",
+        "saving": "Saving…",
+        "saved": "Role changed."
+      },
+      "access": {
+        "title": "Access",
+        "description": "Account status, password and deactivation.",
+        "status": "Status",
+        "deactivatedAt": "Deactivated on",
+        "createdAt": "Added on",
+        "password": "Password",
+        "passwordHint": "Generates a new temporary password, to be replaced at the next sign-in.",
+        "account": "Account",
+        "deactivateHint": "A deactivated account cannot sign in and loses access to all data immediately. Nothing is deleted.",
+        "reactivateHint": "The account will be able to sign in again with its password."
+      },
+      "reset": {
+        "button": "Reset password",
+        "title": "Reset {name}'s password?",
+        "description": "The old password will stop working. A new temporary password will be shown only once.",
+        "confirm": "Reset",
+        "cancel": "Cancel",
+        "done": "Password reset: {name}.",
+        "resultTitle": "New password: {name}",
+        "resultDescription": "Share this temporary password. It must be replaced at the next sign-in.",
+        "close": "Done"
+      },
+      "active": {
+        "cancel": "Cancel",
+        "deactivate": {
+          "button": "Deactivate account",
+          "title": "Deactivate {name}'s account?",
+          "description": "They will lose access to all data immediately and will not be able to sign in. You can reactivate the account at any time.",
+          "confirm": "Deactivate",
+          "done": "Account deactivated: {name}."
+        },
+        "reactivate": {
+          "button": "Reactivate account",
+          "title": "Reactivate {name}'s account?",
+          "description": "They will be able to sign in again with their current password.",
+          "confirm": "Reactivate",
+          "done": "Account reactivated: {name}."
+        }
+      }
     }
   },
   "common": {

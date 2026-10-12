@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:rls": "node --env-file=.env.local scripts/rls/run.mjs",
-    "test:actions": "node --env-file=.env.local scripts/rls/run.mjs --actions"
+    "test:rls": "node --env-file=.env.local --experimental-strip-types --disable-warning=ExperimentalWarning --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/rls/run.mjs",
+    "test:actions": "node --env-file=.env.local --experimental-strip-types --disable-warning=ExperimentalWarning --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/rls/run.mjs --actions"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",

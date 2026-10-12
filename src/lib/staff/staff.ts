@@ -2,10 +2,9 @@ import "server-only";
 
 import { fetchPage, pageRange, type Page } from "@/lib/pagination";
 import { ilikeAny } from "@/lib/search";
-import { roleAssignmentError, type StaffActor } from "@/lib/staff/rules";
+import { NON_STAFF_ROLE_KEYS, roleAssignmentError, type StaffActor } from "@/lib/staff/rules";
 import { createClient } from "@/lib/supabase/server";
 import {
-  NON_STAFF_ROLE_KEYS,
   STAFF_PAGE_SIZE,
   type StaffListParams,
   type StaffStatus,
@@ -121,4 +120,46 @@ export async function listAssignableRoles(schoolId: string, actor: StaffActor): 
         }) === null,
     )
     .map(({ id, key, name }) => ({ id, key, name }));
+}
+
+export type StaffMemberDetail = StaffMember & {
+  locale: string;
+  rolePermissions: string[];
+  deactivatedAt: string | null;
+  /** Active directors of the school other than this member (for the last-director rule). */
+  otherActiveDirectors: number;
+};
+
+/** One staff account of the school (null if missing, another school's, or a family account). */
+export async function getStaffMember(schoolId: string, id: string): Promise<StaffMemberDetail | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("profiles")
+    .select(
+      "id, full_name, email, phone, locale, must_change_password, deactivated_at, created_at, role:roles!inner(id, key, name, role_permissions(permission_key))",
+    )
+    .eq("id", id)
+    .eq("school_id", schoolId)
+    .not("role.key", "in", NON_STAFF)
+    .maybeSingle();
+  if (error) throw new Error(`getStaffMember failed: ${error.code}`);
+  if (!data) return null;
+
+  const { count, error: countError } = await supabase
+    .from("profiles")
+    .select("id, role:roles!inner(key)", { count: "exact", head: true })
+    .eq("school_id", schoolId)
+    .eq("role.key", "director")
+    .is("deactivated_at", null)
+    .neq("id", id);
+  if (countError) throw new Error(`getStaffMember count failed: ${countError.code}`);
+
+  const { role_permissions, ...role } = data.role;
+  return {
+    ...toMember({ ...data, role }),
+    locale: data.locale,
+    rolePermissions: role_permissions.map((p) => p.permission_key),
+    deactivatedAt: data.deactivated_at,
+    otherActiveDirectors: count ?? 0,
+  };
 }

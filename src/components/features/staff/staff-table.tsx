@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Link } from "@/i18n/navigation";
 import { roleLabel } from "@/lib/auth/roles";
 import { formatDate } from "@/lib/format";
 import type { StaffMember } from "@/lib/staff/staff";
@@ -31,8 +32,13 @@ export function StaffTable({ items, currentUserId }: Props) {
         {items.map((member) => (
           <TableRow key={member.id}>
             <TableCell>
-              <span className="flex items-center gap-2 font-medium">
-                {member.fullName}
+              <span className="flex items-center gap-2">
+                <Link
+                  href={`/staff/${member.id}`}
+                  className="font-medium text-primary underline-offset-4 hover:underline"
+                >
+                  {member.fullName}
+                </Link>
                 {member.id === currentUserId && <Badge variant="secondary">{t("you")}</Badge>}
               </span>
             </TableCell>

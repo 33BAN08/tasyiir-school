@@ -377,9 +377,6 @@
       "success": {
         "title": "Compte prêt : {name}",
         "description": "Transmettez ces identifiants à la personne. Elle devra choisir son propre mot de passe à la première connexion.",
-        "email": "Adresse e-mail",
-        "password": "Mot de passe temporaire",
-        "warning": "Ce mot de passe ne sera plus affiché. Copiez-le maintenant et transmettez-le par un moyen sûr.",
         "addAnother": "Ajouter un autre membre",
         "done": "Terminé"
       }
@@ -395,7 +392,78 @@
       "roleTooPowerful": "Vous ne pouvez pas attribuer un rôle qui a plus de droits que le vôtre.",
       "emailTaken": "Un compte existe déjà avec cette adresse e-mail.",
       "forbidden": "Vous n'avez pas l'autorisation d'effectuer cette action.",
-      "generic": "Une erreur inattendue s'est produite. Rien n'a été créé. Veuillez réessayer."
+      "generic": "Une erreur inattendue s'est produite. Rien n'a été créé. Veuillez réessayer.",
+      "notFound": "Ce compte est introuvable.",
+      "selfRole": "Vous ne pouvez pas changer votre propre rôle.",
+      "selfPassword": "Vous ne pouvez pas réinitialiser votre propre mot de passe ici.",
+      "selfDeactivate": "Vous ne pouvez pas désactiver votre propre compte.",
+      "lastDirector": "L'établissement doit garder au moins un directeur actif.",
+      "accountDeactivated": "Ce compte est désactivé. Réactivez-le d'abord.",
+      "readOnly": "Lecture seule : vous n'avez pas le droit de gérer le personnel."
+    },
+    "credentials": {
+      "email": "Adresse e-mail",
+      "password": "Mot de passe temporaire",
+      "warning": "Ce mot de passe ne sera plus affiché. Copiez-le maintenant et transmettez-le par un moyen sûr."
+    },
+    "detail": {
+      "back": "Personnel",
+      "you": "vous",
+      "details": {
+        "title": "Informations",
+        "description": "Nom, téléphone et langue de l'interface. L'adresse e-mail sert d'identifiant et ne se modifie pas ici.",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "saved": "Informations enregistrées."
+      },
+      "role": {
+        "title": "Rôle",
+        "description": "Le rôle détermine ce que ce compte peut voir et faire.",
+        "label": "Rôle",
+        "save": "Changer le rôle",
+        "saving": "Enregistrement…",
+        "saved": "Rôle modifié."
+      },
+      "access": {
+        "title": "Accès",
+        "description": "Statut du compte, mot de passe et désactivation.",
+        "status": "Statut",
+        "deactivatedAt": "Désactivé le",
+        "createdAt": "Ajouté le",
+        "password": "Mot de passe",
+        "passwordHint": "Génère un nouveau mot de passe temporaire. La personne devra le remplacer à sa prochaine connexion.",
+        "account": "Compte",
+        "deactivateHint": "Un compte désactivé ne peut plus se connecter et perd immédiatement l'accès aux données. Rien n'est supprimé.",
+        "reactivateHint": "Le compte pourra de nouveau se connecter avec son mot de passe."
+      },
+      "reset": {
+        "button": "Réinitialiser le mot de passe",
+        "title": "Réinitialiser le mot de passe de « {name} » ?",
+        "description": "L'ancien mot de passe ne fonctionnera plus. Un nouveau mot de passe temporaire sera affiché une seule fois.",
+        "confirm": "Réinitialiser",
+        "cancel": "Annuler",
+        "done": "Mot de passe réinitialisé : {name}.",
+        "resultTitle": "Nouveau mot de passe : {name}",
+        "resultDescription": "Transmettez ce mot de passe temporaire. Il devra être remplacé à la prochaine connexion.",
+        "close": "Terminé"
+      },
+      "active": {
+        "cancel": "Annuler",
+        "deactivate": {
+          "button": "Désactiver le compte",
+          "title": "Désactiver le compte de « {name} » ?",
+          "description": "La personne perdra immédiatement l'accès à toutes les données et ne pourra plus se connecter. Vous pourrez réactiver le compte à tout moment.",
+          "confirm": "Désactiver",
+          "done": "Compte désactivé : {name}."
+        },
+        "reactivate": {
+          "button": "Réactiver le compte",
+          "title": "Réactiver le compte de « {name} » ?",
+          "description": "La personne pourra de nouveau se connecter avec son mot de passe actuel.",
+          "confirm": "Réactiver",
+          "done": "Compte réactivé : {name}."
+        }
+      }
     }
   },
   "common": {

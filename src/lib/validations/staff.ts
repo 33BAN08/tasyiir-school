@@ -7,9 +7,6 @@ import { enumParam, pageParam, searchParam, uuidParam } from "@/lib/validations/
 export const STAFF_STATUSES = ["active", "pending", "deactivated"] as const;
 export type StaffStatus = (typeof STAFF_STATUSES)[number];
 
-/** Family accounts are managed with students (Phase 5), not on the staff page. */
-export const NON_STAFF_ROLE_KEYS = ["parent", "student"] as const;
-
 export const STAFF_PAGE_SIZE = 20;
 
 /** URL query of the staff list. Invalid values fall back to defaults, never error. */
@@ -33,3 +30,18 @@ export const newStaffSchema = z.object({
 });
 export type NewStaffFormValues = z.input<typeof newStaffSchema>;
 export type NewStaffInput = z.output<typeof newStaffSchema>;
+
+export const staffIdSchema = z.uuid();
+
+/** Editable details of a staff account (the email is the sign-in identity: not editable here). */
+export const staffDetailsSchema = z.object({
+  fullName: personNameField,
+  phone: optionalPhoneField,
+  locale: localeField,
+});
+export type StaffDetailsFormValues = z.input<typeof staffDetailsSchema>;
+export type StaffDetailsInput = z.output<typeof staffDetailsSchema>;
+
+export const staffRoleSchema = z.object({ roleId: z.uuid({ error: "roleRequired" }) });
+
+export const staffActiveSchema = z.boolean();

@@ -10,11 +10,13 @@ import { FormTextField } from "@/components/features/forms/form-text-field";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { LOCALE_NAMES, routing } from "@/i18n/routing";
 import { labelledRoles } from "@/lib/auth/roles";
 import { createStaff } from "@/lib/staff/actions";
 import type { StaffRole } from "@/lib/staff/staff";
 import { newStaffSchema, type NewStaffFormValues, type NewStaffInput } from "@/lib/validations/staff";
+
+import { LocaleField } from "./locale-field";
+import { useStaffError } from "./use-staff-error";
 
 export type CreatedStaff = { name: string; email: string; password: string };
 
@@ -22,7 +24,6 @@ type Props = { roles: StaffRole[]; onCreated: (created: CreatedStaff) => void; o
 
 export function NewStaffForm({ roles, onCreated, onCancel }: Props) {
   const t = useTranslations("staff.create");
-  const tErrors = useTranslations("staff.errors");
   const tRoles = useTranslations("roles");
   const locale = useLocale();
   const [isPending, startTransition] = useTransition();
@@ -37,11 +38,7 @@ export function NewStaffForm({ roles, onCreated, onCancel }: Props) {
       locale: locale as NewStaffFormValues["locale"],
     },
   });
-  // Unknown keys (never expected) fall back to the generic message, never a raw key.
-  const translateError = (key: string) => {
-    const k = key as Parameters<typeof tErrors>[0];
-    return tErrors.has(k) ? tErrors(k) : tErrors("generic");
-  };
+  const translateError = useStaffError();
 
   function onSubmit(values: NewStaffInput) {
     startTransition(async () => {
@@ -112,27 +109,7 @@ export function NewStaffForm({ roles, onCreated, onCancel }: Props) {
           autoComplete="off"
           translateError={translateError}
         />
-        <Controller
-          control={form.control}
-          name="locale"
-          render={({ field }) => (
-            <Field>
-              <FieldLabel htmlFor="staff-locale">{t("locale")}</FieldLabel>
-              <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger id="staff-locale" className="w-full sm:w-56">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {routing.locales.map((l) => (
-                    <SelectItem key={l} value={l}>
-                      {LOCALE_NAMES[l]}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </Field>
-          )}
-        />
+        <LocaleField control={form.control} name="locale" id="staff-locale" label={t("locale")} />
       </FieldGroup>
       <p className="text-sm text-muted-foreground">{t("passwordNote")}</p>
       <div className="flex flex-wrap justify-end gap-2">

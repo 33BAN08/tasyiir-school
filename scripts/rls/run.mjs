@@ -1,11 +1,12 @@
 // Security test suite (reads .env.local):
-//   npm run test:rls      — database checks (RLS, grants, constraints)
+//   npm run test:rls      — database checks (RLS, grants, constraints) + rule unit checks
 //   npm run test:actions  — the same + Server Actions over HTTP; needs the app
 //                           running (`npm run build && npm start`), at
 //                           TEST_APP_URL (default http://localhost:3000)
 // Creates temporary schools/users, runs every check as real signed-in users,
 // then deletes everything it created. Exit code 1 if any check fails.
 import { staffActions } from "./actions-staff.mjs";
+import { staffMemberActions } from "./actions-staff-member.mjs";
 import { report } from "./checks.mjs";
 import { anon, createFixtures, removeFixtures, signIn } from "./fixtures.mjs";
 import { phase2 } from "./phase2.mjs";
@@ -29,7 +30,11 @@ try {
 
   await phase2({ fx, as });
   await phase3({ fx, as });
-  if (withActions) await staffActions({ fx, baseUrl });
+  await import("./rules.mjs");
+  if (withActions) {
+    await staffMemberActions({ fx, baseUrl });
+    await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
+  }
   failed = report();
   if (!withActions) console.log("(Server Action checks skipped: run npm run test:actions with the app running)");
 } catch (error) {

@@ -83,6 +83,8 @@ export async function createFixtures() {
     ["survA", "a", "surveillant", false],
     ["deactA", "a", "surveillant", false],
     ["mgrA", "a", "office_manager", false],
+    ["audA", "a", "auditor", false],
+    ["tchA", "a", "teacher", false],
     ["pendA", "a", "director", true],
     ["dirB", "b", "director", false],
     ["dirC", "c", "director", false],
