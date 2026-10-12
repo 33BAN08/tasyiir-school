@@ -151,3 +151,31 @@ export function slugify(name: string): string {
     .slice(0, 60)
     .replace(/-+$/, "");
 }
+
+// Plans page -------------------------------------------------------------------
+
+/** "1250", "1250.5" or "1250,50" (DH) → 1250.5. */
+const amount = z
+  .string()
+  .trim()
+  .regex(/^\d{1,7}([.,]\d{1,2})?$/, { error: "priceInvalid" })
+  .transform((v) => Number(v.replace(",", ".")));
+
+export const planSchema = z.object({
+  name: z.string().trim().min(2, { error: "nameRequired" }).max(60, { error: "tooLong" }),
+  priceMonthly: amount,
+  priceYearly: amount,
+  /** Empty = no limit. */
+  maxStudents: z
+    .string()
+    .trim()
+    .regex(/^(\d{1,6})?$/, { error: "maxStudentsInvalid" })
+    .refine((v) => v === "" || Number(v) > 0, { error: "maxStudentsInvalid" })
+    .transform((v) => (v === "" ? null : Number(v))),
+  isActive: z.boolean(),
+  modules: z.array(z.string().regex(/^[a-z_]+$/)).min(1, { error: "modulesRequired" }),
+});
+export type PlanFormValues = z.input<typeof planSchema>;
+export type PlanInput = z.output<typeof planSchema>;
+
+export const planIdSchema = z.uuid();

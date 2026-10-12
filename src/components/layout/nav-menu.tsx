@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutDashboard, School } from "lucide-react";
+import { LayoutDashboard, Package, School } from "lucide-react";
 
 import {
   SidebarMenu,
@@ -15,6 +15,7 @@ import type { NavIcon } from "./nav-config";
 const ICONS: Record<NavIcon, typeof LayoutDashboard> = {
   dashboard: LayoutDashboard,
   schools: School,
+  plans: Package,
 };
 
 export type NavMenuItem = { href: string; label: string; icon: NavIcon };

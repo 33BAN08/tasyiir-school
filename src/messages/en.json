@@ -62,7 +62,8 @@
   },
   "nav": {
     "dashboard": "Dashboard",
-    "schools": "Schools"
+    "schools": "Schools",
+    "plans": "Plans"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -215,7 +216,10 @@
       "dateBeforeStart": "This date must be after the start date.",
       "forbidden": "You are not allowed to do this.",
       "generic": "An unexpected error occurred. Nothing was created. Please try again.",
-      "notFound": "This school could not be found."
+      "notFound": "This school could not be found.",
+      "priceInvalid": "Invalid amount (e.g. 1250 or 1250.50).",
+      "maxStudentsInvalid": "Enter a positive whole number, or leave empty for no limit.",
+      "modulesRequired": "Choose at least one module."
     },
     "schoolDetail": {
       "backToList": "All schools",
@@ -292,10 +296,31 @@
           "school_suspend": "School suspended",
           "school_activate": "School reactivated",
           "subscription_update": "Subscription updated",
-          "module_override": "Module setting changed"
+          "module_override": "Module setting changed",
+          "plan_update": "Plan updated"
         }
       },
       "subscriptionLabel": "· {plan} subscription:"
+    },
+    "plans": {
+      "title": "Plans & modules",
+      "description": "Price, student limit and included modules of each plan.",
+      "active": "Active",
+      "inactive": "Inactive",
+      "schoolCount": "{count, plural, =0 {No schools} one {# school} other {# schools}} on this plan",
+      "name": "Plan name",
+      "priceMonthly": "Monthly price (DH)",
+      "priceYearly": "Yearly price (DH)",
+      "maxStudents": "Maximum students",
+      "maxStudentsHint": "Leave empty for no limit.",
+      "modules": "Included modules",
+      "isActive": "Plan active",
+      "isActiveHint": "An inactive plan can no longer be chosen. Schools already on it keep it.",
+      "save": "Save",
+      "saving": "Saving…",
+      "saved": "Plan “{name}” saved.",
+      "emptyTitle": "No plans",
+      "emptyDescription": "Plans are created by database migrations."
     }
   },
   "common": {

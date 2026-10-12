@@ -62,7 +62,8 @@
   },
   "nav": {
     "dashboard": "Tableau de bord",
-    "schools": "Établissements"
+    "schools": "Établissements",
+    "plans": "Formules"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -215,7 +216,10 @@
       "dateBeforeStart": "Cette date doit être postérieure à la date de début.",
       "forbidden": "Vous n'avez pas l'autorisation d'effectuer cette action.",
       "generic": "Une erreur inattendue s'est produite. Rien n'a été créé. Veuillez réessayer.",
-      "notFound": "Cet établissement est introuvable."
+      "notFound": "Cet établissement est introuvable.",
+      "priceInvalid": "Montant invalide (ex. : 1250 ou 1250,50).",
+      "maxStudentsInvalid": "Indiquez un nombre entier positif, ou laissez vide pour ne pas limiter.",
+      "modulesRequired": "Choisissez au moins un module."
     },
     "schoolDetail": {
       "backToList": "Tous les établissements",
@@ -292,10 +296,31 @@
           "school_suspend": "Établissement suspendu",
           "school_activate": "Établissement réactivé",
           "subscription_update": "Abonnement modifié",
-          "module_override": "Réglage de module modifié"
+          "module_override": "Réglage de module modifié",
+          "plan_update": "Formule modifiée"
         }
       },
       "subscriptionLabel": "· Abonnement {plan} :"
+    },
+    "plans": {
+      "title": "Formules et modules",
+      "description": "Prix, limite d’élèves et modules inclus dans chaque formule.",
+      "active": "Active",
+      "inactive": "Désactivée",
+      "schoolCount": "{count, plural, =0 {Aucun établissement} one {# établissement} other {# établissements}} sur cette formule",
+      "name": "Nom de la formule",
+      "priceMonthly": "Prix mensuel (DH)",
+      "priceYearly": "Prix annuel (DH)",
+      "maxStudents": "Nombre maximal d'élèves",
+      "maxStudentsHint": "Laissez vide pour ne pas limiter.",
+      "modules": "Modules inclus",
+      "isActive": "Formule active",
+      "isActiveHint": "Une formule désactivée ne peut plus être choisie. Les établissements qui l’ont déjà la conservent.",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "saved": "Formule « {name} » enregistrée.",
+      "emptyTitle": "Aucune formule",
+      "emptyDescription": "Les formules sont créées par les migrations de la base de données."
     }
   },
   "common": {
