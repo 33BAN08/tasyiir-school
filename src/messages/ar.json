@@ -1,9 +1,6 @@
 {
   "home": {
-    "tagline": "منصة تسيير المؤسسات التعليمية الخاصة",
-    "supabaseOk": "Supabase متصل",
-    "supabaseError": "Supabase غير متصل",
-    "welcome": "مرحبًا، {name}"
+    "tagline": "منصة تسيير المؤسسات التعليمية الخاصة"
   },
   "roles": {
     "platform_owner": "مالك المنصة",
@@ -58,5 +55,30 @@
     "title": "الصفحة غير موجودة",
     "description": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
     "backHome": "العودة إلى الرئيسية"
+  },
+  "nav": {
+    "dashboard": "لوحة القيادة"
+  },
+  "shell": {
+    "toggleSidebar": "إظهار القائمة الجانبية أو إخفاؤها",
+    "navigation": "القائمة الرئيسية",
+    "navigationDescription": "روابط التنقل في التطبيق",
+    "platform": "إدارة المنصة",
+    "poweredBy": "بدعم من {brand}",
+    "accountMenu": "قائمة الحساب"
+  },
+  "theme": {
+    "label": "المظهر",
+    "light": "فاتح",
+    "dark": "داكن",
+    "system": "حسب الجهاز"
+  },
+  "dashboard": {
+    "platformTitle": "لوحة قيادة المنصة",
+    "schoolTitle": "لوحة القيادة",
+    "portalTitle": "الرئيسية",
+    "driverTitle": "الرئيسية",
+    "welcome": "مرحبًا، {name}",
+    "comingSoon": "ستظهر هنا الإحصائيات والوحدات تباعًا خلال المراحل القادمة."
   }
 }

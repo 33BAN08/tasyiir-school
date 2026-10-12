@@ -1,9 +1,6 @@
 {
   "home": {
-    "tagline": "Gestion des écoles privées",
-    "supabaseOk": "Supabase connecté",
-    "supabaseError": "Supabase non connecté",
-    "welcome": "Bonjour, {name}"
+    "tagline": "Gestion des écoles privées"
   },
   "roles": {
     "platform_owner": "Propriétaire de la plateforme",
@@ -58,5 +55,30 @@
     "title": "Page introuvable",
     "description": "La page que vous cherchez n'existe pas ou a été déplacée.",
     "backHome": "Retour à l'accueil"
+  },
+  "nav": {
+    "dashboard": "Tableau de bord"
+  },
+  "shell": {
+    "toggleSidebar": "Afficher ou masquer le menu latéral",
+    "navigation": "Menu principal",
+    "navigationDescription": "Liens de navigation de l'application",
+    "platform": "Administration de la plateforme",
+    "poweredBy": "Propulsé par {brand}",
+    "accountMenu": "Menu du compte"
+  },
+  "theme": {
+    "label": "Apparence",
+    "light": "Clair",
+    "dark": "Sombre",
+    "system": "Système"
+  },
+  "dashboard": {
+    "platformTitle": "Tableau de bord de la plateforme",
+    "schoolTitle": "Tableau de bord",
+    "portalTitle": "Accueil",
+    "driverTitle": "Accueil",
+    "welcome": "Bonjour, {name}",
+    "comingSoon": "Les statistiques et les modules apparaîtront ici au fil des prochaines phases."
   }
 }

@@ -5,8 +5,10 @@ import { IBM_Plex_Sans_Arabic, Inter } from "next/font/google";
 import { notFound } from "next/navigation";
 import { locale as rootLocale } from "next/root-params";
 
+import { ThemeScript } from "@/components/features/theme/theme-script";
 import { DirectionProvider } from "@/components/ui/direction";
 import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { getDirection, routing } from "@/i18n/routing";
 import { BRAND } from "@/lib/brand";
 
@@ -44,12 +46,19 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
       lang={locale}
       dir={dir}
       className={`${plexArabic.variable} ${inter.variable} h-full antialiased`}
+      // ThemeScript adds `dark` + color-scheme before React hydrates.
+      suppressHydrationWarning
     >
+      <head>
+        <ThemeScript />
+      </head>
       <body className="flex min-h-full flex-col">
         <NextIntlClientProvider>
           <DirectionProvider dir={dir}>
-            {children}
-            <Toaster dir={dir} position={dir === "rtl" ? "bottom-left" : "bottom-right"} />
+            <TooltipProvider>
+              {children}
+              <Toaster dir={dir} position={dir === "rtl" ? "bottom-left" : "bottom-right"} />
+            </TooltipProvider>
           </DirectionProvider>
         </NextIntlClientProvider>
       </body>

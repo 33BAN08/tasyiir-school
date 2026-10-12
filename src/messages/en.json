@@ -1,9 +1,6 @@
 {
   "home": {
-    "tagline": "Private school management",
-    "supabaseOk": "Supabase connected",
-    "supabaseError": "Supabase not connected",
-    "welcome": "Hello, {name}"
+    "tagline": "Private school management"
   },
   "roles": {
     "platform_owner": "Platform owner",
@@ -58,5 +55,30 @@
     "title": "Page not found",
     "description": "The page you are looking for does not exist or has been moved.",
     "backHome": "Back to home"
+  },
+  "nav": {
+    "dashboard": "Dashboard"
+  },
+  "shell": {
+    "toggleSidebar": "Show or hide the sidebar",
+    "navigation": "Main menu",
+    "navigationDescription": "App navigation links",
+    "platform": "Platform administration",
+    "poweredBy": "Powered by {brand}",
+    "accountMenu": "Account menu"
+  },
+  "theme": {
+    "label": "Appearance",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "dashboard": {
+    "platformTitle": "Platform dashboard",
+    "schoolTitle": "Dashboard",
+    "portalTitle": "Home",
+    "driverTitle": "Home",
+    "welcome": "Hello, {name}",
+    "comingSoon": "Statistics and modules will appear here in the coming phases."
   }
 }

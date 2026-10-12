@@ -34,6 +34,8 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 ## Code conventions
 - Server Components by default; `"use client"` only when needed.
 - Mutations via Server Actions with zod validation; return typed results `{ ok, data?, error? }`.
+- Auth checks: **every page** calls `requireArea()` / `requireUser()` (`src/lib/auth/session.ts`) itself, and every Server Action re-checks the session. Never rely on a layout to protect a page — layouts and pages render in parallel.
+- Links/redirects: use `@/i18n/navigation` (locale-aware), not `next/navigation`.
 - Folder layout as in `docs/PLAN.md` §6. Feature components in `src/components/features/<feature>/`.
 - All UI text goes through next-intl message files (`src/messages/ar.json`, `fr.json`, `en.json`). No hard-coded strings.
 - Use logical CSS (`ms-`, `me-`, `ps-`, `pe-`, `start`, `end`) so RTL works. Never `ml-`/`mr-`/`left`/`right` for layout.
