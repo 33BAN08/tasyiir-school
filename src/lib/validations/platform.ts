@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { emailField, localeField, optionalPhoneField, personNameField } from "@/lib/validations/fields";
 import { enumParam, pageParam, searchParam } from "@/lib/validations/list-params";
 
 export const SCHOOL_STATUSES = ["active", "suspended"] as const;
@@ -39,11 +40,7 @@ export const SLUG_PATTERN = /^[a-z0-9]+(-[a-z0-9]+)*$/;
 const schoolInfoFields = {
   name: z.string().trim().min(2, { error: "nameRequired" }).max(120, { error: "tooLong" }),
   city: optionalText(80),
-  phone: z
-    .string()
-    .trim()
-    .regex(/^(\+?[0-9][0-9 .-]{5,18})?$/, { error: "phoneInvalid" })
-    .transform((v) => v || null),
+  phone: optionalPhoneField,
   address: optionalText(200),
 };
 
@@ -80,9 +77,9 @@ export const newSchoolSchema = z
       .max(60, { error: "slugInvalid" })
       .regex(SLUG_PATTERN, { error: "slugInvalid" }),
     // Step 2 — director
-    directorName: z.string().trim().min(2, { error: "nameRequired" }).max(120, { error: "tooLong" }),
-    directorEmail: z.string().trim().toLowerCase().pipe(z.email({ error: "invalidEmail" })),
-    directorLocale: z.enum(["ar", "fr", "en"]),
+    directorName: personNameField,
+    directorEmail: emailField,
+    directorLocale: localeField,
     // Same rules as changePasswordSchema (bcrypt ignores bytes after 72).
     directorPassword: z
       .string()

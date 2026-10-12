@@ -46,6 +46,6 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 ## Definition of done (every phase)
 1. `npm run build` and `npm run lint` pass with no errors.
 2. Works in Arabic (RTL) and French.
-3. RLS tested: a user from school A cannot read school B data — `npm run test:rls` passes (add the phase's cases to `scripts/rls/`).
+3. RLS tested: a user from school A cannot read school B data — `npm run test:rls` passes, and `npm run test:actions` (app running) for Server Action rules. Add the phase's cases to `scripts/rls/`.
 4. Update "Current phase" above and tick the phase in `docs/PLAN.md`.
 5. Commit with a clear message, push to GitHub (Vercel deploys automatically).

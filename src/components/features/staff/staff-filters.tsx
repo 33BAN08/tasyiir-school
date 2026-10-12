@@ -1,9 +1,9 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { ListFilters } from "@/components/layout/list-filters";
-import { roleLabel } from "@/lib/auth/roles";
+import { labelledRoles } from "@/lib/auth/roles";
 import { STAFF_STATUSES } from "@/lib/validations/staff";
 
 type Props = { roles: { id: string; key: string; name: string }[] };
@@ -11,6 +11,7 @@ type Props = { roles: { id: string; key: string; name: string }[] };
 export function StaffFilters({ roles }: Props) {
   const t = useTranslations("staff");
   const tRoles = useTranslations("roles");
+  const locale = useLocale();
 
   return (
     <ListFilters
@@ -22,10 +23,7 @@ export function StaffFilters({ roles }: Props) {
           param: "role",
           label: t("roleFilterLabel"),
           allLabel: t("roleAll"),
-          options: roles.map((role) => ({
-            value: role.id,
-            label: roleLabel(role, tRoles),
-          })),
+          options: labelledRoles(roles, tRoles, locale).map((role) => ({ value: role.id, label: role.label })),
         },
         {
           param: "status",

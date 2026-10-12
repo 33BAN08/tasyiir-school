@@ -358,12 +358,51 @@
     "noResultsTitle": "Aucun résultat",
     "noResultsDescription": "Aucun membre du personnel ne correspond à votre recherche ou à vos filtres.",
     "clearFilters": "Effacer les filtres",
-    "count": "{count, plural, =0 {Aucun membre} one {# membre du personnel} other {# membres du personnel}}"
+    "count": "{count, plural, =0 {Aucun membre} one {# membre du personnel} other {# membres du personnel}}",
+    "create": {
+      "button": "Ajouter un membre",
+      "title": "Ajouter un membre du personnel",
+      "description": "Un compte est créé avec un mot de passe temporaire, à remplacer à la première connexion.",
+      "fullName": "Nom complet",
+      "email": "Adresse e-mail",
+      "role": "Rôle",
+      "rolePlaceholder": "Choisir un rôle",
+      "phone": "Téléphone",
+      "locale": "Langue de l'interface",
+      "passwordNote": "Le mot de passe temporaire sera affiché une seule fois après la création.",
+      "cancel": "Annuler",
+      "submit": "Créer le compte",
+      "submitting": "Création…",
+      "toast": "Compte créé : {name}.",
+      "success": {
+        "title": "Compte prêt : {name}",
+        "description": "Transmettez ces identifiants à la personne. Elle devra choisir son propre mot de passe à la première connexion.",
+        "email": "Adresse e-mail",
+        "password": "Mot de passe temporaire",
+        "warning": "Ce mot de passe ne sera plus affiché. Copiez-le maintenant et transmettez-le par un moyen sûr.",
+        "addAnother": "Ajouter un autre membre",
+        "done": "Terminé"
+      }
+    },
+    "errors": {
+      "nameRequired": "Veuillez saisir un nom (au moins 2 caractères).",
+      "tooLong": "Ce texte est trop long.",
+      "invalidEmail": "Veuillez saisir une adresse e-mail valide.",
+      "phoneInvalid": "Numéro de téléphone invalide.",
+      "roleRequired": "Veuillez choisir un rôle.",
+      "roleInvalid": "Ce rôle ne peut pas être attribué ici.",
+      "directorOnly": "Seul un directeur peut attribuer le rôle de directeur.",
+      "roleTooPowerful": "Vous ne pouvez pas attribuer un rôle qui a plus de droits que le vôtre.",
+      "emailTaken": "Un compte existe déjà avec cette adresse e-mail.",
+      "forbidden": "Vous n'avez pas l'autorisation d'effectuer cette action.",
+      "generic": "Une erreur inattendue s'est produite. Rien n'a été créé. Veuillez réessayer."
+    }
   },
   "common": {
     "copy": "Copier",
     "copyFailed": "Impossible de copier. Veuillez sélectionner le texte manuellement.",
-    "optional": "facultatif"
+    "optional": "facultatif",
+    "close": "Fermer"
   },
   "modules": {
     "attendance": "Absences",

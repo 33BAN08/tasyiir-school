@@ -1,6 +1,7 @@
 // Phase 1–2: tenant isolation (school A vs B), platform-only tables,
 // suspended school, anonymous access.
 import { allowed, denied, rows } from "./checks.mjs";
+import { usersOf } from "./fixtures.mjs";
 
 export async function phase2({ fx, as }) {
   const A = fx.schools.a;
@@ -68,7 +69,8 @@ export async function phase2({ fx, as }) {
   await rows("[P2] owner sees schools A, B and C",
     owner.from("schools").select("id").in("id", [A.id, B.id, C.id]), 3);
   await rows("[P2] owner sees profiles of every school",
-    owner.from("profiles").select("id").in("school_id", [A.id, B.id, C.id]), 5);
+    owner.from("profiles").select("id").in("school_id", [A.id, B.id, C.id]),
+    ["a", "b", "c"].reduce((n, key) => n + usersOf(fx, key).length, 0));
   await allowed("[P2] owner can rename a school",
     owner.from("schools").update({ name: `RLS test A ${fx.run} (renamed)` }).eq("id", A.id).select("id"));
   await denied("[P2] owner cannot hard-delete a school",

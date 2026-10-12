@@ -11,8 +11,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { LOCALE_NAMES, routing } from "@/i18n/routing";
 import { generateTemporaryPassword } from "@/lib/password";
 
-import { CopyButton } from "./copy-button";
-import { FormTextField, type NewSchoolForm } from "./form-text-field";
+import { CopyButton } from "@/components/features/forms/copy-button";
+import { FormTextField } from "@/components/features/forms/form-text-field";
+
+import type { NewSchoolForm } from "./wizard-form";
 
 export function WizardDirectorStep({ form }: { form: NewSchoolForm }) {
   const t = useTranslations("platform.wizard");

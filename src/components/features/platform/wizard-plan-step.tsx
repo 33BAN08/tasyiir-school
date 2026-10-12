@@ -9,7 +9,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { formatMoney } from "@/lib/format";
 import type { PlanOption } from "@/lib/platform/plans";
 
-import { FormTextField, type NewSchoolForm } from "./form-text-field";
+import { FormTextField } from "@/components/features/forms/form-text-field";
+
+import type { NewSchoolForm } from "./wizard-form";
 
 type Props = { form: NewSchoolForm; plans: PlanOption[] };
 

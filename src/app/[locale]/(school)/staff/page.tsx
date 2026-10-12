@@ -2,6 +2,7 @@ import { SearchX, Users } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 
+import { NewStaffDialog } from "@/components/features/staff/new-staff-dialog";
 import { StaffFilters } from "@/components/features/staff/staff-filters";
 import { StaffTable, StaffTableSkeleton } from "@/components/features/staff/staff-table";
 import { EmptyState } from "@/components/layout/empty-state";
@@ -11,23 +12,32 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "@/i18n/navigation";
-import { requireSchoolPermission } from "@/lib/auth/session";
-import { listStaff, listStaffRoles } from "@/lib/staff/staff";
+import { getPermissions, requireSchoolPermission } from "@/lib/auth/session";
+import { listAssignableRoles, listStaff, listStaffRoles } from "@/lib/staff/staff";
 import { staffListParamsSchema, type StaffListParams } from "@/lib/validations/staff";
 
 const PATH = "/staff";
 
 export default async function StaffPage({ searchParams }: PageProps<"/[locale]/staff">) {
   const user = await requireSchoolPermission("users.view");
-  const [params, roles, t] = await Promise.all([
+  const [params, roles, permissions, t] = await Promise.all([
     searchParams.then((sp) => staffListParamsSchema.parse(sp)),
     listStaffRoles(user.schoolId),
+    getPermissions(),
     getTranslations("staff"),
   ]);
+  // The button is a convenience; createStaff re-checks users.manage and the role rules.
+  const assignableRoles = permissions.has("users.manage")
+    ? await listAssignableRoles(user.schoolId, { roleKey: user.roleKey, permissions })
+    : null;
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader title={t("title")} description={t("description")} />
+      <PageHeader
+        title={t("title")}
+        description={t("description")}
+        actions={assignableRoles && <NewStaffDialog roles={assignableRoles} />}
+      />
       <Suspense fallback={<Skeleton className="h-9 w-full max-w-md" />}>
         <StaffFilters roles={roles} />
       </Suspense>

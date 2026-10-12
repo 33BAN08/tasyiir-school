@@ -5,7 +5,9 @@ import { useTranslations } from "next-intl";
 import { FieldGroup } from "@/components/ui/field";
 import { slugify } from "@/lib/validations/platform";
 
-import { FormTextField, type NewSchoolForm } from "./form-text-field";
+import { FormTextField } from "@/components/features/forms/form-text-field";
+
+import type { NewSchoolForm } from "./wizard-form";
 
 type Props = {
   form: NewSchoolForm;

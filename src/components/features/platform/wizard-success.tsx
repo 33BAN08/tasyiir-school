@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 
-import { CopyButton } from "./copy-button";
+import { CopyButton } from "@/components/features/forms/copy-button";
 
 type Props = { schoolName: string; email: string; password: string; onCreateAnother: () => void };
 

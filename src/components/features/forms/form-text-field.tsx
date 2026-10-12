@@ -6,10 +6,6 @@ import type { FieldValues, Path, UseFormReturn } from "react-hook-form";
 
 import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
-import type { NewSchoolFormValues, NewSchoolInput } from "@/lib/validations/platform";
-
-/** The wizard's form: raw string values in, zod-transformed values out. */
-export type NewSchoolForm = UseFormReturn<NewSchoolFormValues, unknown, NewSchoolInput>;
 
 type Props<TValues extends FieldValues, TOutput> = Omit<ComponentProps<typeof Input>, "name" | "form"> & {
   form: UseFormReturn<TValues, unknown, TOutput>;
@@ -19,11 +15,13 @@ type Props<TValues extends FieldValues, TOutput> = Omit<ComponentProps<typeof In
   optional?: boolean;
   /** Called after the form has stored the new value (e.g. to derive another field). */
   onValueChange?: (value: string) => void;
+  /** Translates the zod error key; defaults to `platform.errors`. */
+  translateError?: (key: string) => string;
 };
 
 /**
  * Label above, input, hint, translated inline error (docs/DESIGN.md form rules).
- * Error messages are keys under `platform.errors`.
+ * Error messages are next-intl keys (`platform.errors` unless `translateError` is given).
  */
 export function FormTextField<TValues extends FieldValues, TOutput>({
   form,
@@ -32,6 +30,7 @@ export function FormTextField<TValues extends FieldValues, TOutput>({
   description,
   optional,
   onValueChange,
+  translateError,
   ...inputProps
 }: Props<TValues, TOutput>) {
   const t = useTranslations("common");
@@ -60,7 +59,7 @@ export function FormTextField<TValues extends FieldValues, TOutput>({
         }}
       />
       {description && <FieldDescription>{description}</FieldDescription>}
-      {error && <FieldError>{tErrors(error)}</FieldError>}
+      {error && <FieldError>{translateError ? translateError(error) : tErrors(error)}</FieldError>}
     </Field>
   );
 }

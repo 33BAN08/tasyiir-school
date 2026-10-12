@@ -2,7 +2,7 @@
 // Server Action rules (who may create/edit/deactivate whom) are tested in
 // actions.mjs once those actions exist.
 import { allowed, check, denied, rows } from "./checks.mjs";
-import { admin, anon, deactivate } from "./fixtures.mjs";
+import { admin, anon, deactivate, usersOf } from "./fixtures.mjs";
 
 export async function phase3({ fx, as }) {
   const A = fx.schools.a;
@@ -20,9 +20,10 @@ export async function phase3({ fx, as }) {
     .single();
 
   // --- Staff list visibility -------------------------------------------------
-  await rows("[P3] dirA lists the 3 staff of school A, with emails",
+  const staffOfA = usersOf(fx, "a").length;
+  await rows(`[P3] dirA lists the ${staffOfA} staff of school A, with emails`,
     dirA.from("profiles").select("id, email").eq("school_id", A.id),
-    (r) => r.length === 3 && r.every((p) => p.email));
+    (r) => r.length === staffOfA && r.every((p) => p.email));
   const staffList = (client, schoolId) =>
     client.from("profiles").select("id, role:roles!inner(key)").eq("school_id", schoolId)
       .not("role.key", "in", "(parent,student)");

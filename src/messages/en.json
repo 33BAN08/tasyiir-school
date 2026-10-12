@@ -358,12 +358,51 @@
     "noResultsTitle": "No results",
     "noResultsDescription": "No staff member matches your search or filters.",
     "clearFilters": "Clear filters",
-    "count": "{count, plural, =0 {No staff} one {# staff member} other {# staff members}}"
+    "count": "{count, plural, =0 {No staff} one {# staff member} other {# staff members}}",
+    "create": {
+      "button": "Add staff member",
+      "title": "Add a staff member",
+      "description": "An account is created with a temporary password, to be replaced at first sign-in.",
+      "fullName": "Full name",
+      "email": "Email address",
+      "role": "Role",
+      "rolePlaceholder": "Choose a role",
+      "phone": "Phone",
+      "locale": "Interface language",
+      "passwordNote": "The temporary password will be shown only once, after creation.",
+      "cancel": "Cancel",
+      "submit": "Create account",
+      "submitting": "Creating…",
+      "toast": "{name}'s account has been created.",
+      "success": {
+        "title": "{name}'s account is ready",
+        "description": "Give these credentials to the person. They will choose their own password at first sign-in.",
+        "email": "Email address",
+        "password": "Temporary password",
+        "warning": "This password will not be shown again. Copy it now and share it securely.",
+        "addAnother": "Add another staff member",
+        "done": "Done"
+      }
+    },
+    "errors": {
+      "nameRequired": "Please enter a name (at least 2 characters).",
+      "tooLong": "This text is too long.",
+      "invalidEmail": "Please enter a valid email address.",
+      "phoneInvalid": "Invalid phone number.",
+      "roleRequired": "Please choose a role.",
+      "roleInvalid": "This role cannot be assigned here.",
+      "directorOnly": "Only a director can assign the director role.",
+      "roleTooPowerful": "You cannot assign a role with more rights than your own.",
+      "emailTaken": "An account with this email address already exists.",
+      "forbidden": "You are not allowed to do this.",
+      "generic": "An unexpected error occurred. Nothing was created. Please try again."
+    }
   },
   "common": {
     "copy": "Copy",
     "copyFailed": "Could not copy. Please select the text manually.",
-    "optional": "optional"
+    "optional": "optional",
+    "close": "Close"
   },
   "modules": {
     "attendance": "Attendance",

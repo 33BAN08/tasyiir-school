@@ -20,7 +20,7 @@ import {
   type SubscriptionInput,
 } from "@/lib/validations/platform";
 
-import { FormTextField } from "../form-text-field";
+import { FormTextField } from "@/components/features/forms/form-text-field";
 
 type Props = {
   schoolId: string;

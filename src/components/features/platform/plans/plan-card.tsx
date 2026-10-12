@@ -25,7 +25,7 @@ import type { PlanAdmin } from "@/lib/platform/plans";
 import { updatePlan } from "@/lib/platform/plan-actions";
 import { planSchema, type PlanFormValues, type PlanInput } from "@/lib/validations/platform";
 
-import { FormTextField } from "../form-text-field";
+import { FormTextField } from "@/components/features/forms/form-text-field";
 
 type Props = { plan: PlanAdmin; moduleKeys: string[] };
 

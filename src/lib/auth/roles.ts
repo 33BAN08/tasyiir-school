@@ -53,3 +53,15 @@ export function isBuiltInRole(roleKey: string): roleKey is BuiltInRoleKey {
 export function roleLabel(role: { key: string; name: string }, tRoles: (key: BuiltInRoleKey) => string): string {
   return isBuiltInRole(role.key) ? tRoles(role.key) : role.name;
 }
+
+/** Roles with their display label, sorted by that label in the UI language. */
+export function labelledRoles<R extends { key: string; name: string }>(
+  roles: readonly R[],
+  tRoles: (key: BuiltInRoleKey) => string,
+  locale: string,
+): (R & { label: string })[] {
+  const collator = new Intl.Collator(locale);
+  return roles
+    .map((role) => ({ ...role, label: roleLabel(role, tRoles) }))
+    .sort((a, b) => collator.compare(a.label, b.label));
+}

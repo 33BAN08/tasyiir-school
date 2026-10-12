@@ -2,6 +2,7 @@ import "server-only";
 
 import { fetchPage, pageRange, type Page } from "@/lib/pagination";
 import { ilikeAny } from "@/lib/search";
+import { roleAssignmentError, type StaffActor } from "@/lib/staff/rules";
 import { createClient } from "@/lib/supabase/server";
 import {
   NON_STAFF_ROLE_KEYS,
@@ -95,4 +96,29 @@ export async function listStaffRoles(schoolId: string): Promise<StaffRole[]> {
     .order("name");
   if (error) throw new Error(`listStaffRoles failed: ${error.code}`);
   return data.map(({ id, key, name }) => ({ id, key, name }));
+}
+
+/**
+ * Roles the actor may give to a staff account (same rule as the Server
+ * Actions, which re-check it): offered in the create / edit forms.
+ */
+export async function listAssignableRoles(schoolId: string, actor: StaffActor): Promise<StaffRole[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("roles")
+    .select("id, key, name, is_system, role_permissions(permission_key)")
+    .eq("school_id", schoolId)
+    .order("is_system", { ascending: false })
+    .order("name");
+  if (error) throw new Error(`listAssignableRoles failed: ${error.code}`);
+
+  return data
+    .filter(
+      (role) =>
+        roleAssignmentError(actor, {
+          key: role.key,
+          permissions: role.role_permissions.map((p) => p.permission_key),
+        }) === null,
+    )
+    .map(({ id, key, name }) => ({ id, key, name }));
 }

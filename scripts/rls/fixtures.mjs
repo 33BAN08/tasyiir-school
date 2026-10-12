@@ -60,15 +60,35 @@ export async function createFixtures() {
     );
   }
 
+  // Custom roles in school A: a non-director staff manager, and a role with a
+  // permission that manager does not hold (privilege-escalation checks).
+  for (const [key, name, permissions] of [
+    ["office_manager", "Office manager", ["users.view", "users.manage"]],
+    ["auditor", "Auditor", ["audit.view"]],
+  ]) {
+    const role = must(
+      await admin.from("roles").insert({ school_id: fx.schools.a.id, key, name }).select("id").single(),
+      `role ${key}`,
+    );
+    must(
+      await admin.from("role_permissions").insert(permissions.map((p) => ({ role_id: role.id, permission_key: p }))),
+      `role ${key} permissions`,
+    );
+    fx.schools.a.roles[key] = role.id;
+  }
+
+  // [name, school, role, must_change_password]
   const people = [
-    ["dirA", "a", "director"],
-    ["survA", "a", "surveillant"],
-    ["deactA", "a", "surveillant"],
-    ["dirB", "b", "director"],
-    ["dirC", "c", "director"],
-    ["owner", null, null],
+    ["dirA", "a", "director", false],
+    ["survA", "a", "surveillant", false],
+    ["deactA", "a", "surveillant", false],
+    ["mgrA", "a", "office_manager", false],
+    ["pendA", "a", "director", true],
+    ["dirB", "b", "director", false],
+    ["dirC", "c", "director", false],
+    ["owner", null, null, false],
   ];
-  for (const [name, schoolKey, roleKey] of people) {
+  for (const [name, schoolKey, roleKey, mustChange] of people) {
     const email = `rls-test+${run}-${name.toLowerCase()}@example.com`;
     const pw = password();
     const created = must(
@@ -84,11 +104,11 @@ export async function createFixtures() {
         role_id: school ? school.roles[roleKey] : ownerRole.id,
         full_name: `RLS ${name}`,
         email,
-        must_change_password: false,
+        must_change_password: mustChange,
       }),
       `profile ${name}`,
     );
-    fx.users[name] = { id: created.user.id, email, password: pw };
+    fx.users[name] = { id: created.user.id, email, password: pw, schoolKey };
   }
 
   // School C is suspended.
@@ -120,9 +140,17 @@ export async function deactivate(user) {
   must(await admin.auth.admin.updateUserById(user.id, { ban_duration: "876000h" }), "ban");
 }
 
+/** Fixture users of one school ("a", "b", "c"). */
+export function usersOf(fx, schoolKey) {
+  return Object.values(fx.users).filter((u) => u.schoolKey === schoolKey);
+}
+
 export async function removeFixtures(fx) {
   const leftovers = [];
-  for (const id of fx.createdUserIds) {
+  // Accounts created by the tests themselves (e.g. createStaff) live in the fixture schools.
+  const { data: extra } = await admin.from("profiles").select("id").in("school_id", fx.createdSchoolIds);
+  const ids = new Set([...fx.createdUserIds, ...(extra ?? []).map((p) => p.id)]);
+  for (const id of ids) {
     const { error } = await admin.auth.admin.deleteUser(id);
     if (error) leftovers.push(`user ${id}`);
   }
