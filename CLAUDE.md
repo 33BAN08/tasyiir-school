@@ -8,7 +8,7 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 - **Always read both before starting a phase.** Work on ONE phase at a time. Don't build ahead.
 
 ## Current phase
-> **Phase 0 — Setup** (update this line when a phase is finished)
+> **Phase 1 — Multi-tenant foundation** (update this line when a phase is finished). Phase 0 done — live at https://tasyiir-school.vercel.app
 
 ## Tech stack (do not change without asking)
 - Next.js (latest, App Router) + TypeScript (strict)

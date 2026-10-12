@@ -163,7 +163,7 @@ tasyiir-school/
 ```
 
 ## 7. Phases
-- [ ] **0. Setup** — see §8
+- [x] **0. Setup** — see §8
 - [ ] **1. Multi-tenant foundation** — schools, profiles, roles & permissions tables, RLS helpers (`current_school_id()`, `has_permission()`), auth (login/logout/forced password change), i18n ar/fr/en + RTL, app shell (sidebar, topbar, language switch, dark mode)
 - [ ] **2. Platform dashboard** — schools list, new-school wizard (school + director account + plan), plans & modules, subscription status, suspend/activate
 - [ ] **3. Staff management (director)** — create/invite staff, assign roles, edit role permissions, deactivate accounts
