@@ -68,7 +68,8 @@
   "nav": {
     "dashboard": "Dashboard",
     "schools": "Schools",
-    "plans": "Plans"
+    "plans": "Plans",
+    "staff": "Staff"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -327,6 +328,37 @@
       "emptyTitle": "No plans",
       "emptyDescription": "Plans are created by database migrations."
     }
+  },
+  "staff": {
+    "title": "Staff",
+    "description": "Staff accounts of your school.",
+    "searchPlaceholder": "Name, email or phone…",
+    "searchLabel": "Search staff",
+    "roleFilterLabel": "Filter by role",
+    "roleAll": "All roles",
+    "statusFilterLabel": "Filter by status",
+    "statusAll": "All statuses",
+    "loading": "Loading…",
+    "columns": {
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone",
+      "role": "Role",
+      "status": "Status",
+      "createdAt": "Added on"
+    },
+    "status": {
+      "active": "Active",
+      "pending": "Waiting for first sign-in",
+      "deactivated": "Deactivated"
+    },
+    "you": "You",
+    "emptyTitle": "No staff yet",
+    "emptyDescription": "Your school's staff accounts will appear here.",
+    "noResultsTitle": "No results",
+    "noResultsDescription": "No staff member matches your search or filters.",
+    "clearFilters": "Clear filters",
+    "count": "{count, plural, =0 {No staff} one {# staff member} other {# staff members}}"
   },
   "common": {
     "copy": "Copy",

@@ -23,6 +23,14 @@ export async function phase3({ fx, as }) {
   await rows("[P3] dirA lists the 3 staff of school A, with emails",
     dirA.from("profiles").select("id, email").eq("school_id", A.id),
     (r) => r.length === 3 && r.every((p) => p.email));
+  const staffList = (client, schoolId) =>
+    client.from("profiles").select("id, role:roles!inner(key)").eq("school_id", schoolId)
+      .not("role.key", "in", "(parent,student)");
+  await rows("[P3] staff list query as dirA for school B returns nothing", staffList(dirA, B.id), 0);
+  await rows("[P3] staff list query as dirA filtered on B's director role returns nothing",
+    dirA.from("profiles").select("id").eq("role_id", B.roles.director), 0);
+  await rows("[P3] staff list query as surveillant returns only self", staffList(survA, A.id),
+    (r) => r.length === 1 && r[0].id === fx.users.survA.id);
   await rows("[P3] surveillant (no users.view) sees only own profile",
     survA.from("profiles").select("id"), (r) => r.length === 1 && r[0].id === fx.users.survA.id);
 

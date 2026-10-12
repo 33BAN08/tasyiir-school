@@ -113,6 +113,21 @@ export async function requireArea(area: Area): Promise<CurrentUser> {
   return user;
 }
 
+/**
+ * For school pages behind a permission (call at the top of the page, like
+ * requireArea). Without it → own home. Returns the user, whose schoolId is set.
+ */
+export async function requireSchoolPermission(
+  permission: string,
+): Promise<CurrentUser & { schoolId: string }> {
+  const user = await requireArea("school");
+  const permissions = await getPermissions();
+  if (!user.schoolId || !permissions.has(permission)) {
+    return redirect({ href: homeFor(user), locale: await getLocale() });
+  }
+  return { ...user, schoolId: user.schoolId };
+}
+
 /** Permission keys of the signed-in user's role (RLS: own school's roles only). */
 export const getPermissions = cache(async (): Promise<Set<string>> => {
   const user = await getCurrentUser();

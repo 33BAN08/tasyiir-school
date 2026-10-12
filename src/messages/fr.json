@@ -68,7 +68,8 @@
   "nav": {
     "dashboard": "Tableau de bord",
     "schools": "Établissements",
-    "plans": "Formules"
+    "plans": "Formules",
+    "staff": "Personnel"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -327,6 +328,37 @@
       "emptyTitle": "Aucune formule",
       "emptyDescription": "Les formules sont créées par les migrations de la base de données."
     }
+  },
+  "staff": {
+    "title": "Personnel",
+    "description": "Les comptes du personnel de votre établissement.",
+    "searchPlaceholder": "Nom, e-mail ou téléphone…",
+    "searchLabel": "Rechercher un membre du personnel",
+    "roleFilterLabel": "Filtrer par rôle",
+    "roleAll": "Tous les rôles",
+    "statusFilterLabel": "Filtrer par statut",
+    "statusAll": "Tous les statuts",
+    "loading": "Chargement…",
+    "columns": {
+      "name": "Nom",
+      "email": "E-mail",
+      "phone": "Téléphone",
+      "role": "Rôle",
+      "status": "Statut",
+      "createdAt": "Ajouté le"
+    },
+    "status": {
+      "active": "Actif",
+      "pending": "En attente de première connexion",
+      "deactivated": "Désactivé"
+    },
+    "you": "Vous",
+    "emptyTitle": "Aucun membre du personnel",
+    "emptyDescription": "Les comptes du personnel de votre établissement apparaîtront ici.",
+    "noResultsTitle": "Aucun résultat",
+    "noResultsDescription": "Aucun membre du personnel ne correspond à votre recherche ou à vos filtres.",
+    "clearFilters": "Effacer les filtres",
+    "count": "{count, plural, =0 {Aucun membre} one {# membre du personnel} other {# membres du personnel}}"
   },
   "common": {
     "copy": "Copier",

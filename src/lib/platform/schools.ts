@@ -1,5 +1,7 @@
 import "server-only";
 
+import { fetchPage, pageRange } from "@/lib/pagination";
+import { ilikeAny } from "@/lib/search";
 import { createClient } from "@/lib/supabase/server";
 import {
   SCHOOLS_PAGE_SIZE,
@@ -26,20 +28,12 @@ export type SchoolList = { items: SchoolListItem[]; total: number; page: number;
 const LIST_COLUMNS =
   "id, name, slug, city, status, created_at, subscriptions:school_subscriptions(status, created_at, plan:plans(name))";
 
-/** PostgREST `or()` filter for a free-text search on name, slug and city. */
-function searchFilter(q: string): string | null {
-  // Drop characters that are syntax in or() / LIKE patterns.
-  const term = q.replace(/[,()"\\%_*]/g, " ").trim();
-  if (!term) return null;
-  return ["name", "slug", "city"].map((col) => `${col}.ilike."%${term}%"`).join(",");
-}
-
 export async function listSchools(
   { q, status, page }: SchoolListParams,
   pageSize = SCHOOLS_PAGE_SIZE,
 ): Promise<SchoolList> {
   const supabase = await createClient();
-  const filter = searchFilter(q);
+  const filter = ilikeAny(q, ["name", "slug", "city"]);
 
   const run = (p: number) => {
     let query = supabase
@@ -47,29 +41,14 @@ export async function listSchools(
       .select(LIST_COLUMNS, { count: "exact" })
       .order("created_at", { ascending: false })
       .order("id")
-      .range((p - 1) * pageSize, p * pageSize - 1);
+      .range(...pageRange(p, pageSize));
     if (status) query = query.eq("status", status);
     if (filter) query = query.or(filter);
     return query;
   };
 
-  let current = page;
-  let result = await run(current);
-  // Page past the end (PGRST103: range not satisfiable) → show the last page.
-  if (result.error?.code === "PGRST103") {
-    const { count } = await run(1);
-    current = Math.max(1, Math.ceil((count ?? 0) / pageSize));
-    result = await run(current);
-  }
-  if (result.error) throw new Error(`listSchools failed: ${result.error.code}`);
-
-  const total = result.count ?? 0;
-  return {
-    items: (result.data ?? []).map(toListItem),
-    total,
-    page: current,
-    pageCount: Math.max(1, Math.ceil(total / pageSize)),
-  };
+  const { rows, ...paging } = await fetchPage(run, page, pageSize, "listSchools");
+  return { items: rows.map(toListItem), ...paging };
 }
 
 type ListRow = {

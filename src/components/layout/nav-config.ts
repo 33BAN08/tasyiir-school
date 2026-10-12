@@ -1,6 +1,6 @@
 import type { Area } from "@/lib/auth/roles";
 
-export type NavIcon = "dashboard" | "schools" | "plans";
+export type NavIcon = "dashboard" | "schools" | "plans" | "staff";
 
 export type NavItem = {
   /** Label key under `nav.*`. */
@@ -19,5 +19,8 @@ export const NAV_ITEMS: Record<"platform" | "school", NavItem[]> = {
     { key: "schools", href: "/platform/schools", icon: "schools" },
     { key: "plans", href: "/platform/plans", icon: "plans" },
   ],
-  school: [{ key: "dashboard", href: "/dashboard", icon: "dashboard" }],
+  school: [
+    { key: "dashboard", href: "/dashboard", icon: "dashboard" },
+    { key: "staff", href: "/staff", icon: "staff", permission: "users.view" },
+  ],
 } satisfies Partial<Record<Area, NavItem[]>>;
