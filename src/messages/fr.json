@@ -69,7 +69,8 @@
     "dashboard": "Tableau de bord",
     "schools": "Établissements",
     "plans": "Formules",
-    "staff": "Personnel"
+    "staff": "Personnel",
+    "roles": "Rôles et permissions"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -466,6 +467,77 @@
       }
     }
   },
+  "staffRoles": {
+    "title": "Rôles et permissions",
+    "description": "Ce que chaque rôle peut voir et faire dans votre établissement.",
+    "columns": {
+      "name": "Rôle",
+      "type": "Type",
+      "members": "Membres",
+      "permissions": "Permissions"
+    },
+    "builtIn": "Intégré",
+    "custom": "Personnalisé",
+    "memberCount": "{count, plural, =0 {Aucun membre} one {# membre} other {# membres}}",
+    "permissionCount": "{count, plural, =0 {Aucune permission} one {# permission} other {# permissions}}",
+    "count": "{count, plural, one {# rôle} other {# rôles}}",
+    "back": "Rôles et permissions",
+    "create": {
+      "button": "Nouveau rôle",
+      "title": "Nouveau rôle",
+      "description": "Créez le rôle, puis choisissez ses permissions sur sa page.",
+      "name": "Nom du rôle",
+      "nameHint": "Par exemple : Secrétariat, Bibliothécaire.",
+      "cancel": "Annuler",
+      "submit": "Créer le rôle",
+      "submitting": "Création…",
+      "done": "Rôle « {name} » créé."
+    },
+    "permissionsCard": {
+      "title": "Permissions",
+      "description": "Cochez ce que ce rôle peut faire. Les modules ajoutés plus tard apporteront leurs propres permissions.",
+      "core": "Général",
+      "save": "Enregistrer les permissions",
+      "saving": "Enregistrement…",
+      "saved": "Permissions enregistrées.",
+      "lockedHint": "Les permissions avec un cadenas ne peuvent être modifiées que par un directeur."
+    },
+    "settings": {
+      "title": "Paramètres du rôle",
+      "builtInDescription": "Rôle intégré : son nom est fixe et il ne peut pas être supprimé. Ses permissions peuvent être adaptées (sauf pour le directeur).",
+      "customDescription": "Rôle créé par votre établissement.",
+      "deleteHint": "Personne n'a ce rôle : vous pouvez le supprimer.",
+      "inUse": "Ce rôle est attribué à des membres du personnel. Changez d'abord leur rôle pour pouvoir le supprimer."
+    },
+    "rename": {
+      "label": "Nom du rôle",
+      "save": "Renommer",
+      "saving": "Enregistrement…",
+      "done": "Rôle renommé."
+    },
+    "delete": {
+      "button": "Supprimer le rôle",
+      "title": "Supprimer le rôle « {name} » ?",
+      "description": "Cette action est définitive. Aucun compte n'a ce rôle.",
+      "cancel": "Annuler",
+      "confirm": "Supprimer",
+      "done": "Rôle « {name} » supprimé."
+    },
+    "errors": {
+      "nameRequired": "Veuillez saisir un nom (au moins 2 caractères).",
+      "tooLong": "Ce nom est trop long (60 caractères maximum).",
+      "nameTaken": "Un rôle porte déjà ce nom.",
+      "invalidPermission": "Permission inconnue.",
+      "notFound": "Ce rôle est introuvable.",
+      "directorLocked": "Le rôle directeur est verrouillé : il garde toujours toutes les permissions.",
+      "systemRole": "Un rôle intégré ne peut pas être renommé ni supprimé.",
+      "roleInUse": "Ce rôle est encore attribué à des membres du personnel.",
+      "ownRole": "Vous ne pouvez pas modifier votre propre rôle.",
+      "permissionNotHeld": "Vous ne pouvez accorder ou retirer que des permissions que vous avez vous-même.",
+      "forbidden": "Vous n'avez pas l'autorisation d'effectuer cette action.",
+      "generic": "Une erreur inattendue s'est produite. Veuillez réessayer."
+    }
+  },
   "common": {
     "copy": "Copier",
     "copyFailed": "Impossible de copier. Veuillez sélectionner le texte manuellement.",
@@ -481,5 +553,35 @@
     "massar": "Export Massar",
     "fees": "Frais et paiements",
     "transport": "Transport"
+  },
+  "permissions": {
+    "users": {
+      "view": {
+        "label": "Voir le personnel",
+        "description": "Consulter la liste du personnel et les fiches des comptes."
+      },
+      "manage": {
+        "label": "Gérer le personnel",
+        "description": "Créer des comptes, modifier, réinitialiser les mots de passe, désactiver."
+      }
+    },
+    "roles": {
+      "manage": {
+        "label": "Gérer les rôles",
+        "description": "Créer des rôles et choisir leurs permissions."
+      }
+    },
+    "settings": {
+      "manage": {
+        "label": "Gérer les paramètres",
+        "description": "Modifier les paramètres de l'établissement."
+      }
+    },
+    "audit": {
+      "view": {
+        "label": "Voir le journal d'activité",
+        "description": "Consulter l'historique des actions effectuées dans l'établissement."
+      }
+    }
   }
 }

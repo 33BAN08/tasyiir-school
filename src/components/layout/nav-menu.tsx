@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutDashboard, Package, School, Users } from "lucide-react";
+import { LayoutDashboard, Package, School, ShieldCheck, Users } from "lucide-react";
 
 import {
   SidebarMenu,
@@ -17,6 +17,7 @@ const ICONS: Record<NavIcon, typeof LayoutDashboard> = {
   schools: School,
   plans: Package,
   staff: Users,
+  roles: ShieldCheck,
 };
 
 export type NavMenuItem = { href: string; label: string; icon: NavIcon };

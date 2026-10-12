@@ -51,3 +51,29 @@ expect("family accounts are not managed here", staffActionError(director, target
 expect("platform_owner is never a target", staffActionError(director, target("platform_owner"), "deactivate", ctx(1)), "notFound");
 expect("no password reset for a deactivated account",
   staffActionError(director, target("teacher", [], { deactivated: true }), "resetPassword", ctx(1)), "accountDeactivated");
+
+// --- roles/rules.ts ------------------------------------------------------------
+const { roleEditError, customRoleKey } = await import("../../src/lib/roles/rules.ts");
+
+const dirActor = { roleKey: "director", roleId: "r-dir", permissions: new Set(["users.view", "roles.manage"]) };
+const roleAdmin = { roleKey: "custom_admin", roleId: "r-admin", permissions: new Set(["users.view", "roles.manage"]) };
+const role = (key, extra = {}) => ({ id: `r-${key}`, key, isSystem: false, ...extra });
+const perms = (added = [], removed = []) => ({ kind: "permissions", added, removed });
+
+expect("director role permissions are locked (even for a director)",
+  roleEditError(dirActor, role("director", { id: "r-dir", isSystem: true }), perms(["audit.view"])), "directorLocked");
+expect("built-in role cannot be renamed", roleEditError(dirActor, role("teacher", { isSystem: true }), { kind: "rename" }), "systemRole");
+expect("built-in role cannot be deleted",
+  roleEditError(dirActor, role("teacher", { isSystem: true }), { kind: "delete", memberCount: 0 }), "systemRole");
+expect("built-in role permissions can change", roleEditError(dirActor, role("teacher", { isSystem: true }), perms(["users.view"])), null);
+expect("a role in use cannot be deleted", roleEditError(dirActor, role("custom_x"), { kind: "delete", memberCount: 2 }), "roleInUse");
+expect("an unused custom role can be deleted", roleEditError(dirActor, role("custom_x"), { kind: "delete", memberCount: 0 }), null);
+expect("platform_owner is never managed", roleEditError(dirActor, role("platform_owner", { isSystem: true }), perms()), "notFound");
+expect("family roles are not managed here", roleEditError(dirActor, role("parent", { isSystem: true }), perms()), "notFound");
+expect("non-director cannot change own role", roleEditError(roleAdmin, role("custom_admin", { id: "r-admin" }), perms(["users.view"])), "ownRole");
+expect("non-director cannot grant a permission not held", roleEditError(roleAdmin, role("custom_x"), perms(["audit.view"])), "permissionNotHeld");
+expect("non-director cannot remove a permission not held", roleEditError(roleAdmin, role("custom_x"), perms([], ["audit.view"])), "permissionNotHeld");
+expect("non-director grants a permission held", roleEditError(roleAdmin, role("custom_x"), perms(["users.view"])), null);
+expect("director grants any permission", roleEditError(dirActor, role("custom_x"), perms(["audit.view", "settings.manage"])), null);
+const key = customRoleKey();
+check("[P3 rule] custom role keys never collide with built-in keys", /^custom_[a-z]{10}$/.test(key), key);

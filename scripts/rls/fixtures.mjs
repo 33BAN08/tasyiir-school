@@ -65,6 +65,7 @@ export async function createFixtures() {
   for (const [key, name, permissions] of [
     ["office_manager", "Office manager", ["users.view", "users.manage"]],
     ["auditor", "Auditor", ["audit.view"]],
+    ["role_admin", "Role admin", ["users.view", "roles.manage"]],
   ]) {
     const role = must(
       await admin.from("roles").insert({ school_id: fx.schools.a.id, key, name }).select("id").single(),
@@ -85,6 +86,7 @@ export async function createFixtures() {
     ["mgrA", "a", "office_manager", false],
     ["audA", "a", "auditor", false],
     ["tchA", "a", "teacher", false],
+    ["radA", "a", "role_admin", false],
     ["pendA", "a", "director", true],
     ["dirB", "b", "director", false],
     ["dirC", "c", "director", false],

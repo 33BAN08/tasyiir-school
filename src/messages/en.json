@@ -69,7 +69,8 @@
     "dashboard": "Dashboard",
     "schools": "Schools",
     "plans": "Plans",
-    "staff": "Staff"
+    "staff": "Staff",
+    "roles": "Roles & permissions"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -466,6 +467,77 @@
       }
     }
   },
+  "staffRoles": {
+    "title": "Roles & permissions",
+    "description": "What each role can see and do in your school.",
+    "columns": {
+      "name": "Role",
+      "type": "Type",
+      "members": "Members",
+      "permissions": "Permissions"
+    },
+    "builtIn": "Built-in",
+    "custom": "Custom",
+    "memberCount": "{count, plural, =0 {No members} one {# member} other {# members}}",
+    "permissionCount": "{count, plural, =0 {No permissions} one {# permission} other {# permissions}}",
+    "count": "{count, plural, one {# role} other {# roles}}",
+    "back": "Roles & permissions",
+    "create": {
+      "button": "New role",
+      "title": "New role",
+      "description": "Create the role, then choose its permissions on its page.",
+      "name": "Role name",
+      "nameHint": "For example: Secretary, Librarian.",
+      "cancel": "Cancel",
+      "submit": "Create role",
+      "submitting": "Creating…",
+      "done": "Role “{name}” created."
+    },
+    "permissionsCard": {
+      "title": "Permissions",
+      "description": "Tick what this role can do. Modules added later will bring their own permissions.",
+      "core": "General",
+      "save": "Save permissions",
+      "saving": "Saving…",
+      "saved": "Permissions saved.",
+      "lockedHint": "Permissions with a lock can only be changed by a director."
+    },
+    "settings": {
+      "title": "Role settings",
+      "builtInDescription": "Built-in role: its name is fixed and it cannot be deleted. Its permissions can be adjusted (except for the director).",
+      "customDescription": "Role created by your school.",
+      "deleteHint": "Nobody has this role: you can delete it.",
+      "inUse": "This role is assigned to staff members. Change their role first to delete it."
+    },
+    "rename": {
+      "label": "Role name",
+      "save": "Rename",
+      "saving": "Saving…",
+      "done": "Role renamed."
+    },
+    "delete": {
+      "button": "Delete role",
+      "title": "Delete the role “{name}”?",
+      "description": "This cannot be undone. No account has this role.",
+      "cancel": "Cancel",
+      "confirm": "Delete",
+      "done": "Role “{name}” deleted."
+    },
+    "errors": {
+      "nameRequired": "Please enter a name (at least 2 characters).",
+      "tooLong": "This name is too long (60 characters max).",
+      "nameTaken": "A role with this name already exists.",
+      "invalidPermission": "Unknown permission.",
+      "notFound": "This role cannot be found.",
+      "directorLocked": "The director role is locked: it always keeps every permission.",
+      "systemRole": "A built-in role cannot be renamed or deleted.",
+      "roleInUse": "This role is still assigned to staff members.",
+      "ownRole": "You cannot change your own role.",
+      "permissionNotHeld": "You can only grant or remove permissions you hold yourself.",
+      "forbidden": "You are not allowed to do this.",
+      "generic": "An unexpected error occurred. Please try again."
+    }
+  },
   "common": {
     "copy": "Copy",
     "copyFailed": "Could not copy. Please select the text manually.",
@@ -481,5 +553,35 @@
     "massar": "Massar export",
     "fees": "Fees & payments",
     "transport": "Transport"
+  },
+  "permissions": {
+    "users": {
+      "view": {
+        "label": "View staff",
+        "description": "See the staff list and account pages."
+      },
+      "manage": {
+        "label": "Manage staff",
+        "description": "Create accounts, edit them, reset passwords, deactivate."
+      }
+    },
+    "roles": {
+      "manage": {
+        "label": "Manage roles",
+        "description": "Create roles and choose their permissions."
+      }
+    },
+    "settings": {
+      "manage": {
+        "label": "Manage settings",
+        "description": "Change the school's settings."
+      }
+    },
+    "audit": {
+      "view": {
+        "label": "View activity log",
+        "description": "See the history of actions taken in the school."
+      }
+    }
   }
 }

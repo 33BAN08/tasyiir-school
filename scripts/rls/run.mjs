@@ -7,6 +7,7 @@
 // then deletes everything it created. Exit code 1 if any check fails.
 import { staffActions } from "./actions-staff.mjs";
 import { staffMemberActions } from "./actions-staff-member.mjs";
+import { roleActions } from "./actions-roles.mjs";
 import { report } from "./checks.mjs";
 import { anon, createFixtures, removeFixtures, signIn } from "./fixtures.mjs";
 import { phase2 } from "./phase2.mjs";
@@ -33,6 +34,7 @@ try {
   await import("./rules.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });
+    await roleActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();
