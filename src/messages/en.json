@@ -61,7 +61,8 @@
     "backHome": "Back to home"
   },
   "nav": {
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "schools": "Schools"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -78,11 +79,66 @@
     "system": "System"
   },
   "dashboard": {
-    "platformTitle": "Platform dashboard",
     "schoolTitle": "Dashboard",
     "portalTitle": "Home",
     "driverTitle": "Home",
     "welcome": "Hello, {name}",
     "comingSoon": "Statistics and modules will appear here in the coming phases."
+  },
+  "pagination": {
+    "label": "Pagination",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {pageCount}"
+  },
+  "platform": {
+    "dashboard": {
+      "title": "Platform dashboard",
+      "welcome": "Hello, {name}",
+      "recentSchools": "Latest schools",
+      "viewAll": "View all",
+      "stats": {
+        "totalSchools": "Schools",
+        "activeSchools": "Active",
+        "suspendedSchools": "Suspended",
+        "trialSchools": "On trial",
+        "mrr": "Monthly revenue (MRR)",
+        "mrrHint": "Paid subscriptions of active schools"
+      }
+    },
+    "schools": {
+      "title": "Schools",
+      "description": "All client schools on the platform.",
+      "searchPlaceholder": "Name, identifier or city…",
+      "searchLabel": "Search schools",
+      "statusFilterLabel": "Filter by status",
+      "statusAll": "All statuses",
+      "loading": "Loading…",
+      "columns": {
+        "name": "School",
+        "city": "City",
+        "plan": "Plan",
+        "subscription": "Subscription",
+        "status": "Status",
+        "createdAt": "Created"
+      },
+      "noSubscription": "No subscription",
+      "emptyTitle": "No schools yet",
+      "emptyDescription": "Client schools will appear here as soon as they are created.",
+      "noResultsTitle": "No results",
+      "noResultsDescription": "No school matches your search or filters.",
+      "clearFilters": "Clear filters",
+      "count": "{count, plural, =0 {No schools} one {# school} other {# schools}}"
+    },
+    "schoolStatus": {
+      "active": "Active",
+      "suspended": "Suspended"
+    },
+    "subscriptionStatus": {
+      "trial": "Trial",
+      "active": "Active",
+      "suspended": "Suspended",
+      "expired": "Expired"
+    }
   }
 }

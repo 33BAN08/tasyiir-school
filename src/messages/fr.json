@@ -61,7 +61,8 @@
     "backHome": "Retour à l'accueil"
   },
   "nav": {
-    "dashboard": "Tableau de bord"
+    "dashboard": "Tableau de bord",
+    "schools": "Établissements"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -78,11 +79,66 @@
     "system": "Système"
   },
   "dashboard": {
-    "platformTitle": "Tableau de bord de la plateforme",
     "schoolTitle": "Tableau de bord",
     "portalTitle": "Accueil",
     "driverTitle": "Accueil",
     "welcome": "Bonjour, {name}",
     "comingSoon": "Les statistiques et les modules apparaîtront ici au fil des prochaines phases."
+  },
+  "pagination": {
+    "label": "Pagination",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "pageOf": "Page {page} sur {pageCount}"
+  },
+  "platform": {
+    "dashboard": {
+      "title": "Tableau de bord de la plateforme",
+      "welcome": "Bonjour, {name}",
+      "recentSchools": "Derniers établissements",
+      "viewAll": "Voir tout",
+      "stats": {
+        "totalSchools": "Établissements",
+        "activeSchools": "Actifs",
+        "suspendedSchools": "Suspendus",
+        "trialSchools": "En période d'essai",
+        "mrr": "Revenu mensuel (MRR)",
+        "mrrHint": "Abonnements payants des établissements actifs"
+      }
+    },
+    "schools": {
+      "title": "Établissements",
+      "description": "Tous les établissements clients de la plateforme.",
+      "searchPlaceholder": "Nom, identifiant ou ville…",
+      "searchLabel": "Rechercher un établissement",
+      "statusFilterLabel": "Filtrer par statut",
+      "statusAll": "Tous les statuts",
+      "loading": "Chargement…",
+      "columns": {
+        "name": "Établissement",
+        "city": "Ville",
+        "plan": "Formule",
+        "subscription": "Abonnement",
+        "status": "Statut",
+        "createdAt": "Créé le"
+      },
+      "noSubscription": "Aucun abonnement",
+      "emptyTitle": "Aucun établissement pour le moment",
+      "emptyDescription": "Les établissements clients apparaîtront ici dès leur création.",
+      "noResultsTitle": "Aucun résultat",
+      "noResultsDescription": "Aucun établissement ne correspond à votre recherche ou à vos filtres.",
+      "clearFilters": "Effacer les filtres",
+      "count": "{count, plural, =0 {Aucun établissement} one {# établissement} other {# établissements}}"
+    },
+    "schoolStatus": {
+      "active": "Actif",
+      "suspended": "Suspendu"
+    },
+    "subscriptionStatus": {
+      "trial": "Essai",
+      "active": "Actif",
+      "suspended": "Suspendu",
+      "expired": "Expiré"
+    }
   }
 }

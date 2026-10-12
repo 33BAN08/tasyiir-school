@@ -1,6 +1,6 @@
 "use client";
 
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, School } from "lucide-react";
 
 import {
   SidebarMenu,
@@ -14,6 +14,7 @@ import type { NavIcon } from "./nav-config";
 
 const ICONS: Record<NavIcon, typeof LayoutDashboard> = {
   dashboard: LayoutDashboard,
+  schools: School,
 };
 
 export type NavMenuItem = { href: string; label: string; icon: NavIcon };
@@ -21,12 +22,17 @@ export type NavMenuItem = { href: string; label: string; icon: NavIcon };
 export function NavMenu({ items }: { items: NavMenuItem[] }) {
   const pathname = usePathname();
   const { setOpenMobile } = useSidebar();
+  // Most specific match wins: on /platform/schools, "Schools" is active, not "/platform".
+  const activeHref = items
+    .map((item) => item.href)
+    .filter((href) => pathname === href || pathname.startsWith(`${href}/`))
+    .sort((a, b) => b.length - a.length)[0];
 
   return (
     <SidebarMenu>
       {items.map((item) => {
         const Icon = ICONS[item.icon];
-        const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
+        const isActive = item.href === activeHref;
         return (
           <SidebarMenuItem key={item.href}>
             <SidebarMenuButton asChild isActive={isActive} tooltip={item.label}>

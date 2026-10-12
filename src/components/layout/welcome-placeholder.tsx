@@ -7,7 +7,7 @@ import { requireArea } from "@/lib/auth/session";
 
 type Props = {
   area: Area;
-  titleKey: "platformTitle" | "schoolTitle" | "portalTitle" | "driverTitle";
+  titleKey: "schoolTitle" | "portalTitle" | "driverTitle";
 };
 
 // TEMP (Phase 1): area home placeholder until each area gets its real dashboard.

@@ -61,7 +61,8 @@
     "backHome": "العودة إلى الرئيسية"
   },
   "nav": {
-    "dashboard": "لوحة القيادة"
+    "dashboard": "لوحة القيادة",
+    "schools": "المؤسسات"
   },
   "shell": {
     "toggleSidebar": "إظهار القائمة الجانبية أو إخفاؤها",
@@ -78,11 +79,66 @@
     "system": "حسب الجهاز"
   },
   "dashboard": {
-    "platformTitle": "لوحة قيادة المنصة",
     "schoolTitle": "لوحة القيادة",
     "portalTitle": "الرئيسية",
     "driverTitle": "الرئيسية",
     "welcome": "مرحبًا، {name}",
     "comingSoon": "ستظهر هنا الإحصائيات والوحدات تباعًا خلال المراحل القادمة."
+  },
+  "pagination": {
+    "label": "التنقل بين الصفحات",
+    "previous": "السابق",
+    "next": "التالي",
+    "pageOf": "الصفحة {page} من {pageCount}"
+  },
+  "platform": {
+    "dashboard": {
+      "title": "لوحة تحكم المنصة",
+      "welcome": "مرحبًا، {name}",
+      "recentSchools": "أحدث المؤسسات",
+      "viewAll": "عرض الكل",
+      "stats": {
+        "totalSchools": "المؤسسات",
+        "activeSchools": "النشطة",
+        "suspendedSchools": "المعلّقة",
+        "trialSchools": "في الفترة التجريبية",
+        "mrr": "الإيراد الشهري (MRR)",
+        "mrrHint": "الاشتراكات المدفوعة للمؤسسات النشطة"
+      }
+    },
+    "schools": {
+      "title": "المؤسسات",
+      "description": "جميع المؤسسات المشتركة في المنصة.",
+      "searchPlaceholder": "الاسم أو المعرّف أو المدينة…",
+      "searchLabel": "البحث عن مؤسسة",
+      "statusFilterLabel": "التصفية حسب الحالة",
+      "statusAll": "جميع الحالات",
+      "loading": "جارٍ التحميل…",
+      "columns": {
+        "name": "المؤسسة",
+        "city": "المدينة",
+        "plan": "الباقة",
+        "subscription": "الاشتراك",
+        "status": "الحالة",
+        "createdAt": "تاريخ الإنشاء"
+      },
+      "noSubscription": "لا يوجد اشتراك",
+      "emptyTitle": "لا توجد مؤسسات بعد",
+      "emptyDescription": "ستظهر المؤسسات المشتركة هنا فور إنشائها.",
+      "noResultsTitle": "لا توجد نتائج",
+      "noResultsDescription": "لا توجد مؤسسة تطابق بحثك أو عوامل التصفية.",
+      "clearFilters": "مسح عوامل التصفية",
+      "count": "{count, plural, =0 {لا توجد مؤسسات} one {مؤسسة واحدة} two {مؤسستان} few {# مؤسسات} many {# مؤسسة} other {# مؤسسة}}"
+    },
+    "schoolStatus": {
+      "active": "نشطة",
+      "suspended": "معلّقة"
+    },
+    "subscriptionStatus": {
+      "trial": "تجريبي",
+      "active": "نشط",
+      "suspended": "معلّق",
+      "expired": "منتهٍ"
+    }
   }
 }
