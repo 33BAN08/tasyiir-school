@@ -544,7 +544,8 @@
     "description": "Academic years, levels, classes, subjects, rooms and time slots.",
     "tabs": {
       "label": "Structure sections",
-      "years": "Academic years"
+      "years": "Academic years",
+      "levels": "Levels"
     },
     "years": {
       "title": "Academic years",
@@ -605,7 +606,99 @@
       "yearTooLong": "A school year lasts less than a year.",
       "labelTaken": "A year with this name already exists.",
       "yearOverlap": "These dates overlap another academic year.",
-      "deleteCurrent": "The current year cannot be deleted. Make another year current first."
+      "deleteCurrent": "The current year cannot be deleted. Make another year current first.",
+      "nameRequired": "Enter a name.",
+      "cycleRequired": "Choose a cycle.",
+      "levelNameTaken": "A level with this name already exists.",
+      "trackNameTaken": "This level already has a track with this name."
+    },
+    "confirm": {
+      "cancel": "Cancel",
+      "delete": "Delete"
+    },
+    "levels": {
+      "title": "Levels and tracks",
+      "description": "The levels your school teaches, by cycle. Their short name is used to name classes (1AC → 1AC-A).",
+      "new": "New level",
+      "emptyTitle": "No levels",
+      "emptyDescription": "Start from the Moroccan template (preschool to high school, with tracks) and keep only what you teach, or create your levels one by one.",
+      "levelCount": "{count, plural, one {# level} other {# levels}}",
+      "actions": "Actions for {name}",
+      "edit": "Edit",
+      "manageTracks": "Manage tracks",
+      "moveUp": "Move up",
+      "moveDown": "Move down",
+      "delete": {
+        "button": "Delete",
+        "title": "Delete level {name}?",
+        "description": "{count, plural, =0 {This cannot be undone.} one {Its track will be deleted too. This cannot be undone.} other {Its # tracks will be deleted too. This cannot be undone.}}",
+        "done": "Level {name} deleted."
+      },
+      "cycles": {
+        "prescolaire": "Preschool",
+        "primaire": "Primary",
+        "college": "Middle school",
+        "lycee": "High school",
+        "other": "Other"
+      },
+      "form": {
+        "createTitle": "New level",
+        "editTitle": "Edit level",
+        "description": "The short name appears in class names.",
+        "name": "Short name",
+        "nameHint": "For example 1AC, CE2 or 2Bac.",
+        "cycle": "Cycle",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…",
+        "created": "Level {name} created.",
+        "updated": "Level {name} saved."
+      },
+      "tracks": {
+        "title": "Tracks of {level}",
+        "description": "Each class of this level can pick one of these tracks.",
+        "empty": "This level has no track yet.",
+        "addLabel": "New track",
+        "addPlaceholder": "For example Experimental sciences",
+        "add": "Add",
+        "close": "Close",
+        "nameOf": "Name of track {name}",
+        "save": "Save name",
+        "renamed": "Track {name} saved.",
+        "delete": "Delete track {name}",
+        "confirmDelete": "Confirm",
+        "deleted": "Track {name} deleted.",
+        "added": "Track {name} added."
+      },
+      "template": {
+        "button": "Moroccan template",
+        "title": "Moroccan levels template",
+        "description": "Everything is ticked: untick what your school does not teach. You can change everything afterwards.",
+        "exists": "already created",
+        "summary": "{count, plural, =0 {Nothing to create} one {# item will be created} other {# items will be created}}",
+        "cancel": "Cancel",
+        "apply": "Create selection",
+        "applying": "Creating…",
+        "done": "{levels, plural, =0 {No level} one {# level} other {# levels}} and {tracks, plural, =0 {no track} one {# track} other {# tracks}} created.",
+        "tracks": {
+          "tcSciences": "Sciences",
+          "tcLettres": "Arts and humanities",
+          "tcTechno": "Technology",
+          "bac1Sex": "Experimental sciences",
+          "bac1Sm": "Mathematical sciences",
+          "bac1Lettres": "Arts and humanities",
+          "bac1Eco": "Economics and management",
+          "bac2Pc": "Physical sciences",
+          "bac2Svt": "Life and earth sciences",
+          "bac2SmA": "Mathematical sciences A",
+          "bac2SmB": "Mathematical sciences B",
+          "bac2Lettres": "Arts",
+          "bac2Sh": "Humanities",
+          "bac2Eco": "Economics",
+          "bac2Gestion": "Accounting management"
+        }
+      },
+      "tracksOf": "Tracks of {name}"
     }
   },
   "common": {

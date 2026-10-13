@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { CYCLES } from "@/lib/structure/level-template";
+
 // School structure forms (Phase 4). Error messages are next-intl keys under
 // `setup.errors`.
 
@@ -23,6 +25,25 @@ export const academicYearSchema = z
     }
   });
 export type AcademicYearFormValues = z.input<typeof academicYearSchema>;
+
+export const levelSchema = z.object({
+  name: z.string().trim().min(1, { error: "nameRequired" }).max(30, { error: "tooLong" }),
+  cycle: z.enum(CYCLES, { error: "cycleRequired" }),
+});
+export type LevelFormValues = z.input<typeof levelSchema>;
+
+export const trackSchema = z.object({
+  name: z.string().trim().min(1, { error: "nameRequired" }).max(60, { error: "tooLong" }),
+});
+export type TrackFormValues = z.input<typeof trackSchema>;
+
+/** What the director kept from the Moroccan template: level names + track keys. */
+export const templateSelectionSchema = z.object({
+  levels: z.array(z.string()).max(50, { error: "generic" }),
+  tracks: z.array(z.string()).max(100, { error: "generic" }),
+});
+
+export const moveDirectionSchema = z.enum(["up", "down"]);
 
 /**
  * Moroccan school year starting in September of `startYear`:

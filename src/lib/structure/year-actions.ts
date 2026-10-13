@@ -1,9 +1,7 @@
 "use server";
 
-import type { z } from "zod";
-
-import { logAudit } from "@/lib/audit";
 import { getSchoolActor, type SchoolActor } from "@/lib/auth/school-actor";
+import { auditStructure, parseInput, type StructureActionResult } from "@/lib/structure/action-utils";
 import { dbErrorKey } from "@/lib/structure/db-errors";
 import { createClient } from "@/lib/supabase/server";
 import { academicYearSchema, structureIdSchema, type AcademicYearFormValues } from "@/lib/validations/structure";
@@ -11,10 +9,6 @@ import { academicYearSchema, structureIdSchema, type AcademicYearFormValues } fr
 // Academic years (structure.manage). Writes go through RLS with the caller's
 // own session (CLAUDE.md: school data is never written with the secret key):
 // caller check → validation → write → audit log. Error keys: `setup.errors`.
-
-export type StructureActionResult<T, F extends string = never> =
-  | { ok: true; data: T }
-  | { ok: false; error: string; field?: F };
 
 type YearField = keyof AcademicYearFormValues;
 
@@ -31,16 +25,11 @@ function failure(key: string): { ok: false; error: string; field?: YearField } {
 }
 
 function audit(actor: SchoolActor, action: string, yearId: string, data: Record<string, string | boolean>) {
-  return logAudit({ actorId: actor.id, schoolId: actor.schoolId, action, entity: "academic_year", entityId: yearId, data });
+  return auditStructure(actor, action, "academic_year", yearId, data);
 }
 
-function parse(
-  input: unknown,
-): { values: z.output<typeof academicYearSchema> } | { error: string; field?: YearField } {
-  const parsed = academicYearSchema.safeParse(input);
-  if (parsed.success) return { values: parsed.data };
-  const issue = parsed.error.issues[0];
-  return { error: issue?.message ?? "generic", field: issue?.path[0] as YearField | undefined };
+function parse(input: unknown) {
+  return parseInput<typeof academicYearSchema, YearField>(academicYearSchema, input);
 }
 
 /** New year. The school's first year becomes the current one. */

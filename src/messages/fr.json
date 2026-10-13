@@ -544,7 +544,8 @@
     "description": "Années scolaires, niveaux, classes, matières, salles et horaires.",
     "tabs": {
       "label": "Sections de la structure",
-      "years": "Années scolaires"
+      "years": "Années scolaires",
+      "levels": "Niveaux"
     },
     "years": {
       "title": "Années scolaires",
@@ -605,7 +606,99 @@
       "yearTooLong": "Une année scolaire dure moins d'un an.",
       "labelTaken": "Une année porte déjà ce nom.",
       "yearOverlap": "Ces dates chevauchent une autre année scolaire.",
-      "deleteCurrent": "L'année en cours ne peut pas être supprimée. Définissez d'abord une autre année en cours."
+      "deleteCurrent": "L'année en cours ne peut pas être supprimée. Définissez d'abord une autre année en cours.",
+      "nameRequired": "Indiquez un nom.",
+      "cycleRequired": "Choisissez un cycle.",
+      "levelNameTaken": "Un niveau porte déjà ce nom.",
+      "trackNameTaken": "Ce niveau a déjà une filière avec ce nom."
+    },
+    "confirm": {
+      "cancel": "Annuler",
+      "delete": "Supprimer"
+    },
+    "levels": {
+      "title": "Niveaux et filières",
+      "description": "Les niveaux enseignés dans l'établissement, par cycle. Leur nom court sert à nommer les classes (1AC → 1AC-A).",
+      "new": "Nouveau niveau",
+      "emptyTitle": "Aucun niveau",
+      "emptyDescription": "Partez du modèle marocain (du Préscolaire au Lycée, avec les filières) et gardez seulement ce que vous enseignez, ou créez vos niveaux un par un.",
+      "levelCount": "{count, plural, one {# niveau} other {# niveaux}}",
+      "actions": "Actions pour {name}",
+      "edit": "Modifier",
+      "manageTracks": "Gérer les filières",
+      "moveUp": "Monter",
+      "moveDown": "Descendre",
+      "delete": {
+        "button": "Supprimer",
+        "title": "Supprimer le niveau {name} ?",
+        "description": "{count, plural, =0 {Cette action est définitive.} one {Sa filière sera aussi supprimée. Cette action est définitive.} other {Ses # filières seront aussi supprimées. Cette action est définitive.}}",
+        "done": "Niveau {name} supprimé."
+      },
+      "cycles": {
+        "prescolaire": "Préscolaire",
+        "primaire": "Primaire",
+        "college": "Collège",
+        "lycee": "Lycée",
+        "other": "Autre"
+      },
+      "form": {
+        "createTitle": "Nouveau niveau",
+        "editTitle": "Modifier le niveau",
+        "description": "Le nom court apparaît dans le nom des classes.",
+        "name": "Nom court",
+        "nameHint": "Par exemple 1AC, CE2 ou 2Bac.",
+        "cycle": "Cycle",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "created": "Niveau {name} créé.",
+        "updated": "Niveau {name} enregistré."
+      },
+      "tracks": {
+        "title": "Filières de {level}",
+        "description": "Une classe de ce niveau pourra choisir une de ces filières.",
+        "empty": "Ce niveau n'a pas encore de filière.",
+        "addLabel": "Nouvelle filière",
+        "addPlaceholder": "Par exemple Sciences expérimentales",
+        "add": "Ajouter",
+        "close": "Fermer",
+        "nameOf": "Nom de la filière {name}",
+        "save": "Enregistrer le nom",
+        "renamed": "Filière {name} enregistrée.",
+        "delete": "Supprimer la filière {name}",
+        "confirmDelete": "Confirmer",
+        "deleted": "Filière {name} supprimée.",
+        "added": "Filière {name} ajoutée."
+      },
+      "template": {
+        "button": "Modèle marocain",
+        "title": "Modèle marocain des niveaux",
+        "description": "Tout est coché : décochez ce que votre établissement n'enseigne pas. Vous pourrez tout modifier ensuite.",
+        "exists": "déjà créé",
+        "summary": "{count, plural, =0 {Rien à créer} one {# élément sera créé} other {# éléments seront créés}}",
+        "cancel": "Annuler",
+        "apply": "Créer la sélection",
+        "applying": "Création…",
+        "done": "{levels, plural, =0 {Aucun niveau} one {# niveau} other {# niveaux}} et {tracks, plural, =0 {aucune filière} one {# filière} other {# filières}} créés.",
+        "tracks": {
+          "tcSciences": "Sciences",
+          "tcLettres": "Lettres et sciences humaines",
+          "tcTechno": "Technologique",
+          "bac1Sex": "Sciences expérimentales",
+          "bac1Sm": "Sciences mathématiques",
+          "bac1Lettres": "Lettres et sciences humaines",
+          "bac1Eco": "Sciences économiques et gestion",
+          "bac2Pc": "Sciences physiques",
+          "bac2Svt": "Sciences de la vie et de la terre",
+          "bac2SmA": "Sciences mathématiques A",
+          "bac2SmB": "Sciences mathématiques B",
+          "bac2Lettres": "Lettres",
+          "bac2Sh": "Sciences humaines",
+          "bac2Eco": "Sciences économiques",
+          "bac2Gestion": "Sciences de gestion comptable"
+        }
+      },
+      "tracksOf": "Filières de {name}"
     }
   },
   "common": {

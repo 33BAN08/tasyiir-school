@@ -8,7 +8,10 @@ import { Link, usePathname } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
 
 /** Sections of the school structure. Each Phase 4 step adds its tab here. */
-const TABS = [{ key: "years", href: "/setup/years" }] as const;
+const TABS = [
+  { key: "years", href: "/setup/years" },
+  { key: "levels", href: "/setup/levels" },
+] as const;
 
 /** usePathname() is request-time data, so the tabs bring their own Suspense boundary. */
 export function SetupTabs() {
