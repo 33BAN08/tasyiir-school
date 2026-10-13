@@ -12,6 +12,7 @@ import { report } from "./checks.mjs";
 import { anon, createFixtures, removeFixtures, signIn } from "./fixtures.mjs";
 import { phase2 } from "./phase2.mjs";
 import { phase3 } from "./phase3.mjs";
+import { phase3Guards } from "./phase3-guards.mjs";
 
 const withActions = process.argv.includes("--actions");
 const baseUrl = process.env.TEST_APP_URL ?? "http://localhost:3000";
@@ -25,12 +26,13 @@ try {
   }
   fx = await createFixtures();
   const as = { anon: anon() };
-  for (const name of ["dirA", "survA", "deactA", "dirB", "dirC", "owner"]) {
+  for (const name of ["dirA", "survA", "deactA", "radA", "dirB", "dirC", "owner"]) {
     as[name] = await signIn(fx.users[name]);
   }
 
   await phase2({ fx, as });
   await phase3({ fx, as });
+  await phase3Guards({ fx, as });
   await import("./rules.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });

@@ -24,6 +24,11 @@ const BAN_DURATION = "87600h";
 
 type Authorized = { actor: StaffManager; target: LoadedStaffTarget };
 
+/** The database also keeps one active director per school (trigger); a concurrent change can still hit it. */
+function writeError(error: { hint?: string | null }) {
+  return error.hint === "last_active_director" ? "lastDirector" : "generic";
+}
+
 async function authorize(
   staffId: unknown,
   action: StaffAction,
@@ -112,7 +117,7 @@ export async function changeStaffRole(staffId: unknown, input: unknown): Promise
     .update({ role_id: role.id })
     .eq("id", auth.target.id)
     .eq("school_id", actor.schoolId);
-  if (error) return { ok: false, error: "generic" };
+  if (error) return { ok: false, error: writeError(error) };
 
   await audit(auth, "staff.role_change", { from_role: auth.target.roleKey, to_role: role.key });
   return { ok: true, data: null };
@@ -168,7 +173,8 @@ export async function setStaffActive(staffId: unknown, active: unknown): Promise
     admin.auth.admin.updateUserById(auth.target.id, { ban_duration: banned ? BAN_DURATION : "none" });
 
   if (!wanted.data) {
-    if ((await setFlag(new Date().toISOString())).error) return { ok: false, error: "generic" };
+    const { error } = await setFlag(new Date().toISOString());
+    if (error) return { ok: false, error: writeError(error) };
     if ((await setBan(true)).error) {
       await setFlag(null);
       return { ok: false, error: "generic" };
