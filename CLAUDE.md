@@ -8,7 +8,7 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 - **Always read both before starting a phase.** Work on ONE phase at a time. Don't build ahead.
 
 ## Current phase
-> **Phase 3 — Staff management (director)** (update this line when a phase is finished). Phases 0–2 done — live at https://tasyiir-school.vercel.app
+> **Phase 4 — School structure** (update this line when a phase is finished). Phases 0–3 done — live at https://tasyiir-school.vercel.app
 
 ## Tech stack (do not change without asking)
 - Next.js (latest, App Router) + TypeScript (strict)
