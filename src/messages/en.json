@@ -70,7 +70,8 @@
     "schools": "Schools",
     "plans": "Plans",
     "staff": "Staff",
-    "roles": "Roles & permissions"
+    "roles": "Roles & permissions",
+    "setup": "Structure"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -538,6 +539,75 @@
       "generic": "An unexpected error occurred. Please try again."
     }
   },
+  "setup": {
+    "title": "School structure",
+    "description": "Academic years, levels, classes, subjects, rooms and time slots.",
+    "tabs": {
+      "label": "Structure sections",
+      "years": "Academic years"
+    },
+    "years": {
+      "title": "Academic years",
+      "description": "The current year is used by default for classes, the timetable and grades.",
+      "new": "New year",
+      "count": "{count, plural, one {# academic year} other {# academic years}}",
+      "emptyTitle": "No academic year",
+      "emptyDescription": "Create the current year to be able to add classes. It runs from September to June.",
+      "columns": {
+        "label": "Year",
+        "startDate": "Start",
+        "endDate": "End",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "current": "Current",
+        "upcoming": "Upcoming",
+        "past": "Ended",
+        "inactive": "Not active"
+      },
+      "actions": "Actions for {label}",
+      "edit": "Edit",
+      "makeCurrent": "Make current year",
+      "madeCurrent": "{label} is now the current year.",
+      "form": {
+        "createTitle": "New academic year",
+        "editTitle": "Edit academic year",
+        "description": "A school year usually runs from 1 September to 30 June.",
+        "label": "Name",
+        "labelHint": "For example 2026-2027.",
+        "startDate": "First day",
+        "endDate": "Last day",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…",
+        "created": "Year {label} created.",
+        "updated": "Year {label} saved."
+      },
+      "delete": {
+        "button": "Delete",
+        "title": "Delete year {label}?",
+        "description": "This cannot be undone. A year that already has classes cannot be deleted.",
+        "cancel": "Cancel",
+        "confirm": "Delete",
+        "done": "Year {label} deleted."
+      }
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "forbidden": "You are not allowed to change the school structure.",
+      "notFound": "Not found. It may have been deleted.",
+      "inUse": "This item is still in use and cannot be deleted.",
+      "labelRequired": "Enter a name.",
+      "tooLong": "This text is too long.",
+      "invalidDate": "Invalid date.",
+      "endBeforeStart": "The last day must be after the first day.",
+      "yearTooLong": "A school year lasts less than a year.",
+      "labelTaken": "A year with this name already exists.",
+      "yearOverlap": "These dates overlap another academic year.",
+      "deleteCurrent": "The current year cannot be deleted. Make another year current first."
+    }
+  },
   "common": {
     "copy": "Copy",
     "copyFailed": "Could not copy. Please select the text manually.",
@@ -581,6 +651,12 @@
       "view": {
         "label": "View activity log",
         "description": "See the history of actions taken in the school."
+      }
+    },
+    "structure": {
+      "manage": {
+        "label": "Manage school structure",
+        "description": "Academic years, levels, classes, subjects, rooms and time slots."
       }
     }
   }

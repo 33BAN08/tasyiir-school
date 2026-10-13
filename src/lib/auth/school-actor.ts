@@ -6,8 +6,10 @@ import { blockedPath, getCurrentUser, getPermissions, type CurrentUser } from "@
 export type SchoolActor = CurrentUser & { schoolId: string; permissions: ReadonlySet<string> };
 
 /**
- * For school Server Actions that write with the secret key (RLS bypassed):
- * this check IS the access control. Null unless the caller is an active,
+ * Caller check for school Server Actions. With the secret key (auth accounts,
+ * Phase 3) this check IS the access control; with the session client (school
+ * data, Phase 4 on) RLS is the final fence and this gives clear errors first.
+ * Null unless the caller is an active,
  * signed-in school user (own password set, school active, not deactivated)
  * whose role has `permission`. Every write must then stay in `schoolId`.
  */

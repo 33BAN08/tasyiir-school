@@ -70,7 +70,8 @@
     "schools": "Établissements",
     "plans": "Formules",
     "staff": "Personnel",
-    "roles": "Rôles et permissions"
+    "roles": "Rôles et permissions",
+    "setup": "Structure"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -538,6 +539,75 @@
       "generic": "Une erreur inattendue s'est produite. Veuillez réessayer."
     }
   },
+  "setup": {
+    "title": "Structure de l'établissement",
+    "description": "Années scolaires, niveaux, classes, matières, salles et horaires.",
+    "tabs": {
+      "label": "Sections de la structure",
+      "years": "Années scolaires"
+    },
+    "years": {
+      "title": "Années scolaires",
+      "description": "L'année en cours sert par défaut aux classes, à l'emploi du temps et aux notes.",
+      "new": "Nouvelle année",
+      "count": "{count, plural, one {# année scolaire} other {# années scolaires}}",
+      "emptyTitle": "Aucune année scolaire",
+      "emptyDescription": "Créez l'année en cours pour pouvoir ajouter des classes. Elle va de septembre à juin.",
+      "columns": {
+        "label": "Année",
+        "startDate": "Début",
+        "endDate": "Fin",
+        "status": "Statut",
+        "actions": "Actions"
+      },
+      "status": {
+        "current": "En cours",
+        "upcoming": "À venir",
+        "past": "Terminée",
+        "inactive": "Non active"
+      },
+      "actions": "Actions pour {label}",
+      "edit": "Modifier",
+      "makeCurrent": "Définir comme année en cours",
+      "madeCurrent": "{label} est maintenant l'année en cours.",
+      "form": {
+        "createTitle": "Nouvelle année scolaire",
+        "editTitle": "Modifier l'année scolaire",
+        "description": "Une année scolaire va en général du 1er septembre au 30 juin.",
+        "label": "Nom",
+        "labelHint": "Par exemple 2026-2027.",
+        "startDate": "Premier jour",
+        "endDate": "Dernier jour",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "created": "Année {label} créée.",
+        "updated": "Année {label} enregistrée."
+      },
+      "delete": {
+        "button": "Supprimer",
+        "title": "Supprimer l'année {label} ?",
+        "description": "Cette action est définitive. Une année qui a déjà des classes ne peut pas être supprimée.",
+        "cancel": "Annuler",
+        "confirm": "Supprimer",
+        "done": "Année {label} supprimée."
+      }
+    },
+    "errors": {
+      "generic": "Une erreur est survenue. Veuillez réessayer.",
+      "forbidden": "Vous n'avez pas la permission de modifier la structure.",
+      "notFound": "Élément introuvable. Il a peut-être été supprimé.",
+      "inUse": "Cet élément est encore utilisé et ne peut pas être supprimé.",
+      "labelRequired": "Indiquez un nom.",
+      "tooLong": "Ce texte est trop long.",
+      "invalidDate": "Date invalide.",
+      "endBeforeStart": "Le dernier jour doit être après le premier.",
+      "yearTooLong": "Une année scolaire dure moins d'un an.",
+      "labelTaken": "Une année porte déjà ce nom.",
+      "yearOverlap": "Ces dates chevauchent une autre année scolaire.",
+      "deleteCurrent": "L'année en cours ne peut pas être supprimée. Définissez d'abord une autre année en cours."
+    }
+  },
   "common": {
     "copy": "Copier",
     "copyFailed": "Impossible de copier. Veuillez sélectionner le texte manuellement.",
@@ -581,6 +651,12 @@
       "view": {
         "label": "Voir le journal d'activité",
         "description": "Consulter l'historique des actions effectuées dans l'établissement."
+      }
+    },
+    "structure": {
+      "manage": {
+        "label": "Gérer la structure",
+        "description": "Années scolaires, niveaux, classes, matières, salles et horaires."
       }
     }
   }

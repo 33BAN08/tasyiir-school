@@ -70,7 +70,7 @@ export async function getRole(schoolId: string, id: string): Promise<RoleOvervie
 export type PermissionGroup = { moduleKey: string | null; permissions: string[] };
 
 /** Display order of permission keys: known areas first, and "view" before other actions. */
-const AREA_ORDER = ["users", "roles", "settings", "audit"];
+const AREA_ORDER = ["users", "roles", "structure", "settings", "audit"];
 
 function comparePermissions(a: string, b: string): number {
   const [areaA = "", actionA = ""] = a.split(".");

@@ -26,6 +26,7 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 - **Every tenant table has `school_id`** and **RLS enabled** with policies. No exceptions.
 - Never run destructive SQL (DROP, TRUNCATE, DELETE without WHERE) without asking first.
 - Service role / secret key is used **only on the server** (Server Actions, Route Handlers, Edge Functions). Never import it in client components.
+- **School data tables (Phase 4 onward) are never written with the secret key.** Server Actions use the logged-in user's session client; the table grants INSERT/UPDATE/DELETE to `authenticated` and RLS policies allow them only when `school_id = current_school_id()` AND `has_permission('<feature>.manage')` (UPDATE: same condition in USING and WITH CHECK). The secret key is only for auth accounts, platform-owner actions and audit logs.
 
 ## Secrets
 - Secrets live in `.env.local` (git-ignored). Keep `.env.example` updated with variable NAMES only.
