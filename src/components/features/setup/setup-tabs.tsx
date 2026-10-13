@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 const TABS = [
   { key: "years", href: "/setup/years" },
   { key: "levels", href: "/setup/levels" },
+  { key: "classes", href: "/setup/classes" },
 ] as const;
 
 /** usePathname() is request-time data, so the tabs bring their own Suspense boundary. */

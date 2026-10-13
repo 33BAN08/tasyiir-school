@@ -545,7 +545,8 @@
     "tabs": {
       "label": "Sections de la structure",
       "years": "Années scolaires",
-      "levels": "Niveaux"
+      "levels": "Niveaux",
+      "classes": "Classes"
     },
     "years": {
       "title": "Années scolaires",
@@ -610,7 +611,15 @@
       "nameRequired": "Indiquez un nom.",
       "cycleRequired": "Choisissez un cycle.",
       "levelNameTaken": "Un niveau porte déjà ce nom.",
-      "trackNameTaken": "Ce niveau a déjà une filière avec ce nom."
+      "trackNameTaken": "Ce niveau a déjà une filière avec ce nom.",
+      "levelRequired": "Choisissez un niveau.",
+      "invalidTrack": "Choisissez une filière de ce niveau.",
+      "classNameTaken": "Cette année a déjà une classe avec ce nom.",
+      "countRange": "Choisissez entre 1 et 12 classes.",
+      "tooManyClasses": "Pas assez de lettres libres (A à Z) pour autant de classes. Utilisez un autre préfixe ou moins de classes.",
+      "yearHasClasses": "Cette année a encore des classes. Supprimez-les d'abord.",
+      "levelHasClasses": "Ce niveau a encore des classes. Supprimez-les d'abord.",
+      "trackHasClasses": "Des classes utilisent encore cette filière. Modifiez-les ou supprimez-les d'abord."
     },
     "confirm": {
       "cancel": "Annuler",
@@ -699,6 +708,67 @@
         }
       },
       "tracksOf": "Filières de {name}"
+    },
+    "classes": {
+      "title": "Classes",
+      "description": "Les classes de chaque année scolaire, par niveau.",
+      "year": "Année",
+      "currentYear": "{label} (en cours)",
+      "new": "Nouvelle classe",
+      "newMany": "Créer plusieurs classes",
+      "emptyTitle": "Aucune classe en {year}",
+      "emptyDescription": "Créez les classes de cette année, par exemple 1AC-A à 1AC-D en une fois.",
+      "count": "{count, plural, one {# classe} other {# classes}} en {year}",
+      "classCount": "{count, plural, one {# classe} other {# classes}}",
+      "actions": "Actions pour {name}",
+      "edit": "Modifier",
+      "missing": {
+        "years": {
+          "title": "Aucune année scolaire",
+          "description": "Les classes appartiennent à une année scolaire. Créez-en une d'abord.",
+          "action": "Aller aux années scolaires"
+        },
+        "levels": {
+          "title": "Aucun niveau",
+          "description": "Chaque classe appartient à un niveau. Créez d'abord les niveaux de l'établissement.",
+          "action": "Aller aux niveaux"
+        }
+      },
+      "delete": {
+        "button": "Supprimer",
+        "title": "Supprimer la classe {name} ?",
+        "description": "Cette action est définitive.",
+        "done": "Classe {name} supprimée."
+      },
+      "form": {
+        "createTitle": "Nouvelle classe",
+        "editTitle": "Modifier la classe",
+        "description": "Une classe appartient à un niveau, et à une filière si le niveau en a.",
+        "level": "Niveau",
+        "levelPlaceholder": "Choisissez un niveau",
+        "track": "Filière",
+        "noTrack": "Sans filière",
+        "trackHint": "Facultatif, par exemple pour le tronc commun.",
+        "name": "Nom",
+        "nameHint": "Par exemple 1AC-A. Unique dans l'année.",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "created": "Classe {name} créée.",
+        "updated": "Classe {name} enregistrée."
+      },
+      "batch": {
+        "title": "Créer plusieurs classes",
+        "description": "Des classes d'un même niveau, nommées par un préfixe et une lettre. Les lettres déjà utilisées cette année sont sautées.",
+        "prefix": "Préfixe",
+        "prefixHint": "Le nom du niveau par défaut.",
+        "count": "Nombre",
+        "preview": "Classes à créer",
+        "cancel": "Annuler",
+        "saving": "Création…",
+        "submit": "{count, plural, one {Créer # classe} other {Créer # classes}}",
+        "created": "{count, plural, one {Classe {names} créée.} other {# classes créées : {names}.}}"
+      }
     }
   },
   "common": {

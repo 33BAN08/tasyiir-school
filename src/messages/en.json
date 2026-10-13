@@ -545,7 +545,8 @@
     "tabs": {
       "label": "Structure sections",
       "years": "Academic years",
-      "levels": "Levels"
+      "levels": "Levels",
+      "classes": "Classes"
     },
     "years": {
       "title": "Academic years",
@@ -610,7 +611,15 @@
       "nameRequired": "Enter a name.",
       "cycleRequired": "Choose a cycle.",
       "levelNameTaken": "A level with this name already exists.",
-      "trackNameTaken": "This level already has a track with this name."
+      "trackNameTaken": "This level already has a track with this name.",
+      "levelRequired": "Choose a level.",
+      "invalidTrack": "Choose a track of this level.",
+      "classNameTaken": "This year already has a class with this name.",
+      "countRange": "Choose between 1 and 12 classes.",
+      "tooManyClasses": "Not enough free letters (A to Z) for this many classes. Use another prefix or fewer classes.",
+      "yearHasClasses": "This year still has classes. Delete them first.",
+      "levelHasClasses": "This level still has classes. Delete them first.",
+      "trackHasClasses": "Some classes still use this track. Change or delete them first."
     },
     "confirm": {
       "cancel": "Cancel",
@@ -699,6 +708,67 @@
         }
       },
       "tracksOf": "Tracks of {name}"
+    },
+    "classes": {
+      "title": "Classes",
+      "description": "The classes of each academic year, by level.",
+      "year": "Year",
+      "currentYear": "{label} (current)",
+      "new": "New class",
+      "newMany": "Create several classes",
+      "emptyTitle": "No classes in {year}",
+      "emptyDescription": "Create the classes of this year, for example 1AC-A to 1AC-D in one go.",
+      "count": "{count, plural, one {# class} other {# classes}} in {year}",
+      "classCount": "{count, plural, one {# class} other {# classes}}",
+      "actions": "Actions for {name}",
+      "edit": "Edit",
+      "missing": {
+        "years": {
+          "title": "No academic year yet",
+          "description": "Classes belong to an academic year. Create one first.",
+          "action": "Go to academic years"
+        },
+        "levels": {
+          "title": "No levels yet",
+          "description": "Each class belongs to a level. Create the school's levels first.",
+          "action": "Go to levels"
+        }
+      },
+      "delete": {
+        "button": "Delete",
+        "title": "Delete class {name}?",
+        "description": "This cannot be undone.",
+        "done": "Class {name} deleted."
+      },
+      "form": {
+        "createTitle": "New class",
+        "editTitle": "Edit class",
+        "description": "A class belongs to one level, and to a track if the level has some.",
+        "level": "Level",
+        "levelPlaceholder": "Choose a level",
+        "track": "Track",
+        "noTrack": "No track",
+        "trackHint": "Optional, for example for Tronc commun.",
+        "name": "Name",
+        "nameHint": "For example 1AC-A. Unique within the year.",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…",
+        "created": "Class {name} created.",
+        "updated": "Class {name} saved."
+      },
+      "batch": {
+        "title": "Create several classes",
+        "description": "Classes of one level, named with a prefix and a letter. Letters already used this year are skipped.",
+        "prefix": "Prefix",
+        "prefixHint": "The level's name by default.",
+        "count": "Number",
+        "preview": "Classes to create",
+        "cancel": "Cancel",
+        "saving": "Creating…",
+        "submit": "{count, plural, one {Create # class} other {Create # classes}}",
+        "created": "{count, plural, one {Class {names} created.} other {# classes created: {names}.}}"
+      }
     }
   },
   "common": {

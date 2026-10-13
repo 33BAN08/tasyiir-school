@@ -96,6 +96,68 @@ export type Database = {
           },
         ]
       }
+      classes: {
+        Row: {
+          academic_year_id: string
+          created_at: string
+          id: string
+          level_id: string
+          name: string
+          school_id: string
+          track_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          academic_year_id: string
+          created_at?: string
+          id?: string
+          level_id: string
+          name: string
+          school_id: string
+          track_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          academic_year_id?: string
+          created_at?: string
+          id?: string
+          level_id?: string
+          name?: string
+          school_id?: string
+          track_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "classes_academic_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "classes_level_fkey"
+            columns: ["level_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "levels"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "classes_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "classes_track_fkey"
+            columns: ["track_id", "level_id"]
+            isOneToOne: false
+            referencedRelation: "tracks"
+            referencedColumns: ["id", "level_id"]
+          },
+        ]
+      }
       levels: {
         Row: {
           created_at: string

@@ -132,7 +132,7 @@ export async function deleteAcademicYear(yearId: unknown): Promise<StructureActi
     .eq("school_id", actor.schoolId)
     .eq("is_current", false)
     .select("id");
-  if (error) return { ok: false, error: dbErrorKey(error) };
+  if (error) return { ok: false, error: dbErrorKey(error, { classes_academic_year_fkey: "yearHasClasses" }) };
   if (data.length === 0) return { ok: false, error: "notFound" };
 
   await audit(actor, "academic_year.delete", id.data, { label: year.label });

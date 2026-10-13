@@ -17,6 +17,8 @@ import {
 type LevelField = keyof LevelFormValues;
 
 const LEVEL_CONSTRAINTS = { levels_name_key: "levelNameTaken" };
+// Its filières are deleted with it, so a class of one of them blocks it too.
+const LEVEL_IN_USE = { classes_level_fkey: "levelHasClasses", classes_track_fkey: "levelHasClasses" };
 
 function failure(key: string): { ok: false; error: string; field?: LevelField } {
   return { ok: false, error: key, field: key === "levelNameTaken" ? "name" : undefined };
@@ -142,7 +144,7 @@ export async function deleteLevel(levelId: unknown): Promise<StructureActionResu
     .eq("id", id.data)
     .eq("school_id", actor.schoolId)
     .select("name");
-  if (error) return { ok: false, error: dbErrorKey(error) };
+  if (error) return { ok: false, error: dbErrorKey(error, LEVEL_IN_USE) };
   if (data.length === 0) return { ok: false, error: "notFound" };
 
   await auditStructure(actor, "level.delete", "level", id.data, { name: data[0].name });

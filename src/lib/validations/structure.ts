@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { MAX_BATCH_CLASSES } from "@/lib/structure/class-names";
 import { CYCLES } from "@/lib/structure/level-template";
 
 // School structure forms (Phase 4). Error messages are next-intl keys under
@@ -44,6 +45,31 @@ export const templateSelectionSchema = z.object({
 });
 
 export const moveDirectionSchema = z.enum(["up", "down"]);
+
+const classLevel = z.uuid({ error: "levelRequired" });
+/** "" = no filière (a Select cannot hold null). */
+const classTrack = z.union([z.literal(""), z.uuid()], { error: "invalidTrack" });
+
+export const classSchema = z.object({
+  levelId: classLevel,
+  trackId: classTrack,
+  name: z.string().trim().min(1, { error: "nameRequired" }).max(30, { error: "tooLong" }),
+});
+export type ClassFormValues = z.input<typeof classSchema>;
+
+/** Several classes at once: "<prefix>-A", "<prefix>-B", … (see class-names.ts). */
+export const classBatchSchema = z.object({
+  levelId: classLevel,
+  trackId: classTrack,
+  // Room for "-A" within the 30-character class name.
+  prefix: z.string().trim().min(1, { error: "nameRequired" }).max(27, { error: "tooLong" }),
+  count: z.coerce
+    .number<string | number>({ error: "countRange" })
+    .int({ error: "countRange" })
+    .min(1, { error: "countRange" })
+    .max(MAX_BATCH_CLASSES, { error: "countRange" }),
+});
+export type ClassBatchFormValues = z.input<typeof classBatchSchema>;
 
 /**
  * Moroccan school year starting in September of `startYear`:

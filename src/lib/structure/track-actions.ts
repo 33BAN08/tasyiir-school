@@ -82,7 +82,7 @@ export async function deleteTrack(trackId: unknown): Promise<StructureActionResu
     .eq("id", id.data)
     .eq("school_id", actor.schoolId)
     .select("name");
-  if (error) return { ok: false, error: dbErrorKey(error) };
+  if (error) return { ok: false, error: dbErrorKey(error, { classes_track_fkey: "trackHasClasses" }) };
   if (data.length === 0) return { ok: false, error: "notFound" };
 
   await auditStructure(actor, "track.delete", "track", id.data, { name: data[0].name });

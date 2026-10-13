@@ -57,14 +57,14 @@ Workflow agreed with the user: one small step at a time; **show every SQL migrat
 **Done**
 - Step 1 — Academic years (`/setup/years`, migration `phase4_academic_years`): one current year per school (trigger), no overlap (btree_gist), < 1 year long, form pre-filled Sept → June. New core permission `structure.manage` (all director roles).
 - Step 2 — Levels + filières (`/setup/levels`, migration `phase4_levels_tracks`, tables `levels` + `tracks`): cycles prescolaire/primaire/college/lycee/other, names unique ignoring case, filière kept in its level's school by a composite FK. Moroccan template is app data (`src/lib/structure/level-template.ts`); only missing items are created, a template filière counts in any UI language (`template-names.ts`).
+- Step 3 — Classes (`/setup/classes`, migration `phase4_classes`): class = year + level + optional filière of that level (composite FKs), name unique per year ignoring case, ON DELETE RESTRICT (year/level/filière deletes say "still has classes"). Year selector in `?year=` (current by default), cards per level, name suggested "1AC-A", "create several" = prefix + next free letters, all or nothing.
 
 **Decisions**
 - School data is written with the user's session client through RLS, never the secret key (rule in the Supabase section above). Shared helpers: `src/lib/structure/action-utils.ts`, `db-errors.ts` (Postgres error → `setup.errors` key, by constraint name).
 - Composite FKs `(x_id, school_id)` keep child rows in the same school.
 - Applied migrations are renamed to the version Supabase records (`list_migrations`).
-- Tests: `scripts/rls/phase4*.mjs` (DB) and `actions-years.mjs` / `actions-levels.mjs` (Server Actions); run the app on port 3100 (`TEST_APP_URL=http://localhost:3100`), port 3000 is the user's dev server.
+- Tests: `scripts/rls/phase4*.mjs` (DB) and `actions-*.mjs` (Server Actions, each called on the page that registers it); run the app on port 3100 (`TEST_APP_URL=http://localhost:3100`), port 3000 is the user's dev server.
 
 **Next**
-- Step 3 — Classes: migration drafted at `supabase/migrations/20261014100000_phase4_classes.sql`, **not applied, not committed — waiting for the user's OK** (classes = year + level + optional filière of that level; name unique per year; ON DELETE RESTRICT on year/level/filière). UI: `/setup/classes`, year selector (current by default), grouped by level, name suggested "1AC-A", bulk "create several classes".
+- Date field (agreed 2026-10-14, before step 4): one reusable field showing dd/MM/yyyy (shadcn Calendar + Popover, week starts Monday, month names in ar/fr/en), used everywhere dates are entered, academic years included.
 - Step 4 — Subjects + rooms. Step 5 — School days (Mon–Sat) + time slots per day with breaks, no overlap. Step 6 — close the phase (AR/FR pass, tick PLAN).
-- Open question for the user: build a dd/MM/yyyy date field (native date inputs follow Chrome's language, showing mm/dd/yyyy).
