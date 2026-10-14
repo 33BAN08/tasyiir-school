@@ -775,7 +775,9 @@
     "copy": "نسخ",
     "copyFailed": "تعذّر النسخ. يرجى تحديد النص يدويًا.",
     "optional": "اختياري",
-    "close": "إغلاق"
+    "close": "إغلاق",
+    "datePlaceholder": "يوم/شهر/سنة",
+    "clearDate": "مسح {label}"
   },
   "modules": {
     "attendance": "الغياب",

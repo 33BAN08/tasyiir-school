@@ -775,7 +775,9 @@
     "copy": "Copier",
     "copyFailed": "Impossible de copier. Veuillez sélectionner le texte manuellement.",
     "optional": "facultatif",
-    "close": "Fermer"
+    "close": "Fermer",
+    "datePlaceholder": "jj/mm/aaaa",
+    "clearDate": "Effacer : {label}"
   },
   "modules": {
     "attendance": "Absences",

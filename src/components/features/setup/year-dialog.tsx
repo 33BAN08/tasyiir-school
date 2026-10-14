@@ -6,6 +6,7 @@ import { useTransition, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
+import { FormDateField } from "@/components/features/forms/form-date-field";
 import { FormTextField } from "@/components/features/forms/form-text-field";
 import { Button } from "@/components/ui/button";
 import {
@@ -80,8 +81,8 @@ export function YearDialog({ yearId, defaults, open, onOpenChange, trigger }: Pr
             translateError={translateError}
           />
           <div className="grid gap-4 sm:grid-cols-2">
-            <FormTextField form={form} name="startDate" label={t("startDate")} type="date" translateError={translateError} />
-            <FormTextField form={form} name="endDate" label={t("endDate")} type="date" translateError={translateError} />
+            <FormDateField form={form} name="startDate" label={t("startDate")} translateError={translateError} />
+            <FormDateField form={form} name="endDate" label={t("endDate")} translateError={translateError} />
           </div>
           <DialogFooter>
             <DialogClose asChild>

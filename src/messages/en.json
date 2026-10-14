@@ -775,7 +775,9 @@
     "copy": "Copy",
     "copyFailed": "Could not copy. Please select the text manually.",
     "optional": "optional",
-    "close": "Close"
+    "close": "Close",
+    "datePlaceholder": "dd/mm/yyyy",
+    "clearDate": "Clear {label}"
   },
   "modules": {
     "attendance": "Attendance",

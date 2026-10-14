@@ -9,7 +9,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { formatMoney } from "@/lib/format";
 import type { PlanOption } from "@/lib/platform/plans";
 
-import { FormTextField } from "@/components/features/forms/form-text-field";
+import { FormDateField } from "@/components/features/forms/form-date-field";
 
 import type { NewSchoolForm } from "./wizard-form";
 
@@ -79,11 +79,11 @@ export function WizardPlanStep({ form, plans }: Props) {
         )}
       />
       <div className="grid gap-4 sm:grid-cols-3">
-        <FormTextField form={form} name="startDate" label={t("plan.startDate")} type="date" />
+        <FormDateField form={form} name="startDate" label={t("plan.startDate")} />
         {status === "trial" && (
-          <FormTextField form={form} name="trialEndsOn" label={t("plan.trialEndsOn")} type="date" />
+          <FormDateField form={form} name="trialEndsOn" label={t("plan.trialEndsOn")} />
         )}
-        <FormTextField form={form} name="endDate" label={t("plan.endDate")} type="date" optional />
+        <FormDateField form={form} name="endDate" label={t("plan.endDate")} optional />
       </div>
     </FieldGroup>
   );

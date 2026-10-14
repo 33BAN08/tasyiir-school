@@ -20,7 +20,7 @@ import {
   type SubscriptionInput,
 } from "@/lib/validations/platform";
 
-import { FormTextField } from "@/components/features/forms/form-text-field";
+import { FormDateField } from "@/components/features/forms/form-date-field";
 
 type Props = {
   schoolId: string;
@@ -114,11 +114,11 @@ export function SubscriptionForm({ schoolId, plans, defaults, isNew }: Props) {
               />
             </div>
             <div className="grid gap-4 sm:grid-cols-3">
-              <FormTextField form={form} name="startDate" label={tPlan("startDate")} type="date" />
+              <FormDateField form={form} name="startDate" label={tPlan("startDate")} />
               {status === "trial" && (
-                <FormTextField form={form} name="trialEndsOn" label={tPlan("trialEndsOn")} type="date" />
+                <FormDateField form={form} name="trialEndsOn" label={tPlan("trialEndsOn")} />
               )}
-              <FormTextField form={form} name="endDate" label={tPlan("endDate")} type="date" optional />
+              <FormDateField form={form} name="endDate" label={tPlan("endDate")} optional />
             </div>
           </FieldGroup>
           <div className="flex justify-end">
