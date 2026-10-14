@@ -548,7 +548,8 @@
       "levels": "Levels",
       "classes": "Classes",
       "subjects": "Subjects",
-      "rooms": "Rooms"
+      "rooms": "Rooms",
+      "timeSlots": "Time slots"
     },
     "years": {
       "title": "Academic years",
@@ -627,7 +628,15 @@
       "codeTooLong": "The code has at most 6 characters.",
       "colorRequired": "Choose a colour.",
       "roomNameTaken": "A room with this name already exists.",
-      "capacityRange": "Enter a capacity between 1 and 500."
+      "capacityRange": "Enter a capacity between 1 and 500.",
+      "invalidTime": "Enter a time like 08:00.",
+      "slotEndBeforeStart": "The end must be after the start.",
+      "slotTooLong": "A slot lasts at most 4 hours.",
+      "slotOverlap": "This slot overlaps another slot of the same day.",
+      "dayNotSchoolDay": "This day is not a school day. Switch it on first.",
+      "dayHasSlots": "This day still has slots. Delete them first.",
+      "slotsAlreadyExist": "This year already has slots on these days.",
+      "nothingToCopy": "There is nothing to copy."
     },
     "confirm": {
       "cancel": "Cancel",
@@ -890,6 +899,93 @@
         "saving": "Saving…",
         "created": "“{name}” created.",
         "updated": "“{name}” saved."
+      }
+    },
+    "timeSlots": {
+      "title": "Time slots",
+      "description": "The school days and the periods of each day, lessons and breaks. Each academic year has its own.",
+      "daysLabel": "School days",
+      "noDays": "No school day yet: switch on the days the school works.",
+      "summary": "{days, plural, one {# school day} other {# school days}}, {lessons, plural, one {# lesson slot} other {# lesson slots}} a week in {year}.",
+      "emptyTitle": "No time slots in {year} yet",
+      "emptyDescription": "Start from the typical Moroccan week or copy another year, then adjust. You can also switch on days below and add slots yourself.",
+      "dayEmpty": "No slots yet.",
+      "lessonCount": "{count, plural, =0 {No lessons} one {# lesson} other {# lessons}}",
+      "add": "Add",
+      "slotActions": "Actions for {day} {start}",
+      "days": {
+        "mon": "Monday",
+        "tue": "Tuesday",
+        "wed": "Wednesday",
+        "thu": "Thursday",
+        "fri": "Friday",
+        "sat": "Saturday"
+      },
+      "kinds": {
+        "lesson": "Lesson",
+        "break": "Break"
+      },
+      "missingYear": {
+        "title": "No academic year yet",
+        "description": "Time slots belong to an academic year. Create one first.",
+        "action": "Go to academic years"
+      },
+      "delete": {
+        "title": "Delete the {day} {start}–{end} slot?",
+        "description": "This cannot be undone.",
+        "done": "Slot deleted."
+      },
+      "form": {
+        "createTitle": "New slot — {day}",
+        "editTitle": "Edit slot — {day}",
+        "description": "Times in 24-hour format, for example 08:00 or 14:30.",
+        "start": "Start",
+        "end": "End",
+        "kind": "Type",
+        "label": "Label",
+        "labelHint": "For example Recess, Lunch break or Friday prayer.",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…",
+        "created": "Slot added.",
+        "updated": "Slot saved."
+      },
+      "copyDay": {
+        "button": "Copy {day} to other days",
+        "title": "Copy {day} to other days",
+        "description": "Its slots are copied to each ticked day. Only days without slots can receive a copy.",
+        "hasSlots": "already has slots",
+        "cancel": "Cancel",
+        "copy": "Copy",
+        "copying": "Copying…",
+        "done": "{count, plural, one {# slot copied.} other {# slots copied.}}"
+      },
+      "copyYear": {
+        "button": "Copy from another year",
+        "title": "Copy slots into {year}",
+        "description": "The school days and slots of the chosen year are copied. You can change them afterwards; the other year stays as it is.",
+        "from": "Copy from",
+        "source": "{year} ({count, plural, one {# slot} other {# slots}})",
+        "cancel": "Cancel",
+        "copy": "Copy",
+        "copying": "Copying…",
+        "done": "{count, plural, =0 {School days copied (no slots).} one {# slot copied.} other {# slots copied.}}"
+      },
+      "template": {
+        "button": "Typical Moroccan week",
+        "title": "Typical Moroccan week for {year}",
+        "description": "Creates these school days and slots:",
+        "weekdays": "Monday to Friday: 08:00–12:15 and 14:00–17:00, recess 10:00–10:15, lunch break 12:15–14:00.",
+        "saturday": "Saturday: 08:00–12:15 with the recess.",
+        "editable": "Everything can be changed afterwards.",
+        "cancel": "Cancel",
+        "apply": "Create",
+        "applying": "Creating…",
+        "done": "{count, plural, one {# slot created.} other {# slots created.}}",
+        "labels": {
+          "recess": "Recess",
+          "lunch": "Lunch break"
+        }
       }
     }
   },

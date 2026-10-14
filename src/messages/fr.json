@@ -548,7 +548,8 @@
       "levels": "Niveaux",
       "classes": "Classes",
       "subjects": "Matières",
-      "rooms": "Salles"
+      "rooms": "Salles",
+      "timeSlots": "Créneaux horaires"
     },
     "years": {
       "title": "Années scolaires",
@@ -627,7 +628,15 @@
       "codeTooLong": "Le code a 6 caractères au maximum.",
       "colorRequired": "Choisissez une couleur.",
       "roomNameTaken": "Une salle avec ce nom existe déjà.",
-      "capacityRange": "Saisissez une capacité entre 1 et 500."
+      "capacityRange": "Saisissez une capacité entre 1 et 500.",
+      "invalidTime": "Saisissez une heure comme 08:00.",
+      "slotEndBeforeStart": "La fin doit être après le début.",
+      "slotTooLong": "Un créneau dure au plus 4 heures.",
+      "slotOverlap": "Ce créneau chevauche un autre créneau du même jour.",
+      "dayNotSchoolDay": "Ce jour n'est pas un jour de classe. Activez-le d'abord.",
+      "dayHasSlots": "Ce jour a encore des créneaux. Supprimez-les d'abord.",
+      "slotsAlreadyExist": "Cette année a déjà des créneaux ces jours-là.",
+      "nothingToCopy": "Il n'y a rien à copier."
     },
     "confirm": {
       "cancel": "Annuler",
@@ -890,6 +899,93 @@
         "saving": "Enregistrement…",
         "created": "« {name} » créée.",
         "updated": "« {name} » enregistrée."
+      }
+    },
+    "timeSlots": {
+      "title": "Créneaux horaires",
+      "description": "Les jours de classe et les créneaux de chaque jour, cours et pauses. Chaque année scolaire a les siens.",
+      "daysLabel": "Jours de classe",
+      "noDays": "Aucun jour de classe : activez les jours où l'établissement travaille.",
+      "summary": "{days, plural, one {# jour de classe} other {# jours de classe}}, {lessons, plural, one {# créneau de cours} other {# créneaux de cours}} par semaine en {year}.",
+      "emptyTitle": "Aucun créneau en {year}",
+      "emptyDescription": "Partez de la semaine marocaine type ou copiez une autre année, puis ajustez. Vous pouvez aussi activer les jours ci-dessous et ajouter les créneaux vous-même.",
+      "dayEmpty": "Aucun créneau.",
+      "lessonCount": "{count, plural, =0 {Aucun cours} one {# cours} other {# cours}}",
+      "add": "Ajouter",
+      "slotActions": "Actions pour {day} {start}",
+      "days": {
+        "mon": "Lundi",
+        "tue": "Mardi",
+        "wed": "Mercredi",
+        "thu": "Jeudi",
+        "fri": "Vendredi",
+        "sat": "Samedi"
+      },
+      "kinds": {
+        "lesson": "Cours",
+        "break": "Pause"
+      },
+      "missingYear": {
+        "title": "Aucune année scolaire",
+        "description": "Les créneaux appartiennent à une année scolaire. Créez-en une d'abord.",
+        "action": "Aller aux années scolaires"
+      },
+      "delete": {
+        "title": "Supprimer le créneau du {day} {start}–{end} ?",
+        "description": "Cette action est irréversible.",
+        "done": "Créneau supprimé."
+      },
+      "form": {
+        "createTitle": "Nouveau créneau — {day}",
+        "editTitle": "Modifier le créneau — {day}",
+        "description": "Heures sur 24 h, par exemple 08:00 ou 14:30.",
+        "start": "Début",
+        "end": "Fin",
+        "kind": "Type",
+        "label": "Libellé",
+        "labelHint": "Par exemple Récréation, Pause déjeuner ou Prière du vendredi.",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "created": "Créneau ajouté.",
+        "updated": "Créneau enregistré."
+      },
+      "copyDay": {
+        "button": "Copier le {day} vers d'autres jours",
+        "title": "Copier le {day} vers d'autres jours",
+        "description": "Ses créneaux sont copiés vers chaque jour coché. Seuls les jours sans créneau peuvent recevoir une copie.",
+        "hasSlots": "a déjà des créneaux",
+        "cancel": "Annuler",
+        "copy": "Copier",
+        "copying": "Copie…",
+        "done": "{count, plural, one {# créneau copié.} other {# créneaux copiés.}}"
+      },
+      "copyYear": {
+        "button": "Copier une autre année",
+        "title": "Copier les créneaux dans {year}",
+        "description": "Les jours de classe et les créneaux de l'année choisie sont copiés. Vous pourrez les modifier ensuite ; l'autre année ne change pas.",
+        "from": "Copier depuis",
+        "source": "{year} ({count, plural, one {# créneau} other {# créneaux}})",
+        "cancel": "Annuler",
+        "copy": "Copier",
+        "copying": "Copie…",
+        "done": "{count, plural, =0 {Jours de classe copiés (aucun créneau).} one {# créneau copié.} other {# créneaux copiés.}}"
+      },
+      "template": {
+        "button": "Semaine marocaine type",
+        "title": "Semaine marocaine type pour {year}",
+        "description": "Crée ces jours de classe et ces créneaux :",
+        "weekdays": "Du lundi au vendredi : 08:00–12:15 et 14:00–17:00, récréation 10:00–10:15, pause déjeuner 12:15–14:00.",
+        "saturday": "Samedi : 08:00–12:15 avec la récréation.",
+        "editable": "Tout reste modifiable ensuite.",
+        "cancel": "Annuler",
+        "apply": "Créer",
+        "applying": "Création…",
+        "done": "{count, plural, one {# créneau créé.} other {# créneaux créés.}}",
+        "labels": {
+          "recess": "Récréation",
+          "lunch": "Pause déjeuner"
+        }
       }
     }
   },

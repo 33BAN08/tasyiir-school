@@ -491,6 +491,35 @@ export type Database = {
           },
         ]
       }
+      school_days: {
+        Row: {
+          academic_year_id: string
+          created_at: string
+          day_of_week: number
+          school_id: string
+        }
+        Insert: {
+          academic_year_id: string
+          created_at?: string
+          day_of_week: number
+          school_id: string
+        }
+        Update: {
+          academic_year_id?: string
+          created_at?: string
+          day_of_week?: number
+          school_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "school_days_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       school_modules: {
         Row: {
           created_at: string
@@ -664,6 +693,60 @@ export type Database = {
           },
         ]
       }
+      time_slots: {
+        Row: {
+          academic_year_id: string
+          created_at: string
+          day_of_week: number
+          end_time: string
+          id: string
+          kind: string
+          label: string | null
+          school_id: string
+          start_time: string
+          updated_at: string
+        }
+        Insert: {
+          academic_year_id: string
+          created_at?: string
+          day_of_week: number
+          end_time: string
+          id?: string
+          kind?: string
+          label?: string | null
+          school_id: string
+          start_time: string
+          updated_at?: string
+        }
+        Update: {
+          academic_year_id?: string
+          created_at?: string
+          day_of_week?: number
+          end_time?: string
+          id?: string
+          kind?: string
+          label?: string | null
+          school_id?: string
+          start_time?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "time_slots_day_fkey"
+            columns: ["school_id", "academic_year_id", "day_of_week"]
+            isOneToOne: false
+            referencedRelation: "school_days"
+            referencedColumns: ["school_id", "academic_year_id", "day_of_week"]
+          },
+          {
+            foreignKeyName: "time_slots_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       tracks: {
         Row: {
           created_at: string
@@ -714,7 +797,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      copy_time_slots: {
+        Args: { p_from_year: string; p_to_year: string }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never

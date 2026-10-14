@@ -14,6 +14,7 @@ const TABS = [
   { key: "classes", href: "/setup/classes" },
   { key: "subjects", href: "/setup/subjects" },
   { key: "rooms", href: "/setup/rooms" },
+  { key: "timeSlots", href: "/setup/time-slots" },
 ] as const;
 
 /** usePathname() is request-time data, so the tabs bring their own Suspense boundary. */

@@ -4,6 +4,13 @@ import { MAX_BATCH_CLASSES } from "@/lib/structure/class-names";
 import { CYCLES } from "@/lib/structure/level-template";
 import { ROOM_TYPES } from "@/lib/structure/room-types";
 import { SUBJECT_COLORS } from "@/lib/structure/subject-template";
+import {
+  MAX_LABEL_LENGTH,
+  MAX_SLOT_MINUTES,
+  normalizeTime,
+  SLOT_KINDS,
+  toMinutes,
+} from "@/lib/structure/time-slot-template";
 
 // School structure forms (Phase 4). Error messages are next-intl keys under
 // `setup.errors`.
@@ -95,6 +102,33 @@ export const roomSchema = z.object({
   roomType: z.union([z.literal(""), z.enum(ROOM_TYPES)], { error: "generic" }),
 });
 export type RoomFormValues = z.input<typeof roomSchema>;
+
+export const schoolDaySchema = z.number().int().min(1).max(6);
+export const schoolDaysSchema = z.array(schoolDaySchema).min(1).max(6);
+
+/** "8h00", "8:00", … → "08:00" (see normalizeTime). */
+const timeOfDay = z.string().transform((value, ctx) => {
+  const time = normalizeTime(value);
+  if (time) return time;
+  ctx.addIssue({ code: "custom", message: "invalidTime" });
+  return z.NEVER;
+});
+
+export const timeSlotSchema = z
+  .object({
+    startTime: timeOfDay,
+    endTime: timeOfDay,
+    kind: z.enum(SLOT_KINDS, { error: "generic" }),
+    /** "" = no label. */
+    label: z.string().trim().max(MAX_LABEL_LENGTH, { error: "tooLong" }),
+  })
+  .superRefine((v, ctx) => {
+    // Same rules as the database: start < end, at most 4 hours.
+    const length = toMinutes(v.endTime) - toMinutes(v.startTime);
+    if (length <= 0) ctx.addIssue({ code: "custom", path: ["endTime"], message: "slotEndBeforeStart" });
+    else if (length > MAX_SLOT_MINUTES) ctx.addIssue({ code: "custom", path: ["endTime"], message: "slotTooLong" });
+  });
+export type TimeSlotFormValues = z.input<typeof timeSlotSchema>;
 
 /**
  * Moroccan school year starting in September of `startYear`:
