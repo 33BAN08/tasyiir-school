@@ -30,6 +30,8 @@
 
 Always pair color with an icon or label (accessibility).
 
+**Subject colors (timetable):** 12 keys stored in `subjects.color` — teal, blue, indigo, violet, pink, red, orange, amber, lime, green, cyan, slate — as tokens `--subject-<key>` (Tailwind 600 in light, 400 in dark). Never store or use a raw hex for a subject.
+
 ## Typography
 - **IBM Plex Sans Arabic** for UI (Arabic + Latin), loaded with `next/font`.
 - **Inter** (tabular numbers) for tables, grades, amounts.

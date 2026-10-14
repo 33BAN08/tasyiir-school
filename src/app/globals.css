@@ -49,6 +49,19 @@
   --color-warning-foreground: var(--warning-foreground);
   --color-info: var(--info);
   --color-info-foreground: var(--info-foreground);
+  /* Subject colours (timetable): keys stored in subjects.color. */
+  --color-subject-teal: var(--subject-teal);
+  --color-subject-blue: var(--subject-blue);
+  --color-subject-indigo: var(--subject-indigo);
+  --color-subject-violet: var(--subject-violet);
+  --color-subject-pink: var(--subject-pink);
+  --color-subject-red: var(--subject-red);
+  --color-subject-orange: var(--subject-orange);
+  --color-subject-amber: var(--subject-amber);
+  --color-subject-lime: var(--subject-lime);
+  --color-subject-green: var(--subject-green);
+  --color-subject-cyan: var(--subject-cyan);
+  --color-subject-slate: var(--subject-slate);
   /* Radius: 8px inputs/buttons (rounded-lg), 10px cards/dialogs (rounded-xl). */
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -104,6 +117,19 @@
   --sidebar-accent-foreground: #0f172a;
   --sidebar-border: #e2e8f0;
   --sidebar-ring: #0f766e;
+
+  --subject-teal: #0d9488;
+  --subject-blue: #2563eb;
+  --subject-indigo: #4f46e5;
+  --subject-violet: #7c3aed;
+  --subject-pink: #db2777;
+  --subject-red: #dc2626;
+  --subject-orange: #ea580c;
+  --subject-amber: #d97706;
+  --subject-lime: #65a30d;
+  --subject-green: #16a34a;
+  --subject-cyan: #0891b2;
+  --subject-slate: #475569;
 }
 
 .dark {
@@ -140,6 +166,19 @@
   --sidebar-accent-foreground: #e2e8f0;
   --sidebar-border: #1e293b;
   --sidebar-ring: #14b8a6;
+
+  --subject-teal: #2dd4bf;
+  --subject-blue: #60a5fa;
+  --subject-indigo: #818cf8;
+  --subject-violet: #a78bfa;
+  --subject-pink: #f472b6;
+  --subject-red: #f87171;
+  --subject-orange: #fb923c;
+  --subject-amber: #fbbf24;
+  --subject-lime: #a3e635;
+  --subject-green: #4ade80;
+  --subject-cyan: #22d3ee;
+  --subject-slate: #94a3b8;
 }
 
 @utility font-numeric {

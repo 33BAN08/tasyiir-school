@@ -546,7 +546,9 @@
       "label": "Sections de la structure",
       "years": "Années scolaires",
       "levels": "Niveaux",
-      "classes": "Classes"
+      "classes": "Classes",
+      "subjects": "Matières",
+      "rooms": "Salles"
     },
     "years": {
       "title": "Années scolaires",
@@ -619,7 +621,13 @@
       "tooManyClasses": "Pas assez de lettres libres (A à Z) pour autant de classes. Utilisez un autre préfixe ou moins de classes.",
       "yearHasClasses": "Cette année a encore des classes. Supprimez-les d'abord.",
       "levelHasClasses": "Ce niveau a encore des classes. Supprimez-les d'abord.",
-      "trackHasClasses": "Des classes utilisent encore cette filière. Modifiez-les ou supprimez-les d'abord."
+      "trackHasClasses": "Des classes utilisent encore cette filière. Modifiez-les ou supprimez-les d'abord.",
+      "subjectNameTaken": "Une matière avec ce nom existe déjà.",
+      "subjectCodeTaken": "Une autre matière utilise déjà ce code.",
+      "codeTooLong": "Le code a 6 caractères au maximum.",
+      "colorRequired": "Choisissez une couleur.",
+      "roomNameTaken": "Une salle avec ce nom existe déjà.",
+      "capacityRange": "Saisissez une capacité entre 1 et 500."
     },
     "confirm": {
       "cancel": "Annuler",
@@ -768,6 +776,120 @@
         "saving": "Création…",
         "submit": "{count, plural, one {Créer # classe} other {Créer # classes}}",
         "created": "{count, plural, one {Classe {names} créée.} other {# classes créées : {names}.}}"
+      }
+    },
+    "rowMenu": {
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "subjects": {
+      "title": "Matières",
+      "description": "Les matières enseignées dans l'établissement. La couleur sert dans l'emploi du temps.",
+      "new": "Nouvelle matière",
+      "emptyTitle": "Aucune matière",
+      "emptyDescription": "Partez des matières marocaines, ou créez les vôtres.",
+      "count": "{count, plural, one {# matière} other {# matières}}",
+      "actions": "Actions pour {name}",
+      "delete": {
+        "title": "Supprimer la matière {name} ?",
+        "description": "Cette action est définitive.",
+        "done": "Matière {name} supprimée."
+      },
+      "colors": {
+        "teal": "Sarcelle",
+        "blue": "Bleu",
+        "indigo": "Indigo",
+        "violet": "Violet",
+        "pink": "Rose",
+        "red": "Rouge",
+        "orange": "Orange",
+        "amber": "Ambre",
+        "lime": "Citron vert",
+        "green": "Vert",
+        "cyan": "Cyan",
+        "slate": "Gris"
+      },
+      "form": {
+        "createTitle": "Nouvelle matière",
+        "editTitle": "Modifier la matière",
+        "description": "Le code court s'affiche dans les cases de l'emploi du temps.",
+        "name": "Nom",
+        "code": "Code court",
+        "color": "Couleur",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "created": "Matière {name} créée.",
+        "updated": "Matière {name} enregistrée."
+      },
+      "template": {
+        "button": "Matières marocaines",
+        "title": "Matières marocaines",
+        "description": "Tout est coché : décochez ce que votre établissement n'enseigne pas. Vous pourrez tout modifier ensuite.",
+        "exists": "déjà créée",
+        "summary": "{count, plural, =0 {Rien à créer} one {# matière sera créée} other {# matières seront créées}}",
+        "cancel": "Annuler",
+        "apply": "Créer la sélection",
+        "applying": "Création…",
+        "done": "{count, plural, =0 {Aucune matière créée.} one {# matière créée.} other {# matières créées.}}",
+        "names": {
+          "arabic": "Arabe",
+          "french": "Français",
+          "english": "Anglais",
+          "math": "Mathématiques",
+          "physics": "Physique-Chimie",
+          "svt": "SVT",
+          "history": "Histoire-Géographie",
+          "islamic": "Éducation islamique",
+          "philosophy": "Philosophie",
+          "computing": "Informatique",
+          "pe": "EPS",
+          "art": "Éducation artistique",
+          "amazigh": "Amazigh"
+        }
+      }
+    },
+    "rooms": {
+      "title": "Salles",
+      "description": "Salles de classe, laboratoires et autres salles utilisées dans l'emploi du temps.",
+      "new": "Nouvelle salle",
+      "emptyTitle": "Aucune salle",
+      "emptyDescription": "Ajoutez les salles de l'établissement avec leur capacité.",
+      "count": "{count, plural, one {# salle} other {# salles}}, {seats} places au total",
+      "seats": "{count, plural, one {# place} other {# places}}",
+      "actions": "Actions pour {name}",
+      "columns": {
+        "name": "Nom",
+        "type": "Type",
+        "capacity": "Capacité",
+        "actions": "Actions"
+      },
+      "types": {
+        "classroom": "Salle de classe",
+        "lab": "Laboratoire",
+        "computer_lab": "Salle informatique",
+        "gym": "Gymnase"
+      },
+      "delete": {
+        "title": "Supprimer « {name} » ?",
+        "description": "Cette action est définitive.",
+        "done": "« {name} » supprimée."
+      },
+      "form": {
+        "createTitle": "Nouvelle salle",
+        "editTitle": "Modifier la salle",
+        "description": "La capacité est le nombre de places.",
+        "name": "Nom",
+        "nameHint": "Par exemple Salle 12 ou Labo 1.",
+        "capacity": "Capacité (places)",
+        "type": "Type",
+        "optional": "facultatif",
+        "noType": "Sans type",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "created": "« {name} » créée.",
+        "updated": "« {name} » enregistrée."
       }
     }
   },

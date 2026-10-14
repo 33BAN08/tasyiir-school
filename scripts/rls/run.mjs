@@ -11,6 +11,7 @@ import { roleActions } from "./actions-roles.mjs";
 import { yearActions } from "./actions-years.mjs";
 import { levelActions } from "./actions-levels.mjs";
 import { classActions } from "./actions-classes.mjs";
+import { subjectActions } from "./actions-subjects.mjs";
 import { report } from "./checks.mjs";
 import { anon, createFixtures, removeFixtures, signIn } from "./fixtures.mjs";
 import { phase2 } from "./phase2.mjs";
@@ -19,6 +20,7 @@ import { phase3Guards } from "./phase3-guards.mjs";
 import { phase4 } from "./phase4.mjs";
 import { phase4Levels } from "./phase4-levels.mjs";
 import { phase4Classes } from "./phase4-classes.mjs";
+import { phase4Subjects } from "./phase4-subjects.mjs";
 
 const withActions = process.argv.includes("--actions");
 const baseUrl = process.env.TEST_APP_URL ?? "http://localhost:3000";
@@ -42,6 +44,7 @@ try {
   await phase4({ fx, as });
   await phase4Levels({ fx, as });
   await phase4Classes({ fx, as });
+  await phase4Subjects({ fx, as });
   await import("./rules.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });
@@ -49,6 +52,7 @@ try {
     await yearActions({ fx, baseUrl });
     await levelActions({ fx, baseUrl });
     await classActions({ fx, baseUrl });
+    await subjectActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

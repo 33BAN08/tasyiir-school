@@ -546,7 +546,9 @@
       "label": "Structure sections",
       "years": "Academic years",
       "levels": "Levels",
-      "classes": "Classes"
+      "classes": "Classes",
+      "subjects": "Subjects",
+      "rooms": "Rooms"
     },
     "years": {
       "title": "Academic years",
@@ -619,7 +621,13 @@
       "tooManyClasses": "Not enough free letters (A to Z) for this many classes. Use another prefix or fewer classes.",
       "yearHasClasses": "This year still has classes. Delete them first.",
       "levelHasClasses": "This level still has classes. Delete them first.",
-      "trackHasClasses": "Some classes still use this track. Change or delete them first."
+      "trackHasClasses": "Some classes still use this track. Change or delete them first.",
+      "subjectNameTaken": "A subject with this name already exists.",
+      "subjectCodeTaken": "Another subject already uses this code.",
+      "codeTooLong": "The code has at most 6 characters.",
+      "colorRequired": "Choose a colour.",
+      "roomNameTaken": "A room with this name already exists.",
+      "capacityRange": "Enter a capacity between 1 and 500."
     },
     "confirm": {
       "cancel": "Cancel",
@@ -768,6 +776,120 @@
         "saving": "Creating…",
         "submit": "{count, plural, one {Create # class} other {Create # classes}}",
         "created": "{count, plural, one {Class {names} created.} other {# classes created: {names}.}}"
+      }
+    },
+    "rowMenu": {
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "subjects": {
+      "title": "Subjects",
+      "description": "The subjects taught in the school. The colour is used in the timetable.",
+      "new": "New subject",
+      "emptyTitle": "No subjects yet",
+      "emptyDescription": "Start from the Moroccan subjects, or create your own.",
+      "count": "{count, plural, one {# subject} other {# subjects}}",
+      "actions": "Actions for {name}",
+      "delete": {
+        "title": "Delete subject {name}?",
+        "description": "This cannot be undone.",
+        "done": "Subject {name} deleted."
+      },
+      "colors": {
+        "teal": "Teal",
+        "blue": "Blue",
+        "indigo": "Indigo",
+        "violet": "Violet",
+        "pink": "Pink",
+        "red": "Red",
+        "orange": "Orange",
+        "amber": "Amber",
+        "lime": "Lime",
+        "green": "Green",
+        "cyan": "Cyan",
+        "slate": "Grey"
+      },
+      "form": {
+        "createTitle": "New subject",
+        "editTitle": "Edit subject",
+        "description": "The short code appears in timetable cells.",
+        "name": "Name",
+        "code": "Short code",
+        "color": "Colour",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…",
+        "created": "Subject {name} created.",
+        "updated": "Subject {name} saved."
+      },
+      "template": {
+        "button": "Moroccan subjects",
+        "title": "Moroccan subjects",
+        "description": "Everything is ticked: untick what your school does not teach. You can edit everything afterwards.",
+        "exists": "already created",
+        "summary": "{count, plural, =0 {Nothing to create} one {# subject will be created} other {# subjects will be created}}",
+        "cancel": "Cancel",
+        "apply": "Create selection",
+        "applying": "Creating…",
+        "done": "{count, plural, =0 {No subject created.} one {# subject created.} other {# subjects created.}}",
+        "names": {
+          "arabic": "Arabic",
+          "french": "French",
+          "english": "English",
+          "math": "Mathematics",
+          "physics": "Physics and Chemistry",
+          "svt": "Life and Earth Sciences",
+          "history": "History and Geography",
+          "islamic": "Islamic Education",
+          "philosophy": "Philosophy",
+          "computing": "Computer Science",
+          "pe": "Physical Education",
+          "art": "Art Education",
+          "amazigh": "Amazigh"
+        }
+      }
+    },
+    "rooms": {
+      "title": "Rooms",
+      "description": "Classrooms, labs and other rooms used in the timetable.",
+      "new": "New room",
+      "emptyTitle": "No rooms yet",
+      "emptyDescription": "Add the school's rooms with their capacity.",
+      "count": "{count, plural, one {# room} other {# rooms}}, {seats} seats in total",
+      "seats": "{count, plural, one {# seat} other {# seats}}",
+      "actions": "Actions for {name}",
+      "columns": {
+        "name": "Name",
+        "type": "Type",
+        "capacity": "Capacity",
+        "actions": "Actions"
+      },
+      "types": {
+        "classroom": "Classroom",
+        "lab": "Laboratory",
+        "computer_lab": "Computer room",
+        "gym": "Gym"
+      },
+      "delete": {
+        "title": "Delete “{name}”?",
+        "description": "This cannot be undone.",
+        "done": "“{name}” deleted."
+      },
+      "form": {
+        "createTitle": "New room",
+        "editTitle": "Edit room",
+        "description": "The capacity is the number of seats.",
+        "name": "Name",
+        "nameHint": "For example Room 12 or Lab 1.",
+        "capacity": "Capacity (seats)",
+        "type": "Type",
+        "optional": "optional",
+        "noType": "No type",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…",
+        "created": "“{name}” created.",
+        "updated": "“{name}” saved."
       }
     }
   },

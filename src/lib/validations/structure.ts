@@ -2,6 +2,8 @@ import { z } from "zod";
 
 import { MAX_BATCH_CLASSES } from "@/lib/structure/class-names";
 import { CYCLES } from "@/lib/structure/level-template";
+import { ROOM_TYPES } from "@/lib/structure/room-types";
+import { SUBJECT_COLORS } from "@/lib/structure/subject-template";
 
 // School structure forms (Phase 4). Error messages are next-intl keys under
 // `setup.errors`.
@@ -70,6 +72,29 @@ export const classBatchSchema = z.object({
     .max(MAX_BATCH_CLASSES, { error: "countRange" }),
 });
 export type ClassBatchFormValues = z.input<typeof classBatchSchema>;
+
+export const subjectSchema = z.object({
+  name: z.string().trim().min(1, { error: "nameRequired" }).max(60, { error: "tooLong" }),
+  /** "" = no code. */
+  code: z.string().trim().max(6, { error: "codeTooLong" }),
+  color: z.enum(SUBJECT_COLORS, { error: "colorRequired" }),
+});
+export type SubjectFormValues = z.input<typeof subjectSchema>;
+
+/** Template keys the director kept. */
+export const subjectTemplateSelectionSchema = z.array(z.string()).max(50, { error: "generic" });
+
+export const roomSchema = z.object({
+  name: z.string().trim().min(1, { error: "nameRequired" }).max(40, { error: "tooLong" }),
+  capacity: z.coerce
+    .number<string | number>({ error: "capacityRange" })
+    .int({ error: "capacityRange" })
+    .min(1, { error: "capacityRange" })
+    .max(500, { error: "capacityRange" }),
+  /** "" = no type (a Select cannot hold null). */
+  roomType: z.union([z.literal(""), z.enum(ROOM_TYPES)], { error: "generic" }),
+});
+export type RoomFormValues = z.input<typeof roomSchema>;
 
 /**
  * Moroccan school year starting in September of `startYear`:
