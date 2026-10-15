@@ -25,6 +25,8 @@ import { phase4TimeSlots } from "./phase4-time-slots.mjs";
 import { timeSlotActions } from "./actions-time-slots.mjs";
 import { phase5Students } from "./phase5-students.mjs";
 import { studentActions } from "./actions-students.mjs";
+import { phase5Photos } from "./phase5-photos.mjs";
+import { photoActions } from "./actions-photos.mjs";
 
 const withActions = process.argv.includes("--actions");
 const baseUrl = process.env.TEST_APP_URL ?? "http://localhost:3000";
@@ -51,6 +53,7 @@ try {
   await phase4Subjects({ fx, as });
   await phase4TimeSlots({ fx, as });
   await phase5Students({ fx, as });
+  await phase5Photos({ fx, as });
   await import("./rules.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });
@@ -61,6 +64,7 @@ try {
     await subjectActions({ fx, baseUrl });
     await timeSlotActions({ fx, baseUrl });
     await studentActions({ fx, baseUrl });
+    await photoActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

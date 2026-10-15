@@ -14,6 +14,8 @@ export type Student = StudentNames & {
   birthDate: string;
   gender: Gender;
   codeMassar: string | null;
+  /** Storage path of the current photo (show it through signPhotoUrls). */
+  photoPath: string | null;
   /** Class in the year the list was read for (null: none, or no current year). */
   classId: string | null;
   className: string | null;
@@ -53,7 +55,7 @@ export async function listStudents(
   const withoutClass = Boolean(yearId) && classFilter === NO_CLASS;
 
   const enrollment = byClass ? "enrollment:student_enrollments!inner" : "enrollment:student_enrollments";
-  const columns = `id, first_name, last_name, first_name_ar, last_name_ar, birth_date, gender, code_massar, ${enrollment}(class_id, academic_year_id, class:classes(name))`;
+  const columns = `id, first_name, last_name, first_name_ar, last_name_ar, birth_date, gender, code_massar, photo_path, ${enrollment}(class_id, academic_year_id, class:classes(name))`;
 
   const run = (p: number) => {
     let query = supabase
@@ -89,6 +91,7 @@ type Row = {
   birth_date: string;
   gender: string;
   code_massar: string | null;
+  photo_path: string | null;
   enrollment: { class_id: string; class: { name: string } | null }[];
 };
 
@@ -103,6 +106,7 @@ function toStudent(row: Row): Student {
     birthDate: row.birth_date,
     gender: row.gender as Gender,
     codeMassar: row.code_massar,
+    photoPath: row.photo_path,
     classId: current?.class_id ?? null,
     className: current?.class?.name ?? null,
   };

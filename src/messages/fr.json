@@ -614,7 +614,22 @@
       "invalidMassar": "Code Massar : une lettre suivie de 9 chiffres, par exemple J130012345.",
       "massarTaken": "Ce code Massar est déjà utilisé par un autre élève.",
       "invalidClass": "Cette classe n'est pas disponible.",
-      "noCurrentYear": "Aucune année scolaire en cours."
+      "noCurrentYear": "Aucune année scolaire en cours.",
+      "photoType": "Choisissez une photo JPG, PNG ou WebP.",
+      "photoTooBig": "La photo dépasse 10 Mo.",
+      "photoUnreadable": "Cette photo ne peut pas être lue.",
+      "photoUpload": "L'envoi de la photo a échoué. Veuillez réessayer."
+    },
+    "photo": {
+      "label": "Photo",
+      "add": "Ajouter une photo",
+      "change": "Changer la photo",
+      "remove": "Retirer la photo",
+      "uploading": "Envoi…",
+      "hint": "JPG, PNG ou WebP. Recadrée en carré et réduite avant l'envoi.",
+      "saved": "Photo enregistrée.",
+      "removed": "Photo retirée.",
+      "alt": "Photo de {name}"
     }
   },
   "setup": {

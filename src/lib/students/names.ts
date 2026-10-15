@@ -27,3 +27,8 @@ export function studentOtherName(s: StudentNames, locale: string): string | null
   if (!arabic) return null;
   return locale === "ar" ? latinName(s) : arabic;
 }
+
+/** "El Idrissi" + "Salma" → "ES": from the Latin names, always present. */
+export function studentInitials(s: Pick<StudentNames, "firstName" | "lastName">): string {
+  return `${s.lastName.charAt(0)}${s.firstName.charAt(0)}`.toUpperCase();
+}

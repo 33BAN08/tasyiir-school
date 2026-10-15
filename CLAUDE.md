@@ -51,7 +51,7 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 4. Update "Current phase" above and tick the phase in `docs/PLAN.md`.
 5. Commit with a clear message, push to GitHub (Vercel deploys automatically).
 
-## Phase 5 progress (updated 2026-10-15, step 1)
+## Phase 5 progress (updated 2026-10-16, step 2)
 Same workflow as Phase 4 (show every migration and Storage policy, wait for OK, commit + push each step, test in Chrome AR + FR). Children's personal data: store only what is needed (no national ID), platform owner has NO access to students.
 
 **Done**
@@ -109,10 +109,11 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 5. Commit with a clear message, push to GitHub (Vercel deploys automatically).
 
 , trimmed + uppercased by `normalizeMassar()` (form + CSV). Class = `student_enrollments` (one row per student per year, composite FK to the class of that year and school); edits change only the current year's row. Names shown with `studentName()` / `studentOtherName()` (Arabic in the Arabic UI when present). A class with students cannot be deleted.
+- Step 2 — Photos (migration `phase5_student_photos`): private bucket `student-photos` (2 MB, jpg/png/webp), path `<school>/<student>/<uuid>.<webp|jpg>` (CHECK on `students.photo_path`). Storage RLS: upload = own school folder + students.manage + existing student; read/signed URL = only a student's CURRENT photo, for who can read that student (students RLS inside the policy); delete = own folder + students.manage, but Storage also needs read, so **only the current photo can be deleted**: `setStudentPhoto` points at the new file, checks it, points back at the old one to delete it, then at the new one. Browser crops to a 512 px square and re-encodes to WebP (JPEG fallback), which drops EXIF/GPS; originals up to 10 MB. Shown with 5-minute signed URLs (`signPhotoUrls`), plain `<img>` (never the image optimizer). Deleting a student deletes the file first. Avatar fallback = Latin initials (`studentInitials`).
 
 **Next**
-- Step 2 — Photos: migration `phase5_student_photos` written, waiting for review (not applied, not committed).
-- Then: 3 parents/guardians + parent accounts, 4 teachers + subjects, 5 CSV import, 6 close the phase.
+- Step 3 — parents/guardians + parent accounts (`is_linked_to_student` gets the guardian rule).
+- Then: 4 teachers/guardians + parent accounts, 4 teachers + subjects, 5 CSV import, 6 close the phase.
 
 ## Phase 4 — done 2026-10-15 (notes kept for later phases)
 Workflow agreed with the user: one small step at a time; **show every SQL migration and wait for OK before applying**; commit + push after each step; test in Chrome in Arabic and French.

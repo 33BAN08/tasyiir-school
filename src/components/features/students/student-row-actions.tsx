@@ -3,16 +3,22 @@
 import { useLocale, useTranslations } from "next-intl";
 
 import { EditDeleteMenu } from "@/components/features/setup/edit-delete-menu";
-import { studentName } from "@/lib/students/names";
+import { studentInitials, studentName } from "@/lib/students/names";
 import { deleteStudent } from "@/lib/students/student-actions";
 import type { Student } from "@/lib/students/students";
 
 import { StudentDialog, type ClassOption } from "./student-dialog";
 import { useStudentsError } from "./use-students-error";
 
-type Props = { student: Student; classes: ClassOption[] | null; yearLabel: string | null };
+type Props = {
+  student: Student;
+  classes: ClassOption[] | null;
+  yearLabel: string | null;
+  schoolId: string;
+  photoUrl: string | null;
+};
 
-export function StudentRowActions({ student, classes, yearLabel }: Props) {
+export function StudentRowActions({ student, classes, yearLabel, schoolId, photoUrl }: Props) {
   const t = useTranslations("students");
   const locale = useLocale();
   const translateError = useStudentsError();
@@ -26,6 +32,7 @@ export function StudentRowActions({ student, classes, yearLabel }: Props) {
           studentId={student.id}
           classes={classes}
           yearLabel={yearLabel}
+          photo={{ schoolId, name, initials: studentInitials(student), url: photoUrl }}
           defaults={{
             lastName: student.lastName,
             firstName: student.firstName,

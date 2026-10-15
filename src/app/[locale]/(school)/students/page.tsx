@@ -16,6 +16,7 @@ import { Link } from "@/i18n/navigation";
 import { getPermissions, requireSchoolPermission } from "@/lib/auth/session";
 import { ltr } from "@/lib/format";
 import { listClasses } from "@/lib/structure/classes";
+import { signPhotoUrls } from "@/lib/students/photos";
 import { getCurrentYear, listStudents } from "@/lib/students/students";
 import { studentListParamsSchema, type StudentListParams } from "@/lib/validations/students";
 
@@ -73,6 +74,7 @@ type ResultsProps = {
 
 async function StudentResults({ schoolId, yearId, yearLabel, params, canManage, classes }: ResultsProps) {
   const [list, t] = await Promise.all([listStudents(schoolId, yearId, params), getTranslations("students")]);
+  const photoUrls = await signPhotoUrls(list.items.map((s) => s.photoPath));
 
   if (list.total === 0) {
     const filtered = Boolean(params.q || params.class);
@@ -96,7 +98,14 @@ async function StudentResults({ schoolId, yearId, yearLabel, params, canManage, 
 
   return (
     <div className="flex flex-col gap-4 pb-4">
-      <StudentsTable items={list.items} canManage={canManage} classes={classes} yearLabel={yearLabel} />
+      <StudentsTable
+        items={list.items}
+        canManage={canManage}
+        classes={classes}
+        yearLabel={yearLabel}
+        schoolId={schoolId}
+        photoUrls={photoUrls}
+      />
       <div className="flex flex-col gap-2 px-4">
         <p className="text-sm text-muted-foreground">{t("count", { count: list.total })}</p>
         <ListPagination

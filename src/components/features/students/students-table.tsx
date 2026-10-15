@@ -3,9 +3,10 @@ import { useLocale, useTranslations } from "next-intl";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { formatDate } from "@/lib/format";
-import { studentName, studentOtherName } from "@/lib/students/names";
+import { studentInitials, studentName, studentOtherName } from "@/lib/students/names";
 import type { Student } from "@/lib/students/students";
 
+import { StudentAvatar } from "./student-avatar";
 import type { ClassOption } from "./student-dialog";
 import { StudentRowActions } from "./student-row-actions";
 
@@ -15,10 +16,14 @@ type Props = {
   canManage: boolean;
   classes: ClassOption[] | null;
   yearLabel: string | null;
+  schoolId: string;
+  /** Signed URLs by photo path (5 minutes). */
+  photoUrls: Map<string, string>;
 };
 
-export function StudentsTable({ items, canManage, classes, yearLabel }: Props) {
+export function StudentsTable({ items, canManage, classes, yearLabel, schoolId, photoUrls }: Props) {
   const t = useTranslations("students");
+  const tPhoto = useTranslations("students.photo");
   const locale = useLocale();
 
   return (
@@ -38,14 +43,23 @@ export function StudentsTable({ items, canManage, classes, yearLabel }: Props) {
       </TableHeader>
       <TableBody>
         {items.map((student) => {
+          const name = studentName(student, locale);
           const other = studentOtherName(student, locale);
+          const photoUrl = (student.photoPath && photoUrls.get(student.photoPath)) || null;
           return (
             <TableRow key={student.id}>
               <TableCell>
-                {/* Each line keeps its own direction and starts at the cell's start. */}
-                <div className="flex flex-col items-start">
-                  <bdi className="font-medium">{studentName(student, locale)}</bdi>
-                  {other && <bdi className="text-xs text-muted-foreground">{other}</bdi>}
+                <div className="flex items-center gap-3">
+                  <StudentAvatar
+                    url={photoUrl}
+                    initials={studentInitials(student)}
+                    alt={tPhoto("alt", { name })}
+                  />
+                  {/* Each line keeps its own direction and starts at the cell's start. */}
+                  <div className="flex flex-col items-start">
+                    <bdi className="font-medium">{name}</bdi>
+                    {other && <bdi className="text-xs text-muted-foreground">{other}</bdi>}
+                  </div>
                 </div>
               </TableCell>
               <TableCell className="font-numeric tabular-nums">
@@ -61,7 +75,13 @@ export function StudentsTable({ items, canManage, classes, yearLabel }: Props) {
               </TableCell>
               {canManage && (
                 <TableCell className="text-end">
-                  <StudentRowActions student={student} classes={classes} yearLabel={yearLabel} />
+                  <StudentRowActions
+                    student={student}
+                    classes={classes}
+                    yearLabel={yearLabel}
+                    schoolId={schoolId}
+                    photoUrl={photoUrl}
+                  />
                 </TableCell>
               )}
             </TableRow>

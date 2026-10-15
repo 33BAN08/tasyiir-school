@@ -4,6 +4,7 @@ import { logAudit } from "@/lib/audit";
 import { getSchoolActor, type SchoolActor } from "@/lib/auth/school-actor";
 import { parseInput } from "@/lib/structure/action-utils";
 import { dbErrorKey } from "@/lib/structure/db-errors";
+import { PHOTO_BUCKET } from "@/lib/students/photo-rules";
 import { createClient } from "@/lib/supabase/server";
 import { studentIdSchema, studentSchema, type StudentFormValues, type StudentInput } from "@/lib/validations/students";
 
@@ -168,7 +169,17 @@ export async function deleteStudent(studentId: unknown): Promise<Result<null>> {
   const id = studentIdSchema.safeParse(studentId);
   if (!id.success) return { ok: false, error: "notFound" };
 
-  const { data, error } = await (await createClient())
+  const supabase = await createClient();
+  // The photo file first: Storage only lets us delete it while it is the student's current photo.
+  const { data: photo } = await supabase
+    .from("students")
+    .select("photo_path")
+    .eq("id", id.data)
+    .eq("school_id", actor.schoolId)
+    .maybeSingle();
+  if (photo?.photo_path) await supabase.storage.from(PHOTO_BUCKET).remove([photo.photo_path]);
+
+  const { data, error } = await supabase
     .from("students")
     .delete()
     .eq("id", id.data)

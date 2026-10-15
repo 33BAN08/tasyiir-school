@@ -26,6 +26,7 @@ import { ltr } from "@/lib/format";
 import { createStudent, updateStudent } from "@/lib/students/student-actions";
 import { GENDERS, studentSchema, type StudentFormValues } from "@/lib/validations/students";
 
+import { StudentPhotoField } from "./student-photo-field";
 import { useStudentsError } from "./use-students-error";
 
 /** A Select item cannot have "" as its value. */
@@ -40,6 +41,8 @@ type Props = {
   /** Classes of the current year; null when the school has no current year. */
   classes: ClassOption[] | null;
   yearLabel: string | null;
+  /** Edit only: the student's photo (changed right away, not with the form). */
+  photo?: { schoolId: string; name: string; initials: string; url: string | null };
   open: boolean;
   onOpenChange: (open: boolean) => void;
   trigger?: ReactNode;
@@ -57,7 +60,7 @@ export const EMPTY_STUDENT: StudentFormValues = {
 };
 
 /** Create or edit a student: names (Latin, optional Arabic), birth date, gender, Massar code, class this year. */
-export function StudentDialog({ studentId, defaults, classes, yearLabel, open, onOpenChange, trigger }: Props) {
+export function StudentDialog({ studentId, defaults, classes, yearLabel, photo, open, onOpenChange, trigger }: Props) {
   const t = useTranslations("students.form");
   const translateError = useStudentsError();
   const router = useRouter();
@@ -97,6 +100,15 @@ export function StudentDialog({ studentId, defaults, classes, yearLabel, open, o
           <DialogTitle>{t(studentId ? "editTitle" : "createTitle")}</DialogTitle>
           <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
+        {studentId && photo && (
+          <StudentPhotoField
+            schoolId={photo.schoolId}
+            studentId={studentId}
+            name={photo.name}
+            initials={photo.initials}
+            photoUrl={photo.url}
+          />
+        )}
         <form onSubmit={onSubmit} noValidate className="flex flex-col gap-6">
           <div className="grid gap-6 sm:grid-cols-2">
             <FormTextField
