@@ -931,7 +931,7 @@
         "action": "Aller aux années scolaires"
       },
       "delete": {
-        "title": "Supprimer le créneau du {day} {start}–{end} ?",
+        "title": "Supprimer le créneau du {day} {range} ?",
         "description": "Cette action est irréversible.",
         "done": "Créneau supprimé."
       },

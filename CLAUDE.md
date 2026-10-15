@@ -65,6 +65,7 @@ Workflow agreed with the user: one small step at a time; **show every SQL migrat
 **Decisions**
 - School data is written with the user's session client through RLS, never the secret key (rule in the Supabase section above). Shared helpers: `src/lib/structure/action-utils.ts`, `db-errors.ts` (Postgres error → `setup.errors` key, by constraint name).
 - Composite FKs `(x_id, school_id)` keep child rows in the same school.
+- A year label ("2026-2027") or time range ("08:00–09:00") put into a message goes through `ltr()` (`src/lib/format.ts`), otherwise Arabic shows it reversed ("2027-2026"). A range is one value (`{range}`), not `{start}–{end}`.
 - Applied migrations are renamed to the version Supabase records (`list_migrations`).
 - Tests: `scripts/rls/phase4*.mjs` (DB) and `actions-*.mjs` (Server Actions, each called on the page that registers it); run the app on port 3100 (`TEST_APP_URL=http://localhost:3100`), port 3000 is the user's dev server.
 

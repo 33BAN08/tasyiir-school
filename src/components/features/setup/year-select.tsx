@@ -5,6 +5,7 @@ import { useTransition } from "react";
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { usePathname, useRouter } from "@/i18n/navigation";
+import { ltr } from "@/lib/format";
 
 type Props = { years: { id: string; label: string; isCurrent: boolean }[]; value: string };
 
@@ -31,7 +32,7 @@ export function YearSelect({ years, value }: Props) {
         <SelectContent>
           {years.map((y) => (
             <SelectItem key={y.id} value={y.id}>
-              {y.isCurrent ? t("currentYear", { label: y.label }) : y.label}
+              {y.isCurrent ? t("currentYear", { label: ltr(y.label) }) : y.label}
             </SelectItem>
           ))}
         </SelectContent>

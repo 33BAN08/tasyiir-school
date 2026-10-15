@@ -45,3 +45,13 @@ const dateTimeFormat = new Intl.DateTimeFormat("fr-FR", {
 export function formatDateTime(value: string | Date): string {
   return dateTimeFormat.format(new Date(value)).replace(",", "");
 }
+
+/**
+ * Keeps a left-to-right value (year "2026-2027", time range "08:00–09:00")
+ * in order inside an Arabic sentence. Without it the browser treats digits
+ * after Arabic letters as Arabic numbers and shows "2027-2026". Wraps the
+ * value in invisible Unicode isolates (LRI … PDI).
+ */
+export function ltr(value: string): string {
+  return `\u2066${value}\u2069`;
+}

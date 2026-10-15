@@ -20,6 +20,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useRouter } from "@/i18n/navigation";
+import { ltr } from "@/lib/format";
 import { createAcademicYear, updateAcademicYear } from "@/lib/structure/year-actions";
 import { academicYearSchema, type AcademicYearFormValues } from "@/lib/validations/structure";
 
@@ -51,7 +52,7 @@ export function YearDialog({ yearId, defaults, open, onOpenChange, trigger }: Pr
         else toast.error(translateError(result.error));
         return;
       }
-      toast.success(t(yearId ? "updated" : "created", { label: values.label.trim() }));
+      toast.success(t(yearId ? "updated" : "created", { label: ltr(values.label.trim()) }));
       onOpenChange(false);
       router.refresh();
     });

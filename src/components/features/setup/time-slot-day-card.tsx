@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ltr } from "@/lib/format";
 import { deleteTimeSlot } from "@/lib/structure/time-slot-actions";
 import { DAY_KEYS, fromMinutes, toMinutes, type SchoolDay } from "@/lib/structure/time-slot-template";
 import type { TimeSlot } from "@/lib/structure/time-slots";
@@ -88,7 +89,7 @@ export function TimeSlotDayCard({ yearId, day, slots, filledDays }: Props) {
                   <TimeRange start={slot.startTime} end={slot.endTime} />
                   <span className={cn("min-w-0 flex-1 truncate", slot.kind === "lesson" && "font-medium")}>{name}</span>
                   <EditDeleteMenu
-                    label={t("slotActions", { day: dayName, start: slot.startTime })}
+                    label={t("slotActions", { day: dayName, start: ltr(slot.startTime) })}
                     editDialog={(props) => (
                       <TimeSlotDialog
                         yearId={yearId}
@@ -103,7 +104,7 @@ export function TimeSlotDayCard({ yearId, day, slots, filledDays }: Props) {
                         {...props}
                       />
                     )}
-                    deleteTitle={t("delete.title", { day: dayName, start: slot.startTime, end: slot.endTime })}
+                    deleteTitle={t("delete.title", { day: dayName, range: ltr(`${slot.startTime}–${slot.endTime}`) })}
                     deleteDescription={t("delete.description")}
                     onDelete={() => deleteTimeSlot(slot.id)}
                     deletedMessage={t("delete.done")}

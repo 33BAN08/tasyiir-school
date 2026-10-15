@@ -14,6 +14,7 @@ import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "@/i18n/navigation";
 import { requireSchoolPermission } from "@/lib/auth/session";
+import { ltr } from "@/lib/format";
 import { listAcademicYears } from "@/lib/structure/academic-years";
 import { countSlotsByYear, getSchoolWeek } from "@/lib/structure/time-slots";
 
@@ -90,7 +91,7 @@ async function TimeSlotsSection({ schoolId, requestedYear }: SectionProps) {
         <Card className="py-0">
           <EmptyState
             icon={Clock}
-            title={t("emptyTitle", { year: year.label })}
+            title={t("emptyTitle", { year: ltr(year.label) })}
             description={t("emptyDescription")}
             action={<TimeSlotYearActions yearId={year.id} yearLabel={year.label} sources={sources} />}
           />
@@ -103,7 +104,7 @@ async function TimeSlotsSection({ schoolId, requestedYear }: SectionProps) {
         <p className="text-sm text-muted-foreground">
           {week.days.length === 0
             ? t("noDays")
-            : t("summary", { days: week.days.length, lessons, year: year.label })}
+            : t("summary", { days: week.days.length, lessons, year: ltr(year.label) })}
         </p>
       </div>
 

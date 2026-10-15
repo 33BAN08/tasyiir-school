@@ -13,6 +13,7 @@ import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "@/i18n/navigation";
 import { requireSchoolPermission } from "@/lib/auth/session";
+import { ltr } from "@/lib/format";
 import { listAcademicYears } from "@/lib/structure/academic-years";
 import { listClasses } from "@/lib/structure/classes";
 import { listLevelsByCycle } from "@/lib/structure/levels";
@@ -90,7 +91,7 @@ async function ClassesSection({ schoolId, requestedYear }: SectionProps) {
         <Card className="py-0">
           <EmptyState
             icon={School}
-            title={t("emptyTitle", { year: year.label })}
+            title={t("emptyTitle", { year: ltr(year.label) })}
             description={t("emptyDescription")}
             action={buttons}
           />
@@ -98,7 +99,7 @@ async function ClassesSection({ schoolId, requestedYear }: SectionProps) {
       ) : (
         <>
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="text-sm text-muted-foreground">{t("count", { count: classes.length, year: year.label })}</p>
+            <p className="text-sm text-muted-foreground">{t("count", { count: classes.length, year: ltr(year.label) })}</p>
             {buttons}
           </div>
           <ClassesList academicYearId={year.id} levels={levels} classes={classes} />

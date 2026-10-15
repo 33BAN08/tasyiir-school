@@ -23,6 +23,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useRouter } from "@/i18n/navigation";
+import { ltr } from "@/lib/format";
 import type { AcademicYear } from "@/lib/structure/academic-years";
 import { deleteAcademicYear, setCurrentAcademicYear } from "@/lib/structure/year-actions";
 
@@ -55,7 +56,7 @@ export function YearRowActions({ year }: { year: AcademicYear }) {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="icon" aria-label={t("actions", { label: year.label })} disabled={isPending}>
+          <Button variant="ghost" size="icon" aria-label={t("actions", { label: ltr(year.label) })} disabled={isPending}>
             <MoreHorizontal aria-hidden />
           </Button>
         </DropdownMenuTrigger>
@@ -67,7 +68,7 @@ export function YearRowActions({ year }: { year: AcademicYear }) {
           {!year.isCurrent && (
             <DropdownMenuItem
               onSelect={() =>
-                run(() => setCurrentAcademicYear(year.id), t("madeCurrent", { label: year.label }))
+                run(() => setCurrentAcademicYear(year.id), t("madeCurrent", { label: ltr(year.label) }))
               }
             >
               <CalendarCheck aria-hidden />
@@ -96,7 +97,7 @@ export function YearRowActions({ year }: { year: AcademicYear }) {
       <Dialog open={deleting} onOpenChange={setDeleting}>
         <DialogContent showCloseButton={false}>
           <DialogHeader>
-            <DialogTitle>{t("delete.title", { label: year.label })}</DialogTitle>
+            <DialogTitle>{t("delete.title", { label: ltr(year.label) })}</DialogTitle>
             <DialogDescription>{t("delete.description")}</DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -108,7 +109,7 @@ export function YearRowActions({ year }: { year: AcademicYear }) {
             <Button
               variant="destructive"
               disabled={isPending}
-              onClick={() => run(() => deleteAcademicYear(year.id), t("delete.done", { label: year.label }))}
+              onClick={() => run(() => deleteAcademicYear(year.id), t("delete.done", { label: ltr(year.label) }))}
             >
               {t("delete.confirm")}
             </Button>

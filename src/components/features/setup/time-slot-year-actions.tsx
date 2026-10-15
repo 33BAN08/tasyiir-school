@@ -19,6 +19,7 @@ import {
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useRouter } from "@/i18n/navigation";
+import { ltr } from "@/lib/format";
 import { applyTimeSlotTemplate, copyTimeSlotsFromYear } from "@/lib/structure/time-slot-actions";
 
 import { useSetupError } from "./use-setup-error";
@@ -86,7 +87,7 @@ function CopyYearDialog({ yearId, yearLabel, sources }: Props) {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{t("title", { year: yearLabel })}</DialogTitle>
+          <DialogTitle>{t("title", { year: ltr(yearLabel) })}</DialogTitle>
           <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
         <Field>
@@ -98,7 +99,7 @@ function CopyYearDialog({ yearId, yearLabel, sources }: Props) {
             <SelectContent>
               {sources.map((y) => (
                 <SelectItem key={y.id} value={y.id}>
-                  {t("source", { year: y.label, count: y.slots })}
+                  {t("source", { year: ltr(y.label), count: y.slots })}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -145,7 +146,7 @@ function TemplateDialog({ yearId, yearLabel, primary }: { yearId: string; yearLa
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{t("title", { year: yearLabel })}</DialogTitle>
+          <DialogTitle>{t("title", { year: ltr(yearLabel) })}</DialogTitle>
           <DialogDescription>{t("description")}</DialogDescription>
         </DialogHeader>
         <ul className="flex list-disc flex-col gap-1 ps-5 text-sm">

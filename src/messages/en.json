@@ -931,7 +931,7 @@
         "action": "Go to academic years"
       },
       "delete": {
-        "title": "Delete the {day} {start}–{end} slot?",
+        "title": "Delete the {day} {range} slot?",
         "description": "This cannot be undone.",
         "done": "Slot deleted."
       },
