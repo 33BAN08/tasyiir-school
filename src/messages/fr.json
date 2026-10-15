@@ -71,7 +71,8 @@
     "plans": "Formules",
     "staff": "Personnel",
     "roles": "Rôles et permissions",
-    "setup": "Structure"
+    "setup": "Structure",
+    "students": "Élèves"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -539,6 +540,83 @@
       "generic": "Une erreur inattendue s'est produite. Veuillez réessayer."
     }
   },
+  "students": {
+    "title": "Élèves",
+    "description": "Les élèves de l'établissement et leur classe en {year}.",
+    "descriptionNoYear": "Les élèves de l'établissement. Créez l'année scolaire en cours pour leur affecter une classe.",
+    "new": "Nouvel élève",
+    "searchLabel": "Rechercher un élève",
+    "searchPlaceholder": "Nom ou code Massar…",
+    "loading": "Chargement…",
+    "classFilterLabel": "Classe",
+    "classAll": "Toutes les classes",
+    "noClass": "Sans classe",
+    "count": "{count, plural, =0 {Aucun élève} one {# élève} other {# élèves}}",
+    "emptyTitle": "Aucun élève pour l'instant",
+    "emptyDescription": "Ajoutez un premier élève. L'import CSV arrivera bientôt.",
+    "emptyDescriptionReadOnly": "Aucun élève n'a encore été ajouté.",
+    "noResultsTitle": "Aucun résultat",
+    "noResultsDescription": "Aucun élève ne correspond à cette recherche ou à cette classe.",
+    "clearFilters": "Effacer les filtres",
+    "actions": "Actions pour {name}",
+    "columns": {
+      "name": "Nom",
+      "codeMassar": "Code Massar",
+      "birthDate": "Date de naissance",
+      "class": "Classe",
+      "actions": "Actions"
+    },
+    "delete": {
+      "title": "Supprimer l'élève {name} ?",
+      "description": "Sa fiche et ses classes de toutes les années seront supprimées. Cette action est irréversible.",
+      "done": "Élève supprimé."
+    },
+    "form": {
+      "createTitle": "Nouvel élève",
+      "editTitle": "Modifier l'élève",
+      "description": "Le nom en lettres latines est obligatoire, comme sur Massar. Le nom en arabe est facultatif.",
+      "lastName": "Nom (latin)",
+      "firstName": "Prénom (latin)",
+      "lastNameAr": "Nom en arabe",
+      "firstNameAr": "Prénom en arabe",
+      "birthDate": "Date de naissance",
+      "gender": "Sexe",
+      "genderPlaceholder": "Choisir",
+      "genders": {
+        "male": "Garçon",
+        "female": "Fille"
+      },
+      "codeMassar": "Code Massar",
+      "codeMassarHint": "Une lettre et 9 chiffres, par exemple J130012345.",
+      "class": "Classe",
+      "classIn": "Classe en {year}",
+      "noClass": "Sans classe",
+      "noCurrentYear": "Aucune année scolaire en cours : créez-la dans Structure pour affecter une classe.",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "created": "Élève ajouté.",
+      "updated": "Élève enregistré."
+    },
+    "errors": {
+      "generic": "Une erreur est survenue. Veuillez réessayer.",
+      "forbidden": "Vous n'avez pas la permission de faire cette action.",
+      "notFound": "Cet élève n'existe pas.",
+      "inUse": "Cet élève est lié à d'autres données et ne peut pas être supprimé.",
+      "nameRequired": "Ce champ est obligatoire.",
+      "tooLong": "Le texte est trop long.",
+      "latinOnly": "Écrivez ce nom en lettres latines.",
+      "arabicOnly": "Écrivez ce nom en lettres arabes.",
+      "arabicNamesBoth": "Saisissez le nom et le prénom en arabe ensemble, ou laissez les deux vides.",
+      "invalidDate": "Saisissez une date valide.",
+      "birthDateRange": "La date de naissance n'est pas valide.",
+      "genderRequired": "Choisissez le sexe.",
+      "invalidMassar": "Code Massar : une lettre suivie de 9 chiffres, par exemple J130012345.",
+      "massarTaken": "Ce code Massar est déjà utilisé par un autre élève.",
+      "invalidClass": "Cette classe n'est pas disponible.",
+      "noCurrentYear": "Aucune année scolaire en cours."
+    }
+  },
   "setup": {
     "title": "Structure de l'établissement",
     "description": "Années scolaires, niveaux, classes, matières, salles et horaires.",
@@ -636,7 +714,8 @@
       "dayNotSchoolDay": "Ce jour n'est pas un jour de classe. Activez-le d'abord.",
       "dayHasSlots": "Ce jour a encore des créneaux. Supprimez-les d'abord.",
       "slotsAlreadyExist": "Cette année a déjà des créneaux ces jours-là.",
-      "nothingToCopy": "Il n'y a rien à copier."
+      "nothingToCopy": "Il n'y a rien à copier.",
+      "classHasStudents": "Cette classe a des élèves. Changez-les de classe d'abord."
     },
     "confirm": {
       "cancel": "Annuler",
@@ -1040,6 +1119,22 @@
       "manage": {
         "label": "Gérer la structure",
         "description": "Années scolaires, niveaux, classes, matières, salles et horaires."
+      }
+    },
+    "students": {
+      "view": {
+        "label": "Voir les élèves",
+        "description": "Consulter la liste de tous les élèves de l'établissement et leurs fiches."
+      },
+      "manage": {
+        "label": "Gérer les élèves",
+        "description": "Ajouter, modifier, supprimer les élèves, leur classe et leur photo."
+      }
+    },
+    "parents": {
+      "manage": {
+        "label": "Gérer les parents",
+        "description": "Parents et tuteurs, liens avec les enfants et comptes parents."
       }
     }
   }

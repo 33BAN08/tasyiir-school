@@ -71,7 +71,8 @@
     "plans": "Plans",
     "staff": "Staff",
     "roles": "Roles & permissions",
-    "setup": "Structure"
+    "setup": "Structure",
+    "students": "Students"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -539,6 +540,83 @@
       "generic": "An unexpected error occurred. Please try again."
     }
   },
+  "students": {
+    "title": "Students",
+    "description": "The school's students and their class in {year}.",
+    "descriptionNoYear": "The school's students. Create the current school year to assign their classes.",
+    "new": "New student",
+    "searchLabel": "Search students",
+    "searchPlaceholder": "Name or Massar code…",
+    "loading": "Loading…",
+    "classFilterLabel": "Class",
+    "classAll": "All classes",
+    "noClass": "No class",
+    "count": "{count, plural, =0 {No students} one {# student} other {# students}}",
+    "emptyTitle": "No students yet",
+    "emptyDescription": "Add a first student. CSV import is coming soon.",
+    "emptyDescriptionReadOnly": "No student has been added yet.",
+    "noResultsTitle": "No results",
+    "noResultsDescription": "No student matches this search or class.",
+    "clearFilters": "Clear filters",
+    "actions": "Actions for {name}",
+    "columns": {
+      "name": "Name",
+      "codeMassar": "Massar code",
+      "birthDate": "Date of birth",
+      "class": "Class",
+      "actions": "Actions"
+    },
+    "delete": {
+      "title": "Delete the student {name}?",
+      "description": "Their record and their classes in every year will be deleted. This cannot be undone.",
+      "done": "Student deleted."
+    },
+    "form": {
+      "createTitle": "New student",
+      "editTitle": "Edit student",
+      "description": "The name in Latin letters is required, as on Massar. The Arabic name is optional.",
+      "lastName": "Last name (Latin)",
+      "firstName": "First name (Latin)",
+      "lastNameAr": "Last name in Arabic",
+      "firstNameAr": "First name in Arabic",
+      "birthDate": "Date of birth",
+      "gender": "Gender",
+      "genderPlaceholder": "Choose",
+      "genders": {
+        "male": "Boy",
+        "female": "Girl"
+      },
+      "codeMassar": "Massar code",
+      "codeMassarHint": "One letter and 9 digits, e.g. J130012345.",
+      "class": "Class",
+      "classIn": "Class in {year}",
+      "noClass": "No class",
+      "noCurrentYear": "No current school year: create it in Structure to assign a class.",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving…",
+      "created": "Student added.",
+      "updated": "Student saved."
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "forbidden": "You do not have permission to do this.",
+      "notFound": "This student does not exist.",
+      "inUse": "This student is linked to other data and cannot be deleted.",
+      "nameRequired": "This field is required.",
+      "tooLong": "The text is too long.",
+      "latinOnly": "Write this name in Latin letters.",
+      "arabicOnly": "Write this name in Arabic letters.",
+      "arabicNamesBoth": "Enter the Arabic last and first name together, or leave both empty.",
+      "invalidDate": "Enter a valid date.",
+      "birthDateRange": "The date of birth is not valid.",
+      "genderRequired": "Choose the gender.",
+      "invalidMassar": "Massar code: one letter followed by 9 digits, e.g. J130012345.",
+      "massarTaken": "This Massar code is already used by another student.",
+      "invalidClass": "This class is not available.",
+      "noCurrentYear": "No current school year."
+    }
+  },
   "setup": {
     "title": "School structure",
     "description": "Academic years, levels, classes, subjects, rooms and time slots.",
@@ -636,7 +714,8 @@
       "dayNotSchoolDay": "This day is not a school day. Switch it on first.",
       "dayHasSlots": "This day still has slots. Delete them first.",
       "slotsAlreadyExist": "This year already has slots on these days.",
-      "nothingToCopy": "There is nothing to copy."
+      "nothingToCopy": "There is nothing to copy.",
+      "classHasStudents": "This class has students. Move them to another class first."
     },
     "confirm": {
       "cancel": "Cancel",
@@ -1040,6 +1119,22 @@
       "manage": {
         "label": "Manage school structure",
         "description": "Academic years, levels, classes, subjects, rooms and time slots."
+      }
+    },
+    "students": {
+      "view": {
+        "label": "View students",
+        "description": "See the list of every student of the school and their records."
+      },
+      "manage": {
+        "label": "Manage students",
+        "description": "Add, edit and delete students, their class and their photo."
+      }
+    },
+    "parents": {
+      "manage": {
+        "label": "Manage parents",
+        "description": "Parents and guardians, links to their children, parent accounts."
       }
     }
   }

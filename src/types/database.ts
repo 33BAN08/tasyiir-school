@@ -655,6 +655,108 @@ export type Database = {
         }
         Relationships: []
       }
+      student_enrollments: {
+        Row: {
+          academic_year_id: string
+          class_id: string
+          created_at: string
+          school_id: string
+          student_id: string
+          updated_at: string
+        }
+        Insert: {
+          academic_year_id: string
+          class_id: string
+          created_at?: string
+          school_id: string
+          student_id: string
+          updated_at?: string
+        }
+        Update: {
+          academic_year_id?: string
+          class_id?: string
+          created_at?: string
+          school_id?: string
+          student_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_enrollments_class_fkey"
+            columns: ["class_id", "academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id", "academic_year_id", "school_id"]
+          },
+          {
+            foreignKeyName: "student_enrollments_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_enrollments_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
+      students: {
+        Row: {
+          birth_date: string
+          code_massar: string | null
+          created_at: string
+          first_name: string
+          first_name_ar: string | null
+          gender: string
+          id: string
+          last_name: string
+          last_name_ar: string | null
+          photo_path: string | null
+          school_id: string
+          updated_at: string
+        }
+        Insert: {
+          birth_date: string
+          code_massar?: string | null
+          created_at?: string
+          first_name: string
+          first_name_ar?: string | null
+          gender: string
+          id?: string
+          last_name: string
+          last_name_ar?: string | null
+          photo_path?: string | null
+          school_id: string
+          updated_at?: string
+        }
+        Update: {
+          birth_date?: string
+          code_massar?: string | null
+          created_at?: string
+          first_name?: string
+          first_name_ar?: string | null
+          gender?: string
+          id?: string
+          last_name?: string
+          last_name_ar?: string | null
+          photo_path?: string | null
+          school_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "students_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       subjects: {
         Row: {
           code: string | null

@@ -23,6 +23,8 @@ import { phase4Classes } from "./phase4-classes.mjs";
 import { phase4Subjects } from "./phase4-subjects.mjs";
 import { phase4TimeSlots } from "./phase4-time-slots.mjs";
 import { timeSlotActions } from "./actions-time-slots.mjs";
+import { phase5Students } from "./phase5-students.mjs";
+import { studentActions } from "./actions-students.mjs";
 
 const withActions = process.argv.includes("--actions");
 const baseUrl = process.env.TEST_APP_URL ?? "http://localhost:3000";
@@ -36,7 +38,7 @@ try {
   }
   fx = await createFixtures();
   const as = { anon: anon() };
-  for (const name of ["dirA", "survA", "deactA", "radA", "dirB", "dirC", "owner"]) {
+  for (const name of ["dirA", "survA", "deactA", "radA", "tchA", "mgrA", "dirB", "dirC", "owner"]) {
     as[name] = await signIn(fx.users[name]);
   }
 
@@ -48,6 +50,7 @@ try {
   await phase4Classes({ fx, as });
   await phase4Subjects({ fx, as });
   await phase4TimeSlots({ fx, as });
+  await phase5Students({ fx, as });
   await import("./rules.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });
@@ -57,6 +60,7 @@ try {
     await classActions({ fx, baseUrl });
     await subjectActions({ fx, baseUrl });
     await timeSlotActions({ fx, baseUrl });
+    await studentActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

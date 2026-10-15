@@ -27,12 +27,23 @@ type Props = {
   deleteDescription: string;
   onDelete: () => Promise<{ ok: boolean; error?: string }>;
   deletedMessage: string;
+  /** Translates a delete error key; defaults to `setup.errors`. */
+  translateError?: (key: string) => string;
 };
 
 /** Row menu with "Edit" and "Delete" (confirmation first), for simple setup lists. */
-export function EditDeleteMenu({ label, editDialog, deleteTitle, deleteDescription, onDelete, deletedMessage }: Props) {
+export function EditDeleteMenu({
+  label,
+  editDialog,
+  deleteTitle,
+  deleteDescription,
+  onDelete,
+  deletedMessage,
+  translateError: translate,
+}: Props) {
   const t = useTranslations("setup.rowMenu");
-  const translateError = useSetupError();
+  const setupError = useSetupError();
+  const translateError = translate ?? setupError;
   const router = useRouter();
   const [dialog, setDialog] = useState<"edit" | "delete" | null>(null);
   const [isPending, startTransition] = useTransition();

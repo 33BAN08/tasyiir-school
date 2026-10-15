@@ -55,7 +55,9 @@ export async function staffMemberActions({ fx, baseUrl }) {
   await expect("manager cannot give a stronger role", role("mgrA", u.tchA.id, A.roles.auditor), "roleTooPowerful");
   await expect("manager cannot demote a director", role("mgrA", u.pendA.id, A.roles.teacher), "directorOnly");
   await expect("manager cannot change own role", role("mgrA", u.mgrA.id, A.roles.teacher), "selfRole");
-  await expect("manager changes a teacher back", role("mgrA", u.tchA.id, A.roles.teacher), "ok");
+  // A surveillant has students.view (Phase 5), which this manager lacks: a stronger account.
+  await expect("manager cannot change a surveillant (more rights)", role("mgrA", u.tchA.id, A.roles.teacher), "roleTooPowerful");
+  await expect("director changes the surveillant back to teacher", role("dirA", u.tchA.id, A.roles.teacher), "ok");
 
   // --- Reset password ---------------------------------------------------------
   const reset = await expect("director resets a teacher's password", call("dirA", "resetStaffPassword", u.tchA.id), "ok");
