@@ -7,10 +7,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { ltr } from "@/lib/format";
 
-type Props = { years: { id: string; label: string; isCurrent: boolean }[]; value: string };
+type Props = {
+  years: { id: string; label: string; isCurrent: boolean }[];
+  value: string;
+  /** Other query parameters to keep, e.g. "view=teacher". */
+  keep?: string;
+};
 
 /** Academic year shown on the page, kept in `?year=` (the current year when absent). */
-export function YearSelect({ years, value }: Props) {
+export function YearSelect({ years, value, keep }: Props) {
   const t = useTranslations("setup.classes");
   const router = useRouter();
   const pathname = usePathname();
@@ -24,7 +29,7 @@ export function YearSelect({ years, value }: Props) {
       <Select
         value={value}
         disabled={isPending}
-        onValueChange={(id) => startTransition(() => router.replace(`${pathname}?year=${id}`))}
+        onValueChange={(id) => startTransition(() => router.replace(`${pathname}?year=${id}${keep ? `&${keep}` : ""}`))}
       >
         <SelectTrigger id="year-select" className="w-48">
           <SelectValue />

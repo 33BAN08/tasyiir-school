@@ -20,7 +20,7 @@ type Props = CellHandlers & {
 };
 
 /** The week as one card per day (phones): each slot of the day, its lesson or a way to add one. */
-export function TimetableDays({ days, slots, lessonBySlot, onAdd, onOpen }: Props) {
+export function TimetableDays({ days, slots, lessonBySlot, details, onAdd, onOpen }: Props) {
   const t = useTranslations("timetable.grid");
   const tDays = useTranslations("setup.timeSlots.days");
 
@@ -53,7 +53,7 @@ export function TimetableDays({ days, slots, lessonBySlot, onAdd, onOpen }: Prop
                     );
                   }
                   const content = lesson ? (
-                    <LessonCard lesson={lesson} className="flex-1" />
+                    <LessonCard lesson={lesson} details={details} className="flex-1" />
                   ) : (
                     <span className="flex flex-1 items-center gap-1 text-sm text-muted-foreground">
                       {onAdd && <Plus className="size-4" aria-hidden />}

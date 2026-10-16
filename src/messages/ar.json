@@ -1559,7 +1559,6 @@
     "title": "استعمال الزمن",
     "description": "أسبوع كل قسم. انقر على خانة فارغة لإضافة حصة، وعلى حصة لتعديلها.",
     "descriptionReadOnly": "أسبوع كل قسم.",
-    "class": "القسم",
     "weekOf": "{class} — {year}",
     "weeklyHours": "الحجم الساعي: {duration} في الأسبوع",
     "duration": "{hasMinutes, select, yes {{hours} س {minutes} د} other {{hours} س}}",
@@ -1589,6 +1588,16 @@
         "title": "لا توجد فترات دراسة هذه السنة",
         "description": "حدّد أولًا أيام الدراسة والفترات الزمنية للسنة.",
         "action": "الذهاب إلى الفترات الزمنية"
+      },
+      "teachers": {
+        "title": "لا يوجد أساتذة",
+        "description": "أنشئ حسابات الأساتذة وحدّد موادهم.",
+        "action": "الذهاب إلى الأساتذة"
+      },
+      "rooms": {
+        "title": "لا توجد قاعات",
+        "description": "أضف قاعات المؤسسة لتتبّع استعمالها.",
+        "action": "الذهاب إلى القاعات"
       }
     },
     "dialog": {
@@ -1632,6 +1641,22 @@
       "classBusy": "للقسم {class} حصة يوم {day}، {range}.",
       "teacherBusy": "لدى {name} حصة مع القسم {class} يوم {day}، {range}. اختر أستاذًا آخر أو فترة أخرى.",
       "roomBusy": "القاعة {name} مشغولة بالقسم {class} يوم {day}، {range}."
+    },
+    "views": {
+      "label": "عرض استعمال الزمن",
+      "class": "القسم",
+      "teacher": "الأستاذ",
+      "room": "القاعة",
+      "classLabel": "القسم",
+      "teacherLabel": "الأستاذ",
+      "roomLabel": "القاعة"
+    },
+    "addFromClass": "لإضافة حصة، افتح استعمال زمن قسم. انقر على حصة لتعديلها.",
+    "teacherHours": {
+      "title": "الحجم الساعي للأساتذة",
+      "teacher": "الأستاذ",
+      "classes": "الأقسام",
+      "hours": "الساعات في الأسبوع"
     }
   }
 }

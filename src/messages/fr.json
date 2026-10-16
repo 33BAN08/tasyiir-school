@@ -1559,7 +1559,6 @@
     "title": "Emploi du temps",
     "description": "La semaine de chaque classe. Cliquez sur une case vide pour ajouter une séance, sur une séance pour la modifier.",
     "descriptionReadOnly": "La semaine de chaque classe.",
-    "class": "Classe",
     "weekOf": "{class} — {year}",
     "weeklyHours": "Volume horaire : {duration} par semaine",
     "duration": "{hasMinutes, select, yes {{hours} h {minutes}} other {{hours} h}}",
@@ -1589,6 +1588,16 @@
         "title": "Aucun créneau de cours cette année",
         "description": "Définissez d'abord les jours et les créneaux horaires de l'année.",
         "action": "Aller aux créneaux horaires"
+      },
+      "teachers": {
+        "title": "Aucun enseignant",
+        "description": "Créez les comptes enseignants et indiquez leurs matières.",
+        "action": "Aller aux enseignants"
+      },
+      "rooms": {
+        "title": "Aucune salle",
+        "description": "Ajoutez les salles de l'établissement pour suivre leur occupation.",
+        "action": "Aller aux salles"
       }
     },
     "dialog": {
@@ -1632,6 +1641,22 @@
       "classBusy": "La classe {class} a déjà une séance à ce moment : {day}, {range}.",
       "teacherBusy": "{name} a déjà cours avec la classe {class} à ce moment : {day}, {range}. Choisissez un autre enseignant ou un autre créneau.",
       "roomBusy": "La salle {name} est déjà occupée par la classe {class} à ce moment : {day}, {range}."
+    },
+    "views": {
+      "label": "Afficher l'emploi du temps",
+      "class": "Classe",
+      "teacher": "Enseignant",
+      "room": "Salle",
+      "classLabel": "Classe",
+      "teacherLabel": "Enseignant",
+      "roomLabel": "Salle"
+    },
+    "addFromClass": "Pour ajouter une séance, ouvrez l'emploi du temps d'une classe. Cliquez sur une séance pour la modifier.",
+    "teacherHours": {
+      "title": "Volume horaire des enseignants",
+      "teacher": "Enseignant",
+      "classes": "Classes",
+      "hours": "Heures / semaine"
     }
   }
 }

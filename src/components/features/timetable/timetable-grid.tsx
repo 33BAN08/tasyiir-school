@@ -10,10 +10,12 @@ import type { TimeSlot } from "@/lib/structure/time-slots";
 import type { TimetableLesson } from "@/lib/timetable/types";
 import { cn } from "@/lib/utils";
 
-import { LessonCard } from "./lesson-card";
+import { LessonCard, type LessonDetail } from "./lesson-card";
 import type { WeekRow } from "./week-layout";
 
 export type CellHandlers = {
+  /** What each lesson shows under its subject (depends on the view: class, teacher or room). */
+  details: LessonDetail[];
   /** Set when the user may add lessons: an empty lesson cell becomes a button. */
   onAdd?: (slot: TimeSlot) => void;
   /** Set when the user may edit lessons. */
@@ -27,7 +29,7 @@ type Props = CellHandlers & {
 };
 
 /** The week as a table: days across, time ranges down (desktop). */
-export function TimetableGrid({ days, rows, lessonBySlot, onAdd, onOpen }: Props) {
+export function TimetableGrid({ days, rows, lessonBySlot, details, onAdd, onOpen }: Props) {
   const t = useTranslations("timetable.grid");
   const tDays = useTranslations("setup.timeSlots.days");
 
@@ -75,11 +77,11 @@ export function TimetableGrid({ days, rows, lessonBySlot, onAdd, onOpen }: Props
                         aria-label={label("openLesson")}
                         className="size-full rounded-md border bg-card p-2 transition-colors hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                       >
-                        <LessonCard lesson={lesson} />
+                        <LessonCard lesson={lesson} details={details} />
                       </button>
                     ) : (
                       <div className="size-full rounded-md border bg-card p-2">
-                        <LessonCard lesson={lesson} />
+                        <LessonCard lesson={lesson} details={details} />
                       </div>
                     )
                   ) : onAdd ? (

@@ -1559,7 +1559,6 @@
     "title": "Timetable",
     "description": "Each class's week. Click an empty cell to add a lesson, or a lesson to change it.",
     "descriptionReadOnly": "Each class's week.",
-    "class": "Class",
     "weekOf": "{class} — {year}",
     "weeklyHours": "Weekly hours: {duration}",
     "duration": "{hasMinutes, select, yes {{hours} h {minutes}} other {{hours} h}}",
@@ -1589,6 +1588,16 @@
         "title": "No lesson slots this year",
         "description": "First set the year's school days and time slots.",
         "action": "Go to time slots"
+      },
+      "teachers": {
+        "title": "No teachers",
+        "description": "Create the teacher accounts and set their subjects.",
+        "action": "Go to teachers"
+      },
+      "rooms": {
+        "title": "No rooms",
+        "description": "Add the school's rooms to follow how they are used.",
+        "action": "Go to rooms"
       }
     },
     "dialog": {
@@ -1632,6 +1641,22 @@
       "classBusy": "Class {class} already has a lesson on {day}, {range}.",
       "teacherBusy": "{name} already teaches class {class} on {day}, {range}. Choose another teacher or another slot.",
       "roomBusy": "Room {name} is already used by class {class} on {day}, {range}."
+    },
+    "views": {
+      "label": "Show the timetable of",
+      "class": "Class",
+      "teacher": "Teacher",
+      "room": "Room",
+      "classLabel": "Class",
+      "teacherLabel": "Teacher",
+      "roomLabel": "Room"
+    },
+    "addFromClass": "To add a lesson, open a class's timetable. Click a lesson to change it.",
+    "teacherHours": {
+      "title": "Teachers' weekly hours",
+      "teacher": "Teacher",
+      "classes": "Classes",
+      "hours": "Hours / week"
     }
   }
 }
