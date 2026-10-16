@@ -45,7 +45,7 @@ export function TeachersTable({ items, subjects, canOpenStaff }: Props) {
                   <bdi className="font-medium">{teacher.fullName}</bdi>
                 )}
                 {teacher.email && (
-                  <bdi dir="ltr" className="text-xs text-muted-foreground">
+                  <bdi dir="ltr" className="hidden text-xs text-muted-foreground md:block">
                     {teacher.email}
                   </bdi>
                 )}

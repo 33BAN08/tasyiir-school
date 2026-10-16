@@ -32,8 +32,9 @@ export function StudentsTable({ items, canManage, classes, yearLabel, schoolId, 
       <TableHeader>
         <TableRow>
           <TableHead>{t("columns.name")}</TableHead>
-          <TableHead>{t("columns.codeMassar")}</TableHead>
-          <TableHead>{t("columns.birthDate")}</TableHead>
+          {/* Phones: name, class and actions only. */}
+          <TableHead className="hidden md:table-cell">{t("columns.codeMassar")}</TableHead>
+          <TableHead className="hidden md:table-cell">{t("columns.birthDate")}</TableHead>
           <TableHead>{t("columns.class")}</TableHead>
           {canManage && (
             <TableHead className="w-12">
@@ -65,10 +66,10 @@ export function StudentsTable({ items, canManage, classes, yearLabel, schoolId, 
                   </div>
                 </div>
               </TableCell>
-              <TableCell className="font-numeric tabular-nums">
+              <TableCell className="hidden font-numeric tabular-nums md:table-cell">
                 {student.codeMassar ? <bdi>{student.codeMassar}</bdi> : "—"}
               </TableCell>
-              <TableCell className="font-numeric tabular-nums">{formatDate(student.birthDate)}</TableCell>
+              <TableCell className="hidden font-numeric tabular-nums md:table-cell">{formatDate(student.birthDate)}</TableCell>
               <TableCell>
                 {student.className ? (
                   <bdi>{student.className}</bdi>

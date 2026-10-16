@@ -20,7 +20,8 @@ export function GuardiansTable({ items }: { items: Guardian[] }) {
           <TableHead>{t("columns.name")}</TableHead>
           <TableHead>{t("columns.phone")}</TableHead>
           <TableHead>{t("columns.children")}</TableHead>
-          <TableHead>{t("columns.account")}</TableHead>
+          {/* Phones: the account status stays on the parent page. */}
+          <TableHead className="hidden md:table-cell">{t("columns.account")}</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -47,7 +48,7 @@ export function GuardiansTable({ items }: { items: Guardian[] }) {
                 </span>
               )}
             </TableCell>
-            <TableCell>
+            <TableCell className="hidden md:table-cell">
               <AccountStatusBadge status={g.account} />
             </TableCell>
           </TableRow>
