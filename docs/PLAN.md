@@ -168,7 +168,7 @@ tasyiir-school/
 - [x] **2. Platform dashboard** — schools list, new-school wizard (school + director account + plan), plans & modules, subscription status, suspend/activate
 - [x] **3. Staff management (director)** — create/invite staff, assign roles, edit role permissions, deactivate accounts
 - [x] **4. School structure** — years, levels, classes, subjects, rooms, time slots
-- [ ] **5. People** — students, parents, teachers, photos (Storage), CSV import
+- [x] **5. People** — students, parents, teachers, photos (Storage), CSV import
 - [ ] **6. Emploi du temps** — grid, drag & drop, conflict detection, PDF
 - [ ] **7. Absences + justifications**
 - [ ] **8. Alerts engine + notifications** (in-app + email)

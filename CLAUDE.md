@@ -8,7 +8,7 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 - **Always read both before starting a phase.** Work on ONE phase at a time. Don't build ahead.
 
 ## Current phase
-> **Phase 5 — People** (update this line when a phase is finished). Phases 0–4 done — live at https://tasyiir-school.vercel.app
+> **Phase 6 — Emploi du temps** (update this line when a phase is finished). Phases 0–5 done — live at https://tasyiir-school.vercel.app
 
 ## Tech stack (do not change without asking)
 - Next.js (latest, App Router) + TypeScript (strict)
@@ -51,7 +51,7 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 4. Update "Current phase" above and tick the phase in `docs/PLAN.md`.
 5. Commit with a clear message, push to GitHub (Vercel deploys automatically).
 
-## Phase 5 progress (updated 2026-10-16, step 5)
+## Phase 5 — done 2026-10-16 (notes kept for later phases)
 Same workflow as Phase 4 (show every migration and Storage policy, wait for OK, commit + push each step, test in Chrome AR + FR). Children's personal data: store only what is needed (no national ID), platform owner has NO access to students.
 
 **Done**
@@ -64,8 +64,10 @@ Same workflow as Phase 4 (show every migration and Storage policy, wait for OK, 
 
 - Step 5 — Import (`/students/import`, migration `phase5_import_students`): .xlsx (`read-excel-file`, first sheet) or CSV (`src/lib/students/import/csv.ts`: UTF-8 with/without BOM, UTF-16, Windows-1256 when strict UTF-8 fails; separator `;` `,` or tab from the header line). Headers recognised in ar/fr/en ignoring case/accents/punctuation (`columns.ts`); required: Latin names, birth date, gender, class; optional: Arabic names, Massar code, parent (last name, first name, phone, relation — all 4 or none). Max 2000 rows, 3 MB (Vercel caps bodies at 4.5 MB; `experimental.serverActions.bodySizeLimit` = 4mb). Preview (`previewImport`) and import (`commitImport`) take the SAME file: the import re-reads and re-checks it, refuses if any row has an error, leaves out the lines the user unticked (`exclude`), then calls `public.import_students(jsonb)` — SECURITY INVOKER (RLS as for the forms), one transaction = all or nothing, school and current year always the caller's. A Massar code already in the school → "exists", skipped. Same Latin name + birth date as a student of the school or another line → non-blocking "possible duplicate" warning, the row can be unticked. Parents: found by phone in the school (reused, name kept) or created once (siblings share one). Template .xlsx made in the browser (`write-excel-file`). Tests: `rules-import.mjs`, `phase5-import.mjs`, `actions-import.mjs` (FormData actions: `callActionWithForm`, fields `_1_<name>`).
 
+- Step 6 — closing pass: every People page (students, student page, parents, parent page, teachers, import, parent portal) and its main dialogs checked in Arabic and French at desktop and phone width (no overflow, no untranslated keys, no console errors). Fixed: Latin file types in Arabic import texts showed as "(xlsx.)" / flipped brackets — wrapped in isolates (`⁦…⁩`, as `ltr()` does) in `ar.json`. A Latin run that starts or ends with punctuation (".xlsx", "(…)") inside an Arabic message must be isolated this way.
+
 **Next**
-- Step 6 — close the phase.
+- Phase 6 — Emploi du temps: read `docs/PLAN.md` + `docs/DESIGN.md` first, then propose step 1 and its migration.
 
 ## Phase 4 — done 2026-10-15 (notes kept for later phases)
 Workflow agreed with the user: one small step at a time; **show every SQL migration and wait for OK before applying**; commit + push after each step; test in Chrome in Arabic and French.
