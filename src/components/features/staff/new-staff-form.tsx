@@ -33,7 +33,7 @@ export function NewStaffForm({ roles, onCreated, onCancel }: Props) {
     defaultValues: {
       fullName: "",
       email: "",
-      roleId: "",
+      roleId: roles.length === 1 ? roles[0].id : "",
       phone: "",
       locale: locale as NewStaffFormValues["locale"],
     },

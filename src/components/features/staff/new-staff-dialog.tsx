@@ -19,8 +19,11 @@ import type { StaffRole } from "@/lib/staff/staff";
 import { NewStaffForm, type CreatedStaff } from "./new-staff-form";
 import { StaffCreatedNotice } from "./staff-created-notice";
 
-/** "Add a staff member" button + dialog: form, then the one-time credentials. */
-export function NewStaffDialog({ roles }: { roles: StaffRole[] }) {
+/**
+ * "Add a staff member" button + dialog: form, then the one-time credentials.
+ * With a single role (e.g. from the teachers page) that role is pre-selected.
+ */
+export function NewStaffDialog({ roles, buttonLabel }: { roles: StaffRole[]; buttonLabel?: string }) {
   const t = useTranslations("staff.create");
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -43,7 +46,7 @@ export function NewStaffDialog({ roles }: { roles: StaffRole[] }) {
       <DialogTrigger asChild>
         <Button>
           <UserPlus aria-hidden />
-          {t("button")}
+          {buttonLabel ?? t("button")}
         </Button>
       </DialogTrigger>
       <DialogContent

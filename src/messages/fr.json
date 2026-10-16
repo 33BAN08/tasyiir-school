@@ -75,7 +75,8 @@
     "roles": "Rôles et permissions",
     "setup": "Structure",
     "students": "Élèves",
-    "parents": "Parents"
+    "parents": "Parents",
+    "teachers": "Enseignants"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -1338,6 +1339,49 @@
         "label": "Gérer les parents",
         "description": "Parents et tuteurs, liens avec les enfants et comptes parents."
       }
+    },
+    "teachers": {
+      "manage": {
+        "label": "Gérer les enseignants",
+        "description": "Les matières enseignées par chaque enseignant."
+      }
+    }
+  },
+  "teachers": {
+    "title": "Enseignants",
+    "description": "Les enseignants de l'établissement et les matières qu'ils enseignent.",
+    "new": "Nouvel enseignant",
+    "count": "{count, plural, =0 {Aucun enseignant} one {# enseignant} other {# enseignants}}",
+    "emptyTitle": "Aucun enseignant pour l'instant",
+    "emptyDescription": "Ajoutez un enseignant : son compte est créé avec le rôle Enseignant, comme dans Personnel.",
+    "noSubjectsTitle": "Aucune matière",
+    "noSubjectsDescription": "Créez d'abord les matières de l'établissement pour les attribuer aux enseignants.",
+    "goToSubjects": "Créer les matières",
+    "noSubjects": "Aucune matière",
+    "columns": {
+      "name": "Nom",
+      "subjects": "Matières",
+      "status": "Statut",
+      "actions": "Actions"
+    },
+    "subjects": {
+      "button": "Matières",
+      "buttonFor": "Matières de {name}",
+      "title": "Matières de {name}",
+      "description": "Cochez les matières que cet enseignant enseigne.",
+      "count": "{count, plural, =0 {Aucune matière cochée} one {# matière cochée} other {# matières cochées}}",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "saved": "Matières enregistrées."
+    },
+    "errors": {
+      "generic": "Une erreur est survenue. Veuillez réessayer.",
+      "forbidden": "Vous n'avez pas la permission de faire cette action.",
+      "notFound": "Cet enseignant n'existe pas.",
+      "notTeacher": "Ce compte n'a pas le rôle Enseignant.",
+      "subjectNotFound": "Une des matières n'existe plus. Rechargez la page.",
+      "tooManySubjects": "Un enseignant peut avoir au plus 20 matières."
     }
   }
 }

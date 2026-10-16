@@ -30,6 +30,8 @@ import { photoActions } from "./actions-photos.mjs";
 import { phase5Guardians } from "./phase5-guardians.mjs";
 import { parentActions } from "./actions-parents.mjs";
 import { studentGuardianActions } from "./actions-student-guardians.mjs";
+import { phase5Teachers } from "./phase5-teachers.mjs";
+import { teacherActions } from "./actions-teachers.mjs";
 
 const withActions = process.argv.includes("--actions");
 const baseUrl = process.env.TEST_APP_URL ?? "http://localhost:3000";
@@ -43,7 +45,7 @@ try {
   }
   fx = await createFixtures();
   const as = { anon: anon() };
-  for (const name of ["dirA", "survA", "deactA", "radA", "tchA", "mgrA", "dirB", "dirC", "owner"]) {
+  for (const name of ["dirA", "survA", "deactA", "radA", "tchA", "mgrA", "audA", "dirB", "dirC", "owner"]) {
     as[name] = await signIn(fx.users[name]);
   }
 
@@ -58,6 +60,7 @@ try {
   await phase5Students({ fx, as });
   await phase5Photos({ fx, as });
   await phase5Guardians({ fx, as });
+  await phase5Teachers({ fx, as });
   await import("./rules.mjs");
   await import("./rules-phone.mjs");
   if (withActions) {
@@ -72,6 +75,7 @@ try {
     await photoActions({ fx, baseUrl });
     await parentActions({ fx, baseUrl });
     await studentGuardianActions({ fx, baseUrl });
+    await teacherActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

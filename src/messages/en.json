@@ -75,7 +75,8 @@
     "roles": "Roles & permissions",
     "setup": "Structure",
     "students": "Students",
-    "parents": "Parents"
+    "parents": "Parents",
+    "teachers": "Teachers"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -1338,6 +1339,49 @@
         "label": "Manage parents",
         "description": "Parents and guardians, links to their children, parent accounts."
       }
+    },
+    "teachers": {
+      "manage": {
+        "label": "Manage teachers",
+        "description": "The subjects each teacher teaches."
+      }
+    }
+  },
+  "teachers": {
+    "title": "Teachers",
+    "description": "The school's teachers and the subjects they teach.",
+    "new": "New teacher",
+    "count": "{count, plural, =0 {No teachers} one {# teacher} other {# teachers}}",
+    "emptyTitle": "No teachers yet",
+    "emptyDescription": "Add a teacher: their account is created with the Teacher role, as in Staff.",
+    "noSubjectsTitle": "No subjects",
+    "noSubjectsDescription": "Create the school's subjects first, then assign them to teachers.",
+    "goToSubjects": "Create subjects",
+    "noSubjects": "No subjects",
+    "columns": {
+      "name": "Name",
+      "subjects": "Subjects",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "subjects": {
+      "button": "Subjects",
+      "buttonFor": "Subjects of {name}",
+      "title": "Subjects of {name}",
+      "description": "Tick the subjects this teacher teaches.",
+      "count": "{count, plural, =0 {No subject ticked} one {# subject ticked} other {# subjects ticked}}",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving…",
+      "saved": "Subjects saved."
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "forbidden": "You don't have permission to do this.",
+      "notFound": "This teacher doesn't exist.",
+      "notTeacher": "This account doesn't have the Teacher role.",
+      "subjectNotFound": "One of the subjects no longer exists. Reload the page.",
+      "tooManySubjects": "A teacher can have at most 20 subjects."
     }
   }
 }

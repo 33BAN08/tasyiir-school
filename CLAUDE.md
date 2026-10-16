@@ -51,7 +51,7 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 4. Update "Current phase" above and tick the phase in `docs/PLAN.md`.
 5. Commit with a clear message, push to GitHub (Vercel deploys automatically).
 
-## Phase 5 progress (updated 2026-10-16, student page)
+## Phase 5 progress (updated 2026-10-16, step 4)
 Same workflow as Phase 4 (show every migration and Storage policy, wait for OK, commit + push each step, test in Chrome AR + FR). Children's personal data: store only what is needed (no national ID), platform owner has NO access to students.
 
 **Done**
@@ -60,8 +60,10 @@ Same workflow as Phase 4 (show every migration and Storage policy, wait for OK, 
 - Step 3 — Parents (`/parents`, `/parents/[id]`, `/portal`, migration `phase5_guardians`): `guardians` (names, mobile `+2126/7XXXXXXXX` unique per school, optional email, optional `profile_id` = parent account, composite FK same school) and `student_guardians` (relation father/mother/tutor, one father + one mother max, composite FKs). Reads: students.view / parents.manage = school's guardians; a parent = only their own guardian row and links (never another parent's phone). `is_linked_to_student`: role parent, not deactivated, own password set, active school. **Parent sign-in = phone + password without SMS**: Supabase's Phone provider is off (needs SMS), so the Auth email is `<212…>@phone.tasyiir.invalid` (`phoneLoginEmail`, reserved domain, never mailed); the login field takes email OR phone (`normalizeMobile`). Phone change → `syncParentAccount` updates the Auth email (same account/password; Supabase gives a bare 500 for a taken email, so we pre-check guardians). One parent account per phone on the platform. Parent phone is NOT copied into profiles (platform owner reads profiles). Every secret-key call checks `isParentAccount` (a guardian row could point at a staff profile). Sign-in goes through `passwordSignIn` (secret key + `Sb-Forwarded-For` = visitor IP) so Supabase's per-IP limit (150 / 5 min) counts each visitor, not our server — needs "IP address forwarding" ON in the dashboard.
 - Student page (`/students/[id]`, no migration; names in the list link to it): details card + **Parents** card (students.view reads; parents.manage links an existing guardian with `linkChild`, creates + links in one step with `createGuardianForStudent` — the new guardian is deleted again if the link fails — and unlinks). Father/mother already set are disabled in the relation picker. Search inputs use `[unicode-bidi:plaintext]` so a typed phone is not reversed in Arabic. Tests: `scripts/rls/actions-student-guardians.mjs` (on `/fr/students/:id`).
 
+- Step 4 — Teachers (`/teachers`, migration `phase5_teacher_subjects`): a teacher = a staff account with the school's system role `teacher` (created in Personnel, or "Nouvel enseignant" = the staff dialog with only that role, needs users.manage). `teacher_subjects` (teacher ↔ subject, composite FKs same school, no UPDATE: `setTeacherSubjects` diffs and deletes/inserts). New core permission `teachers.manage` (director). A trigger only lets teacher-role accounts get subjects (raises 23514 — PostgREST does not pass its constraint name, so the action maps the code); an account whose role changes loses its subjects; deleting a subject removes it from teachers. Reads: users.view, teachers.manage, or the teacher's own rows; `profiles_select_teachers` lets teachers.manage read the school's teacher accounts only. Subject chips = colour dot + name. Tests: `phase5-teachers.mjs`, `actions-teachers.mjs`.
+
 **Next**
-- Step 4 — teachers + subjects (migration `phase5_teacher_subjects`, drafted, waiting for OK), then 5 CSV import, 6 close the phase.
+- Step 5 — CSV import, then 6 close the phase.
 
 ## Phase 4 — done 2026-10-15 (notes kept for later phases)
 Workflow agreed with the user: one small step at a time; **show every SQL migration and wait for OK before applying**; commit + push after each step; test in Chrome in Arabic and French.

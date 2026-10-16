@@ -892,6 +892,49 @@ export type Database = {
           },
         ]
       }
+      teacher_subjects: {
+        Row: {
+          created_at: string
+          school_id: string
+          subject_id: string
+          teacher_id: string
+        }
+        Insert: {
+          created_at?: string
+          school_id: string
+          subject_id: string
+          teacher_id: string
+        }
+        Update: {
+          created_at?: string
+          school_id?: string
+          subject_id?: string
+          teacher_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "teacher_subjects_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "teacher_subjects_subject_fkey"
+            columns: ["subject_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "teacher_subjects_teacher_fkey"
+            columns: ["teacher_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       time_slots: {
         Row: {
           academic_year_id: string

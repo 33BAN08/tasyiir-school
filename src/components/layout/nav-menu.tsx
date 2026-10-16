@@ -1,6 +1,16 @@
 "use client";
 
-import { GraduationCap, Layers, LayoutDashboard, Package, School, ShieldCheck, Users, UsersRound } from "lucide-react";
+import {
+  GraduationCap,
+  Layers,
+  LayoutDashboard,
+  Package,
+  Presentation,
+  School,
+  ShieldCheck,
+  Users,
+  UsersRound,
+} from "lucide-react";
 
 import {
   SidebarMenu,
@@ -21,6 +31,7 @@ const ICONS: Record<NavIcon, typeof LayoutDashboard> = {
   structure: Layers,
   students: GraduationCap,
   parents: UsersRound,
+  teachers: Presentation,
 };
 
 export type NavMenuItem = { href: string; label: string; icon: NavIcon };
