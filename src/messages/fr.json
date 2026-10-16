@@ -406,7 +406,8 @@
       "selfDeactivate": "Vous ne pouvez pas désactiver votre propre compte.",
       "lastDirector": "L'établissement doit garder au moins un directeur actif.",
       "accountDeactivated": "Ce compte est désactivé. Réactivez-le d'abord.",
-      "readOnly": "Lecture seule : vous n'avez pas le droit de gérer le personnel."
+      "readOnly": "Lecture seule : vous n'avez pas le droit de gérer le personnel.",
+      "teacherHasLessons": "Cet enseignant a des séances dans l'emploi du temps. Confiez-les à un autre enseignant ou supprimez-les avant de changer son rôle."
     },
     "credentials": {
       "email": "Adresse e-mail",
@@ -1073,7 +1074,10 @@
       "dayHasSlots": "Ce jour a encore des créneaux. Supprimez-les d'abord.",
       "slotsAlreadyExist": "Cette année a déjà des créneaux ces jours-là.",
       "nothingToCopy": "Il n'y a rien à copier.",
-      "classHasStudents": "Cette classe a des élèves. Changez-les de classe d'abord."
+      "classHasStudents": "Cette classe a des élèves. Changez-les de classe d'abord.",
+      "subjectHasLessons": "Cette matière est utilisée dans l'emploi du temps. Supprimez d'abord ses séances.",
+      "roomHasLessons": "Cette salle est utilisée dans l'emploi du temps. Changez d'abord la salle de ses séances.",
+      "slotHasLessons": "Ce créneau a des séances dans l'emploi du temps. Déplacez ou supprimez-les d'abord."
     },
     "confirm": {
       "cancel": "Annuler",
@@ -1500,6 +1504,16 @@
         "label": "Gérer les enseignants",
         "description": "Les matières enseignées par chaque enseignant."
       }
+    },
+    "timetable": {
+      "view": {
+        "label": "Voir les emplois du temps",
+        "description": "Consulter l'emploi du temps de chaque classe, enseignant et salle."
+      },
+      "manage": {
+        "label": "Gérer les emplois du temps",
+        "description": "Ajouter, déplacer et supprimer des séances ; copier l'emploi du temps de l'année précédente."
+      }
     }
   },
   "teachers": {
@@ -1536,7 +1550,8 @@
       "notFound": "Cet enseignant n'existe pas.",
       "notTeacher": "Ce compte n'a pas le rôle Enseignant.",
       "subjectNotFound": "Une des matières n'existe plus. Rechargez la page.",
-      "tooManySubjects": "Un enseignant peut avoir au plus 20 matières."
+      "tooManySubjects": "Un enseignant peut avoir au plus 20 matières.",
+      "subjectHasLessons": "Cet enseignant a des séances de cette matière dans l'emploi du temps. Supprimez-les ou confiez-les à un autre enseignant d'abord."
     }
   }
 }

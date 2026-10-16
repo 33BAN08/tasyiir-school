@@ -406,7 +406,8 @@
       "selfDeactivate": "You cannot deactivate your own account.",
       "lastDirector": "The school must keep at least one active director.",
       "accountDeactivated": "This account is deactivated. Reactivate it first.",
-      "readOnly": "Read only: you are not allowed to manage staff."
+      "readOnly": "Read only: you are not allowed to manage staff.",
+      "teacherHasLessons": "This teacher has lessons in the timetable. Give them to another teacher or delete them before changing their role."
     },
     "credentials": {
       "email": "Email address",
@@ -1073,7 +1074,10 @@
       "dayHasSlots": "This day still has slots. Delete them first.",
       "slotsAlreadyExist": "This year already has slots on these days.",
       "nothingToCopy": "There is nothing to copy.",
-      "classHasStudents": "This class has students. Move them to another class first."
+      "classHasStudents": "This class has students. Move them to another class first.",
+      "subjectHasLessons": "This subject is used in the timetable. Delete its lessons first.",
+      "roomHasLessons": "This room is used in the timetable. Change the room of its lessons first.",
+      "slotHasLessons": "This time slot has lessons in the timetable. Move or delete them first."
     },
     "confirm": {
       "cancel": "Cancel",
@@ -1500,6 +1504,16 @@
         "label": "Manage teachers",
         "description": "The subjects each teacher teaches."
       }
+    },
+    "timetable": {
+      "view": {
+        "label": "View timetables",
+        "description": "See the timetable of every class, teacher and room."
+      },
+      "manage": {
+        "label": "Manage timetables",
+        "description": "Add, move and delete lessons; copy a timetable from last year."
+      }
     }
   },
   "teachers": {
@@ -1536,7 +1550,8 @@
       "notFound": "This teacher doesn't exist.",
       "notTeacher": "This account doesn't have the Teacher role.",
       "subjectNotFound": "One of the subjects no longer exists. Reload the page.",
-      "tooManySubjects": "A teacher can have at most 20 subjects."
+      "tooManySubjects": "A teacher can have at most 20 subjects.",
+      "subjectHasLessons": "This teacher has lessons of this subject in the timetable. Delete them or give them to another teacher first."
     }
   }
 }

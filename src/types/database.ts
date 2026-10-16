@@ -209,6 +209,110 @@ export type Database = {
           },
         ]
       }
+      lessons: {
+        Row: {
+          academic_year_id: string
+          class_id: string
+          created_at: string
+          id: string
+          room_id: string | null
+          school_id: string
+          slot_kind: string
+          subject_id: string
+          teacher_id: string
+          time_slot_id: string
+          updated_at: string
+        }
+        Insert: {
+          academic_year_id: string
+          class_id: string
+          created_at?: string
+          id?: string
+          room_id?: string | null
+          school_id: string
+          slot_kind?: string
+          subject_id: string
+          teacher_id: string
+          time_slot_id: string
+          updated_at?: string
+        }
+        Update: {
+          academic_year_id?: string
+          class_id?: string
+          created_at?: string
+          id?: string
+          room_id?: string | null
+          school_id?: string
+          slot_kind?: string
+          subject_id?: string
+          teacher_id?: string
+          time_slot_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lessons_class_fkey"
+            columns: ["class_id", "academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id", "academic_year_id", "school_id"]
+          },
+          {
+            foreignKeyName: "lessons_room_fkey"
+            columns: ["room_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "rooms"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "lessons_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "lessons_subject_fkey"
+            columns: ["subject_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "lessons_teacher_fkey"
+            columns: ["teacher_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "lessons_teacher_subject_fkey"
+            columns: ["teacher_id", "subject_id"]
+            isOneToOne: false
+            referencedRelation: "teacher_subjects"
+            referencedColumns: ["teacher_id", "subject_id"]
+          },
+          {
+            foreignKeyName: "lessons_time_slot_fkey"
+            columns: [
+              "time_slot_id",
+              "school_id",
+              "academic_year_id",
+              "slot_kind",
+            ]
+            isOneToOne: false
+            referencedRelation: "time_slots"
+            referencedColumns: ["id", "school_id", "academic_year_id", "kind"]
+          },
+          {
+            foreignKeyName: "lessons_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       levels: {
         Row: {
           created_at: string
@@ -1046,6 +1150,18 @@ export type Database = {
       import_students: {
         Args: { p_rows: Json }
         Returns: number
+      }
+      swap_lessons: {
+        Args: { p_a: string; p_b: string }
+        Returns: undefined
+      }
+      timetable_teachers: {
+        Args: { p_year?: string }
+        Returns: {
+          active: boolean
+          full_name: string
+          id: string
+        }[]
       }
     }
     Enums: {

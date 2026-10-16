@@ -43,7 +43,9 @@ export async function phase5Teachers({ fx, as }) {
   const ofTeacher = (client) => client.from("teacher_subjects").select("subject_id").eq("teacher_id", tch);
   await rows("[P5 teachers] director reads the teacher's subjects", ofTeacher(dirA), 2);
   await rows("[P5 teachers] the teacher reads their own subjects", ofTeacher(tchA), 2);
-  await rows("[P5 teachers] surveillant (no users.view) reads none", ofTeacher(survA), 0);
+  // Phase 6: timetable.manage (surveillant) reads them to offer the right teachers.
+  await rows("[P5 teachers] surveillant (timetable.manage) reads them", ofTeacher(survA), 2);
+  await rows("[P5 teachers] staff without users.view / teachers.manage / timetable.manage reads none", ofTeacher(audA), 0);
   await rows("[P5 teachers] director B reads none", ofTeacher(dirB), 0);
   await rows("[P5 teachers] platform owner reads none", ofTeacher(owner), 0);
   await denied("[P5 teachers] anonymous cannot read (no grant)", ofTeacher(anon));

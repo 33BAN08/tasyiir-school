@@ -14,6 +14,8 @@ type Result<T> = { ok: true; data: T } | { ok: false; error: string };
 const CONSTRAINTS = {
   teacher_subjects_subject_fkey: "subjectNotFound",
   teacher_subjects_teacher_fkey: "notFound",
+  // Removing a subject the teacher still has lessons of (timetable).
+  lessons_teacher_subject_fkey: "subjectHasLessons",
 };
 
 /**

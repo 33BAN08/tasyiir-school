@@ -87,7 +87,15 @@ export async function deleteSubject(subjectId: unknown): Promise<StructureAction
     .eq("id", id.data)
     .eq("school_id", actor.schoolId)
     .select("name");
-  if (error) return { ok: false, error: dbErrorKey(error) };
+  if (error) {
+    return {
+      ok: false,
+      error: dbErrorKey(error, {
+        lessons_subject_fkey: "subjectHasLessons",
+        lessons_teacher_subject_fkey: "subjectHasLessons",
+      }),
+    };
+  }
   if (data.length === 0) return { ok: false, error: "notFound" };
 
   await auditStructure(actor, "subject.delete", "subject", id.data, { name: data[0].name });

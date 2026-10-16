@@ -24,6 +24,8 @@ type SlotField = keyof TimeSlotFormValues;
 
 const SLOT_CONSTRAINTS = {
   time_slots_no_overlap: "slotOverlap",
+  // Deleting a slot, or turning it into a break, while lessons use it.
+  lessons_time_slot_fkey: "slotHasLessons",
   time_slots_day_fkey: "dayNotSchoolDay",
   time_slots_year_fkey: "notFound",
   time_slots_order_check: "slotEndBeforeStart",
@@ -159,7 +161,7 @@ export async function deleteTimeSlot(slotId: unknown): Promise<StructureActionRe
     .eq("id", id.data)
     .eq("school_id", actor.schoolId)
     .select("start_time");
-  if (error) return { ok: false, error: dbErrorKey(error) };
+  if (error) return { ok: false, error: dbErrorKey(error, { lessons_time_slot_fkey: "slotHasLessons" }) };
   if (data.length === 0) return { ok: false, error: "notFound" };
 
   await auditStructure(actor, "time_slot.delete", "time_slot", id.data, { start: data[0].start_time });
