@@ -1043,6 +1043,10 @@ export type Database = {
         Args: { p_from_year: string; p_to_year: string }
         Returns: number
       }
+      import_students: {
+        Args: { p_rows: Json }
+        Returns: number
+      }
     }
     Enums: {
       [_ in never]: never

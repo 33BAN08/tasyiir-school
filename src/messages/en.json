@@ -557,7 +557,7 @@
     "noClass": "No class",
     "count": "{count, plural, =0 {No students} one {# student} other {# students}}",
     "emptyTitle": "No students yet",
-    "emptyDescription": "Add a first student. CSV import is coming soon.",
+    "emptyDescription": "Add a first student, or import them from an Excel or CSV file.",
     "emptyDescriptionReadOnly": "No student has been added yet.",
     "noResultsTitle": "No results",
     "noResultsDescription": "No student matches this search or class.",
@@ -666,7 +666,162 @@
       "unlinkTitle": "Remove the link with {name}?",
       "unlinkDescription": "This parent will no longer see this student. The parent is not deleted.",
       "unlinked": "Link removed."
-    }
+    },
+    "import": {
+      "back": "Students",
+      "title": "Import students",
+      "description": "From an Excel (.xlsx) or CSV file: the students, their class this year and, if you like, a parent.",
+      "file": {
+        "title": "1. The file",
+        "description": "Nothing is saved before you confirm: the file is first checked line by line.",
+        "choose": "Choose a file",
+        "none": "No file chosen",
+        "hint": "Excel (.xlsx) or CSV (UTF-8, or Windows-1256 for Arabic). At most 2000 students and {max} MB. The first line holds the column names.",
+        "check": "Check the file",
+        "checking": "Checking…"
+      },
+      "template": {
+        "button": "Download the template (.xlsx)",
+        "fileName": "student-import-template.xlsx",
+        "exampleGender": "M",
+        "exampleRelation": "Father",
+        "failed": "The template could not be created. Please try again."
+      },
+      "help": {
+        "title": "File columns",
+        "intro": "Column order does not matter. Column names may be in English, French or Arabic.",
+        "required": "required",
+        "optional": "optional",
+        "columns": {
+          "lastName": "In Latin letters, as on Massar.",
+          "firstName": "In Latin letters, as on Massar.",
+          "lastNameAr": "In Arabic. Together with the Arabic first name, or both empty.",
+          "firstNameAr": "In Arabic. Together with the Arabic last name, or both empty.",
+          "birthDate": "dd/mm/yyyy, e.g. 02/03/2014 (or an Excel date).",
+          "gender": "M or F (also G, Garçon, Fille, ذكر, أنثى).",
+          "codeMassar": "One letter and 9 digits. A student whose code already exists is skipped.",
+          "className": "The exact name of a class of the current year, e.g. 1AC-A.",
+          "parentLastName": "The parent's last name. The 4 parent columns are filled together, or left empty.",
+          "parentFirstName": "The parent's first name.",
+          "parentPhone": "Moroccan mobile, 06 or 07. A parent already recorded with this number is linked, not created again.",
+          "parentRelation": "Father, Mother or Guardian (also Père, Mère, Tuteur, أب, أم, ولي)."
+        }
+      },
+      "columns": {
+        "lastName": "Last name",
+        "firstName": "First name",
+        "lastNameAr": "Arabic last name",
+        "firstNameAr": "Arabic first name",
+        "birthDate": "Birth date",
+        "gender": "Gender",
+        "codeMassar": "Massar code",
+        "className": "Class",
+        "parentLastName": "Parent last name",
+        "parentFirstName": "Parent first name",
+        "parentPhone": "Parent phone",
+        "parentRelation": "Relationship"
+      },
+      "table": {
+        "line": "Line",
+        "student": "Student",
+        "birth": "Birth",
+        "massar": "Massar code",
+        "class": "Class",
+        "parent": "Parent",
+        "status": "Status",
+        "include": "Import",
+        "includeLine": "Import line {line}",
+        "excluded": "Unticked: will not be imported."
+      },
+      "status": {
+        "ready": "Ready",
+        "exists": "Already exists (skipped)",
+        "error": "Error"
+      },
+      "filters": {
+        "all": "All ({count})",
+        "ready": "Ready ({count})",
+        "duplicates": "Possible duplicates ({count})",
+        "exists": "Already exist ({count})",
+        "error": "Errors ({count})"
+      },
+      "issueLine": "<strong>{column}</strong>: {message}",
+      "issues": {
+        "nameRequired": "required.",
+        "tooLong": "text too long (60 characters at most).",
+        "latinOnly": "must be in Latin letters.",
+        "arabicOnly": "must be in Arabic letters.",
+        "arabicNamesBoth": "fill in both the Arabic last and first names, or leave both empty.",
+        "invalidDate": "unreadable date, write dd/mm/yyyy.",
+        "birthDateRange": "impossible birth date.",
+        "genderRequired": "M or F expected.",
+        "invalidMassar": "one letter followed by 9 digits expected.",
+        "massarDuplicateInFile": "already used on line {line} of this file.",
+        "classRequired": "required.",
+        "unknownClass": "no class with this name this year.",
+        "parentNameRequired": "required when a parent is given.",
+        "invalidPhone": "Moroccan mobile expected: 06 or 07 followed by 8 digits.",
+        "relationRequired": "Father, Mother or Guardian expected.",
+        "phoneNameConflict": "this number is given on line {line} for another parent."
+      },
+      "existingParent": "Parent already recorded: will be linked.",
+      "ignoredHeaders": "Ignored columns: {headers}.",
+      "summary": {
+        "fix": "{count, plural, one {# line has an error} other {# lines have errors}}. Fix the file and check it again: nothing has been saved.",
+        "ready": "{count, plural, =0 {No student to import} one {# student ready to import} other {# students ready to import}}{skipped, plural, =0 {} one { (# already existing will be skipped)} other { (# already existing will be skipped)}}."
+      },
+      "pager": {
+        "previous": "Previous",
+        "next": "Next",
+        "page": "Page {page} of {count}"
+      },
+      "changeFile": "Change file",
+      "importButton": "{count, plural, one {Import # student} other {Import # students}}",
+      "importing": "Importing…",
+      "done": {
+        "title": "Import complete",
+        "text": "{created, plural, one {# student added} other {# students added}}{skipped, plural, =0 {} one {, # already existing skipped} other {, # already existing skipped}}{excluded, plural, =0 {} one {, # line unticked} other {, # lines unticked}}.",
+        "viewStudents": "View students",
+        "another": "Import another file"
+      },
+      "noYear": {
+        "title": "No current school year",
+        "description": "Imported students are placed in a class of the current year: create it first.",
+        "action": "Create the school year"
+      },
+      "fileErrors": {
+        "noFile": "Choose a file.",
+        "unsupportedType": "This file type is not accepted: choose a .xlsx or .csv file.",
+        "oldExcel": "Old Excel format (.xls): in Excel, use “Save as” .xlsx, then try again.",
+        "tooBig": "The file is larger than {max} MB.",
+        "unreadable": "This file cannot be read. Save it again as .xlsx or CSV.",
+        "empty": "The file contains no student.",
+        "tooManyRows": "The file has more than 2000 students: split it into several files.",
+        "missingColumns": "Required columns missing: {columns}. Use the template for the column names.",
+        "noCurrentYear": "No current school year: create it first.",
+        "parentsForbidden": "The file contains parents, but you are not allowed to manage parents."
+      },
+      "errors": {
+        "generic": "Something went wrong. Please try again.",
+        "forbidden": "You are not allowed to import students.",
+        "hasErrors": "The file still has errors: nothing was imported.",
+        "nothingToImport": "No student to import.",
+        "massarTakenMeanwhile": "A Massar code was recorded meanwhile: check the file again. Nothing was imported.",
+        "classChangedMeanwhile": "A class was changed meanwhile: check the file again. Nothing was imported.",
+        "relationTakenMeanwhile": "A parent link was recorded meanwhile: check the file again. Nothing was imported."
+      },
+      "warnings": {
+        "possibleDuplicate": "Possible duplicate: {name} already has the same name and birth date.",
+        "possibleDuplicateCode": "Possible duplicate: {name} (Massar code {code}) already has the same name and birth date.",
+        "possibleDuplicateInFile": "Possible duplicate: same name and birth date as line {line}."
+      },
+      "duplicates": {
+        "explain": "{count, plural, one {# student looks} other {# students look}} like a recorded student or another line of the file. {count, plural, one {It} other {They}} will be imported unless you untick {count, plural, one {it} other {them}}.",
+        "untickAll": "Untick possible duplicates",
+        "tickAll": "Tick possible duplicates again"
+      }
+    },
+    "importAction": "Import"
   },
   "parents": {
     "title": "Parents",

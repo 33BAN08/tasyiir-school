@@ -52,17 +52,32 @@ function findResult(value) {
  * (e.g. a redirect to /login for a signed-out caller).
  */
 export async function callAction(baseUrl, { id, path, args, cookies }) {
+  return post(baseUrl, { id, path, cookies, body: JSON.stringify(args), contentType: "text/plain;charset=UTF-8" });
+}
+
+/**
+ * POSTs a Server Action whose only argument is a FormData (file uploads), the
+ * way React encodes it: the root field "0" is ["$K1"], the form's fields are "_1_<name>".
+ */
+export async function callActionWithForm(baseUrl, { id, path, fields, cookies }) {
+  const body = new FormData();
+  for (const [name, value] of Object.entries(fields)) body.append(`_1_${name}`, value);
+  body.append("0", JSON.stringify(["$K1"]));
+  return post(baseUrl, { id, path, cookies, body });
+}
+
+async function post(baseUrl, { id, path, cookies, body, contentType }) {
   const res = await fetch(new URL(path, baseUrl), {
     method: "POST",
     redirect: "manual",
     headers: {
       "Next-Action": id,
       Accept: "text/x-component",
-      "Content-Type": "text/plain;charset=UTF-8",
+      ...(contentType ? { "Content-Type": contentType } : {}),
       Origin: new URL(baseUrl).origin,
       ...(cookies ? { Cookie: cookies } : {}),
     },
-    body: JSON.stringify(args),
+    body,
   });
   const text = await res.text();
   if (res.status !== 200) return { ok: false, error: `http ${res.status}` };

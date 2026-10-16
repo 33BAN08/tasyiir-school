@@ -1,4 +1,4 @@
-import { GraduationCap, SearchX } from "lucide-react";
+import { FileUp, GraduationCap, SearchX } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 
@@ -41,7 +41,19 @@ export default async function StudentsPage({ searchParams }: PageProps<"/[locale
       <PageHeader
         title={t("title")}
         description={year ? t("description", { year: ltr(year.label) }) : t("descriptionNoYear")}
-        actions={canManage && <NewStudentButton classes={classes} yearLabel={year?.label ?? null} />}
+        actions={
+          canManage && (
+            <>
+              <Button variant="outline" asChild>
+                <Link href="/students/import">
+                  <FileUp aria-hidden />
+                  {t("importAction")}
+                </Link>
+              </Button>
+              <NewStudentButton classes={classes} yearLabel={year?.label ?? null} />
+            </>
+          )
+        }
       />
       <Suspense fallback={<Skeleton className="h-9 w-full max-w-md" />}>
         <StudentsFilters classes={classes} />
