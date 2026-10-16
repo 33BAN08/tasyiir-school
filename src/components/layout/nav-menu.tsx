@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  CalendarDays,
   GraduationCap,
   Layers,
   LayoutDashboard,
@@ -32,6 +33,7 @@ const ICONS: Record<NavIcon, typeof LayoutDashboard> = {
   students: GraduationCap,
   parents: UsersRound,
   teachers: Presentation,
+  timetable: CalendarDays,
 };
 
 export type NavMenuItem = { href: string; label: string; icon: NavIcon };

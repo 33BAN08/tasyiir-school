@@ -76,7 +76,8 @@
     "setup": "Structure",
     "students": "Élèves",
     "parents": "Parents",
-    "teachers": "Enseignants"
+    "teachers": "Enseignants",
+    "timetable": "Emploi du temps"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -1552,6 +1553,85 @@
       "subjectNotFound": "Une des matières n'existe plus. Rechargez la page.",
       "tooManySubjects": "Un enseignant peut avoir au plus 20 matières.",
       "subjectHasLessons": "Cet enseignant a des séances de cette matière dans l'emploi du temps. Supprimez-les ou confiez-les à un autre enseignant d'abord."
+    }
+  },
+  "timetable": {
+    "title": "Emploi du temps",
+    "description": "La semaine de chaque classe. Cliquez sur une case vide pour ajouter une séance, sur une séance pour la modifier.",
+    "descriptionReadOnly": "La semaine de chaque classe.",
+    "class": "Classe",
+    "weekOf": "{class} — {year}",
+    "weeklyHours": "Volume horaire : {duration} par semaine",
+    "duration": "{hasMinutes, select, yes {{hours} h {minutes}} other {{hours} h}}",
+    "bySubject": "Heures par matière",
+    "emptyHint": "Aucune séance pour l'instant : cliquez sur une case vide pour commencer.",
+    "grid": {
+      "time": "Horaire",
+      "break": "Pause",
+      "add": "Ajouter une séance",
+      "free": "Libre",
+      "noSlot": "Pas de créneau : {day}, {range}",
+      "addLesson": "Ajouter une séance : {day}, {range}",
+      "openLesson": "Modifier la séance : {day}, {range}"
+    },
+    "missing": {
+      "years": {
+        "title": "Aucune année scolaire",
+        "description": "L'emploi du temps appartient à une année scolaire. Créez-en une d'abord.",
+        "action": "Aller aux années scolaires"
+      },
+      "classes": {
+        "title": "Aucune classe cette année",
+        "description": "Créez les classes de l'année, puis revenez ici pour leur emploi du temps.",
+        "action": "Aller aux classes"
+      },
+      "slots": {
+        "title": "Aucun créneau de cours cette année",
+        "description": "Définissez d'abord les jours et les créneaux horaires de l'année.",
+        "action": "Aller aux créneaux horaires"
+      }
+    },
+    "dialog": {
+      "createTitle": "Nouvelle séance",
+      "editTitle": "Modifier la séance",
+      "where": "{class} · {day}, {range}",
+      "subject": "Matière",
+      "subjectPlaceholder": "Choisir une matière",
+      "teacher": "Enseignant",
+      "teacherPlaceholder": "Choisir un enseignant",
+      "chooseSubjectFirst": "Choisissez d'abord la matière",
+      "noTeacherForSubject": "Aucun enseignant n'enseigne cette matière. Indiquez-la d'abord dans la page Enseignants.",
+      "busyWith": "occupé : {class}",
+      "inactive": "(compte désactivé)",
+      "room": "Salle",
+      "noRoom": "Sans salle",
+      "optional": "facultatif",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "cancel": "Annuler",
+      "delete": "Supprimer",
+      "created": "Séance de {subject} ajoutée.",
+      "updated": "Séance modifiée.",
+      "deleted": "Séance supprimée.",
+      "deleteTitle": "Supprimer la séance de {subject} ?",
+      "deleteDescription": "{where}. Cette action est définitive."
+    },
+    "errors": {
+      "generic": "Une erreur est survenue. Veuillez réessayer.",
+      "forbidden": "Vous n'avez pas la permission de modifier l'emploi du temps.",
+      "notFound": "Cette case ou cette séance n'existe plus. Rechargez la page.",
+      "inUse": "Cet élément est encore utilisé.",
+      "subjectRequired": "Choisissez une matière.",
+      "teacherRequired": "Choisissez un enseignant.",
+      "roomNotFound": "Cette salle n'existe plus. Rechargez la page.",
+      "teacherNotForSubject": "Cet enseignant n'enseigne pas cette matière.",
+      "slotNotBookable": "Ce créneau est une pause : on ne peut pas y placer de séance.",
+      "slotTaken": "Cette classe a déjà une séance sur ce créneau. Rechargez la page.",
+      "teacherBusyNow": "Cet enseignant vient d'être placé ailleurs sur ce créneau. Rechargez la page.",
+      "roomBusyNow": "Cette salle vient d'être occupée sur ce créneau. Rechargez la page.",
+      "classBusy": "La classe {class} a déjà une séance à ce moment : {day}, {range}.",
+      "teacherBusy": "{name} a déjà cours avec la classe {class} à ce moment : {day}, {range}. Choisissez un autre enseignant ou un autre créneau.",
+      "roomBusy": "La salle {name} est déjà occupée par la classe {class} à ce moment : {day}, {range}."
     }
   }
 }

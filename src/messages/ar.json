@@ -76,7 +76,8 @@
     "setup": "الهيكلة",
     "students": "التلاميذ",
     "parents": "أولياء الأمور",
-    "teachers": "الأساتذة"
+    "teachers": "الأساتذة",
+    "timetable": "استعمال الزمن"
   },
   "shell": {
     "toggleSidebar": "إظهار القائمة الجانبية أو إخفاؤها",
@@ -1552,6 +1553,85 @@
       "subjectNotFound": "إحدى المواد لم تعد موجودة. أعد تحميل الصفحة.",
       "tooManySubjects": "لا يمكن أن تتجاوز مواد الأستاذ 20 مادة.",
       "subjectHasLessons": "لهذا الأستاذ حصص في هذه المادة في استعمال الزمن. احذف هذه الحصص أو أسندها لأستاذ آخر أولًا."
+    }
+  },
+  "timetable": {
+    "title": "استعمال الزمن",
+    "description": "أسبوع كل قسم. انقر على خانة فارغة لإضافة حصة، وعلى حصة لتعديلها.",
+    "descriptionReadOnly": "أسبوع كل قسم.",
+    "class": "القسم",
+    "weekOf": "{class} — {year}",
+    "weeklyHours": "الحجم الساعي: {duration} في الأسبوع",
+    "duration": "{hasMinutes, select, yes {{hours} س {minutes} د} other {{hours} س}}",
+    "bySubject": "الساعات حسب المادة",
+    "emptyHint": "لا توجد حصص بعد: انقر على خانة فارغة للبدء.",
+    "grid": {
+      "time": "التوقيت",
+      "break": "استراحة",
+      "add": "إضافة حصة",
+      "free": "فارغة",
+      "noSlot": "لا توجد فترة يوم {day} في {range}",
+      "addLesson": "إضافة حصة يوم {day}، {range}",
+      "openLesson": "تعديل حصة يوم {day}، {range}"
+    },
+    "missing": {
+      "years": {
+        "title": "لا توجد سنة دراسية",
+        "description": "استعمال الزمن مرتبط بسنة دراسية. أنشئ سنة أولًا.",
+        "action": "الذهاب إلى السنوات الدراسية"
+      },
+      "classes": {
+        "title": "لا توجد أقسام هذه السنة",
+        "description": "أنشئ أقسام السنة، ثم عد إلى هنا لإعداد استعمال زمنها.",
+        "action": "الذهاب إلى الأقسام"
+      },
+      "slots": {
+        "title": "لا توجد فترات دراسة هذه السنة",
+        "description": "حدّد أولًا أيام الدراسة والفترات الزمنية للسنة.",
+        "action": "الذهاب إلى الفترات الزمنية"
+      }
+    },
+    "dialog": {
+      "createTitle": "حصة جديدة",
+      "editTitle": "تعديل الحصة",
+      "where": "{class} · {day}، {range}",
+      "subject": "المادة",
+      "subjectPlaceholder": "اختر مادة",
+      "teacher": "الأستاذ",
+      "teacherPlaceholder": "اختر أستاذًا",
+      "chooseSubjectFirst": "اختر المادة أولًا",
+      "noTeacherForSubject": "لا يدرّس أي أستاذ هذه المادة. أضفها أولًا في صفحة الأساتذة.",
+      "busyWith": "مشغول: {class}",
+      "inactive": "(حساب موقوف)",
+      "room": "القاعة",
+      "noRoom": "بدون قاعة",
+      "optional": "اختياري",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ…",
+      "cancel": "إلغاء",
+      "delete": "حذف",
+      "created": "تمت إضافة حصة {subject}.",
+      "updated": "تم تعديل الحصة.",
+      "deleted": "تم حذف الحصة.",
+      "deleteTitle": "حذف حصة {subject}؟",
+      "deleteDescription": "{where}. هذا الإجراء نهائي."
+    },
+    "errors": {
+      "generic": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+      "forbidden": "ليست لديك صلاحية تعديل استعمال الزمن.",
+      "notFound": "هذه الخانة أو الحصة لم تعد موجودة. أعد تحميل الصفحة.",
+      "inUse": "هذا العنصر ما زال مستعملًا.",
+      "subjectRequired": "اختر مادة.",
+      "teacherRequired": "اختر أستاذًا.",
+      "roomNotFound": "هذه القاعة لم تعد موجودة. أعد تحميل الصفحة.",
+      "teacherNotForSubject": "هذا الأستاذ لا يدرّس هذه المادة.",
+      "slotNotBookable": "هذه الفترة استراحة: لا يمكن وضع حصة فيها.",
+      "slotTaken": "لهذا القسم حصة في هذه الفترة. أعد تحميل الصفحة.",
+      "teacherBusyNow": "وُضع هذا الأستاذ للتو في مكان آخر في هذه الفترة. أعد تحميل الصفحة.",
+      "roomBusyNow": "شُغلت هذه القاعة للتو في هذه الفترة. أعد تحميل الصفحة.",
+      "classBusy": "للقسم {class} حصة يوم {day}، {range}.",
+      "teacherBusy": "لدى {name} حصة مع القسم {class} يوم {day}، {range}. اختر أستاذًا آخر أو فترة أخرى.",
+      "roomBusy": "القاعة {name} مشغولة بالقسم {class} يوم {day}، {range}."
     }
   }
 }

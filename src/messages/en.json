@@ -76,7 +76,8 @@
     "setup": "Structure",
     "students": "Students",
     "parents": "Parents",
-    "teachers": "Teachers"
+    "teachers": "Teachers",
+    "timetable": "Timetable"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -1552,6 +1553,85 @@
       "subjectNotFound": "One of the subjects no longer exists. Reload the page.",
       "tooManySubjects": "A teacher can have at most 20 subjects.",
       "subjectHasLessons": "This teacher has lessons of this subject in the timetable. Delete them or give them to another teacher first."
+    }
+  },
+  "timetable": {
+    "title": "Timetable",
+    "description": "Each class's week. Click an empty cell to add a lesson, or a lesson to change it.",
+    "descriptionReadOnly": "Each class's week.",
+    "class": "Class",
+    "weekOf": "{class} — {year}",
+    "weeklyHours": "Weekly hours: {duration}",
+    "duration": "{hasMinutes, select, yes {{hours} h {minutes}} other {{hours} h}}",
+    "bySubject": "Hours per subject",
+    "emptyHint": "No lessons yet: click an empty cell to start.",
+    "grid": {
+      "time": "Time",
+      "break": "Break",
+      "add": "Add a lesson",
+      "free": "Free",
+      "noSlot": "No time slot on {day} at {range}",
+      "addLesson": "Add a lesson on {day}, {range}",
+      "openLesson": "Change the lesson on {day}, {range}"
+    },
+    "missing": {
+      "years": {
+        "title": "No academic year",
+        "description": "A timetable belongs to an academic year. Create one first.",
+        "action": "Go to academic years"
+      },
+      "classes": {
+        "title": "No classes this year",
+        "description": "Create the year's classes, then come back here for their timetable.",
+        "action": "Go to classes"
+      },
+      "slots": {
+        "title": "No lesson slots this year",
+        "description": "First set the year's school days and time slots.",
+        "action": "Go to time slots"
+      }
+    },
+    "dialog": {
+      "createTitle": "New lesson",
+      "editTitle": "Change the lesson",
+      "where": "{class} · {day}, {range}",
+      "subject": "Subject",
+      "subjectPlaceholder": "Choose a subject",
+      "teacher": "Teacher",
+      "teacherPlaceholder": "Choose a teacher",
+      "chooseSubjectFirst": "Choose the subject first",
+      "noTeacherForSubject": "No teacher teaches this subject. Add it on the Teachers page first.",
+      "busyWith": "busy: {class}",
+      "inactive": "(deactivated account)",
+      "room": "Room",
+      "noRoom": "No room",
+      "optional": "optional",
+      "save": "Save",
+      "saving": "Saving…",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "created": "{subject} lesson added.",
+      "updated": "Lesson changed.",
+      "deleted": "Lesson deleted.",
+      "deleteTitle": "Delete the {subject} lesson?",
+      "deleteDescription": "{where}. This cannot be undone."
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "forbidden": "You don't have permission to change the timetable.",
+      "notFound": "This cell or lesson no longer exists. Reload the page.",
+      "inUse": "This item is still in use.",
+      "subjectRequired": "Choose a subject.",
+      "teacherRequired": "Choose a teacher.",
+      "roomNotFound": "This room no longer exists. Reload the page.",
+      "teacherNotForSubject": "This teacher doesn't teach this subject.",
+      "slotNotBookable": "This time slot is a break: no lesson can go there.",
+      "slotTaken": "This class already has a lesson in this slot. Reload the page.",
+      "teacherBusyNow": "This teacher was just booked elsewhere in this slot. Reload the page.",
+      "roomBusyNow": "This room was just booked in this slot. Reload the page.",
+      "classBusy": "Class {class} already has a lesson on {day}, {range}.",
+      "teacherBusy": "{name} already teaches class {class} on {day}, {range}. Choose another teacher or another slot.",
+      "roomBusy": "Room {name} is already used by class {class} on {day}, {range}."
     }
   }
 }

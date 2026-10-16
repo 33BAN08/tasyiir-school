@@ -55,3 +55,12 @@ export function formatDateTime(value: string | Date): string {
 export function ltr(value: string): string {
   return `\u2066${value}\u2069`;
 }
+
+/**
+ * A name of unknown direction (a teacher, a class "1AC-A", a room) put into a
+ * sentence: it keeps its own direction and does not reorder the words around
+ * it. Unicode first-strong isolate (FSI \u2026 PDI).
+ */
+export function isolate(value: string): string {
+  return `\u2068${value}\u2069`;
+}
