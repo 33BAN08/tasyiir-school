@@ -16,11 +16,11 @@
   "auth": {
     "login": {
       "title": "Sign in",
-      "subtitle": "Enter your email and password to access your account.",
-      "email": "Email",
+      "subtitle": "Enter your email address or phone number, and your password.",
       "password": "Password",
       "submit": "Sign in",
-      "submitting": "Signing in…"
+      "submitting": "Signing in…",
+      "login": "Email or phone"
     },
     "changePassword": {
       "title": "Choose a new password",
@@ -47,14 +47,16 @@
       "passwordTooLong": "Password is too long (72 characters max).",
       "passwordWeak": "Password must contain at least one letter and one number.",
       "passwordMismatch": "The two passwords do not match.",
-      "invalidCredentials": "Incorrect email or password.",
+      "invalidCredentials": "Incorrect login or password.",
       "tooManyAttempts": "Too many attempts. Please wait a moment and try again.",
       "noAccess": "This account is not activated on the platform. Please contact your school administration.",
       "samePassword": "The new password must be different from the current one.",
       "weakPassword": "This password is too weak or has been leaked. Please choose another one.",
       "sessionExpired": "Your session has expired. Please sign in again.",
       "generic": "Something went wrong. Please try again.",
-      "accountDeactivated": "This account has been deactivated. Please contact your school administration."
+      "accountDeactivated": "This account has been deactivated. Please contact your school administration.",
+      "loginRequired": "Enter your email address or phone number.",
+      "invalidLogin": "Enter an email address or a Moroccan mobile number (06 or 07)."
     }
   },
   "localeSwitcher": {
@@ -72,7 +74,8 @@
     "staff": "Staff",
     "roles": "Roles & permissions",
     "setup": "Structure",
-    "students": "Students"
+    "students": "Students",
+    "parents": "Parents"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -631,6 +634,156 @@
       "removed": "Photo removed.",
       "alt": "Photo of {name}"
     }
+  },
+  "parents": {
+    "title": "Parents",
+    "description": "Fathers, mothers and guardians: contact details, children and parent accounts.",
+    "new": "New parent",
+    "searchLabel": "Search parents",
+    "searchPlaceholder": "Name or phone…",
+    "loading": "Loading…",
+    "count": "{count, plural, =0 {No parents} one {# parent} other {# parents}}",
+    "emptyTitle": "No parents yet",
+    "emptyDescription": "Add a parent, then link their children and create their account.",
+    "noResultsTitle": "No results",
+    "noResultsDescription": "No parent matches this search.",
+    "clearFilters": "Clear search",
+    "noChildren": "No children",
+    "columns": {
+      "name": "Name",
+      "phone": "Phone",
+      "children": "Children",
+      "account": "Account"
+    },
+    "relations": {
+      "father": "Father",
+      "mother": "Mother",
+      "tutor": "Guardian"
+    },
+    "form": {
+      "createTitle": "New parent",
+      "editTitle": "Edit parent",
+      "description": "Father, mother or guardian. The phone is also the sign-in if an account is created.",
+      "lastName": "Last name",
+      "firstName": "First name",
+      "phone": "Mobile phone",
+      "phoneHint": "Moroccan mobile, 06 or 07.",
+      "phoneHintAccount": "This parent has an account: the new number becomes their sign-in (same password).",
+      "email": "Email address",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving…",
+      "created": "Parent added.",
+      "updated": "Parent saved."
+    },
+    "detail": {
+      "back": "Parents",
+      "edit": "Edit",
+      "delete": "Delete",
+      "deleteTitle": "Delete {name}?",
+      "deleteDescription": "Their links to children will be deleted. This cannot be undone.",
+      "deleteDescriptionAccount": "Their links to children and their parent account will be deleted. This cannot be undone.",
+      "deleted": "Parent deleted."
+    },
+    "children": {
+      "title": "Children",
+      "description": "The students this parent is the father, mother or guardian of.",
+      "empty": "No child linked yet.",
+      "add": "Link a child",
+      "addTitle": "Link a child",
+      "addDescription": "Search the student by name or Massar code, then choose the relation.",
+      "student": "Student",
+      "searchPlaceholder": "Name or Massar code…",
+      "noMatch": "No student found.",
+      "alreadyLinked": "already linked",
+      "relation": "Relation",
+      "relationPlaceholder": "Choose",
+      "cancel": "Cancel",
+      "link": "Link",
+      "linking": "Saving…",
+      "linked": "Child linked.",
+      "unlink": "Remove the link with {name}",
+      "unlinkTitle": "Remove the link with {name}?",
+      "unlinkDescription": "The parent will no longer see this student. The student is not deleted.",
+      "unlinked": "Link removed."
+    },
+    "account": {
+      "title": "Parent account",
+      "statusLabel": "Status",
+      "phone": "Phone",
+      "status": {
+        "none": "No account",
+        "pending": "Waiting for first sign-in",
+        "active": "Active",
+        "deactivated": "Deactivated"
+      },
+      "explain": {
+        "none": "Create the account so the parent signs in with their phone and sees their children.",
+        "pending": "The parent must sign in and choose their own password.",
+        "active": "The parent signs in with their phone and sees only their children.",
+        "deactivated": "The parent can no longer sign in."
+      },
+      "create": {
+        "button": "Create account",
+        "title": "Create the parent account",
+        "description": "A temporary password will be created. The parent must change it at first sign-in.",
+        "confirm": "Create account",
+        "done": "Parent account created."
+      },
+      "reset": {
+        "button": "New password",
+        "title": "New temporary password",
+        "description": "The old password will stop working. The parent must choose their own at next sign-in.",
+        "confirm": "Create password",
+        "done": "Temporary password created."
+      },
+      "deactivate": {
+        "button": "Deactivate",
+        "title": "Deactivate this parent account?",
+        "description": "The parent will no longer sign in nor see their children. You can reactivate it.",
+        "confirm": "Deactivate",
+        "done": "Account deactivated."
+      },
+      "reactivate": {
+        "button": "Reactivate",
+        "title": "Reactivate this parent account?",
+        "description": "The parent can sign in again with their current password.",
+        "confirm": "Reactivate",
+        "done": "Account reactivated."
+      },
+      "resultTitle": "Sign-in details to give the parent",
+      "resultDescription": "The parent signs in with their phone and this temporary password, then chooses a new one.",
+      "cancel": "Cancel",
+      "close": "I have given the details"
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again.",
+      "forbidden": "You do not have permission to do this.",
+      "notFound": "This parent does not exist.",
+      "inUse": "This item is still in use.",
+      "nameRequired": "This field is required.",
+      "tooLong": "The text is too long.",
+      "invalidPhone": "Enter a Moroccan mobile: 06 or 07 followed by 8 digits.",
+      "phoneTaken": "Another parent of the school already has this number.",
+      "phoneHasAccount": "This number already signs in to another account (here or in another school).",
+      "invalidEmail": "Enter a valid email address.",
+      "studentRequired": "Choose a student.",
+      "relationRequired": "Choose the relation.",
+      "alreadyLinked": "This student is already linked to this parent.",
+      "relationTaken": "This student already has a father or a mother recorded.",
+      "studentNotFound": "This student does not exist.",
+      "accountExists": "This parent already has an account.",
+      "noAccount": "This parent has no account."
+    }
+  },
+  "portal": {
+    "title": "My children",
+    "welcome": "Hello {name}.",
+    "class": "Class",
+    "noClass": "No class yet this year",
+    "emptyTitle": "No child linked to your account",
+    "emptyDescription": "Contact the school so they link your children to your account.",
+    "photoAlt": "Photo of {name}"
   },
   "setup": {
     "title": "School structure",

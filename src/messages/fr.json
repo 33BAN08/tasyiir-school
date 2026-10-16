@@ -16,11 +16,11 @@
   "auth": {
     "login": {
       "title": "Connexion",
-      "subtitle": "Saisissez votre adresse e-mail et votre mot de passe pour accéder à votre compte.",
-      "email": "Adresse e-mail",
+      "subtitle": "Saisissez votre adresse e-mail ou votre numéro de téléphone, et votre mot de passe.",
       "password": "Mot de passe",
       "submit": "Se connecter",
-      "submitting": "Connexion en cours…"
+      "submitting": "Connexion en cours…",
+      "login": "E-mail ou téléphone"
     },
     "changePassword": {
       "title": "Choisissez un nouveau mot de passe",
@@ -47,14 +47,16 @@
       "passwordTooLong": "Le mot de passe est trop long (72 caractères maximum).",
       "passwordWeak": "Le mot de passe doit contenir au moins une lettre et un chiffre.",
       "passwordMismatch": "Les deux mots de passe ne correspondent pas.",
-      "invalidCredentials": "Adresse e-mail ou mot de passe incorrect.",
+      "invalidCredentials": "Identifiant ou mot de passe incorrect.",
       "tooManyAttempts": "Trop de tentatives. Veuillez patienter un instant puis réessayer.",
       "noAccess": "Ce compte n'est pas activé sur la plateforme. Veuillez contacter la direction de votre établissement.",
       "samePassword": "Le nouveau mot de passe doit être différent de l'actuel.",
       "weakPassword": "Ce mot de passe est trop faible ou a déjà fuité. Veuillez en choisir un autre.",
       "sessionExpired": "Votre session a expiré. Veuillez vous reconnecter.",
       "generic": "Une erreur inattendue s'est produite. Veuillez réessayer.",
-      "accountDeactivated": "Ce compte a été désactivé. Veuillez contacter la direction de votre établissement."
+      "accountDeactivated": "Ce compte a été désactivé. Veuillez contacter la direction de votre établissement.",
+      "loginRequired": "Veuillez saisir votre adresse e-mail ou votre numéro de téléphone.",
+      "invalidLogin": "Saisissez une adresse e-mail ou un numéro de mobile marocain (06 ou 07)."
     }
   },
   "localeSwitcher": {
@@ -72,7 +74,8 @@
     "staff": "Personnel",
     "roles": "Rôles et permissions",
     "setup": "Structure",
-    "students": "Élèves"
+    "students": "Élèves",
+    "parents": "Parents"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -631,6 +634,156 @@
       "removed": "Photo retirée.",
       "alt": "Photo de {name}"
     }
+  },
+  "parents": {
+    "title": "Parents",
+    "description": "Pères, mères et tuteurs : coordonnées, enfants et comptes parents.",
+    "new": "Nouveau parent",
+    "searchLabel": "Rechercher un parent",
+    "searchPlaceholder": "Nom ou téléphone…",
+    "loading": "Chargement…",
+    "count": "{count, plural, =0 {Aucun parent} one {# parent} other {# parents}}",
+    "emptyTitle": "Aucun parent pour l'instant",
+    "emptyDescription": "Ajoutez un parent, puis reliez-le à ses enfants et créez son compte.",
+    "noResultsTitle": "Aucun résultat",
+    "noResultsDescription": "Aucun parent ne correspond à cette recherche.",
+    "clearFilters": "Effacer la recherche",
+    "noChildren": "Aucun enfant",
+    "columns": {
+      "name": "Nom",
+      "phone": "Téléphone",
+      "children": "Enfants",
+      "account": "Compte"
+    },
+    "relations": {
+      "father": "Père",
+      "mother": "Mère",
+      "tutor": "Tuteur"
+    },
+    "form": {
+      "createTitle": "Nouveau parent",
+      "editTitle": "Modifier le parent",
+      "description": "Père, mère ou tuteur. Le téléphone sert aussi à se connecter si un compte est créé.",
+      "lastName": "Nom",
+      "firstName": "Prénom",
+      "phone": "Téléphone mobile",
+      "phoneHint": "Mobile marocain, 06 ou 07.",
+      "phoneHintAccount": "Ce parent a un compte : le nouveau numéro deviendra son identifiant de connexion (même mot de passe).",
+      "email": "Adresse e-mail",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "created": "Parent ajouté.",
+      "updated": "Parent enregistré."
+    },
+    "detail": {
+      "back": "Parents",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "deleteTitle": "Supprimer {name} ?",
+      "deleteDescription": "Ses liens avec les enfants seront supprimés. Cette action est irréversible.",
+      "deleteDescriptionAccount": "Ses liens avec les enfants et son compte parent seront supprimés. Cette action est irréversible.",
+      "deleted": "Parent supprimé."
+    },
+    "children": {
+      "title": "Enfants",
+      "description": "Les élèves dont ce parent est père, mère ou tuteur.",
+      "empty": "Aucun enfant relié pour l'instant.",
+      "add": "Relier un enfant",
+      "addTitle": "Relier un enfant",
+      "addDescription": "Cherchez l'élève par son nom ou son code Massar, puis choisissez le lien.",
+      "student": "Élève",
+      "searchPlaceholder": "Nom ou code Massar…",
+      "noMatch": "Aucun élève trouvé.",
+      "alreadyLinked": "déjà relié",
+      "relation": "Lien",
+      "relationPlaceholder": "Choisir",
+      "cancel": "Annuler",
+      "link": "Relier",
+      "linking": "Enregistrement…",
+      "linked": "Enfant relié.",
+      "unlink": "Retirer le lien avec {name}",
+      "unlinkTitle": "Retirer le lien avec {name} ?",
+      "unlinkDescription": "Le parent ne verra plus cet élève. L'élève n'est pas supprimé.",
+      "unlinked": "Lien retiré."
+    },
+    "account": {
+      "title": "Compte parent",
+      "statusLabel": "Statut",
+      "phone": "Téléphone",
+      "status": {
+        "none": "Pas de compte",
+        "pending": "En attente de première connexion",
+        "active": "Actif",
+        "deactivated": "Désactivé"
+      },
+      "explain": {
+        "none": "Créez le compte pour que le parent se connecte avec son téléphone et voie ses enfants.",
+        "pending": "Le parent doit se connecter et choisir son propre mot de passe.",
+        "active": "Le parent se connecte avec son téléphone et voit uniquement ses enfants.",
+        "deactivated": "Le parent ne peut plus se connecter."
+      },
+      "create": {
+        "button": "Créer le compte",
+        "title": "Créer le compte parent",
+        "description": "Un mot de passe temporaire sera créé. Le parent devra le changer à sa première connexion.",
+        "confirm": "Créer le compte",
+        "done": "Compte parent créé."
+      },
+      "reset": {
+        "button": "Nouveau mot de passe",
+        "title": "Nouveau mot de passe temporaire",
+        "description": "L'ancien mot de passe ne fonctionnera plus. Le parent devra choisir le sien à sa prochaine connexion.",
+        "confirm": "Créer le mot de passe",
+        "done": "Mot de passe temporaire créé."
+      },
+      "deactivate": {
+        "button": "Désactiver",
+        "title": "Désactiver ce compte parent ?",
+        "description": "Le parent ne pourra plus se connecter ni voir ses enfants. Vous pourrez le réactiver.",
+        "confirm": "Désactiver",
+        "done": "Compte désactivé."
+      },
+      "reactivate": {
+        "button": "Réactiver",
+        "title": "Réactiver ce compte parent ?",
+        "description": "Le parent pourra de nouveau se connecter avec son mot de passe actuel.",
+        "confirm": "Réactiver",
+        "done": "Compte réactivé."
+      },
+      "resultTitle": "Identifiants à transmettre au parent",
+      "resultDescription": "Le parent se connecte avec son téléphone et ce mot de passe temporaire, puis en choisit un nouveau.",
+      "cancel": "Annuler",
+      "close": "J'ai transmis les identifiants"
+    },
+    "errors": {
+      "generic": "Une erreur est survenue. Veuillez réessayer.",
+      "forbidden": "Vous n'avez pas la permission de faire cette action.",
+      "notFound": "Ce parent n'existe pas.",
+      "inUse": "Cet élément est encore utilisé.",
+      "nameRequired": "Ce champ est obligatoire.",
+      "tooLong": "Le texte est trop long.",
+      "invalidPhone": "Saisissez un mobile marocain : 06 ou 07 suivi de 8 chiffres.",
+      "phoneTaken": "Un autre parent de l'établissement a déjà ce numéro.",
+      "phoneHasAccount": "Ce numéro sert déjà à se connecter à un autre compte (ici ou dans un autre établissement).",
+      "invalidEmail": "Saisissez une adresse e-mail valide.",
+      "studentRequired": "Choisissez un élève.",
+      "relationRequired": "Choisissez le lien.",
+      "alreadyLinked": "Cet élève est déjà relié à ce parent.",
+      "relationTaken": "Cet élève a déjà un père ou une mère enregistré(e).",
+      "studentNotFound": "Cet élève n'existe pas.",
+      "accountExists": "Ce parent a déjà un compte.",
+      "noAccount": "Ce parent n'a pas de compte."
+    }
+  },
+  "portal": {
+    "title": "Mes enfants",
+    "welcome": "Bonjour {name}.",
+    "class": "Classe",
+    "noClass": "Pas encore de classe cette année",
+    "emptyTitle": "Aucun enfant lié à votre compte",
+    "emptyDescription": "Contactez l'établissement pour qu'il relie vos enfants à votre compte.",
+    "photoAlt": "Photo de {name}"
   },
   "setup": {
     "title": "Structure de l'établissement",

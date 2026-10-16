@@ -4,6 +4,7 @@ import { hasLocale } from "next-intl";
 
 import { redirect } from "@/i18n/navigation";
 import { routing, type Locale } from "@/i18n/routing";
+import { passwordSignIn } from "@/lib/auth/password-sign-in";
 import { getCurrentUser } from "@/lib/auth/session";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -33,9 +34,9 @@ export async function signIn(
   }
 
   const supabase = await createClient();
-  const { data, error } = await supabase.auth.signInWithPassword(parsed.data);
+  const { user, error } = await passwordSignIn(supabase, parsed.data);
 
-  if (error || !data.user) {
+  if (error || !user) {
     if (error?.code === "invalid_credentials") return { ok: false, error: "invalidCredentials" };
     // Deactivated accounts are also banned in Supabase Auth.
     if (error?.code === "user_banned") return { ok: false, error: "accountDeactivated" };
@@ -47,7 +48,7 @@ export async function signIn(
   const { data: profile } = await supabase
     .from("profiles")
     .select("must_change_password, deactivated_at")
-    .eq("id", data.user.id)
+    .eq("id", user.id)
     .maybeSingle();
 
   if (!profile) {

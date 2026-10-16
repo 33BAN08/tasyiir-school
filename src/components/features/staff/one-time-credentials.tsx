@@ -9,7 +9,17 @@ import { CopyButton } from "@/components/features/forms/copy-button";
  * Email + temporary password with copy buttons. Shown once, right after the
  * server generated the password: it is never stored in clear text, nor logged.
  */
-export function OneTimeCredentials({ email, password }: { email: string | null; password: string }) {
+export function OneTimeCredentials({
+  email,
+  password,
+  loginLabel,
+}: {
+  /** What the person signs in with (staff: email; parents: phone). */
+  email: string | null;
+  password: string;
+  /** Label of that first line; defaults to "Email". */
+  loginLabel?: string;
+}) {
   const t = useTranslations("staff.credentials");
 
   return (
@@ -17,7 +27,7 @@ export function OneTimeCredentials({ email, password }: { email: string | null; 
       <dl className="grid gap-3 rounded-lg border p-4 sm:grid-cols-[auto_1fr] sm:items-center">
         {email && (
           <>
-            <dt className="text-sm text-muted-foreground">{t("email")}</dt>
+            <dt className="text-sm text-muted-foreground">{loginLabel ?? t("email")}</dt>
             <dd className="flex items-center gap-2">
               <bdi className="font-numeric break-all">{email}</bdi>
               <CopyButton value={email} />

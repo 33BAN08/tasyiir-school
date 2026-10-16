@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { signIn } from "@/lib/auth/actions";
-import { loginSchema, type LoginInput } from "@/lib/validations/auth";
+import { loginSchema, type LoginFormValues, type LoginInput } from "@/lib/validations/auth";
 
 export function LoginForm() {
   const t = useTranslations("auth");
@@ -19,13 +19,14 @@ export function LoginForm() {
   const next = useSearchParams().get("next") ?? undefined;
   const [isPending, startTransition] = useTransition();
 
-  const form = useForm<LoginInput>({
+  const form = useForm<LoginFormValues, unknown, LoginInput>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "" },
+    defaultValues: { login: "", password: "" },
   });
   const { errors } = form.formState;
 
-  const onSubmit = form.handleSubmit((values) => {
+  const onSubmit = form.handleSubmit(() => {
+    const values = form.getValues(); // raw values: the action validates again
     startTransition(async () => {
       // On success the action redirects and never returns.
       const result = await signIn(values, next, locale);
@@ -36,17 +37,20 @@ export function LoginForm() {
   return (
     <form onSubmit={onSubmit} noValidate>
       <FieldGroup>
-        <Field data-invalid={!!errors.email}>
-          <FieldLabel htmlFor="email">{t("login.email")}</FieldLabel>
+        <Field data-invalid={!!errors.login}>
+          <FieldLabel htmlFor="login">{t("login.login")}</FieldLabel>
           <Input
-            id="email"
-            type="email"
-            autoComplete="email"
+            id="login"
+            type="text"
+            inputMode="email"
+            autoComplete="username"
+            autoCapitalize="none"
+            spellCheck={false}
             dir="ltr"
-            aria-invalid={!!errors.email}
-            {...form.register("email")}
+            aria-invalid={!!errors.login}
+            {...form.register("login")}
           />
-          {errors.email?.message && <FieldError>{t(`errors.${errors.email.message}`)}</FieldError>}
+          {errors.login?.message && <FieldError>{t(`errors.${errors.login.message}`)}</FieldError>}
         </Field>
 
         <Field data-invalid={!!errors.password}>

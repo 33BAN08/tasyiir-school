@@ -51,7 +51,7 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 4. Update "Current phase" above and tick the phase in `docs/PLAN.md`.
 5. Commit with a clear message, push to GitHub (Vercel deploys automatically).
 
-## Phase 5 progress (updated 2026-10-16, step 2)
+## Phase 5 progress (updated 2026-10-16, step 3)
 Same workflow as Phase 4 (show every migration and Storage policy, wait for OK, commit + push each step, test in Chrome AR + FR). Children's personal data: store only what is needed (no national ID), platform owner has NO access to students.
 
 **Done**
@@ -110,9 +110,9 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 
 , trimmed + uppercased by `normalizeMassar()` (form + CSV). Class = `student_enrollments` (one row per student per year, composite FK to the class of that year and school); edits change only the current year's row. Names shown with `studentName()` / `studentOtherName()` (Arabic in the Arabic UI when present). A class with students cannot be deleted.
 - Step 2 — Photos (migration `phase5_student_photos`): private bucket `student-photos` (2 MB, jpg/png/webp), path `<school>/<student>/<uuid>.<webp|jpg>` (CHECK on `students.photo_path`). Storage RLS: upload = own school folder + students.manage + existing student; read/signed URL = only a student's CURRENT photo, for who can read that student (students RLS inside the policy); delete = own folder + students.manage, but Storage also needs read, so **only the current photo can be deleted**: `setStudentPhoto` points at the new file, checks it, points back at the old one to delete it, then at the new one. Browser crops to a 512 px square and re-encodes to WebP (JPEG fallback), which drops EXIF/GPS; originals up to 10 MB. Shown with 5-minute signed URLs (`signPhotoUrls`), plain `<img>` (never the image optimizer). Deleting a student deletes the file first. Avatar fallback = Latin initials (`studentInitials`).
+- Step 3 — Parents (`/parents`, `/parents/[id]`, `/portal`, migration `phase5_guardians`): `guardians` (names, mobile `+2126/7XXXXXXXX` unique per school, optional email, optional `profile_id` = parent account, composite FK same school) and `student_guardians` (relation father/mother/tutor, one father + one mother max, composite FKs). Reads: students.view / parents.manage = school's guardians; a parent = only their own guardian row and links (never another parent's phone). `is_linked_to_student`: role parent, not deactivated, own password set, active school. **Parent sign-in = phone + password without SMS**: Supabase's Phone provider is off (needs SMS), so the Auth email is `<212…>@phone.tasyiir.invalid` (`phoneLoginEmail`, reserved domain, never mailed); the login field takes email OR phone (`normalizeMobile`). Phone change → `syncParentAccount` updates the Auth email (same account/password; Supabase gives a bare 500 for a taken email, so we pre-check guardians). One parent account per phone on the platform. Parent phone is NOT copied into profiles (platform owner reads profiles). Every secret-key call checks `isParentAccount` (a guardian row could point at a staff profile). Sign-in goes through `passwordSignIn` (secret key + `Sb-Forwarded-For` = visitor IP) so Supabase's per-IP limit (150 / 5 min) counts each visitor, not our server — needs "IP address forwarding" ON in the dashboard.
 
 **Next**
-- Step 3 — parents/guardians + parent accounts (`is_linked_to_student` gets the guardian rule).
 - Then: 4 teachers/guardians + parent accounts, 4 teachers + subjects, 5 CSV import, 6 close the phase.
 
 ## Phase 4 — done 2026-10-15 (notes kept for later phases)
@@ -132,6 +132,7 @@ Workflow agreed with the user: one small step at a time; **show every SQL migrat
 - Composite FKs `(x_id, school_id)` keep child rows in the same school.
 - A year label ("2026-2027") or time range ("08:00–09:00") put into a message goes through `ltr()` (`src/lib/format.ts`), otherwise Arabic shows it reversed ("2027-2026"). A range is one value (`{range}`), not `{start}–{end}`.
 - Applied migrations are renamed to the version Supabase records (`list_migrations`).
+- Server Actions are only accepted on a page whose bundle uses them: test each on the page that renders it (e.g. account actions on `/parents/[id]`). `scripts/rls/debug-one.mjs <file> <export>` runs one action suite with fresh fixtures.
 - Tests: `scripts/rls/phase4*.mjs` (DB) and `actions-*.mjs` (Server Actions, each called on the page that registers it); run the app on port 3100 (`TEST_APP_URL=http://localhost:3100`), port 3000 is the user's dev server.
 
 **Next**

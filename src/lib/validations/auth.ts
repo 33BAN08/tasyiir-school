@@ -1,13 +1,29 @@
 import { z } from "zod";
 
+import { normalizeMobile, phoneLoginEmail } from "@/lib/parents/phone";
+
 // Error messages are next-intl keys under `auth.errors`.
 
-export const loginSchema = z.object({
-  email: z.string().trim().toLowerCase().pipe(z.email({ error: "invalidEmail" })),
-  password: z.string().min(1, { error: "passwordRequired" }),
-});
+/**
+ * Staff sign in with their email, parents with their mobile number: a phone
+ * becomes the parent account's Auth address (see lib/parents/phone.ts).
+ */
+export const loginSchema = z
+  .object({
+    login: z.string().trim().min(1, { error: "loginRequired" }),
+    password: z.string().min(1, { error: "passwordRequired" }),
+  })
+  .transform((v, ctx) => {
+    const phone = normalizeMobile(v.login);
+    if (phone) return { email: phoneLoginEmail(phone), password: v.password };
+    const email = z.email().safeParse(v.login.toLowerCase());
+    if (email.success) return { email: email.data, password: v.password };
+    ctx.addIssue({ code: "custom", path: ["login"], message: "invalidLogin" });
+    return z.NEVER;
+  });
 
-export type LoginInput = z.infer<typeof loginSchema>;
+export type LoginFormValues = z.input<typeof loginSchema>;
+export type LoginInput = z.output<typeof loginSchema>;
 
 export const changePasswordSchema = z
   .object({

@@ -4,13 +4,14 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 
 // Status = colored icon + text label (docs/DESIGN.md: never color alone).
-export type Tone = "success" | "danger" | "warning" | "info";
+export type Tone = "success" | "danger" | "warning" | "info" | "muted";
 
 const TONE_ICON: Record<Tone, string> = {
   success: "text-success",
   danger: "text-danger",
   warning: "text-warning",
   info: "text-info",
+  muted: "text-muted-foreground",
 };
 
 export type StatusStyle = { tone: Tone; icon: LucideIcon };
