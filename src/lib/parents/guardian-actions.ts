@@ -1,7 +1,16 @@
 "use server";
 
-import { logAudit } from "@/lib/audit";
-import { getSchoolActor, type SchoolActor } from "@/lib/auth/school-actor";
+import { getSchoolActor } from "@/lib/auth/school-actor";
+import {
+  auditGuardian as audit,
+  failure,
+  GUARDIAN_CONSTRAINTS,
+  GUARDIAN_FIELD_OF as FIELD_OF,
+  LINK_CONSTRAINTS,
+  LINK_FIELD_OF,
+  type GuardianField,
+  type Result,
+} from "@/lib/parents/action-errors";
 import { isParentAccount, syncParentAccount } from "@/lib/parents/parent-accounts";
 import { parseInput } from "@/lib/structure/action-utils";
 import { dbErrorKey } from "@/lib/structure/db-errors";
@@ -13,7 +22,6 @@ import {
   guardianSchema,
   linkSchema,
   studentSearchSchema,
-  type GuardianFormValues,
   type LinkFormValues,
 } from "@/lib/validations/parents";
 import { studentIdSchema } from "@/lib/validations/students";
@@ -21,34 +29,6 @@ import { studentIdSchema } from "@/lib/validations/students";
 // Guardians and their links to students (parents.manage), written through RLS
 // with the caller's session. The secret key only touches the parent's AUTH
 // account (sign-in phone, name, deletion). Error keys: `parents.errors`.
-
-type GuardianField = keyof GuardianFormValues;
-type Result<T, F extends string = never> = { ok: true; data: T } | { ok: false; error: string; field?: F };
-
-const GUARDIAN_CONSTRAINTS = {
-  guardians_phone_key: "phoneTaken",
-  guardians_phone_check: "invalidPhone",
-  guardians_email_check: "invalidEmail",
-};
-const LINK_CONSTRAINTS = {
-  student_guardians_pkey: "alreadyLinked",
-  student_guardians_parent_key: "relationTaken",
-  student_guardians_student_fkey: "studentNotFound",
-};
-const FIELD_OF: Record<string, GuardianField> = {
-  phoneTaken: "phone",
-  invalidPhone: "phone",
-  phoneHasAccount: "phone",
-  invalidEmail: "email",
-};
-
-function failure<F extends string>(key: string, fields: Record<string, F> = {}): { ok: false; error: string; field?: F } {
-  return { ok: false, error: key, field: fields[key] };
-}
-
-function audit(actor: SchoolActor, action: string, guardianId: string, data: Record<string, string | null> = {}) {
-  return logAudit({ actorId: actor.id, schoolId: actor.schoolId, action, entity: "guardian", entityId: guardianId, data });
-}
 
 export async function createGuardian(input: unknown): Promise<Result<{ id: string }, GuardianField>> {
   const actor = await getSchoolActor("parents.manage");
@@ -169,11 +149,7 @@ export async function linkChild(guardianId: unknown, input: unknown): Promise<Re
   if (error) {
     const key = dbErrorKey(error, LINK_CONSTRAINTS);
     // The guardian of another school (or a missing one) fails its foreign key too.
-    return failure(key === "inUse" ? "notFound" : key, {
-      relationTaken: "relation",
-      alreadyLinked: "studentId",
-      studentNotFound: "studentId",
-    } as Record<string, keyof LinkFormValues>);
+    return failure(key === "inUse" ? "notFound" : key, LINK_FIELD_OF);
   }
 
   await audit(actor, "guardian.link", id.data, { studentId: v.values.studentId, relation: v.values.relation });

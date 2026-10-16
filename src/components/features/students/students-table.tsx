@@ -2,6 +2,7 @@ import { useLocale, useTranslations } from "next-intl";
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Link } from "@/i18n/navigation";
 import { formatDate } from "@/lib/format";
 import { studentInitials, studentName, studentOtherName } from "@/lib/students/names";
 import type { Student } from "@/lib/students/students";
@@ -57,7 +58,9 @@ export function StudentsTable({ items, canManage, classes, yearLabel, schoolId, 
                   />
                   {/* Each line keeps its own direction and starts at the cell's start. */}
                   <div className="flex flex-col items-start">
-                    <bdi className="font-medium">{name}</bdi>
+                    <Link href={`/students/${student.id}`} className="font-medium underline-offset-4 hover:underline">
+                      <bdi>{name}</bdi>
+                    </Link>
                     {other && <bdi className="text-xs text-muted-foreground">{other}</bdi>}
                   </div>
                 </div>

@@ -48,3 +48,11 @@ export type LinkFormValues = z.input<typeof linkSchema>;
 
 export const studentSearchSchema = z.string().trim().max(100);
 export const parentActiveSchema = z.boolean();
+
+/** From a student's page: a new guardian and their relation to that student, in one form. */
+export const newGuardianLinkSchema = guardianSchema.extend({
+  relation: z.enum(RELATIONS, { error: "relationRequired" }),
+});
+export type NewGuardianLinkValues = z.input<typeof newGuardianLinkSchema>;
+
+export const guardianSearchSchema = z.string().trim().max(100);

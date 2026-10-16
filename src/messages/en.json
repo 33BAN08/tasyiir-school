@@ -633,6 +633,38 @@
       "saved": "Photo saved.",
       "removed": "Photo removed.",
       "alt": "Photo of {name}"
+    },
+    "detail": {
+      "back": "Students",
+      "edit": "Edit",
+      "delete": "Delete",
+      "infoTitle": "Student details"
+    },
+    "guardians": {
+      "title": "Parents",
+      "description": "The student's father, mother and guardians.",
+      "empty": "No parent linked yet.",
+      "link": "Link a parent",
+      "linkTitle": "Link an existing parent",
+      "linkDescription": "Search the parent by name or phone number, then choose the relationship.",
+      "linkConfirm": "Link",
+      "guardian": "Parent",
+      "searchPlaceholder": "Name or phone…",
+      "noMatch": "No parent found. Create one with “New parent”.",
+      "alreadyLinked": "already linked",
+      "relation": "Relationship",
+      "new": "New parent",
+      "newTitle": "New parent",
+      "newDescription": "The parent will be created and linked to {name}. Their phone is also used to sign in if an account is created.",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving…",
+      "linked": "Parent linked.",
+      "created": "Parent added and linked.",
+      "unlink": "Remove the link with {name}",
+      "unlinkTitle": "Remove the link with {name}?",
+      "unlinkDescription": "This parent will no longer see this student. The parent is not deleted.",
+      "unlinked": "Link removed."
     }
   },
   "parents": {
@@ -705,7 +737,8 @@
       "unlink": "Remove the link with {name}",
       "unlinkTitle": "Remove the link with {name}?",
       "unlinkDescription": "The parent will no longer see this student. The student is not deleted.",
-      "unlinked": "Link removed."
+      "unlinked": "Link removed.",
+      "relationTaken": "{relation} (already recorded)"
     },
     "account": {
       "title": "Parent account",
@@ -773,7 +806,8 @@
       "relationTaken": "This student already has a father or a mother recorded.",
       "studentNotFound": "This student does not exist.",
       "accountExists": "This parent already has an account.",
-      "noAccount": "This parent has no account."
+      "noAccount": "This parent has no account.",
+      "guardianRequired": "Choose a parent."
     }
   },
   "portal": {

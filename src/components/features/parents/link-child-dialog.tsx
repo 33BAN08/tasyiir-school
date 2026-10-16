@@ -103,7 +103,7 @@ export function LinkChildDialog({ guardianId, linkedIds }: { guardianId: string;
               <Input
                 id="link-search"
                 type="search"
-                className="ps-8"
+                className="ps-8 [unicode-bidi:plaintext]"
                 placeholder={t("searchPlaceholder")}
                 autoComplete="off"
                 value={query}

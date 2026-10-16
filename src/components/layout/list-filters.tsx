@@ -68,7 +68,7 @@ export function ListFilters({ searchLabel, searchPlaceholder, loadingLabel, sele
           onChange={(e) => onSearchChange(e.target.value)}
           placeholder={searchPlaceholder}
           aria-label={searchLabel}
-          className="ps-8"
+          className="ps-8 [unicode-bidi:plaintext]"
         />
       </div>
       {selects.map((select) => (

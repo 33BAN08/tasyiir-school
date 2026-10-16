@@ -29,6 +29,7 @@ import { phase5Photos } from "./phase5-photos.mjs";
 import { photoActions } from "./actions-photos.mjs";
 import { phase5Guardians } from "./phase5-guardians.mjs";
 import { parentActions } from "./actions-parents.mjs";
+import { studentGuardianActions } from "./actions-student-guardians.mjs";
 
 const withActions = process.argv.includes("--actions");
 const baseUrl = process.env.TEST_APP_URL ?? "http://localhost:3000";
@@ -70,6 +71,7 @@ try {
     await studentActions({ fx, baseUrl });
     await photoActions({ fx, baseUrl });
     await parentActions({ fx, baseUrl });
+    await studentGuardianActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

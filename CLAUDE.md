@@ -51,69 +51,17 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 4. Update "Current phase" above and tick the phase in `docs/PLAN.md`.
 5. Commit with a clear message, push to GitHub (Vercel deploys automatically).
 
-## Phase 5 progress (updated 2026-10-16, step 3)
+## Phase 5 progress (updated 2026-10-16, student page)
 Same workflow as Phase 4 (show every migration and Storage policy, wait for OK, commit + push each step, test in Chrome AR + FR). Children's personal data: store only what is needed (no national ID), platform owner has NO access to students.
 
 **Done**
-- Step 1 — Students (`/students`, migrations `phase5_students` + `phase5_students_arabic_names_fix`): permissions `students.view` (director, surveillant, accountant, transport manager), `students.manage` + `parents.manage` (director); teachers none (Phase 6). Reads: own school AND (view/manage OR `private.is_linked_to_student(id)`, which returns false today — step 3 adds guardians, Phase 6 teachers; only its body changes). Latin names required, Arabic optional (both or neither — a CHECK must say `is not null`, NULL passes a CHECK). Massar code optional, unique per school, `^[A-Z][0-9]{9}# Tasyiir School — Claude Code rules
-
-Tasyiir School (تسيير) is a **multi-tenant SaaS school management platform** for Moroccan private schools:
-absences, emploi du temps, communication, grades, fees, transport, Massar exports, automatic alerts.
-
-- Full plan & phases: `docs/PLAN.md`
-- Brand, UI & UX rules: `docs/DESIGN.md`
-- **Always read both before starting a phase.** Work on ONE phase at a time. Don't build ahead.
-
-## Current phase
-> **Phase 5 — People** (update this line when a phase is finished). Phases 0–4 done — live at https://tasyiir-school.vercel.app
-
-## Tech stack (do not change without asking)
-- Next.js (latest, App Router) + TypeScript (strict)
-- Tailwind CSS + shadcn/ui, lucide-react icons
-- Supabase: Postgres, Auth, RLS, Storage, Realtime — via `@supabase/ssr` and `@supabase/supabase-js`
-- next-intl for i18n: `ar` (RTL, default), `fr`, `en`
-- react-hook-form + zod for forms; Recharts for charts
-- Deploy target: Vercel. Package manager: npm.
-- OS: the developer is on **Windows** (CMD/PowerShell). Use cross-platform commands.
-
-## Supabase
-- Project ref: `ndnfeioxagdjjulmjonz` (DEV project). The Supabase MCP server is configured in `.mcp.json`.
-- Every schema change = a new SQL migration file in `supabase/migrations/` (timestamped). Never edit an old migration.
-- After schema changes, regenerate types into `src/types/database.ts`.
-- **Every tenant table has `school_id`** and **RLS enabled** with policies. No exceptions.
-- Never run destructive SQL (DROP, TRUNCATE, DELETE without WHERE) without asking first.
-- Service role / secret key is used **only on the server** (Server Actions, Route Handlers, Edge Functions). Never import it in client components.
-- **School data tables (Phase 4 onward) are never written with the secret key.** Server Actions use the logged-in user's session client; the table grants INSERT/UPDATE/DELETE to `authenticated` and RLS policies allow them only when `school_id = current_school_id()` AND `has_permission('<feature>.manage')` (UPDATE: same condition in USING and WITH CHECK). The secret key is only for auth accounts, platform-owner actions and audit logs.
-
-## Secrets
-- Secrets live in `.env.local` (git-ignored). Keep `.env.example` updated with variable NAMES only.
-- Never print, log, or commit keys.
-
-## Code conventions
-- Server Components by default; `"use client"` only when needed.
-- Mutations via Server Actions with zod validation; return typed results `{ ok, data?, error? }`.
-- Auth checks: **every page** calls `requireArea()` / `requireUser()` (`src/lib/auth/session.ts`) itself, and every Server Action re-checks the session. Never rely on a layout to protect a page — layouts and pages render in parallel.
-- Links/redirects: use `@/i18n/navigation` (locale-aware), not `next/navigation`.
-- Folder layout as in `docs/PLAN.md` §6. Feature components in `src/components/features/<feature>/`.
-- All UI text goes through next-intl message files (`src/messages/ar.json`, `fr.json`, `en.json`). No hard-coded strings.
-- Use logical CSS (`ms-`, `me-`, `ps-`, `pe-`, `start`, `end`) so RTL works. Never `ml-`/`mr-`/`left`/`right` for layout.
-- Colors only via design tokens (CSS variables from `docs/DESIGN.md`). No random hex values in components.
-- Dates: store UTC, display in `Africa/Casablanca`.
-- Keep components small; no file over ~300 lines.
-
-## Definition of done (every phase)
-1. `npm run build` and `npm run lint` pass with no errors.
-2. Works in Arabic (RTL) and French.
-3. RLS tested: a user from school A cannot read school B data — `npm run test:rls` passes, and `npm run test:actions` (app running) for Server Action rules. Add the phase's cases to `scripts/rls/`.
-4. Update "Current phase" above and tick the phase in `docs/PLAN.md`.
-5. Commit with a clear message, push to GitHub (Vercel deploys automatically).
-
-, trimmed + uppercased by `normalizeMassar()` (form + CSV). Class = `student_enrollments` (one row per student per year, composite FK to the class of that year and school); edits change only the current year's row. Names shown with `studentName()` / `studentOtherName()` (Arabic in the Arabic UI when present). A class with students cannot be deleted.
+- Step 1 — Students (`/students`, migrations `phase5_students` + `phase5_students_arabic_names_fix`): permissions `students.view` (director, surveillant, accountant, transport manager), `students.manage` + `parents.manage` (director); teachers none (Phase 6). Reads: own school AND (view/manage OR `private.is_linked_to_student(id)`, which returns false today — step 3 adds guardians, Phase 6 teachers; only its body changes). Latin names required, Arabic optional (both or neither — a CHECK must say `is not null`, NULL passes a CHECK). Massar code optional, unique per school, `^[A-Z][0-9]{9}$`, trimmed + uppercased by `normalizeMassar()` (form + CSV). Class = `student_enrollments` (one row per student per year, composite FK to the class of that year and school); edits change only the current year's row. Names shown with `studentName()` / `studentOtherName()` (Arabic in the Arabic UI when present). A class with students cannot be deleted.
 - Step 2 — Photos (migration `phase5_student_photos`): private bucket `student-photos` (2 MB, jpg/png/webp), path `<school>/<student>/<uuid>.<webp|jpg>` (CHECK on `students.photo_path`). Storage RLS: upload = own school folder + students.manage + existing student; read/signed URL = only a student's CURRENT photo, for who can read that student (students RLS inside the policy); delete = own folder + students.manage, but Storage also needs read, so **only the current photo can be deleted**: `setStudentPhoto` points at the new file, checks it, points back at the old one to delete it, then at the new one. Browser crops to a 512 px square and re-encodes to WebP (JPEG fallback), which drops EXIF/GPS; originals up to 10 MB. Shown with 5-minute signed URLs (`signPhotoUrls`), plain `<img>` (never the image optimizer). Deleting a student deletes the file first. Avatar fallback = Latin initials (`studentInitials`).
 - Step 3 — Parents (`/parents`, `/parents/[id]`, `/portal`, migration `phase5_guardians`): `guardians` (names, mobile `+2126/7XXXXXXXX` unique per school, optional email, optional `profile_id` = parent account, composite FK same school) and `student_guardians` (relation father/mother/tutor, one father + one mother max, composite FKs). Reads: students.view / parents.manage = school's guardians; a parent = only their own guardian row and links (never another parent's phone). `is_linked_to_student`: role parent, not deactivated, own password set, active school. **Parent sign-in = phone + password without SMS**: Supabase's Phone provider is off (needs SMS), so the Auth email is `<212…>@phone.tasyiir.invalid` (`phoneLoginEmail`, reserved domain, never mailed); the login field takes email OR phone (`normalizeMobile`). Phone change → `syncParentAccount` updates the Auth email (same account/password; Supabase gives a bare 500 for a taken email, so we pre-check guardians). One parent account per phone on the platform. Parent phone is NOT copied into profiles (platform owner reads profiles). Every secret-key call checks `isParentAccount` (a guardian row could point at a staff profile). Sign-in goes through `passwordSignIn` (secret key + `Sb-Forwarded-For` = visitor IP) so Supabase's per-IP limit (150 / 5 min) counts each visitor, not our server — needs "IP address forwarding" ON in the dashboard.
+- Student page (`/students/[id]`, no migration; names in the list link to it): details card + **Parents** card (students.view reads; parents.manage links an existing guardian with `linkChild`, creates + links in one step with `createGuardianForStudent` — the new guardian is deleted again if the link fails — and unlinks). Father/mother already set are disabled in the relation picker. Search inputs use `[unicode-bidi:plaintext]` so a typed phone is not reversed in Arabic. Tests: `scripts/rls/actions-student-guardians.mjs` (on `/fr/students/:id`).
 
 **Next**
-- Then: 4 teachers/guardians + parent accounts, 4 teachers + subjects, 5 CSV import, 6 close the phase.
+- Step 4 — teachers + subjects (migration `phase5_teacher_subjects`, drafted, waiting for OK), then 5 CSV import, 6 close the phase.
 
 ## Phase 4 — done 2026-10-15 (notes kept for later phases)
 Workflow agreed with the user: one small step at a time; **show every SQL migration and wait for OK before applying**; commit + push after each step; test in Chrome in Arabic and French.

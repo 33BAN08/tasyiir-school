@@ -80,7 +80,7 @@ function toGuardian(row: Row, statuses: Map<string, AccountStatus>): Guardian {
 }
 
 /** "06 12…" / "0612…" searches the phone; anything else the names. */
-function searchFilter(term: string): string | null {
+export function guardianSearchFilter(term: string): string | null {
   const clean = term.replace(/[,()"\\%_*]/g, " ").trim();
   if (!clean) return null;
   const digits = clean.replace(/[\s.\-+]/g, "");
@@ -110,7 +110,7 @@ export async function listGuardians(
       .order("id")
       .range(...pageRange(p, pageSize));
     for (const term of terms) {
-      const filter = searchFilter(term);
+      const filter = guardianSearchFilter(term);
       if (filter) query = query.or(filter);
     }
     return query.overrideTypes<Row[], { merge: false }>();
@@ -137,4 +137,48 @@ export async function getGuardian(schoolId: string, guardianId: string): Promise
   if (!row) return null;
   const statuses = await accountStatuses(schoolId, row.profile_id ? [row.profile_id] : []);
   return toGuardian(row, statuses);
+}
+
+/** A guardian as seen from one student's page. */
+export type StudentGuardian = {
+  id: string;
+  lastName: string;
+  firstName: string;
+  phone: string;
+  relation: Relation;
+  account: AccountStatus;
+};
+
+const RELATION_ORDER: Record<Relation, number> = { father: 0, mother: 1, tutor: 2 };
+
+/** The guardians of one student: father, mother, then tuteurs. */
+export async function listStudentGuardians(schoolId: string, studentId: string): Promise<StudentGuardian[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("student_guardians")
+    .select("relation, guardian:guardians(id, last_name, first_name, phone, profile_id)")
+    .eq("school_id", schoolId)
+    .eq("student_id", studentId);
+  if (error) throw new Error("listStudentGuardians failed");
+
+  const rows = data.filter((r) => r.guardian);
+  const statuses = await accountStatuses(
+    schoolId,
+    rows.map((r) => r.guardian!.profile_id).filter((id): id is string => Boolean(id)),
+  );
+  return rows
+    .map((r) => ({
+      id: r.guardian!.id,
+      lastName: r.guardian!.last_name,
+      firstName: r.guardian!.first_name,
+      phone: r.guardian!.phone,
+      relation: r.relation as Relation,
+      account: r.guardian!.profile_id ? (statuses.get(r.guardian!.profile_id) ?? "none") : "none",
+    }))
+    .sort(
+      (a, b) =>
+        RELATION_ORDER[a.relation] - RELATION_ORDER[b.relation] ||
+        a.lastName.localeCompare(b.lastName) ||
+        a.firstName.localeCompare(b.firstName),
+    );
 }

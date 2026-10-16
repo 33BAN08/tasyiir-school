@@ -112,6 +112,22 @@ function toStudent(row: Row): Student {
   };
 }
 
+/** One student, with their class in `yearId` (null: none, or no current year). */
+export async function getStudent(schoolId: string, yearId: string | null, studentId: string): Promise<Student | null> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from("students")
+    .select(
+      "id, first_name, last_name, first_name_ar, last_name_ar, birth_date, gender, code_massar, photo_path, enrollment:student_enrollments(class_id, academic_year_id, class:classes(name))",
+    )
+    .eq("school_id", schoolId)
+    .eq("id", studentId)
+    .eq("enrollment.academic_year_id", yearId ?? "00000000-0000-0000-0000-000000000000")
+    .overrideTypes<Row[], { merge: false }>();
+  if (error) throw new Error("getStudent failed");
+  return data[0] ? toStudent(data[0]) : null;
+}
+
 /** Number of students in the school (any class, any year). */
 export async function countStudents(schoolId: string): Promise<number> {
   const supabase = await createClient();
