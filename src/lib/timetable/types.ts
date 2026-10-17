@@ -34,3 +34,8 @@ export type LessonConflict = {
   start: string;
   end: string;
 };
+
+/** What a lesson Server Action returns; a refusal may point at a dialog field and explain a conflict. */
+export type LessonActionResult<T> =
+  | { ok: true; data: T }
+  | { ok: false; error: string; field?: "subjectId" | "teacherId" | "roomId"; conflict?: LessonConflict };

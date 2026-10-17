@@ -71,6 +71,7 @@ try {
   await import("./rules.mjs");
   await import("./rules-phone.mjs");
   await import("./rules-import.mjs");
+  await import("./rules-timetable.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });
     await roleActions({ fx, baseUrl });
