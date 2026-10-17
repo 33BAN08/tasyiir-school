@@ -1557,7 +1557,7 @@
   },
   "timetable": {
     "title": "Emploi du temps",
-    "description": "La semaine de chaque classe. Cliquez sur une case vide pour ajouter une séance, sur une séance pour la modifier.",
+    "description": "La semaine de chaque classe. Cliquez sur une case vide pour ajouter une séance, sur une séance pour la modifier ; glissez une séance pour la déplacer ou l'échanger.",
     "descriptionReadOnly": "La semaine de chaque classe.",
     "weekOf": "{class} — {year}",
     "weeklyHours": "Volume horaire : {duration} par semaine",
@@ -1640,7 +1640,8 @@
       "roomBusyNow": "Cette salle vient d'être occupée sur ce créneau. Rechargez la page.",
       "classBusy": "La classe {class} a déjà une séance à ce moment : {day}, {range}.",
       "teacherBusy": "{name} a déjà cours avec la classe {class} à ce moment : {day}, {range}. Choisissez un autre enseignant ou un autre créneau.",
-      "roomBusy": "La salle {name} est déjà occupée par la classe {class} à ce moment : {day}, {range}."
+      "roomBusy": "La salle {name} est déjà occupée par la classe {class} à ce moment : {day}, {range}.",
+      "teacherBusyMove": "{name} a déjà cours avec la classe {class} à ce moment : {day}, {range}."
     },
     "views": {
       "label": "Afficher l'emploi du temps",
@@ -1651,12 +1652,27 @@
       "teacherLabel": "Enseignant",
       "roomLabel": "Salle"
     },
-    "addFromClass": "Pour ajouter une séance, ouvrez l'emploi du temps d'une classe. Cliquez sur une séance pour la modifier.",
+    "addFromClass": "Pour ajouter une séance, ouvrez l'emploi du temps d'une classe. Cliquez sur une séance pour la modifier, glissez-la pour la déplacer.",
     "teacherHours": {
       "title": "Volume horaire des enseignants",
       "teacher": "Enseignant",
       "classes": "Classes",
       "hours": "Heures / semaine"
+    },
+    "move": {
+      "title": "Déplacer la séance de {subject} · {class}",
+      "hint": "Choisissez une case : une case libre y déplace la séance, une autre séance échange sa place avec elle. Les cases en rouge sont en conflit.",
+      "cancel": "Annuler",
+      "start": "Déplacer",
+      "moveHere": "Déplacer ici : {day}, {range}",
+      "swapHere": "Échanger avec {subject} : {day}, {range}",
+      "conflictAt": "Conflit : {day}, {range}",
+      "source": "Séance en cours de déplacement : {day}, {range}",
+      "moving": "Déplacement…",
+      "moved": "Séance déplacée.",
+      "swapped": "Séances échangées.",
+      "undo": "Annuler",
+      "undone": "Modification annulée."
     }
   }
 }

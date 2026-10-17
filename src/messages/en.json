@@ -1557,7 +1557,7 @@
   },
   "timetable": {
     "title": "Timetable",
-    "description": "Each class's week. Click an empty cell to add a lesson, or a lesson to change it.",
+    "description": "Each class's week. Click an empty cell to add a lesson, or a lesson to change it; drag a lesson to move or swap it.",
     "descriptionReadOnly": "Each class's week.",
     "weekOf": "{class} — {year}",
     "weeklyHours": "Weekly hours: {duration}",
@@ -1640,7 +1640,8 @@
       "roomBusyNow": "This room was just booked in this slot. Reload the page.",
       "classBusy": "Class {class} already has a lesson on {day}, {range}.",
       "teacherBusy": "{name} already teaches class {class} on {day}, {range}. Choose another teacher or another slot.",
-      "roomBusy": "Room {name} is already used by class {class} on {day}, {range}."
+      "roomBusy": "Room {name} is already used by class {class} on {day}, {range}.",
+      "teacherBusyMove": "{name} already teaches class {class} on {day}, {range}."
     },
     "views": {
       "label": "Show the timetable of",
@@ -1651,12 +1652,27 @@
       "teacherLabel": "Teacher",
       "roomLabel": "Room"
     },
-    "addFromClass": "To add a lesson, open a class's timetable. Click a lesson to change it.",
+    "addFromClass": "To add a lesson, open a class's timetable. Click a lesson to change it, drag it to move it.",
     "teacherHours": {
       "title": "Teachers' weekly hours",
       "teacher": "Teacher",
       "classes": "Classes",
       "hours": "Hours / week"
+    },
+    "move": {
+      "title": "Move the {subject} lesson · {class}",
+      "hint": "Choose a cell: an empty cell moves the lesson there, another lesson swaps places with it. Cells in red have a conflict.",
+      "cancel": "Cancel",
+      "start": "Move",
+      "moveHere": "Move here: {day}, {range}",
+      "swapHere": "Swap with {subject}: {day}, {range}",
+      "conflictAt": "Conflict: {day}, {range}",
+      "source": "Lesson being moved: {day}, {range}",
+      "moving": "Moving…",
+      "moved": "Lesson moved.",
+      "swapped": "Lessons swapped.",
+      "undo": "Undo",
+      "undone": "Change undone."
     }
   }
 }

@@ -37,6 +37,7 @@ import { importCommitActions, importPreviewActions } from "./actions-import.mjs"
 import { phase6Lessons } from "./phase6-lessons.mjs";
 import { lessonBlockActions } from "./actions-lesson-blocks.mjs";
 import { lessonActions } from "./actions-lessons.mjs";
+import { lessonMoveActions } from "./actions-lesson-moves.mjs";
 
 const withActions = process.argv.includes("--actions");
 const baseUrl = process.env.TEST_APP_URL ?? "http://localhost:3000";
@@ -89,6 +90,7 @@ try {
     await importCommitActions({ fx, baseUrl });
     await lessonBlockActions({ fx, baseUrl });
     await lessonActions({ fx, baseUrl });
+    await lessonMoveActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();
