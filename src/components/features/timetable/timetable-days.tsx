@@ -11,7 +11,7 @@ import type { TimeSlot } from "@/lib/structure/time-slots";
 import type { TimetableLesson } from "@/lib/timetable/types";
 
 import { LessonCard } from "./lesson-card";
-import type { CellHandlers } from "./timetable-grid";
+import { SlotCell, type CellHandlers } from "./slot-cell";
 
 type Props = CellHandlers & {
   days: SchoolDay[];
@@ -20,7 +20,7 @@ type Props = CellHandlers & {
 };
 
 /** The week as one card per day (phones): each slot of the day, its lesson or a way to add one. */
-export function TimetableDays({ days, slots, lessonBySlot, details, onAdd, onOpen }: Props) {
+export function TimetableDays({ days, slots, lessonBySlot, details, ...handlers }: Props) {
   const t = useTranslations("timetable.grid");
   const tDays = useTranslations("setup.timeSlots.days");
 
@@ -38,7 +38,6 @@ export function TimetableDays({ days, slots, lessonBySlot, details, onAdd, onOpe
               <ul className="flex flex-col gap-1.5">
                 {daySlots.map((slot) => {
                   const lesson = lessonBySlot.get(slot.id);
-                  const label = (name: string) => t(name, { day: dayName, range: ltr(`${slot.startTime}–${slot.endTime}`) });
                   const time = (
                     <span className="w-24 shrink-0 pt-0.5 text-xs text-muted-foreground">
                       <TimeRange start={slot.startTime} end={slot.endTime} />
@@ -52,33 +51,25 @@ export function TimetableDays({ days, slots, lessonBySlot, details, onAdd, onOpe
                       </li>
                     );
                   }
-                  const content = lesson ? (
-                    <LessonCard lesson={lesson} details={details} className="flex-1" />
-                  ) : (
-                    <span className="flex flex-1 items-center gap-1 text-sm text-muted-foreground">
-                      {onAdd && <Plus className="size-4" aria-hidden />}
-                      {onAdd ? t("add") : t("free")}
-                    </span>
-                  );
-                  const onClick = lesson ? (onOpen ? () => onOpen(lesson, slot) : undefined) : onAdd ? () => onAdd(slot) : undefined;
                   return (
                     <li key={slot.id}>
-                      {onClick ? (
-                        <button
-                          type="button"
-                          onClick={onClick}
-                          aria-label={label(lesson ? "openLesson" : "addLesson")}
-                          className="flex min-h-11 w-full gap-3 rounded-md border px-3 py-2 text-start transition-colors hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-                        >
-                          {time}
-                          {content}
-                        </button>
-                      ) : (
-                        <div className="flex min-h-11 gap-3 rounded-md border px-3 py-2">
-                          {time}
-                          {content}
-                        </div>
-                      )}
+                      <SlotCell
+                        slot={slot}
+                        lesson={lesson}
+                        where={{ day: dayName, range: ltr(`${slot.startTime}–${slot.endTime}`) }}
+                        className="flex min-h-11 w-full gap-3 rounded-md border px-3 py-2 text-start"
+                        {...handlers}
+                      >
+                        {time}
+                        {lesson ? (
+                          <LessonCard lesson={lesson} details={details} className="flex-1" />
+                        ) : (
+                          <span className="flex flex-1 items-center gap-1 text-sm text-muted-foreground">
+                            {handlers.onAdd && <Plus className="size-4" aria-hidden />}
+                            {handlers.onAdd ? t("add") : t("free")}
+                          </span>
+                        )}
+                      </SlotCell>
                     </li>
                   );
                 })}
