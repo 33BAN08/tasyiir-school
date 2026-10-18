@@ -1,6 +1,8 @@
 import { CircleAlert, CircleCheck, Clock, PencilLine, X } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
+import { MarkJustifyDialog } from "@/components/features/justifications/mark-justify-dialog";
+import { StateBadge } from "@/components/features/justifications/state-badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
@@ -15,10 +17,11 @@ type Props = {
   date: string;
   /** attendance.manage: correct (or take) this roll call. */
   canManage: boolean;
+  schoolId: string;
 };
 
 /** One lesson of a class's day (staff): who took attendance and when, who was absent or late, and a way to correct it. */
-export async function ClassDayLesson({ lesson, date, canManage }: Props) {
+export async function ClassDayLesson({ lesson, date, canManage, schoolId }: Props) {
   const [t, locale] = await Promise.all([getTranslations("absences.day"), getLocale()]);
   const { session } = lesson;
   const marks = session?.marks ?? [];
@@ -67,8 +70,19 @@ export async function ClassDayLesson({ lesson, date, canManage }: Props) {
           ) : (
             <ul className="flex flex-col gap-1.5" aria-label={t("marksLabel")}>
               {marks.map((m) => (
-                <li key={m.studentId} className="flex items-center justify-between gap-3 text-sm">
+                <li key={m.studentId} data-state={m.state} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 text-sm">
                   <bdi className="truncate">{studentName(m, locale)}</bdi>
+                  <span className="flex shrink-0 flex-wrap items-center gap-2">
+                  <StateBadge state={m.state} />
+                  {canManage && session && m.state !== "justified" && (
+                    <MarkJustifyDialog
+                      schoolId={schoolId}
+                      sessionId={session.id}
+                      studentId={m.studentId}
+                      studentName={studentName(m, locale)}
+                      date={date}
+                    />
+                  )}
                   <span
                     className={cn(
                       "flex shrink-0 items-center gap-1 font-medium",
@@ -81,6 +95,7 @@ export async function ClassDayLesson({ lesson, date, canManage }: Props) {
                       : m.minutesLate
                         ? t("lateMinutes", { minutes: m.minutesLate })
                         : t("late")}
+                  </span>
                   </span>
                 </li>
               ))}

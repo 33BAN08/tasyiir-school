@@ -1,6 +1,6 @@
 "use client";
 
-import { Paperclip, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -8,10 +8,11 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "@/i18n/navigation";
 import { formatDate, ltr } from "@/lib/format";
-import { cancelJustification, getJustificationFileUrl } from "@/lib/justifications/actions";
+import { cancelJustification } from "@/lib/justifications/actions";
 import { cn } from "@/lib/utils";
 
 import { StateBadge } from "./state-badge";
+import { ViewNoteButton } from "./view-note-button";
 import { useJustificationError } from "./use-justification-error";
 
 type Props = {
@@ -35,20 +36,6 @@ export function JustificationItem({ id, status, fromDate, toDate, reason, hasFil
   const [isPending, startTransition] = useTransition();
   const period =
     fromDate === toDate ? ltr(formatDate(fromDate)) : t("period", { from: ltr(formatDate(fromDate)), to: ltr(formatDate(toDate)) });
-
-  function viewNote() {
-    // The tab is opened now (a tap), the signed link filled in once the server answers.
-    const tab = window.open("", "_blank");
-    startTransition(async () => {
-      const result = await getJustificationFileUrl(id);
-      if (!result.ok) {
-        tab?.close();
-        toast.error(translateError(result.error));
-        return;
-      }
-      if (tab) tab.location.href = result.data.url;
-    });
-  }
 
   function withdraw() {
     startTransition(async () => {
@@ -80,12 +67,7 @@ export function JustificationItem({ id, status, fromDate, toDate, reason, hasFil
       )}
       {(hasFile || (canCancel && status === "pending")) && (
         <div className="flex flex-wrap gap-2">
-          {hasFile && (
-            <Button type="button" variant="outline" size="sm" className="min-h-11" disabled={isPending} onClick={viewNote}>
-              <Paperclip aria-hidden />
-              {t("viewNote")}
-            </Button>
-          )}
+          {hasFile && <ViewNoteButton id={id} label={t("viewNote")} translateError={translateError} />}
           {canCancel && status === "pending" &&
             (confirming ? (
               <>

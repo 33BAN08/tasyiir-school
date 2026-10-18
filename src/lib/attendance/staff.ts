@@ -1,5 +1,6 @@
 import "server-only";
 
+import { absenceState, type JustificationState } from "@/lib/justifications/coverage";
 import type { AcademicYear } from "@/lib/structure/academic-years";
 import type { SubjectColor } from "@/lib/structure/subject-template";
 import { shortTime } from "@/lib/structure/time-slot-template";
@@ -19,6 +20,8 @@ export type DayMark = StudentNames & {
   status: MarkStatus;
   minutesLate: number | null;
   note: string | null;
+  /** Whether an approved / pending / rejected justification covers it. */
+  state: JustificationState;
 };
 
 export type DayLesson = {
@@ -31,6 +34,7 @@ export type DayLesson = {
   subjectColor: SubjectColor;
   teacherName: string;
   session: {
+    id: string;
     takenAt: string;
     updatedAt: string | null;
     /** Taken by the lesson's teacher (else by staff). */
@@ -104,9 +108,36 @@ export async function getClassDay(schoolId: string, classId: string, yearId: str
   if (lessons.error || sessions.error) throw new Error("getClassDay failed");
   const teacherName = new Map((teachers.data ?? []).map((t) => [t.id, t.full_name]));
 
+  // Justifications covering this day for the students marked (a 'days' one by its dates, a 'mark' one by its session).
+  const markedIds = [...new Set(sessions.data.flatMap((s) => s.marks.map((m) => m.student_id)))];
+  const covering = markedIds.length
+    ? await supabase
+        .from("justifications")
+        .select("student_id, kind, status, from_date, to_date, session_id")
+        .eq("school_id", schoolId)
+        .in("student_id", markedIds)
+        .lte("from_date", date)
+        .gte("to_date", date)
+    : { data: [], error: null };
+  if (covering.error) throw new Error("getClassDay failed");
+  const stateOf = (studentId: string, sessionId: string): JustificationState =>
+    absenceState(
+      { sessionId, date },
+      (covering.data ?? [])
+        .filter((j) => j.student_id === studentId)
+        .map((j) => ({
+          kind: j.kind as "days" | "mark",
+          status: j.status as "pending" | "approved" | "rejected",
+          fromDate: j.from_date,
+          toDate: j.to_date,
+          sessionId: j.session_id,
+        })),
+    );
+
   const toSession = async (s: SessionRow): Promise<NonNullable<DayLesson["session"]>> => {
     const [takenAt, updatedAt] = await Promise.all([schoolTime(s.taken_at), schoolTime(s.updated_at)]);
     return {
+      id: s.id,
       takenAt: takenAt ?? "",
       updatedAt: updatedAt !== takenAt ? updatedAt : null,
       byTeacher: s.taken_by === s.teacher_id,
@@ -120,6 +151,7 @@ export async function getClassDay(schoolId: string, classId: string, yearId: str
           status: m.status as MarkStatus,
           minutesLate: m.minutes_late,
           note: m.note,
+          state: stateOf(m.student_id, s.id),
         }))
         .sort((a, b) => a.lastName.localeCompare(b.lastName) || a.firstName.localeCompare(b.firstName)),
     };

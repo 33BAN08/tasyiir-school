@@ -1945,7 +1945,8 @@
     "views": {
       "label": "View",
       "day": "Day",
-      "totals": "Totals"
+      "totals": "Totals",
+      "justifications": "Notes"
     },
     "totals": {
       "periodLabel": "Period",
@@ -1976,6 +1977,67 @@
       "absenceValue": "{count, plural, one {# absence} other {# absences}} · {duration}",
       "lateValue": "{count, plural, one {# late arrival} other {# late arrivals}}",
       "lateValueMinutes": "{count, plural, one {# late arrival} other {# late arrivals}} · {minutes} min"
+    },
+    "justifications": {
+      "description": "What parents sent, and what the school entered from a paper note. Oldest pending first.",
+      "filters": {
+        "label": "Note status",
+        "pending": "Pending",
+        "approved": "Approved",
+        "rejected": "Rejected"
+      },
+      "empty": {
+        "pending": "No pending note",
+        "approved": "No approved note",
+        "rejected": "No rejected note"
+      },
+      "emptyDescription": "Notes sent by parents will appear here.",
+      "more": "Only the {count} most recent are shown.",
+      "period": "{from} to {to}",
+      "kindDays": "Sent by a parent",
+      "kindMark": "Entered by the school (one absence)",
+      "replyLabel": "Reply:",
+      "replyField": "Reply to the family (optional)",
+      "replyPlaceholder": "E.g. certificate unreadable, please send it again.",
+      "viewNote": "View note",
+      "approve": "Approve",
+      "reject": "Reject",
+      "reopen": "Back to pending",
+      "remove": "Delete",
+      "confirmReject": "Reject this note",
+      "confirmRemove": "Delete this note",
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "done": {
+        "pending": "Back to pending.",
+        "approved": "Note approved.",
+        "rejected": "Note rejected.",
+        "removed": "Note deleted."
+      },
+      "mark": {
+        "open": "Justify",
+        "openFor": "Justify {name}'s absence",
+        "title": "Justify this absence",
+        "description": "{name} · {date}. The note is approved right away.",
+        "reason": "Reason",
+        "reasonPlaceholder": "E.g. note from the father, medical certificate…",
+        "cancel": "Cancel",
+        "save": "Save",
+        "saving": "Saving…",
+        "saved": "Absence justified."
+      },
+      "errors": {
+        "generic": "Something went wrong. Try again.",
+        "forbidden": "You are not allowed to do this.",
+        "notFound": "Not found.",
+        "invalid": "Invalid data.",
+        "reasonRequired": "Enter the reason.",
+        "tooLong": "Text too long (500 characters at most).",
+        "noteTooLong": "Reply too long (300 characters at most).",
+        "markNotFound": "This absence no longer exists: refresh the page.",
+        "fileUpload": "The file could not be uploaded. Try again.",
+        "fileUnavailable": "The file is no longer available."
+      }
     }
   }
 }

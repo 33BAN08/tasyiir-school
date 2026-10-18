@@ -46,6 +46,7 @@ import { timetablePrintPages } from "./pages-timetable-print.mjs";
 import { rollCallActions } from "./actions-roll-call.mjs";
 import { absencesActions } from "./actions-absences.mjs";
 import { justificationActions } from "./actions-justifications.mjs";
+import { staffJustificationActions } from "./actions-staff-justifications.mjs";
 import { lessonMoveActions } from "./actions-lesson-moves.mjs";
 import { lessonActions } from "./actions-lessons.mjs";
 
@@ -111,6 +112,7 @@ try {
     await rollCallActions({ fx, baseUrl });
     await absencesActions({ fx, baseUrl });
     await justificationActions({ fx, baseUrl });
+    await staffJustificationActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

@@ -1945,7 +1945,8 @@
     "views": {
       "label": "Affichage",
       "day": "Journée",
-      "totals": "Totaux"
+      "totals": "Totaux",
+      "justifications": "Justificatifs"
     },
     "totals": {
       "periodLabel": "Période",
@@ -1976,6 +1977,67 @@
       "absenceValue": "{count, plural, one {# absence} other {# absences}} · {duration}",
       "lateValue": "{count, plural, one {# retard} other {# retards}}",
       "lateValueMinutes": "{count, plural, one {# retard} other {# retards}} · {minutes} min"
+    },
+    "justifications": {
+      "description": "Ce que les parents ont envoyé, et ce que l'établissement a saisi à partir d'un mot papier. Les plus anciens en attente d'abord.",
+      "filters": {
+        "label": "État des justificatifs",
+        "pending": "En attente",
+        "approved": "Approuvés",
+        "rejected": "Refusés"
+      },
+      "empty": {
+        "pending": "Aucun justificatif en attente",
+        "approved": "Aucun justificatif approuvé",
+        "rejected": "Aucun justificatif refusé"
+      },
+      "emptyDescription": "Les justificatifs envoyés par les parents apparaîtront ici.",
+      "more": "Seuls les {count} plus récents sont affichés.",
+      "period": "du {from} au {to}",
+      "kindDays": "Envoyé par un parent",
+      "kindMark": "Saisi par l'établissement (une absence)",
+      "replyLabel": "Réponse :",
+      "replyField": "Réponse à la famille (facultatif)",
+      "replyPlaceholder": "Ex. : certificat illisible, merci de le renvoyer.",
+      "viewNote": "Voir le justificatif",
+      "approve": "Approuver",
+      "reject": "Refuser",
+      "reopen": "Remettre en attente",
+      "remove": "Supprimer",
+      "confirmReject": "Refuser ce justificatif",
+      "confirmRemove": "Supprimer ce justificatif",
+      "cancel": "Annuler",
+      "saving": "Enregistrement…",
+      "done": {
+        "pending": "Remis en attente.",
+        "approved": "Justificatif approuvé.",
+        "rejected": "Justificatif refusé.",
+        "removed": "Justificatif supprimé."
+      },
+      "mark": {
+        "open": "Justifier",
+        "openFor": "Justifier l'absence de {name}",
+        "title": "Justifier cette absence",
+        "description": "{name} · {date}. Le justificatif est approuvé tout de suite.",
+        "reason": "Motif",
+        "reasonPlaceholder": "Ex. : mot du père, certificat médical…",
+        "cancel": "Annuler",
+        "save": "Enregistrer",
+        "saving": "Enregistrement…",
+        "saved": "Absence justifiée."
+      },
+      "errors": {
+        "generic": "Une erreur est survenue. Réessayez.",
+        "forbidden": "Vous n'avez pas le droit de faire cela.",
+        "notFound": "Élément introuvable.",
+        "invalid": "Données invalides.",
+        "reasonRequired": "Indiquez le motif.",
+        "tooLong": "Texte trop long (500 caractères au plus).",
+        "noteTooLong": "Réponse trop longue (300 caractères au plus).",
+        "markNotFound": "Cette absence n'existe plus : actualisez la page.",
+        "fileUpload": "Le fichier n'a pas pu être envoyé. Réessayez.",
+        "fileUnavailable": "Le fichier n'est plus disponible."
+      }
     }
   }
 }

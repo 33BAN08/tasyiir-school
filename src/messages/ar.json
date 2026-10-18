@@ -1945,7 +1945,8 @@
     "views": {
       "label": "العرض",
       "day": "اليوم",
-      "totals": "المجاميع"
+      "totals": "المجاميع",
+      "justifications": "التبريرات"
     },
     "totals": {
       "periodLabel": "الفترة",
@@ -1976,6 +1977,67 @@
       "absenceValue": "{count, plural, one {غياب واحد} two {غيابان} few {# غيابات} many {# غيابًا} other {# غياب}} · {duration}",
       "lateValue": "{count, plural, one {تأخر واحد} two {تأخران} few {# تأخرات} many {# تأخرًا} other {# تأخر}}",
       "lateValueMinutes": "{count, plural, one {تأخر واحد} two {تأخران} few {# تأخرات} many {# تأخرًا} other {# تأخر}} · {minutes} د"
+    },
+    "justifications": {
+      "description": "ما أرسله الأولياء، وما سجلته المؤسسة من ورقة مكتوبة. الأقدم قيد المراجعة أولًا.",
+      "filters": {
+        "label": "حالة التبريرات",
+        "pending": "قيد المراجعة",
+        "approved": "مقبولة",
+        "rejected": "مرفوضة"
+      },
+      "empty": {
+        "pending": "لا تبرير قيد المراجعة",
+        "approved": "لا تبرير مقبول",
+        "rejected": "لا تبرير مرفوض"
+      },
+      "emptyDescription": "ستظهر هنا التبريرات التي يرسلها الأولياء.",
+      "more": "تُعرض الأحدث فقط ({count}).",
+      "period": "من {from} إلى {to}",
+      "kindDays": "أرسله ولي الأمر",
+      "kindMark": "سجلته المؤسسة (غياب واحد)",
+      "replyLabel": "الرد:",
+      "replyField": "الرد على الأسرة (اختياري)",
+      "replyPlaceholder": "مثال: الشهادة غير مقروءة، المرجو إعادة إرسالها.",
+      "viewNote": "عرض التبرير",
+      "approve": "قبول",
+      "reject": "رفض",
+      "reopen": "إعادته قيد المراجعة",
+      "remove": "حذف",
+      "confirmReject": "رفض هذا التبرير",
+      "confirmRemove": "حذف هذا التبرير",
+      "cancel": "إلغاء",
+      "saving": "جارٍ الحفظ…",
+      "done": {
+        "pending": "أُعيد قيد المراجعة.",
+        "approved": "تم قبول التبرير.",
+        "rejected": "تم رفض التبرير.",
+        "removed": "تم حذف التبرير."
+      },
+      "mark": {
+        "open": "تبرير",
+        "openFor": "تبرير غياب {name}",
+        "title": "تبرير هذا الغياب",
+        "description": "{name} · {date}. يُقبل التبرير فورًا.",
+        "reason": "السبب",
+        "reasonPlaceholder": "مثال: ورقة من الأب، شهادة طبية…",
+        "cancel": "إلغاء",
+        "save": "حفظ",
+        "saving": "جارٍ الحفظ…",
+        "saved": "تم تبرير الغياب."
+      },
+      "errors": {
+        "generic": "حدث خطأ. أعد المحاولة.",
+        "forbidden": "لا يحق لك القيام بهذا.",
+        "notFound": "غير موجود.",
+        "invalid": "بيانات غير صالحة.",
+        "reasonRequired": "اكتب السبب.",
+        "tooLong": "النص طويل جدًا (500 حرف على الأكثر).",
+        "noteTooLong": "الرد طويل جدًا (300 حرف على الأكثر).",
+        "markNotFound": "هذا الغياب لم يعد موجودًا: حدّث الصفحة.",
+        "fileUpload": "تعذر رفع الملف. أعد المحاولة.",
+        "fileUnavailable": "الملف لم يعد متاحًا."
+      }
     }
   }
 }

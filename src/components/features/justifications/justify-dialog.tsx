@@ -1,9 +1,9 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FilePlus2, Paperclip, X } from "lucide-react";
+import { FilePlus2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useRef, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -19,16 +19,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "@/i18n/navigation";
 import { isolate } from "@/lib/format";
 import { submitJustification } from "@/lib/justifications/actions";
-import { prepareJustificationFile } from "@/lib/justifications/prepare-file";
-import { JUSTIFICATION_BUCKET, JUSTIFICATION_FILE_TYPES, justificationPath } from "@/lib/justifications/rules";
-import { createClient } from "@/lib/supabase/client";
+import { uploadNote } from "@/lib/justifications/upload";
 import { justificationSchema, type JustificationFormValues } from "@/lib/validations/justifications";
 
+import { NoteField } from "./note-field";
 import { useJustificationError } from "./use-justification-error";
 
 type Props = {
@@ -56,7 +55,6 @@ export function JustifyDialog({ schoolId, studentId, childName, today, date, var
   const t = useTranslations("portal.absences.form");
   const translateError = useJustificationError();
   const router = useRouter();
-  const input = useRef<HTMLInputElement>(null);
   const [open, setOpen] = useState(false);
   const [file, setFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
@@ -75,23 +73,12 @@ export function JustifyDialog({ schoolId, studentId, childName, today, date, var
   const onSubmit = form.handleSubmit(() => {
     const values = form.getValues();
     startTransition(async () => {
-      let path: string | null = null;
-      if (file) {
-        const prepared = await prepareJustificationFile(file);
-        if ("error" in prepared) {
-          setFileError(translateError(prepared.error));
-          return;
-        }
-        path = justificationPath(schoolId, studentId, crypto.randomUUID(), prepared.ext);
-        const { error } = await createClient()
-          .storage.from(JUSTIFICATION_BUCKET)
-          .upload(path, prepared.blob, { contentType: prepared.blob.type, upsert: false });
-        if (error) {
-          setFileError(translateError("fileUpload"));
-          return;
-        }
+      const note = await uploadNote(file, schoolId, studentId);
+      if ("error" in note) {
+        setFileError(translateError(note.error));
+        return;
       }
-      const result = await submitJustification(studentId, values, path);
+      const result = await submitJustification(studentId, values, note.path);
       if (!result.ok) {
         if (result.field) form.setError(result.field, { message: result.error }, { shouldFocus: true });
         else toast.error(translateError(result.error));
@@ -155,54 +142,7 @@ export function JustifyDialog({ schoolId, studentId, childName, today, date, var
             />
             {reasonError && <FieldError>{translateError(reasonError)}</FieldError>}
           </Field>
-          <Field data-invalid={!!fileError}>
-            <FieldLabel>
-              {t("file")}
-              <span className="font-normal text-muted-foreground">({t("optional")})</span>
-            </FieldLabel>
-            <div className="flex flex-wrap items-center gap-2">
-              <Button type="button" variant="outline" size="sm" disabled={isPending} onClick={() => input.current?.click()}>
-                <Paperclip aria-hidden />
-                {file ? t("changeFile") : t("chooseFile")}
-              </Button>
-              {file && (
-                <span className="flex min-w-0 items-center gap-1 text-sm">
-                  <bdi className="truncate">{file.name}</bdi>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon-sm"
-                    disabled={isPending}
-                    aria-label={t("removeFile")}
-                    onClick={() => {
-                      setFile(null);
-                      setFileError(null);
-                    }}
-                  >
-                    <X aria-hidden />
-                  </Button>
-                </span>
-              )}
-            </div>
-            <input
-              ref={input}
-              type="file"
-              accept={JUSTIFICATION_FILE_TYPES.join(",")}
-              className="sr-only"
-              tabIndex={-1}
-              aria-label={t("chooseFile")}
-              onChange={(e) => {
-                const picked = e.target.files?.[0];
-                e.target.value = ""; // picking the same file again still fires
-                if (picked) {
-                  setFile(picked);
-                  setFileError(null);
-                }
-              }}
-            />
-            <FieldDescription>{t("fileHint")}</FieldDescription>
-            {fileError && <FieldError>{fileError}</FieldError>}
-          </Field>
+          <NoteField file={file} onChange={(f) => { setFile(f); setFileError(null); }} error={fileError} disabled={isPending} />
           <DialogFooter>
             <DialogClose asChild>
               <Button type="button" variant="outline" disabled={isPending}>

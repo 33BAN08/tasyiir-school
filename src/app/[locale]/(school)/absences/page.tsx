@@ -6,6 +6,7 @@ import { ClassDayLesson } from "@/components/features/attendance/class-day-lesso
 import { ClassTotals } from "@/components/features/attendance/class-totals";
 import { ClassSelect } from "@/components/features/attendance/class-select";
 import { DayNav } from "@/components/features/attendance/day-nav";
+import { ReviewList } from "@/components/features/justifications/review-list";
 import { EmptyState } from "@/components/layout/empty-state";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card } from "@/components/ui/card";
@@ -17,19 +18,22 @@ import { PERIODS, periodRange } from "@/lib/attendance/periods";
 import { getClassDay, weekdayOf, yearOf } from "@/lib/attendance/staff";
 import { getPermissions, requireSchoolPermission } from "@/lib/auth/session";
 import { ltr } from "@/lib/format";
+import { listJustifications, REVIEW_STATUSES } from "@/lib/justifications/staff";
 import { listAcademicYears } from "@/lib/structure/academic-years";
 import { listClasses } from "@/lib/structure/classes";
 import { DAY_KEYS, type SchoolDay } from "@/lib/structure/time-slot-template";
 import { cn } from "@/lib/utils";
 
-type Wanted = { view?: string; date?: string; class?: string; period?: string };
+type Wanted = { view?: string; date?: string; class?: string; period?: string; status?: string };
 
 /**
- * Staff (attendance.view), two views of a class (`?view=day|totals`):
+ * Staff (attendance.view), three views (`?view=day|totals|justifications`):
  * - day: each lesson of one day, whether attendance was taken (by whom, when)
  *   and who was absent or late;
  * - totals: each student's absences (count, hours) and late arrivals over
- *   this week / month / school year.
+ *   this week / month / school year;
+ * - justifications: what parents sent (and what the school entered), to
+ *   approve or reject (attendance.manage) — pending first.
  * attendance.manage corrects any day up to today, or takes a forgotten roll
  * call. The day is the school's (from the database), never later than today.
  */
@@ -38,7 +42,7 @@ export default async function AbsencesPage({ searchParams }: PageProps<"/[locale
   const [permissions, t] = await Promise.all([getPermissions(), getTranslations("absences")]);
   const wanted = searchParams.then((sp): Wanted => {
     const one = (v: string | string[] | undefined) => (typeof v === "string" ? v : undefined);
-    return { view: one(sp.view), date: one(sp.date), class: one(sp.class), period: one(sp.period) };
+    return { view: one(sp.view), date: one(sp.date), class: one(sp.class), period: one(sp.period), status: one(sp.status) };
   });
 
   return (
@@ -59,10 +63,10 @@ async function DaySection({ schoolId, wanted, canManage }: { schoolId: string; w
     getTranslations("absences"),
     getTranslations("setup.timeSlots.days"),
   ]);
-  const view = want.view === "totals" ? "totals" : "day";
+  const view = want.view === "totals" || want.view === "justifications" ? want.view : "day";
   const date = want.date && /^\d{4}-\d{2}-\d{2}$/.test(want.date) && want.date <= clock.date ? want.date : clock.date;
   // Totals: the school year of today (else the most recent one).
-  const year = view === "totals" ? (yearOf(years, clock.date) ?? years[0]) : yearOf(years, date);
+  const year = view === "day" ? yearOf(years, date) : (yearOf(years, clock.date) ?? years[0]);
   const classes = year ? await listClasses(schoolId, year.id) : [];
   const selected = classes.find((c) => c.id === want.class) ?? classes[0];
   const weekday = weekdayOf(date);
@@ -74,10 +78,16 @@ async function DaySection({ schoolId, wanted, canManage }: { schoolId: string; w
   const controls = (
     <div className="flex flex-wrap items-center gap-4">
       <nav aria-label={t("views.label")} className="inline-flex rounded-lg bg-muted p-1">
-        {(["day", "totals"] as const).map((v) => (
+        {(["day", "totals", "justifications"] as const).map((v) => (
           <Link
             key={v}
-            href={v === "day" ? `/absences?view=day&date=${date}${classQuery}` : `/absences?view=totals${classQuery}`}
+            href={
+              v === "day"
+                ? `/absences?view=day&date=${date}${classQuery}`
+                : v === "totals"
+                  ? `/absences?view=totals${classQuery}`
+                  : "/absences?view=justifications"
+            }
             aria-current={v === view ? "page" : undefined}
             className={cn(
               "rounded-md px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground",
@@ -89,11 +99,21 @@ async function DaySection({ schoolId, wanted, canManage }: { schoolId: string; w
         ))}
       </nav>
       {view === "day" && <DayNav date={date} today={clock.date} keep={selected ? `class=${selected.id}` : undefined} />}
-      {selected && (
+      {selected && view !== "justifications" && (
         <ClassSelect classes={classes} value={selected.id} keep={view === "day" ? `date=${date}` : `view=totals&period=${period}`} />
       )}
     </div>
   );
+  if (view === "justifications") {
+    const status = REVIEW_STATUSES.find((st) => st === want.status) ?? "pending";
+    const { items, counts } = await listJustifications(schoolId, year?.id ?? null, status);
+    return (
+      <section className="flex flex-col gap-4">
+        {controls}
+        <ReviewList items={items} counts={counts} status={status} canManage={canManage} />
+      </section>
+    );
+  }
   if (!year || !selected) {
     return (
       <section className="flex flex-col gap-4">
@@ -150,7 +170,7 @@ async function DaySection({ schoolId, wanted, canManage }: { schoolId: string; w
         <ul className="grid gap-3 md:grid-cols-2">
           {day.lessons.map((lesson) => (
             <li key={lesson.key}>
-              <ClassDayLesson lesson={lesson} date={date} canManage={canManage} />
+              <ClassDayLesson lesson={lesson} date={date} canManage={canManage} schoolId={schoolId} />
             </li>
           ))}
         </ul>
