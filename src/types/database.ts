@@ -379,6 +379,99 @@ export type Database = {
           },
         ]
       }
+      justifications: {
+        Row: {
+          file_path: string | null
+          from_date: string
+          id: string
+          kind: string
+          reason: string
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          school_id: string
+          session_id: string | null
+          status: string
+          student_id: string
+          submitted_at: string
+          submitted_by: string
+          to_date: string
+          updated_at: string
+        }
+        Insert: {
+          file_path?: string | null
+          from_date: string
+          id?: string
+          kind: string
+          reason: string
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          school_id: string
+          session_id?: string | null
+          status?: string
+          student_id: string
+          submitted_at?: string
+          submitted_by: string
+          to_date: string
+          updated_at?: string
+        }
+        Update: {
+          file_path?: string | null
+          from_date?: string
+          id?: string
+          kind?: string
+          reason?: string
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          school_id?: string
+          session_id?: string | null
+          status?: string
+          student_id?: string
+          submitted_at?: string
+          submitted_by?: string
+          to_date?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "justifications_mark_fkey"
+            columns: ["session_id", "student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "attendance_marks"
+            referencedColumns: ["session_id", "student_id", "school_id"]
+          },
+          {
+            foreignKeyName: "justifications_reviewed_by_fkey"
+            columns: ["reviewed_by", "school_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "justifications_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "justifications_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "justifications_submitted_by_fkey"
+            columns: ["submitted_by", "school_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       lessons: {
         Row: {
           academic_year_id: string
