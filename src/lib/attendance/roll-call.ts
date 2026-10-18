@@ -16,6 +16,7 @@ export type TodayLesson = {
   id: string;
   /** 1 = Monday … 6 = Saturday. */
   day: number;
+  teacherId: string;
   start: string;
   end: string;
   className: string;
@@ -29,6 +30,7 @@ export type TodayLesson = {
 type Supabase = Awaited<ReturnType<typeof createClient>>;
 type LessonRow = {
   id: string;
+  teacher_id: string;
   class_id: string;
   academic_year_id: string;
   slot: { day_of_week: number; start_time: string; end_time: string } | null;
@@ -38,12 +40,13 @@ type LessonRow = {
 };
 
 const LESSON_FIELDS =
-  "id, class_id, academic_year_id, slot:time_slots(day_of_week, start_time, end_time), class:classes(name), subject:subjects(name, color), room:rooms(name)";
+  "id, teacher_id, class_id, academic_year_id, slot:time_slots(day_of_week, start_time, end_time), class:classes(name), subject:subjects(name, color), room:rooms(name)";
 
 function toLesson(row: LessonRow, takenAt: string | null = null): TodayLesson {
   return {
     id: row.id,
     day: row.slot?.day_of_week ?? 0,
+    teacherId: row.teacher_id,
     start: shortTime(row.slot?.start_time ?? ""),
     end: shortTime(row.slot?.end_time ?? ""),
     className: row.class?.name ?? "",
@@ -112,15 +115,11 @@ export type RollCallStudent = {
   photoPath: string | null;
 };
 
-async function teacherLesson(supabase: Supabase, schoolId: string, teacherId: string, lessonId: string) {
-  const { data } = await supabase
-    .from("lessons")
-    .select(LESSON_FIELDS)
-    .eq("school_id", schoolId)
-    .eq("teacher_id", teacherId)
-    .eq("id", lessonId)
-    .maybeSingle()
-    .overrideTypes<LessonRow | null, { merge: false }>();
+/** A lesson of the school; with `teacherId`, only if it is that teacher's. */
+async function teacherLesson(supabase: Supabase, schoolId: string, teacherId: string | null, lessonId: string) {
+  let query = supabase.from("lessons").select(LESSON_FIELDS).eq("school_id", schoolId).eq("id", lessonId);
+  if (teacherId) query = query.eq("teacher_id", teacherId);
+  const { data } = await query.maybeSingle().overrideTypes<LessonRow | null, { merge: false }>();
   return data;
 }
 
@@ -172,8 +171,16 @@ export type RollCall = LessonClass & {
   updatedAt: string | null;
 };
 
-/** One of the teacher's lessons with its class list and today's marks; null when not theirs / not found. */
-export async function getRollCall(schoolId: string, teacherId: string, lessonId: string, clock: SchoolClock): Promise<RollCall | null> {
+/**
+ * A lesson with its class list and the marks of `clock.date`; null when not found (or, with `teacherId`, not
+ * theirs). isToday: the lesson's weekday is that date's — and, for a teacher, a lesson of the current year.
+ */
+export async function getRollCall(
+  schoolId: string,
+  teacherId: string | null,
+  lessonId: string,
+  clock: Pick<SchoolClock, "date" | "weekday">,
+): Promise<RollCall | null> {
   const supabase = await createClient();
   const row = await teacherLesson(supabase, schoolId, teacherId, lessonId);
   if (!row) return null;
@@ -197,7 +204,7 @@ export async function getRollCall(schoolId: string, teacherId: string, lessonId:
 
   return {
     lesson: toLesson(row, takenAt),
-    isToday: row.slot?.day_of_week === clock.weekday && row.academic_year_id === year?.id,
+    isToday: row.slot?.day_of_week === clock.weekday && (!teacherId || row.academic_year_id === year?.id),
     students,
     marks,
     takenAt,

@@ -55,11 +55,14 @@ export function deleteDraft(userId: string, lessonId: string, date: string): voi
   }
 }
 
-/** Drops copies of other accounts and of other days (a teacher can only save today's roll call). */
-export function purgeDrafts(userId: string, today: string): void {
+/**
+ * Drops copies of other accounts, and of days other than today and `keep` (the day open on screen:
+ * staff may correct a past day; a teacher only saves today's roll call).
+ */
+export function purgeDrafts(userId: string, today: string, keep: string = today): void {
   for (const key of keys()) {
     const [owner, , date] = key.slice(PREFIX.length).split(":");
-    if (owner !== userId || date !== today) {
+    if (owner !== userId || (date !== today && date !== keep)) {
       try {
         storage()?.removeItem(key);
       } catch {

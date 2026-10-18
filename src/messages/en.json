@@ -79,7 +79,8 @@
     "teachers": "Teachers",
     "timetable": "Timetable",
     "myTimetable": "My timetable",
-    "attendance": "Attendance"
+    "attendance": "Attendance",
+    "absences": "Absences"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -1818,12 +1819,85 @@
       "notToday": "Attendance can only be taken on the day of the lesson.",
       "studentNotInClass": "A student is no longer in this class. Reload the page.",
       "minutes": "Late: between 1 and 240 minutes.",
-      "invalid": "Invalid data. Reload the page."
+      "invalid": "Invalid data. Reload the page.",
+      "future": "Attendance cannot be taken for a future day.",
+      "outsideYear": "This day is outside the lesson's school year."
     },
     "intro": "Take attendance for today's lessons here: tap a lesson, then the students who are absent or late.",
     "nextDay": "Next school day: {day} {date}",
     "nextDayHint": "Preview: attendance for these lessons opens on {day}. Tap a lesson to see the class list.",
     "opensOn": "Attendance opens on {day}",
     "openClass": "See class {class}"
+  },
+  "absences": {
+    "title": "Absences",
+    "description": "A class's attendance for one day: who was absent or late, and the roll calls to take or correct.",
+    "class": "Class",
+    "noYearTitle": "No school year on that day",
+    "noYearDescription": "Choose a day within a school year.",
+    "noClassesTitle": "No classes this year",
+    "noClassesDescription": "Create the year's classes in Structure.",
+    "day": {
+      "previous": "Previous day",
+      "next": "Next day",
+      "choose": "Choose a day",
+      "today": "Today",
+      "summary": "{taken} of {total} roll calls taken · {absent, plural, =0 {no student absent} one {# student absent} other {# students absent}} · {late, plural, =0 {no late arrival} one {# late} other {# late}}",
+      "noLessonsTitle": "No lessons that day",
+      "noLessonsDescription": "This class has no lesson on that day of the week.",
+      "correct": "Correct",
+      "take": "Take attendance",
+      "takenByTeacher": "Taken by the teacher at {time}",
+      "takenByStaff": "Taken by the supervisors at {time}",
+      "updatedAt": "changed at {time}",
+      "notTaken": "Attendance not taken",
+      "lessonDeleted": "This lesson was removed from the timetable since: its attendance can still be read.",
+      "allPresent": "Everyone present.",
+      "marksLabel": "Students absent or late",
+      "absent": "Absent",
+      "late": "Late",
+      "lateMinutes": "Late {minutes} min",
+      "note": "{name}: {note}"
+    },
+    "correct": {
+      "hint": "Correction by the supervisors: tap a student to mark them absent, then late, then present.",
+      "wrongDayTitle": "This lesson is not on that day",
+      "wrongDayDescription": "It takes place on {day}. Choose a {day} in the class's day view."
+    },
+    "views": {
+      "label": "View",
+      "day": "Day",
+      "totals": "Totals"
+    },
+    "totals": {
+      "periodLabel": "Period",
+      "periods": {
+        "week": "This week",
+        "month": "This month",
+        "year": "Since the start of the year"
+      },
+      "range": "from {from} to {to}",
+      "noStudents": "No students in this class.",
+      "student": "Student",
+      "absences": "Absences",
+      "lates": "Late arrivals",
+      "absenceValue": "{count, plural, one {# absence} other {# absences}} · {duration}",
+      "lateValue": "{count, plural, one {# late arrival} other {# late arrivals}}",
+      "lateValueMinutes": "{count, plural, one {# late arrival} other {# late arrivals}} · {minutes} min"
+    },
+    "student": {
+      "title": "Absences and late arrivals — {year}",
+      "absences": "Absences",
+      "lates": "Late arrivals",
+      "none": "None",
+      "recent": "Latest",
+      "absent": "Absent",
+      "late": "Late",
+      "lateMinutes": "Late {minutes} min",
+      "more": "and {count, plural, one {# more} other {# more}} since the start of the year.",
+      "absenceValue": "{count, plural, one {# absence} other {# absences}} · {duration}",
+      "lateValue": "{count, plural, one {# late arrival} other {# late arrivals}}",
+      "lateValueMinutes": "{count, plural, one {# late arrival} other {# late arrivals}} · {minutes} min"
+    }
   }
 }

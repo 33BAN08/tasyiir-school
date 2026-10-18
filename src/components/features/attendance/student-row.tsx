@@ -49,7 +49,7 @@ export function StudentRow({ student, mark, onTap, onMinutes }: Props) {
       >
         <StudentAvatar url={student.photoUrl} initials={student.initials} alt="" className="size-12 shrink-0 text-sm" />
         <span className="flex min-w-0 flex-1 flex-col">
-          <bdi className="truncate text-base font-medium">{student.name}</bdi>
+          <bdi className="line-clamp-2 text-base font-medium break-words">{student.name}</bdi>
           {student.otherName && <bdi className="truncate text-sm text-muted-foreground">{student.otherName}</bdi>}
         </span>
         <span className={cn("flex shrink-0 items-center gap-1 text-sm font-medium", badge)}>

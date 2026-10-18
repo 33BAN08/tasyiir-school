@@ -6,7 +6,7 @@ import { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { saveRollCall } from "@/lib/attendance/actions";
+import { saveAttendanceFor, saveRollCall } from "@/lib/attendance/actions";
 import { deleteDraft, purgeDrafts, readDraft, writeDraft, type RollCallDraft } from "@/lib/attendance/drafts";
 import type { RollCallMark } from "@/lib/attendance/types";
 import { ltr } from "@/lib/format";
@@ -17,8 +17,12 @@ import { StudentRow, type RollCallStudentView } from "./student-row";
 type Props = {
   userId: string;
   lessonId: string;
-  /** The school's today ("yyyy-MM-dd", from the database). */
+  /** The day of this roll call ("yyyy-MM-dd"). */
   date: string;
+  /** The school's today (from the database): copies of other days are dropped, except while staff work on them. */
+  today: string;
+  /** "teacher": today's roll call of their lesson. "staff": attendance.manage correcting any day up to today. */
+  mode: "teacher" | "staff";
   students: RollCallStudentView[];
   /** Today's saved marks (empty when attendance was not taken yet). */
   initialMarks: RollCallDraft;
@@ -47,7 +51,7 @@ function sameMarks(a: RollCallDraft, b: RollCallDraft): boolean {
  * network) and kept on the phone until saved, so a reload or a dropped
  * connection loses nothing.
  */
-export function RollCall({ userId, lessonId, date, students, initialMarks, takenAt: initialTaken, updatedAt: initialUpdated }: Props) {
+export function RollCall({ userId, lessonId, date, today, mode, students, initialMarks, takenAt: initialTaken, updatedAt: initialUpdated }: Props) {
   const t = useTranslations("attendance.rollCall");
   const tErrors = useTranslations("attendance.errors");
   const [marks, setMarks] = useState<RollCallDraft>(initialMarks);
@@ -64,14 +68,14 @@ export function RollCall({ userId, lessonId, date, students, initialMarks, taken
 
   // Once in the browser: old copies go, and an unsaved copy of this roll call comes back.
   useEffect(() => {
-    purgeDrafts(userId, date);
+    purgeDrafts(userId, today, date);
     const draft = readDraft(userId, lessonId, date);
     if (draft && !sameMarks(draft, initialMarks)) {
       // Restoring browser-only state after hydration (the server cannot see it).
       setMarks(draft);
       setRestored(true);
     }
-  }, [userId, lessonId, date, initialMarks]);
+  }, [userId, lessonId, date, today, initialMarks]);
 
   const change = (next: RollCallDraft) => {
     setMarks(next);
@@ -91,7 +95,7 @@ export function RollCall({ userId, lessonId, date, students, initialMarks, taken
     startSaving(async () => {
       const payload = Object.entries(marks).map(([studentId, m]) => ({ studentId, status: m.status, minutesLate: m.minutesLate }));
       try {
-        const result = await saveRollCall(lessonId, payload);
+        const result = mode === "staff" ? await saveAttendanceFor(lessonId, date, payload) : await saveRollCall(lessonId, payload);
         if (!result.ok) {
           setFailed(result.error);
           toast.error(errorText(result.error));

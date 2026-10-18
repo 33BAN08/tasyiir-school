@@ -79,7 +79,8 @@
     "teachers": "الأساتذة",
     "timetable": "استعمال الزمن",
     "myTimetable": "استعمال الزمن الخاص بي",
-    "attendance": "تسجيل الحضور"
+    "attendance": "تسجيل الحضور",
+    "absences": "الغياب"
   },
   "shell": {
     "toggleSidebar": "إظهار القائمة الجانبية أو إخفاؤها",
@@ -1818,12 +1819,85 @@
       "notToday": "لا يُسجَّل الحضور إلا يوم الحصة.",
       "studentNotInClass": "أحد التلاميذ لم يعد في هذا القسم. أعد تحميل الصفحة.",
       "minutes": "التأخر: بين 1 و240 دقيقة.",
-      "invalid": "بيانات غير صالحة. أعد تحميل الصفحة."
+      "invalid": "بيانات غير صالحة. أعد تحميل الصفحة.",
+      "future": "لا يمكن تسجيل الحضور ليوم قادم.",
+      "outsideYear": "هذا اليوم خارج السنة الدراسية للحصة."
     },
     "intro": "سجّل هنا حضور حصص اليوم: المس حصة، ثم التلاميذ الغائبين أو المتأخرين.",
     "nextDay": "يوم الدراسة القادم: {day} {date}",
     "nextDayHint": "معاينة: سيُفتح تسجيل حضور هذه الحصص يوم {day}. المس حصة لرؤية لائحة القسم.",
     "opensOn": "سيُفتح تسجيل الحضور يوم {day}",
     "openClass": "عرض القسم {class}"
+  },
+  "absences": {
+    "title": "الغياب",
+    "description": "تسجيلات حضور قسم في يوم واحد: من كان غائبًا أو متأخرًا، والتسجيلات التي يجب القيام بها أو تصحيحها.",
+    "class": "القسم",
+    "noYearTitle": "لا توجد سنة دراسية في هذا اليوم",
+    "noYearDescription": "اختر يومًا داخل سنة دراسية.",
+    "noClassesTitle": "لا توجد أقسام هذه السنة",
+    "noClassesDescription": "أنشئ أقسام السنة في الهيكلة.",
+    "day": {
+      "previous": "اليوم السابق",
+      "next": "اليوم التالي",
+      "choose": "اختر يومًا",
+      "today": "اليوم",
+      "summary": "{taken, plural, =0 {لا تسجيل} one {تسجيل واحد} two {تسجيلان} few {# تسجيلات} many {# تسجيلًا} other {# تسجيل}} من {total} · {absent, plural, =0 {لا غياب} one {تلميذ غائب} two {تلميذان غائبان} few {# تلاميذ غائبين} many {# تلميذًا غائبًا} other {# تلميذ غائب}} · {late, plural, =0 {لا تأخر} one {تأخر واحد} two {تأخران} few {# تأخرات} many {# تأخرًا} other {# تأخر}}",
+      "noLessonsTitle": "لا توجد حصص في هذا اليوم",
+      "noLessonsDescription": "ليست لهذا القسم أي حصة في هذا اليوم من الأسبوع.",
+      "correct": "تصحيح",
+      "take": "تسجيل الحضور",
+      "takenByTeacher": "سجّل الأستاذ الحضور على الساعة {time}",
+      "takenByStaff": "سجّلت الحراسة العامة الحضور على الساعة {time}",
+      "updatedAt": "عُدّل على الساعة {time}",
+      "notTaken": "لم يُسجَّل الحضور",
+      "lessonDeleted": "حُذفت هذه الحصة من استعمال الزمن: يبقى تسجيل حضورها قابلًا للاطلاع.",
+      "allPresent": "الجميع حاضر.",
+      "marksLabel": "التلاميذ الغائبون أو المتأخرون",
+      "absent": "غائب",
+      "late": "متأخر",
+      "lateMinutes": "متأخر {minutes} د",
+      "note": "{name}: {note}"
+    },
+    "correct": {
+      "hint": "تصحيح من الحراسة العامة: المس تلميذًا لتسجيله غائبًا، ثم متأخرًا، ثم حاضرًا.",
+      "wrongDayTitle": "هذه الحصة ليست في هذا اليوم",
+      "wrongDayDescription": "تكون يوم {day}. اختر يوم {day} في يوميات القسم."
+    },
+    "views": {
+      "label": "العرض",
+      "day": "اليوم",
+      "totals": "المجاميع"
+    },
+    "totals": {
+      "periodLabel": "الفترة",
+      "periods": {
+        "week": "هذا الأسبوع",
+        "month": "هذا الشهر",
+        "year": "منذ الدخول المدرسي"
+      },
+      "range": "من {from} إلى {to}",
+      "noStudents": "لا يوجد تلاميذ في هذا القسم.",
+      "student": "التلميذ",
+      "absences": "الغياب",
+      "lates": "التأخرات",
+      "absenceValue": "{count, plural, one {غياب واحد} two {غيابان} few {# غيابات} many {# غيابًا} other {# غياب}} · {duration}",
+      "lateValue": "{count, plural, one {تأخر واحد} two {تأخران} few {# تأخرات} many {# تأخرًا} other {# تأخر}}",
+      "lateValueMinutes": "{count, plural, one {تأخر واحد} two {تأخران} few {# تأخرات} many {# تأخرًا} other {# تأخر}} · {minutes} د"
+    },
+    "student": {
+      "title": "الغياب والتأخرات — {year}",
+      "absences": "الغياب",
+      "lates": "التأخرات",
+      "none": "لا شيء",
+      "recent": "الأخيرة",
+      "absent": "غائب",
+      "late": "متأخر",
+      "lateMinutes": "متأخر {minutes} د",
+      "more": "و{count, plural, one {واحدة أخرى} two {اثنتان أخريان} few {# أخرى} many {# أخرى} other {# أخرى}} منذ الدخول المدرسي.",
+      "absenceValue": "{count, plural, one {غياب واحد} two {غيابان} few {# غيابات} many {# غيابًا} other {# غياب}} · {duration}",
+      "lateValue": "{count, plural, one {تأخر واحد} two {تأخران} few {# تأخرات} many {# تأخرًا} other {# تأخر}}",
+      "lateValueMinutes": "{count, plural, one {تأخر واحد} two {تأخران} few {# تأخرات} many {# تأخرًا} other {# تأخر}} · {minutes} د"
+    }
   }
 }

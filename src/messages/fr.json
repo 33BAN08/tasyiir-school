@@ -79,7 +79,8 @@
     "teachers": "Enseignants",
     "timetable": "Emploi du temps",
     "myTimetable": "Mon emploi du temps",
-    "attendance": "Appel"
+    "attendance": "Appel",
+    "absences": "Absences"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -1818,12 +1819,85 @@
       "notToday": "L'appel ne peut être fait que le jour de la séance.",
       "studentNotInClass": "Un élève n'est plus dans cette classe. Rechargez la page.",
       "minutes": "Retard : entre 1 et 240 minutes.",
-      "invalid": "Données invalides. Rechargez la page."
+      "invalid": "Données invalides. Rechargez la page.",
+      "future": "On ne peut pas faire l'appel d'un jour à venir.",
+      "outsideYear": "Ce jour est en dehors de l'année scolaire de la séance."
     },
     "intro": "Faites ici l'appel de vos séances du jour : touchez une séance, puis les élèves absents ou en retard.",
     "nextDay": "Prochain jour de cours : {day} {date}",
     "nextDayHint": "Aperçu : l'appel de ces séances s'ouvrira {day}. Touchez une séance pour voir la liste de la classe.",
     "opensOn": "L'appel s'ouvrira {day}",
     "openClass": "Voir la classe {class}"
+  },
+  "absences": {
+    "title": "Absences",
+    "description": "Les appels d'une classe pour une journée : qui était absent ou en retard, et les appels à faire ou à corriger.",
+    "class": "Classe",
+    "noYearTitle": "Aucune année scolaire ce jour-là",
+    "noYearDescription": "Choisissez un jour compris dans une année scolaire.",
+    "noClassesTitle": "Aucune classe cette année",
+    "noClassesDescription": "Créez les classes de l'année dans Structure.",
+    "day": {
+      "previous": "Jour précédent",
+      "next": "Jour suivant",
+      "choose": "Choisir un jour",
+      "today": "Aujourd'hui",
+      "summary": "{taken, plural, =0 {Aucun appel fait} one {# appel fait} other {# appels faits}} sur {total} · {absent, plural, =0 {aucun élève absent} one {# élève absent} other {# élèves absents}} · {late, plural, =0 {aucun retard} one {# retard} other {# retards}}",
+      "noLessonsTitle": "Pas de cours ce jour-là",
+      "noLessonsDescription": "Cette classe n'a aucune séance ce jour de la semaine.",
+      "correct": "Corriger",
+      "take": "Faire l'appel",
+      "takenByTeacher": "Appel fait par l'enseignant à {time}",
+      "takenByStaff": "Appel fait par la surveillance à {time}",
+      "updatedAt": "modifié à {time}",
+      "notTaken": "Appel non fait",
+      "lessonDeleted": "Séance retirée depuis de l'emploi du temps : l'appel reste consultable.",
+      "allPresent": "Tous présents.",
+      "marksLabel": "Élèves absents ou en retard",
+      "absent": "Absent",
+      "late": "Retard",
+      "lateMinutes": "Retard {minutes} min",
+      "note": "{name} : {note}"
+    },
+    "correct": {
+      "hint": "Correction par la surveillance : touchez un élève pour le marquer absent, puis en retard, puis présent.",
+      "wrongDayTitle": "Cette séance n'a pas lieu ce jour-là",
+      "wrongDayDescription": "Elle a lieu le {day}. Choisissez un {day} dans la journée de la classe."
+    },
+    "views": {
+      "label": "Affichage",
+      "day": "Journée",
+      "totals": "Totaux"
+    },
+    "totals": {
+      "periodLabel": "Période",
+      "periods": {
+        "week": "Cette semaine",
+        "month": "Ce mois-ci",
+        "year": "Depuis la rentrée"
+      },
+      "range": "du {from} au {to}",
+      "noStudents": "Aucun élève dans cette classe.",
+      "student": "Élève",
+      "absences": "Absences",
+      "lates": "Retards",
+      "absenceValue": "{count, plural, one {# absence} other {# absences}} · {duration}",
+      "lateValue": "{count, plural, one {# retard} other {# retards}}",
+      "lateValueMinutes": "{count, plural, one {# retard} other {# retards}} · {minutes} min"
+    },
+    "student": {
+      "title": "Absences et retards — {year}",
+      "absences": "Absences",
+      "lates": "Retards",
+      "none": "Aucun",
+      "recent": "Derniers",
+      "absent": "Absent",
+      "late": "Retard",
+      "lateMinutes": "Retard {minutes} min",
+      "more": "et {count, plural, one {# autre} other {# autres}} depuis la rentrée.",
+      "absenceValue": "{count, plural, one {# absence} other {# absences}} · {duration}",
+      "lateValue": "{count, plural, one {# retard} other {# retards}}",
+      "lateValueMinutes": "{count, plural, one {# retard} other {# retards}} · {minutes} min"
+    }
   }
 }

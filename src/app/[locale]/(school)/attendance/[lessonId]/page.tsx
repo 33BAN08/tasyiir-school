@@ -62,6 +62,8 @@ export default async function RollCallPage({ params }: PageProps<"/[locale]/atte
           userId={user.id}
           lessonId={lesson.id}
           date={clock.date}
+          today={clock.date}
+          mode="teacher"
           students={rollCall.students.map((s) => ({
             id: s.id,
             name: studentName(s, locale),

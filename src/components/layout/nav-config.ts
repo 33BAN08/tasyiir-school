@@ -27,6 +27,7 @@ export const NAV_ITEMS: Record<"platform" | "school", NavItem[]> = {
     { key: "parents", href: "/parents", icon: "parents", permission: "parents.manage" },
     { key: "teachers", href: "/teachers", icon: "teachers", permission: "teachers.manage" },
     { key: "timetable", href: "/timetable", icon: "timetable", permission: "timetable.view" },
+    { key: "absences", href: "/absences", icon: "attendance", permission: "attendance.view" },
     { key: "myTimetable", href: "/my-timetable", icon: "timetable", role: "teacher" },
     { key: "attendance", href: "/attendance", icon: "attendance", role: "teacher" },
     { key: "staff", href: "/staff", icon: "staff", permission: "users.view" },

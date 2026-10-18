@@ -3,6 +3,7 @@ import { getLocale, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Suspense, type ReactNode } from "react";
 
+import { StudentAttendanceCard } from "@/components/features/attendance/student-attendance-card";
 import { StudentGuardiansCard } from "@/components/features/parents/student-guardians-card";
 import { StudentAvatar } from "@/components/features/students/student-avatar";
 import type { ClassOption } from "@/components/features/students/student-dialog";
@@ -149,6 +150,13 @@ async function StudentDetail({ params }: { params: Params }) {
             canManage={permissions.has("parents.manage")}
           />
         </div>
+        {permissions.has("attendance.view") && (
+          <div className="lg:col-span-3">
+            <Suspense fallback={<Skeleton className="h-48 w-full" />}>
+              <StudentAttendanceCard schoolId={user.schoolId} studentId={student.id} />
+            </Suspense>
+          </div>
+        )}
       </div>
     </div>
   );
