@@ -1,4 +1,4 @@
-import { Baby, CalendarDays } from "lucide-react";
+import { Baby, CalendarCheck, CalendarDays } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { StudentAvatar } from "@/components/features/students/student-avatar";
@@ -56,14 +56,24 @@ export default async function PortalHomePage() {
                           t("noClass")
                         )}
                       </span>
-                      {child.classId && (
-                        <Button asChild variant="outline" size="sm" className="mt-2 min-h-11">
-                          <Link href={`/portal/timetable?child=${child.id}`}>
-                            <CalendarDays aria-hidden />
-                            {t("timetable.open")}
-                          </Link>
-                        </Button>
-                      )}
+                      <div className="mt-2 flex flex-wrap gap-2">
+                        {child.classId && (
+                          <Button asChild variant="outline" size="sm" className="min-h-11">
+                            <Link href={`/portal/timetable?child=${child.id}`}>
+                              <CalendarDays aria-hidden />
+                              {t("timetable.open")}
+                            </Link>
+                          </Button>
+                        )}
+                        {child.classId && (
+                          <Button asChild variant="outline" size="sm" className="min-h-11">
+                            <Link href={`/portal/absences?child=${child.id}`}>
+                              <CalendarCheck aria-hidden />
+                              {t("absencesOpen")}
+                            </Link>
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
