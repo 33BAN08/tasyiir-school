@@ -1,12 +1,13 @@
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, Printer } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { ReadOnlyWeek } from "@/components/features/timetable/read-only-week";
 import { WeeklyHours } from "@/components/features/timetable/weekly-hours";
 import { EmptyState } from "@/components/layout/empty-state";
 import { PageHeader } from "@/components/layout/page-header";
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { redirect } from "@/i18n/navigation";
+import { Link, redirect } from "@/i18n/navigation";
 import { homeFor } from "@/lib/auth/roles";
 import { requireArea } from "@/lib/auth/session";
 import { ltr } from "@/lib/format";
@@ -22,7 +23,11 @@ import { getYearTimetable } from "@/lib/timetable/timetable";
 export default async function MyTimetablePage() {
   const user = await requireArea("school");
   if (user.roleKey !== "teacher" || !user.schoolId) return redirect({ href: homeFor(user), locale: await getLocale() });
-  const [t, year] = await Promise.all([getTranslations("timetable.mine"), getCurrentYear(user.schoolId)]);
+  const [t, tPrint, year] = await Promise.all([
+    getTranslations("timetable.mine"),
+    getTranslations("timetable.print"),
+    getCurrentYear(user.schoolId),
+  ]);
 
   if (!year) {
     return (
@@ -40,7 +45,20 @@ export default async function MyTimetablePage() {
 
   return (
     <div className="flex flex-col gap-6">
-      <PageHeader title={t("title")} description={t("description", { year: ltr(year.label) })} />
+      <PageHeader
+        title={t("title")}
+        description={t("description", { year: ltr(year.label) })}
+        actions={
+          lessons.length > 0 && (
+            <Button asChild variant="outline">
+              <Link href="/print/timetable" target="_blank">
+                <Printer aria-hidden />
+                {tPrint("button")}
+              </Link>
+            </Button>
+          )
+        }
+      />
       {lessons.length === 0 ? (
         <Card className="py-0">
           <EmptyState icon={CalendarDays} title={t("emptyTitle")} description={t("emptyDescription")} />

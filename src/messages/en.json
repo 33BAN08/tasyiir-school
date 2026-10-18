@@ -1742,6 +1742,25 @@
       "next": "Next",
       "nowTitle": "Now · {day}, {range}",
       "nextTitle": "Next lesson · {day}, {range}"
+    },
+    "print": {
+      "button": "Print / PDF",
+      "all": {
+        "class": "All classes",
+        "teacher": "All teachers",
+        "room": "All rooms"
+      },
+      "pageTitle": "Timetable — print",
+      "back": "Back",
+      "print": "Print or save as PDF",
+      "pages": "{count, plural, =0 {No pages} one {# page} other {# pages}} A4 landscape",
+      "hint": "For a PDF, choose “Save as PDF” as the printer.",
+      "sheetTitle": "Timetable",
+      "class": "Class {name}",
+      "teacher": "{name}",
+      "room": "Room {name}",
+      "year": "School year {year}",
+      "nothing": "No timetable to print."
     }
   }
 }

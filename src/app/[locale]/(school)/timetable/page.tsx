@@ -1,10 +1,9 @@
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, Printer } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import { Suspense, type ReactNode } from "react";
 
 import { YearSelect } from "@/components/features/setup/year-select";
 import { CopyLessonsDialog, type CopySourceYear } from "@/components/features/timetable/copy-lessons-dialog";
-import type { LessonDetail } from "@/components/features/timetable/lesson-card";
 import { TeacherHours } from "@/components/features/timetable/teacher-hours";
 import { TimetableView } from "@/components/features/timetable/timetable-view";
 import { TimetableSelect, ViewTabs } from "@/components/features/timetable/view-controls";
@@ -22,7 +21,7 @@ import { listClasses } from "@/lib/structure/classes";
 import { getSchoolWeek } from "@/lib/structure/time-slots";
 import { getYearTimetable } from "@/lib/timetable/timetable";
 import type { TimetableLesson, TimetableOption } from "@/lib/timetable/types";
-import { TIMETABLE_VIEWS, type TimetableViewKind } from "@/lib/timetable/views";
+import { TIMETABLE_VIEWS, VIEW_DETAILS, type TimetableViewKind } from "@/lib/timetable/views";
 
 type Wanted = { year?: string; view?: string; class?: string; teacher?: string; room?: string };
 
@@ -46,13 +45,6 @@ export default async function TimetablePage({ searchParams }: PageProps<"/[local
 }
 
 type SectionProps = { schoolId: string; wanted: Promise<Wanted>; canManage: boolean; permissions: Set<string> };
-
-/** What each view shows under a lesson's subject: the other two of class / teacher / room. */
-const DETAILS: Record<TimetableViewKind, LessonDetail[]> = {
-  class: ["teacher", "room"],
-  teacher: ["class", "room"],
-  room: ["class", "teacher"],
-};
 
 async function WeekSection({ schoolId, wanted, canManage, permissions }: SectionProps) {
   const [years, want, t] = await Promise.all([listAcademicYears(schoolId), wanted, getTranslations("timetable")]);
@@ -99,7 +91,22 @@ async function WeekSection({ schoolId, wanted, canManage, permissions }: Section
       </div>
       <Card className="gap-4 p-4">
         <div className="flex flex-wrap items-start justify-between gap-4">
-          <h2 className="text-lg font-semibold">{t("weekOf", { class: isolate(selected.name), year: ltr(year.label) })}</h2>
+          <div className="flex flex-col gap-2">
+            <h2 className="text-lg font-semibold">{t("weekOf", { class: isolate(selected.name), year: ltr(year.label) })}</h2>
+            <div className="flex flex-wrap gap-2">
+              <Button asChild variant="outline" size="sm">
+                <Link href={`/print/timetable?year=${year.id}&view=${view}&id=${selected.id}`} target="_blank">
+                  <Printer aria-hidden />
+                  {t("print.button")}
+                </Link>
+              </Button>
+              <Button asChild variant="ghost" size="sm">
+                <Link href={`/print/timetable?year=${year.id}&view=${view}&all=1`} target="_blank">
+                  {t(`print.all.${view}`)}
+                </Link>
+              </Button>
+            </div>
+          </div>
           <WeeklyHours lessons={lessons} slots={week.slots} />
         </div>
         {canManage && view !== "class" && <p className="text-sm text-muted-foreground">{t("addFromClass")}</p>}
@@ -113,7 +120,7 @@ async function WeekSection({ schoolId, wanted, canManage, permissions }: Section
           days={week.days}
           slots={week.slots}
           lessons={lessons}
-          details={DETAILS[view]}
+          details={VIEW_DETAILS[view]}
           canManage={canManage}
           addTo={view === "class" ? selected : undefined}
           choices={{
