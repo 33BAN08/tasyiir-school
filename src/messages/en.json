@@ -1657,6 +1657,30 @@
       "teacher": "Teacher",
       "classes": "Classes",
       "hours": "Hours / week"
+    },
+    "move": {
+      "hint": "Drag a lesson onto a free cell to move it, or onto another lesson to swap them. While you drag, each cell first shows whether it is possible.",
+      "here": "Move here",
+      "swap": "Swap with {subject}",
+      "classBusy": "{class} already has a lesson",
+      "teacherBusy": "Teacher busy: {class}",
+      "roomBusy": "Room busy: {class}",
+      "moved": "Lesson moved: {day}, {range}.",
+      "swapped": "Lessons swapped.",
+      "undo": "Undo",
+      "undone": "Move undone.",
+      "open": "Move",
+      "title": "Move the lesson",
+      "description": "{subject} · {where}",
+      "target": "New time slot",
+      "targetPlaceholder": "Choose a time slot",
+      "free": "free",
+      "rules": "If the class already has a lesson in that slot, the two lessons swap places.",
+      "submitMove": "Move",
+      "submitSwap": "Swap",
+      "moving": "Moving…",
+      "cancel": "Cancel",
+      "slot": "{day}, {range}"
     }
   }
 }

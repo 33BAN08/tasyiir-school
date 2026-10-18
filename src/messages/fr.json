@@ -1657,6 +1657,30 @@
       "teacher": "Enseignant",
       "classes": "Classes",
       "hours": "Heures / semaine"
+    },
+    "move": {
+      "hint": "Glissez une séance sur une case libre pour la déplacer, ou sur une autre séance pour les échanger. Pendant le glisser, chaque case indique d'abord si c'est possible.",
+      "here": "Déplacer ici",
+      "swap": "Échanger avec {subject}",
+      "classBusy": "{class} a déjà cours",
+      "teacherBusy": "Enseignant occupé : {class}",
+      "roomBusy": "Salle occupée : {class}",
+      "moved": "Séance déplacée : {day}, {range}.",
+      "swapped": "Séances échangées.",
+      "undo": "Annuler",
+      "undone": "Déplacement annulé.",
+      "open": "Déplacer",
+      "title": "Déplacer la séance",
+      "description": "{subject} · {where}",
+      "target": "Nouveau créneau",
+      "targetPlaceholder": "Choisir un créneau",
+      "free": "libre",
+      "rules": "Si la classe a déjà une séance sur ce créneau, les deux séances échangent leurs places.",
+      "submitMove": "Déplacer",
+      "submitSwap": "Échanger",
+      "moving": "Déplacement…",
+      "cancel": "Annuler",
+      "slot": "{day}, {range}"
     }
   }
 }

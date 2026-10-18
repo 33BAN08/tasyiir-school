@@ -1,6 +1,5 @@
 "use client";
 
-import { Plus } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { TimeRange } from "@/components/features/setup/time-slot-day-card";
@@ -8,9 +7,9 @@ import { ltr } from "@/lib/format";
 import { DAY_KEYS, type SchoolDay } from "@/lib/structure/time-slot-template";
 import type { TimeSlot } from "@/lib/structure/time-slots";
 import type { TimetableLesson } from "@/lib/timetable/types";
-import { cn } from "@/lib/utils";
 
-import { LessonCard, type LessonDetail } from "./lesson-card";
+import type { LessonDetail } from "./lesson-card";
+import { TimetableCell, type DragState } from "./timetable-cell";
 import type { WeekRow } from "./week-layout";
 
 export type CellHandlers = {
@@ -20,6 +19,8 @@ export type CellHandlers = {
   onAdd?: (slot: TimeSlot) => void;
   /** Set when the user may edit lessons. */
   onOpen?: (lesson: TimetableLesson, slot: TimeSlot) => void;
+  /** Set when lessons can be dragged to another cell (desktop grid only). */
+  drag?: DragState;
 };
 
 type Props = CellHandlers & {
@@ -29,7 +30,7 @@ type Props = CellHandlers & {
 };
 
 /** The week as a table: days across, time ranges down (desktop). */
-export function TimetableGrid({ days, rows, lessonBySlot, details, onAdd, onOpen }: Props) {
+export function TimetableGrid({ days, rows, lessonBySlot, details, onAdd, onOpen, drag }: Props) {
   const t = useTranslations("timetable.grid");
   const tDays = useTranslations("setup.timeSlots.days");
 
@@ -66,40 +67,18 @@ export function TimetableGrid({ days, rows, lessonBySlot, details, onAdd, onOpen
                   </td>
                 );
               }
-              const lesson = lessonBySlot.get(slot.id);
               return (
                 <td key={day} className="h-16 align-top">
-                  {lesson ? (
-                    onOpen ? (
-                      <button
-                        type="button"
-                        onClick={() => onOpen(lesson, slot)}
-                        aria-label={label("openLesson")}
-                        className="size-full rounded-md border bg-card p-2 transition-colors hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
-                      >
-                        <LessonCard lesson={lesson} details={details} />
-                      </button>
-                    ) : (
-                      <div className="size-full rounded-md border bg-card p-2">
-                        <LessonCard lesson={lesson} details={details} />
-                      </div>
-                    )
-                  ) : onAdd ? (
-                    <button
-                      type="button"
-                      onClick={() => onAdd(slot)}
-                      aria-label={label("addLesson")}
-                      title={label("addLesson")}
-                      className={cn(
-                        "group flex size-full min-h-14 items-center justify-center rounded-md border border-dashed text-muted-foreground",
-                        "transition-colors hover:border-primary hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
-                      )}
-                    >
-                      <Plus className="size-4 opacity-40 group-hover:opacity-100 group-focus-visible:opacity-100" aria-hidden />
-                    </button>
-                  ) : (
-                    <div className="size-full min-h-14 rounded-md border border-dashed" />
-                  )}
+                  <TimetableCell
+                    slot={slot}
+                    lesson={lessonBySlot.get(slot.id)}
+                    details={details}
+                    addLabel={label("addLesson")}
+                    openLabel={label("openLesson")}
+                    onAdd={onAdd}
+                    onOpen={onOpen}
+                    drag={drag}
+                  />
                 </td>
               );
             })}

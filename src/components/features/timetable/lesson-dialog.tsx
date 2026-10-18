@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Trash2 } from "lucide-react";
+import { MoveRight, Trash2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
@@ -44,11 +44,14 @@ type Props = LessonChoices & {
   /** Edit this lesson; add a new one in the slot when absent. */
   lesson?: TimetableLesson;
   onClose: () => void;
+  /** Opens the "move to another slot" dialog instead (existing lessons only). */
+  onMove?: () => void;
 };
 
-/** Add a lesson to an empty cell, or change / delete one. */
-export function LessonDialog({ classId, className, slot, lesson, onClose, ...choices }: Props) {
+/** Add a lesson to an empty cell, or change / move / delete one. */
+export function LessonDialog({ classId, className, slot, lesson, onClose, onMove, ...choices }: Props) {
   const t = useTranslations("timetable.dialog");
+  const tMove = useTranslations("timetable.move");
   const tDays = useTranslations("setup.timeSlots.days");
   const translateError = useTimetableError();
   const router = useRouter();
@@ -113,10 +116,18 @@ export function LessonDialog({ classId, className, slot, lesson, onClose, ...cho
             <LessonFields form={form} slotId={slot.id} lessonId={lesson?.id} {...choices} />
             <DialogFooter className="sm:justify-between">
               {lesson ? (
-                <Button type="button" variant="ghost" className="text-destructive" disabled={isPending} onClick={() => setConfirmDelete(true)}>
-                  <Trash2 aria-hidden />
-                  {t("delete")}
-                </Button>
+                <div className="flex flex-col-reverse gap-2 sm:flex-row">
+                  <Button type="button" variant="ghost" className="text-destructive" disabled={isPending} onClick={() => setConfirmDelete(true)}>
+                    <Trash2 aria-hidden />
+                    {t("delete")}
+                  </Button>
+                  {onMove && (
+                    <Button type="button" variant="ghost" disabled={isPending} onClick={onMove}>
+                      <MoveRight className="rtl:-scale-x-100" aria-hidden />
+                      {tMove("open")}
+                    </Button>
+                  )}
+                </div>
               ) : (
                 <span />
               )}
