@@ -1681,6 +1681,39 @@
       "moving": "Moving…",
       "cancel": "Cancel",
       "slot": "{day}, {range}"
+    },
+    "copy": {
+      "open": "Copy from another year",
+      "title": "Copy the timetable of another year",
+      "description": "Into {class} — {year}. Each lesson takes the slot with the same day and hours.",
+      "year": "Year",
+      "class": "Class",
+      "loading": "Preparing the preview…",
+      "summary": "{copied, plural, =0 {No lesson will be copied} one {# lesson will be copied} other {# lessons will be copied}}, {skipped, plural, =0 {none skipped} other {# skipped}}.",
+      "withoutRoom": "Including {count, plural, one {# lesson} other {# lessons}} without a room (room already taken).",
+      "empty": "This class had no lessons.",
+      "slot": "{day}, {range}",
+      "status": {
+        "copy": "Copied",
+        "room_busy": "Copied without a room: {room} is already taken",
+        "teacher_busy": "Skipped: {teacher} already teaches at that time",
+        "teacher_inactive": "Skipped: {teacher} is no longer an active teacher",
+        "teacher_subject": "Skipped: {teacher} no longer teaches this subject",
+        "no_slot": "Skipped: no lesson slot at that time this year"
+      },
+      "submit": "{count, plural, one {Copy # lesson} other {Copy # lessons}}",
+      "copying": "Copying…",
+      "cancel": "Cancel",
+      "done": "{copied, plural, one {# lesson copied} other {# lessons copied}}, {skipped, plural, =0 {none skipped} other {# skipped}}.",
+      "errors": {
+        "generic": "Something went wrong. Please try again.",
+        "forbidden": "You do not have permission to change the timetable.",
+        "notFound": "This class no longer exists. Reload the page.",
+        "targetNotCurrent": "You can only copy into a class of the current year.",
+        "sourceNotEarlier": "Choose a class of an earlier year.",
+        "targetNotEmpty": "This class already has lessons: you can only copy into an empty class.",
+        "changedMeanwhile": "The timetable changed during the copy. Nothing was copied: try again."
+      }
     }
   }
 }

@@ -1681,6 +1681,39 @@
       "moving": "Déplacement…",
       "cancel": "Annuler",
       "slot": "{day}, {range}"
+    },
+    "copy": {
+      "open": "Copier depuis une autre année",
+      "title": "Copier l'emploi du temps d'une autre année",
+      "description": "Vers {class} — {year}. Chaque séance reprend le créneau de même jour et mêmes horaires.",
+      "year": "Année",
+      "class": "Classe",
+      "loading": "Calcul de l'aperçu…",
+      "summary": "{copied, plural, =0 {Aucune séance ne sera copiée} one {# séance sera copiée} other {# séances seront copiées}}, {skipped, plural, =0 {aucune ignorée} one {# ignorée} other {# ignorées}}.",
+      "withoutRoom": "Dont {count, plural, one {# séance sans sa salle} other {# séances sans leur salle}} (salle déjà occupée).",
+      "empty": "Cette classe n'avait aucune séance.",
+      "slot": "{day}, {range}",
+      "status": {
+        "copy": "Copiée",
+        "room_busy": "Copiée sans salle : {room} est déjà occupée",
+        "teacher_busy": "Ignorée : {teacher} a déjà cours à ce moment",
+        "teacher_inactive": "Ignorée : {teacher} n'est plus un enseignant actif",
+        "teacher_subject": "Ignorée : {teacher} n'enseigne plus cette matière",
+        "no_slot": "Ignorée : pas de créneau de cours à ce moment cette année"
+      },
+      "submit": "{count, plural, one {Copier # séance} other {Copier # séances}}",
+      "copying": "Copie…",
+      "cancel": "Annuler",
+      "done": "{copied, plural, one {# séance copiée} other {# séances copiées}}, {skipped, plural, =0 {aucune ignorée} one {# ignorée} other {# ignorées}}.",
+      "errors": {
+        "generic": "Une erreur est survenue. Veuillez réessayer.",
+        "forbidden": "Vous n'avez pas la permission de modifier l'emploi du temps.",
+        "notFound": "Cette classe n'existe plus. Rechargez la page.",
+        "targetNotCurrent": "La copie se fait uniquement vers une classe de l'année en cours.",
+        "sourceNotEarlier": "Choisissez une classe d'une année précédente.",
+        "targetNotEmpty": "Cette classe a déjà des séances : la copie n'est possible que vers une classe vide.",
+        "changedMeanwhile": "L'emploi du temps a changé pendant la copie. Rien n'a été copié : réessayez."
+      }
     }
   }
 }

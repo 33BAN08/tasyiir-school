@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Suspense, type ReactNode } from "react";
 
 import { YearSelect } from "@/components/features/setup/year-select";
+import { CopyLessonsDialog, type CopySourceYear } from "@/components/features/timetable/copy-lessons-dialog";
 import type { LessonDetail } from "@/components/features/timetable/lesson-card";
 import { TeacherHours } from "@/components/features/timetable/teacher-hours";
 import { TimetableView } from "@/components/features/timetable/timetable-view";
@@ -16,7 +17,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "@/i18n/navigation";
 import { getPermissions, requireSchoolPermission } from "@/lib/auth/session";
 import { isolate, ltr } from "@/lib/format";
-import { listAcademicYears } from "@/lib/structure/academic-years";
+import { listAcademicYears, type AcademicYear } from "@/lib/structure/academic-years";
+import { listClasses } from "@/lib/structure/classes";
 import { getSchoolWeek } from "@/lib/structure/time-slots";
 import { getYearTimetable } from "@/lib/timetable/timetable";
 import type { TimetableLesson, TimetableOption } from "@/lib/timetable/types";
@@ -86,6 +88,9 @@ async function WeekSection({ schoolId, wanted, canManage, permissions }: Section
     room: (l) => l.roomId === selected.id,
   };
   const lessons = timetable.lessons.filter(belongs[view]);
+  // An empty class of the current year can start from an earlier year's timetable.
+  const copySources =
+    canManage && view === "class" && year.isCurrent && lessons.length === 0 ? await earlierYears(schoolId, years, year) : [];
 
   return (
     <section className="flex flex-col gap-4">
@@ -98,7 +103,12 @@ async function WeekSection({ schoolId, wanted, canManage, permissions }: Section
           <WeeklyHours lessons={lessons} slots={week.slots} />
         </div>
         {canManage && view !== "class" && <p className="text-sm text-muted-foreground">{t("addFromClass")}</p>}
-        {canManage && view === "class" && lessons.length === 0 && <p className="text-sm text-muted-foreground">{t("emptyHint")}</p>}
+        {canManage && view === "class" && lessons.length === 0 && (
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-sm text-muted-foreground">{t("emptyHint")}</p>
+            {copySources.length > 0 && <CopyLessonsDialog target={selected} yearLabel={year.label} sources={copySources} />}
+          </div>
+        )}
         <TimetableView
           days={week.days}
           slots={week.slots}
@@ -127,6 +137,19 @@ async function WeekSection({ schoolId, wanted, canManage, permissions }: Section
       )}
     </section>
   );
+}
+
+/** Years before `year` that have classes, most recent first, with their classes. */
+async function earlierYears(schoolId: string, years: AcademicYear[], year: AcademicYear): Promise<CopySourceYear[]> {
+  const earlier = years.filter((y) => y.startDate < year.startDate).sort((a, b) => b.startDate.localeCompare(a.startDate));
+  const withClasses = await Promise.all(
+    earlier.map(async (y) => ({
+      id: y.id,
+      label: y.label,
+      classes: (await listClasses(schoolId, y.id)).map((c) => ({ id: c.id, name: c.name })),
+    })),
+  );
+  return withClasses.filter((y) => y.classes.length > 0);
 }
 
 const FIX_PATH = {

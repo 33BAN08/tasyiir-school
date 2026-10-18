@@ -1143,6 +1143,14 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      copy_class_lessons: {
+        Args: { p_apply?: boolean; p_from_class: string; p_to_class: string }
+        Returns: {
+          source_lesson_id: string
+          status: string
+          target_slot_id: string
+        }[]
+      }
       copy_time_slots: {
         Args: { p_from_year: string; p_to_year: string }
         Returns: number
