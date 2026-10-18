@@ -21,7 +21,7 @@ type Props = CellHandlers & {
 };
 
 /** The week as one card per day (phones): each slot of the day, its lesson or a way to add one. */
-export function TimetableDays({ days, slots, lessonBySlot, details, onAdd, onOpen, highlight }: Props) {
+export function TimetableDays({ days, slots, lessonBySlot, details, onAdd, onOpen, openLabel = "openLesson", highlight }: Props) {
   const t = useTranslations("timetable.grid");
   const tDays = useTranslations("setup.timeSlots.days");
 
@@ -69,7 +69,7 @@ export function TimetableDays({ days, slots, lessonBySlot, details, onAdd, onOpe
                         <button
                           type="button"
                           onClick={onClick}
-                          aria-label={label(lesson ? "openLesson" : "addLesson")}
+                          aria-label={label(lesson ? openLabel : "addLesson")}
                           className="flex min-h-11 w-full gap-3 rounded-md border px-3 py-2 text-start transition-colors hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
                         >
                           {time}

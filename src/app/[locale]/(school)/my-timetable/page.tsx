@@ -47,7 +47,7 @@ export default async function MyTimetablePage() {
     <div className="flex flex-col gap-6">
       <PageHeader
         title={t("title")}
-        description={t("description", { year: ltr(year.label) })}
+        description={t(lessons.length > 0 ? "descriptionTap" : "description", { year: ltr(year.label) })}
         actions={
           lessons.length > 0 && (
             <Button asChild variant="outline">
@@ -65,7 +65,7 @@ export default async function MyTimetablePage() {
         </Card>
       ) : (
         <>
-          <ReadOnlyWeek days={week.days} slots={week.slots} lessons={lessons} details={["class", "room"]} layout="responsive" />
+          <ReadOnlyWeek days={week.days} slots={week.slots} lessons={lessons} details={["class", "room"]} layout="responsive" lessonHrefBase="/my-timetable/" />
           <Card className="p-4">
             <WeeklyHours lessons={lessons} slots={week.slots} />
           </Card>

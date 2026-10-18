@@ -131,6 +131,23 @@ export async function rollCallActions({ fx, baseUrl }) {
   // notFound() while streaming answers 200 with Next's not-found marker.
   check("[P7 roll call] another teacher's lesson → not found, none of its students",
     (others.status === 404 || others.html.includes("NEXT_HTTP_ERROR_FALLBACK;404")) && !others.html.includes("RCAlpha"), String(others.status));
+  const nextDow = (todayDow % 7) + 1 === 7 ? 1 : (todayDow % 7) + 1; // the next day with lessons (Sunday has none)
+  check("[P7 roll call] the next school day is previewed, its lessons open the class list",
+    list.html.includes("Prochain jour de cours") && list.html.includes(`/fr/my-timetable/${lessonOf[nextDow]}`));
+
+  // The lesson page from "Mon emploi du temps": class list, read-only.
+  const lessonPage = await page("tchA", `/fr/my-timetable/${lessonOf[notTodayDow]}`);
+  check("[P7 roll call] the teacher's lesson page shows the class list",
+    lessonPage.status === 200 && lessonPage.html.includes("RCAlpha") && lessonPage.html.includes("RCBeta") && !lessonPage.html.includes("RCGamma"));
+  check("[P7 roll call] …another day's lesson: attendance opens that day (no roll call button)",
+    lessonPage.html.includes("s'ouvrira") && !lessonPage.html.includes(`href="/fr/attendance/${lessonOf[notTodayDow]}"`));
+  const othersLesson = await page("tch2", `/fr/my-timetable/${lessonOf[notTodayDow]}`);
+  check("[P7 roll call] …another teacher's lesson → not found, none of its students",
+    (othersLesson.status === 404 || othersLesson.html.includes("NEXT_HTTP_ERROR_FALLBACK;404")) && !othersLesson.html.includes("RCAlpha"));
+  check("[P7 roll call] …a parent is sent to the portal", (await page("parent", `/fr/my-timetable/${lessonOf[notTodayDow]}`)).redirect === "/fr/portal");
+  const week = await page("tchA", "/fr/my-timetable");
+  check("[P7 roll call] Mon emploi du temps: lessons open their page (view, never edit)",
+    week.html.includes('aria-label="Voir la séance') && !week.html.includes('aria-label="Modifier la séance') && !week.html.includes('draggable="true"'));
   check("[P7 roll call] a director is sent to their dashboard", (await page("dirA", "/fr/attendance")).redirect === "/fr/dashboard");
   check("[P7 roll call] a parent is sent to the portal", (await page("parent", "/fr/attendance")).redirect === "/fr/portal");
 

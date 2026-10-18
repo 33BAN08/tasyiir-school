@@ -17,8 +17,10 @@ export type CellHandlers = {
   details: LessonDetail[];
   /** Set when the user may add lessons: an empty lesson cell becomes a button. */
   onAdd?: (slot: TimeSlot) => void;
-  /** Set when the user may edit lessons. */
+  /** Set when a lesson can be opened (to edit it, or only to see it: see openLabel). */
   onOpen?: (lesson: TimetableLesson, slot: TimeSlot) => void;
+  /** What opening a lesson does, for its accessible name: edit (staff, default) or view. */
+  openLabel?: "openLesson" | "viewLesson";
   /** Set when lessons can be dragged to another cell (desktop grid only). */
   drag?: DragState;
   /** Slot id → the lesson there is going on now, or is the next one. */
@@ -32,7 +34,7 @@ type Props = CellHandlers & {
 };
 
 /** The week as a table: days across, time ranges down (desktop). */
-export function TimetableGrid({ days, rows, lessonBySlot, details, onAdd, onOpen, drag, highlight }: Props) {
+export function TimetableGrid({ days, rows, lessonBySlot, details, onAdd, onOpen, openLabel = "openLesson", drag, highlight }: Props) {
   const t = useTranslations("timetable.grid");
   const tDays = useTranslations("setup.timeSlots.days");
 
@@ -76,7 +78,7 @@ export function TimetableGrid({ days, rows, lessonBySlot, details, onAdd, onOpen
                     lesson={lessonBySlot.get(slot.id)}
                     details={details}
                     addLabel={label("addLesson")}
-                    openLabel={label("openLesson")}
+                    openLabel={label(openLabel)}
                     onAdd={onAdd}
                     onOpen={onOpen}
                     drag={drag}
