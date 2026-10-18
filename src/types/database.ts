@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      absence_notices: {
+        Row: {
+          due_at: string
+          end_time: string
+          school_id: string
+          sent_at: string | null
+          session_date: string
+          session_id: string
+          start_time: string
+          student_id: string
+          subject_name: string
+        }
+        Insert: {
+          due_at: string
+          end_time: string
+          school_id: string
+          sent_at?: string | null
+          session_date: string
+          session_id: string
+          start_time: string
+          student_id: string
+          subject_name: string
+        }
+        Update: {
+          due_at?: string
+          end_time?: string
+          school_id?: string
+          sent_at?: string | null
+          session_date?: string
+          session_id?: string
+          start_time?: string
+          student_id?: string
+          subject_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "absence_notices_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "absence_notices_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       academic_years: {
         Row: {
           created_at: string
@@ -635,6 +686,61 @@ export type Database = {
         }
         Relationships: []
       }
+      notifications: {
+        Row: {
+          created_at: string
+          data: Json
+          id: string
+          read_at: string | null
+          recipient_id: string
+          school_id: string
+          student_id: string | null
+          type: string
+        }
+        Insert: {
+          created_at?: string
+          data?: Json
+          id?: string
+          read_at?: string | null
+          recipient_id: string
+          school_id: string
+          student_id?: string | null
+          type: string
+        }
+        Update: {
+          created_at?: string
+          data?: Json
+          id?: string
+          read_at?: string | null
+          recipient_id?: string
+          school_id?: string
+          student_id?: string | null
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_recipient_fkey"
+            columns: ["recipient_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "notifications_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "notifications_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       permissions: {
         Row: {
           created_at: string
@@ -1073,52 +1179,6 @@ export type Database = {
         }
         Relationships: []
       }
-      student_guardians: {
-        Row: {
-          created_at: string
-          guardian_id: string
-          relation: string
-          school_id: string
-          student_id: string
-        }
-        Insert: {
-          created_at?: string
-          guardian_id: string
-          relation: string
-          school_id: string
-          student_id: string
-        }
-        Update: {
-          created_at?: string
-          guardian_id?: string
-          relation?: string
-          school_id?: string
-          student_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "student_guardians_guardian_fkey"
-            columns: ["guardian_id", "school_id"]
-            isOneToOne: false
-            referencedRelation: "guardians"
-            referencedColumns: ["id", "school_id"]
-          },
-          {
-            foreignKeyName: "student_guardians_school_id_fkey"
-            columns: ["school_id"]
-            isOneToOne: false
-            referencedRelation: "schools"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "student_guardians_student_fkey"
-            columns: ["student_id", "school_id"]
-            isOneToOne: false
-            referencedRelation: "students"
-            referencedColumns: ["id", "school_id"]
-          },
-        ]
-      }
       student_enrollments: {
         Row: {
           academic_year_id: string
@@ -1161,6 +1221,52 @@ export type Database = {
           },
           {
             foreignKeyName: "student_enrollments_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
+      student_guardians: {
+        Row: {
+          created_at: string
+          guardian_id: string
+          relation: string
+          school_id: string
+          student_id: string
+        }
+        Insert: {
+          created_at?: string
+          guardian_id: string
+          relation: string
+          school_id: string
+          student_id: string
+        }
+        Update: {
+          created_at?: string
+          guardian_id?: string
+          relation?: string
+          school_id?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_guardians_guardian_fkey"
+            columns: ["guardian_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "guardians"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "student_guardians_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_guardians_student_fkey"
             columns: ["student_id", "school_id"]
             isOneToOne: false
             referencedRelation: "students"
@@ -1418,9 +1524,11 @@ export type Database = {
         Args: { p_from_year: string; p_to_year: string }
         Returns: number
       }
-      import_students: {
-        Args: { p_rows: Json }
-        Returns: number
+      import_students: { Args: { p_rows: Json }; Returns: number }
+      run_absence_notifications: { Args: { p_now?: string }; Returns: number }
+      save_attendance: {
+        Args: { p_date: string; p_lesson: string; p_marks?: Json }
+        Returns: string
       }
       school_clock: {
         Args: { p_at?: string }
@@ -1430,14 +1538,7 @@ export type Database = {
           weekday: number
         }[]
       }
-      save_attendance: {
-        Args: { p_date: string; p_lesson: string; p_marks?: Json }
-        Returns: string
-      }
-      swap_lessons: {
-        Args: { p_a: string; p_b: string }
-        Returns: undefined
-      }
+      swap_lessons: { Args: { p_a: string; p_b: string }; Returns: undefined }
       timetable_teachers: {
         Args: { p_year?: string }
         Returns: {
