@@ -171,7 +171,7 @@ tasyiir-school/
 - [x] **4. School structure** — years, levels, classes, subjects, rooms, time slots
 - [x] **5. People** — students, parents, teachers, photos (Storage), CSV import
 - [x] **6. Emploi du temps** — grid, drag & drop, conflict detection, PDF
-- [ ] **7. Absences + justifications**
+- [x] **7. Absences + justifications** — teacher roll call (phone), staff day view / corrections / totals, parent justifications with photo / PDF, staff review
 - [ ] **8. Alerts engine + notifications** (in-app + email)
 - [ ] **9. Messaging + announcements**
 - [ ] 🎯 **MVP = Basic plan → deploy demo, start showing schools**
