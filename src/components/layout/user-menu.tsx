@@ -14,6 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { clearAllDrafts } from "@/lib/attendance/drafts";
 import { signOut } from "@/lib/auth/actions";
 
 type Props = { name: string; email: string | null; roleLabel: string };
@@ -57,7 +58,10 @@ export function UserMenu({ name, email, roleLabel }: Props) {
         <DropdownMenuItem
           variant="destructive"
           disabled={isPending}
-          onSelect={() => startTransition(() => signOut(locale))}
+          onSelect={() => {
+            clearAllDrafts(); // roll calls kept on this phone (Phase 7)
+            startTransition(() => signOut(locale));
+          }}
         >
           <LogOut className="rtl:-scale-x-100" aria-hidden />
           {t("auth.logout")}

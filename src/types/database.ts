@@ -1329,6 +1329,14 @@ export type Database = {
         Args: { p_rows: Json }
         Returns: number
       }
+      school_clock: {
+        Args: { p_at?: string }
+        Returns: {
+          local_date: string
+          local_time: string
+          weekday: number
+        }[]
+      }
       save_attendance: {
         Args: { p_date: string; p_lesson: string; p_marks?: Json }
         Returns: string

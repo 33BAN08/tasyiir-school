@@ -78,7 +78,8 @@
     "parents": "Parents",
     "teachers": "Enseignants",
     "timetable": "Emploi du temps",
-    "myTimetable": "Mon emploi du temps"
+    "myTimetable": "Mon emploi du temps",
+    "attendance": "Appel"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -1763,6 +1764,50 @@
       "room": "Salle {name}",
       "year": "Année scolaire {year}",
       "nothing": "Aucun emploi du temps à imprimer."
+    }
+  },
+  "attendance": {
+    "title": "Appel",
+    "today": "Aujourd'hui, {day} {date}",
+    "now": "En cours",
+    "toDo": "À faire",
+    "open": "Faire l'appel de {class}",
+    "back": "Mes appels",
+    "noLessonsTitle": "Pas de cours aujourd'hui",
+    "noLessonsDescription": "Vos séances du jour apparaîtront ici.",
+    "notTodayTitle": "Cette séance n'a pas lieu aujourd'hui",
+    "notTodayDescription": "L'appel se fait le jour de la séance. Pour corriger un autre jour, adressez-vous à la surveillance.",
+    "rollCall": {
+      "status": {
+        "present": "Présent",
+        "absent": "Absent",
+        "late": "Retard"
+      },
+      "rowLabel": "{name} : {status}. Touchez pour changer.",
+      "minutesPlaceholder": "min",
+      "minutesLabel": "Minutes de retard de {name} (facultatif)",
+      "takenAt": "Appel fait à {time}",
+      "updatedAt": "modifié à {time}",
+      "notTaken": "Appel pas encore fait : tout le monde est présent par défaut.",
+      "restored": "Vos modifications non enregistrées ont été récupérées sur ce téléphone.",
+      "noStudents": "Aucun élève dans cette classe.",
+      "counts": "{present, plural, one {# présent} other {# présents}} · {absent, plural, one {# absent} other {# absents}}{late, plural, =0 {} one { · # retard} other { · # retards}}",
+      "failedNetwork": "Échec de l'envoi : vos choix sont gardés sur ce téléphone. Réessayez.",
+      "save": "Enregistrer",
+      "saveAgain": "Enregistrer à nouveau",
+      "saving": "Enregistrement…",
+      "retry": "Réessayer",
+      "savedToast": "Appel enregistré à {time}."
+    },
+    "errors": {
+      "generic": "Une erreur est survenue. Vos choix sont gardés : réessayez.",
+      "network": "Pas de connexion ou connexion trop lente. Vos choix sont gardés : réessayez.",
+      "forbidden": "Vous ne pouvez pas modifier cet appel (seulement le jour même, pour vos séances).",
+      "notFound": "Cette séance n'existe plus. Rechargez la page.",
+      "notToday": "L'appel ne peut être fait que le jour de la séance.",
+      "studentNotInClass": "Un élève n'est plus dans cette classe. Rechargez la page.",
+      "minutes": "Retard : entre 1 et 240 minutes.",
+      "invalid": "Données invalides. Rechargez la page."
     }
   }
 }

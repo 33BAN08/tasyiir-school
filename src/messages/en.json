@@ -78,7 +78,8 @@
     "parents": "Parents",
     "teachers": "Teachers",
     "timetable": "Timetable",
-    "myTimetable": "My timetable"
+    "myTimetable": "My timetable",
+    "attendance": "Attendance"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -1763,6 +1764,50 @@
       "room": "Room {name}",
       "year": "School year {year}",
       "nothing": "No timetable to print."
+    }
+  },
+  "attendance": {
+    "title": "Attendance",
+    "today": "Today, {day} {date}",
+    "now": "Now",
+    "toDo": "To do",
+    "open": "Take attendance for {class}",
+    "back": "My lessons today",
+    "noLessonsTitle": "No lessons today",
+    "noLessonsDescription": "Your lessons of the day will appear here.",
+    "notTodayTitle": "This lesson is not today",
+    "notTodayDescription": "Attendance is taken on the day of the lesson. To correct another day, ask the supervisors.",
+    "rollCall": {
+      "status": {
+        "present": "Present",
+        "absent": "Absent",
+        "late": "Late"
+      },
+      "rowLabel": "{name}: {status}. Tap to change.",
+      "minutesPlaceholder": "min",
+      "minutesLabel": "Minutes late for {name} (optional)",
+      "takenAt": "Attendance taken at {time}",
+      "updatedAt": "changed at {time}",
+      "notTaken": "Attendance not taken yet: everyone is present by default.",
+      "restored": "Your unsaved changes were recovered on this phone.",
+      "noStudents": "No students in this class.",
+      "counts": "{present} present · {absent} absent{late, plural, =0 {} other { · # late}}",
+      "failedNetwork": "Sending failed: your choices are kept on this phone. Try again.",
+      "save": "Save",
+      "saveAgain": "Save again",
+      "saving": "Saving…",
+      "retry": "Try again",
+      "savedToast": "Attendance saved at {time}."
+    },
+    "errors": {
+      "generic": "Something went wrong. Your choices are kept: try again.",
+      "network": "No connection or the connection is too slow. Your choices are kept: try again.",
+      "forbidden": "You cannot change this attendance (only on the day, for your own lessons).",
+      "notFound": "This lesson no longer exists. Reload the page.",
+      "notToday": "Attendance can only be taken on the day of the lesson.",
+      "studentNotInClass": "A student is no longer in this class. Reload the page.",
+      "minutes": "Late: between 1 and 240 minutes.",
+      "invalid": "Invalid data. Reload the page."
     }
   }
 }
