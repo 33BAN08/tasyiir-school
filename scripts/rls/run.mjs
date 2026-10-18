@@ -35,6 +35,7 @@ import { teacherActions } from "./actions-teachers.mjs";
 import { phase5Import } from "./phase5-import.mjs";
 import { importCommitActions, importPreviewActions } from "./actions-import.mjs";
 import { phase6Copy } from "./phase6-copy.mjs";
+import { phase6CrossSchool } from "./phase6-cross-school.mjs";
 import { phase6Lessons } from "./phase6-lessons.mjs";
 import { lessonBlockActions } from "./actions-lesson-blocks.mjs";
 import { lessonCopyActions } from "./actions-lesson-copy.mjs";
@@ -74,6 +75,7 @@ try {
   await phase5Import({ fx, as });
   await phase6Lessons({ fx, as });
   await phase6Copy({ fx, as });
+  await phase6CrossSchool({ fx, as });
   await import("./rules.mjs");
   await import("./rules-phone.mjs");
   await import("./rules-import.mjs");

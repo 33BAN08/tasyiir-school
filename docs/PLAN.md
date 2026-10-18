@@ -83,7 +83,8 @@ parent_students (parent_id, student_id, relation)
 teacher_subjects (teacher_id, subject_id)
 
 -- Timetable & attendance
-timetable_entries (id, school_id, class_id, subject_id, teacher_id, room_id, day_of_week, start_time, end_time, academic_year_id)
+school_days, time_slots (per academic year: day, start/end, lesson|break)   -- Phase 4
+lessons (id, school_id, academic_year_id, time_slot_id, class_id, subject_id, teacher_id, room_id)   -- Phase 6 (replaces timetable_entries)
 sessions (id, school_id, timetable_entry_id, date, status, notes)
 attendance (id, school_id, session_id, student_id, status[present|absent|late], minutes_late, marked_by, note)
 justifications (id, school_id, student_id, from_date, to_date, reason, file_url, status[pending|approved|rejected], reviewed_by)
@@ -169,7 +170,7 @@ tasyiir-school/
 - [x] **3. Staff management (director)** — create/invite staff, assign roles, edit role permissions, deactivate accounts
 - [x] **4. School structure** — years, levels, classes, subjects, rooms, time slots
 - [x] **5. People** — students, parents, teachers, photos (Storage), CSV import
-- [ ] **6. Emploi du temps** — grid, drag & drop, conflict detection, PDF
+- [x] **6. Emploi du temps** — grid, drag & drop, conflict detection, PDF
 - [ ] **7. Absences + justifications**
 - [ ] **8. Alerts engine + notifications** (in-app + email)
 - [ ] **9. Messaging + announcements**
