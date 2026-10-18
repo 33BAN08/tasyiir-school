@@ -134,7 +134,15 @@ export async function deleteClass(classId: unknown): Promise<StructureActionResu
     .eq("id", id.data)
     .eq("school_id", actor.schoolId)
     .select("name");
-  if (error) return { ok: false, error: dbErrorKey(error, { student_enrollments_class_fkey: "classHasStudents" }) };
+  if (error) {
+    return {
+      ok: false,
+      error: dbErrorKey(error, {
+        student_enrollments_class_fkey: "classHasStudents",
+        attendance_sessions_class_fkey: "classHasAttendance",
+      }),
+    };
+  }
   if (data.length === 0) return { ok: false, error: "notFound" };
 
   await auditStructure(actor, "class.delete", "class", id.data, { name: data[0].name });

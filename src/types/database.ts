@@ -55,6 +55,176 @@ export type Database = {
           },
         ]
       }
+      attendance_marks: {
+        Row: {
+          marked_at: string
+          marked_by: string
+          minutes_late: number | null
+          note: string | null
+          school_id: string
+          session_id: string
+          status: string
+          student_id: string
+        }
+        Insert: {
+          marked_at?: string
+          marked_by: string
+          minutes_late?: number | null
+          note?: string | null
+          school_id: string
+          session_id: string
+          status: string
+          student_id: string
+        }
+        Update: {
+          marked_at?: string
+          marked_by?: string
+          minutes_late?: number | null
+          note?: string | null
+          school_id?: string
+          session_id?: string
+          status?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_marks_marked_by_fkey"
+            columns: ["marked_by", "school_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "attendance_marks_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attendance_marks_session_fkey"
+            columns: ["session_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "attendance_sessions"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "attendance_marks_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
+      attendance_sessions: {
+        Row: {
+          academic_year_id: string
+          class_id: string
+          end_time: string
+          id: string
+          lesson_id: string | null
+          school_id: string
+          session_date: string
+          start_time: string
+          subject_id: string
+          taken_at: string
+          taken_by: string
+          teacher_id: string
+          updated_at: string
+          updated_by: string
+        }
+        Insert: {
+          academic_year_id: string
+          class_id: string
+          end_time: string
+          id?: string
+          lesson_id?: string | null
+          school_id: string
+          session_date: string
+          start_time: string
+          subject_id: string
+          taken_at?: string
+          taken_by: string
+          teacher_id: string
+          updated_at?: string
+          updated_by: string
+        }
+        Update: {
+          academic_year_id?: string
+          class_id?: string
+          end_time?: string
+          id?: string
+          lesson_id?: string | null
+          school_id?: string
+          session_date?: string
+          start_time?: string
+          subject_id?: string
+          taken_at?: string
+          taken_by?: string
+          teacher_id?: string
+          updated_at?: string
+          updated_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_sessions_class_fkey"
+            columns: ["class_id", "academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id", "academic_year_id", "school_id"]
+          },
+          {
+            foreignKeyName: "attendance_sessions_lesson_fkey"
+            columns: ["lesson_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "attendance_sessions_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "attendance_sessions_subject_fkey"
+            columns: ["subject_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "attendance_sessions_taken_by_fkey"
+            columns: ["taken_by", "school_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "attendance_sessions_teacher_fkey"
+            columns: ["teacher_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "attendance_sessions_updated_by_fkey"
+            columns: ["updated_by", "school_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "attendance_sessions_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       audit_logs: {
         Row: {
           action: string
@@ -1158,6 +1328,10 @@ export type Database = {
       import_students: {
         Args: { p_rows: Json }
         Returns: number
+      }
+      save_attendance: {
+        Args: { p_date: string; p_lesson: string; p_marks?: Json }
+        Returns: string
       }
       swap_lessons: {
         Args: { p_a: string; p_b: string }

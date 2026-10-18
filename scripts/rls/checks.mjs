@@ -2,6 +2,7 @@
 // (publishable key + their JWT), exactly like the browser would.
 
 const results = [];
+const skipped = [];
 
 function record(name, pass, detail) {
   results.push({ name, pass, detail });
@@ -36,9 +37,15 @@ export function check(name, pass, detail = "") {
   record(name, pass, detail);
 }
 
+/** A check that cannot run today (e.g. no lessons on Sunday): listed, never counted as passed. */
+export function skip(name, why) {
+  skipped.push({ name, why });
+}
+
 export function report() {
   for (const r of results) console.log(`${r.pass ? "PASS" : "FAIL"}  ${r.name}  — ${r.detail}`);
+  for (const s of skipped) console.log(`SKIP  ${s.name}  — ${s.why}`);
   const failed = results.filter((r) => !r.pass).length;
-  console.log(`\n${results.length - failed}/${results.length} passed`);
+  console.log(`\n${results.length - failed}/${results.length} passed${skipped.length ? `, ${skipped.length} skipped` : ""}`);
   return failed;
 }

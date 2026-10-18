@@ -93,6 +93,7 @@ export async function deleteSubject(subjectId: unknown): Promise<StructureAction
       error: dbErrorKey(error, {
         lessons_subject_fkey: "subjectHasLessons",
         lessons_teacher_subject_fkey: "subjectHasLessons",
+        attendance_sessions_subject_fkey: "subjectHasAttendance",
       }),
     };
   }

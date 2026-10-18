@@ -1092,7 +1092,9 @@
       "classHasStudents": "This class has students. Move them to another class first.",
       "subjectHasLessons": "This subject is used in the timetable. Delete its lessons first.",
       "roomHasLessons": "This room is used in the timetable. Change the room of its lessons first.",
-      "slotHasLessons": "This time slot has lessons in the timetable. Move or delete them first."
+      "slotHasLessons": "This time slot has lessons in the timetable. Move or delete them first.",
+      "subjectHasAttendance": "This subject has an attendance history: it cannot be deleted.",
+      "classHasAttendance": "This class has an attendance history: it cannot be deleted."
     },
     "confirm": {
       "cancel": "Cancel",

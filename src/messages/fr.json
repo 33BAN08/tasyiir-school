@@ -1092,7 +1092,9 @@
       "classHasStudents": "Cette classe a des élèves. Changez-les de classe d'abord.",
       "subjectHasLessons": "Cette matière est utilisée dans l'emploi du temps. Supprimez d'abord ses séances.",
       "roomHasLessons": "Cette salle est utilisée dans l'emploi du temps. Changez d'abord la salle de ses séances.",
-      "slotHasLessons": "Ce créneau a des séances dans l'emploi du temps. Déplacez ou supprimez-les d'abord."
+      "slotHasLessons": "Ce créneau a des séances dans l'emploi du temps. Déplacez ou supprimez-les d'abord.",
+      "subjectHasAttendance": "Cette matière a un historique d'absences : elle ne peut pas être supprimée.",
+      "classHasAttendance": "Cette classe a un historique d'absences : elle ne peut pas être supprimée."
     },
     "confirm": {
       "cancel": "Annuler",
