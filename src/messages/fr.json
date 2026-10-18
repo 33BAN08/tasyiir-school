@@ -1023,6 +1023,7 @@
       "justification": {
         "period": "du {from} au {to}",
         "schoolNote": "Réponse de l'établissement :",
+        "bySchool": "Saisi par l'établissement",
         "viewNote": "Voir le justificatif",
         "withdraw": "Retirer",
         "confirmWithdraw": "Retirer ce justificatif",

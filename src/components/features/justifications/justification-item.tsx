@@ -25,10 +25,12 @@ type Props = {
   reviewNote: string | null;
   /** The parent may withdraw it (a still-pending "days" justification of theirs). */
   canCancel: boolean;
+  /** Entered by the school from a paper note (one absence), not sent by a parent. */
+  bySchool: boolean;
 };
 
 /** One justification of a child: period, reason, state, the note (opens in a new tab) and, while pending, "Withdraw". */
-export function JustificationItem({ id, status, fromDate, toDate, reason, hasFile, reviewNote, canCancel }: Props) {
+export function JustificationItem({ id, status, fromDate, toDate, reason, hasFile, reviewNote, canCancel, bySchool }: Props) {
   const t = useTranslations("portal.absences.justification");
   const translateError = useJustificationError();
   const router = useRouter();
@@ -57,6 +59,7 @@ export function JustificationItem({ id, status, fromDate, toDate, reason, hasFil
         <span className="font-medium tabular-nums">{period}</span>
         <StateBadge state={status === "approved" ? "justified" : status} />
       </div>
+      {bySchool && <p className="text-xs text-muted-foreground">{t("bySchool")}</p>}
       <p className="text-sm [overflow-wrap:anywhere]">
         <bdi>{reason}</bdi>
       </p>

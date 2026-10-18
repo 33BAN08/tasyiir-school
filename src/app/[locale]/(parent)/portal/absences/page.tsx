@@ -139,6 +139,7 @@ export default async function PortalAbsencesPage({ searchParams }: PageProps<"/[
                   hasFile={j.hasFile}
                   reviewNote={j.reviewNote}
                   canCancel={j.kind === "days"}
+                  bySchool={j.kind === "mark"}
                 />
               ))}
             </ul>

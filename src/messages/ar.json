@@ -1023,6 +1023,7 @@
       "justification": {
         "period": "من {from} إلى {to}",
         "schoolNote": "رد المؤسسة:",
+        "bySchool": "سجّلته المؤسسة",
         "viewNote": "عرض التبرير",
         "withdraw": "سحب",
         "confirmWithdraw": "سحب هذا التبرير",

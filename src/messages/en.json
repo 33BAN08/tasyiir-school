@@ -1023,6 +1023,7 @@
       "justification": {
         "period": "{from} to {to}",
         "schoolNote": "School's reply:",
+        "bySchool": "Entered by the school",
         "viewNote": "View note",
         "withdraw": "Withdraw",
         "confirmWithdraw": "Withdraw this note",
