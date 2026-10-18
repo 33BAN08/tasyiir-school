@@ -38,6 +38,7 @@ import { phase6Copy } from "./phase6-copy.mjs";
 import { phase6Lessons } from "./phase6-lessons.mjs";
 import { lessonBlockActions } from "./actions-lesson-blocks.mjs";
 import { lessonCopyActions } from "./actions-lesson-copy.mjs";
+import { timetablePages } from "./pages-timetable.mjs";
 import { lessonMoveActions } from "./actions-lesson-moves.mjs";
 import { lessonActions } from "./actions-lessons.mjs";
 
@@ -75,6 +76,7 @@ try {
   await import("./rules.mjs");
   await import("./rules-phone.mjs");
   await import("./rules-import.mjs");
+  await import("./rules-timetable-now.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });
     await roleActions({ fx, baseUrl });
@@ -94,6 +96,7 @@ try {
     await lessonActions({ fx, baseUrl });
     await lessonMoveActions({ fx, baseUrl });
     await lessonCopyActions({ fx, baseUrl });
+    await timetablePages({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

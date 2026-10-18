@@ -9,7 +9,7 @@ import { conflictErrorKey, type DropPlan } from "@/lib/timetable/moves";
 import type { TimetableLesson } from "@/lib/timetable/types";
 import { cn } from "@/lib/utils";
 
-import { LessonCard, type LessonDetail } from "./lesson-card";
+import { HIGHLIGHT_FRAME, LessonCard, type LessonDetail, type LessonHighlight } from "./lesson-card";
 
 /** Drag & drop of lessons in the desktop grid (timetable.manage). */
 export type DragState = {
@@ -37,10 +37,11 @@ type Props = {
   onAdd?: (slot: TimeSlot) => void;
   onOpen?: (lesson: TimetableLesson, slot: TimeSlot) => void;
   drag?: DragState;
+  highlight?: LessonHighlight;
 };
 
 /** A lesson slot of the grid: its lesson (click to edit, drag to move) or a way to add one. */
-export function TimetableCell({ slot, lesson, details, addLabel, openLabel, onAdd, onOpen, drag }: Props) {
+export function TimetableCell({ slot, lesson, details, addLabel, openLabel, onAdd, onOpen, drag, highlight }: Props) {
   const plan = drag?.dragging ? drag.plan(slot) : null;
   const canDrop = !!plan && !plan.conflict;
   const isDragged = !!lesson && drag?.dragging?.id === lesson.id;
@@ -68,15 +69,16 @@ export function TimetableCell({ slot, lesson, details, addLabel, openLabel, onAd
           "size-full rounded-md border bg-card p-2 transition-colors hover:bg-muted/60 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
           draggable && "cursor-grab active:cursor-grabbing",
           isDragged && "opacity-50",
+          highlight && HIGHLIGHT_FRAME[highlight],
         )}
       >
-        <LessonCard lesson={lesson} details={details} />
+        <LessonCard lesson={lesson} details={details} highlight={highlight} />
       </button>
     );
   } else if (lesson) {
     content = (
-      <div className="size-full rounded-md border bg-card p-2">
-        <LessonCard lesson={lesson} details={details} />
+      <div className={cn("size-full rounded-md border bg-card p-2", highlight && HIGHLIGHT_FRAME[highlight])}>
+        <LessonCard lesson={lesson} details={details} highlight={highlight} />
       </div>
     );
   } else if (onAdd) {

@@ -9,8 +9,9 @@ import { ltr } from "@/lib/format";
 import { DAY_KEYS, type SchoolDay } from "@/lib/structure/time-slot-template";
 import type { TimeSlot } from "@/lib/structure/time-slots";
 import type { TimetableLesson } from "@/lib/timetable/types";
+import { cn } from "@/lib/utils";
 
-import { LessonCard } from "./lesson-card";
+import { HIGHLIGHT_FRAME, LessonCard } from "./lesson-card";
 import type { CellHandlers } from "./timetable-grid";
 
 type Props = CellHandlers & {
@@ -20,7 +21,7 @@ type Props = CellHandlers & {
 };
 
 /** The week as one card per day (phones): each slot of the day, its lesson or a way to add one. */
-export function TimetableDays({ days, slots, lessonBySlot, details, onAdd, onOpen }: Props) {
+export function TimetableDays({ days, slots, lessonBySlot, details, onAdd, onOpen, highlight }: Props) {
   const t = useTranslations("timetable.grid");
   const tDays = useTranslations("setup.timeSlots.days");
 
@@ -38,6 +39,7 @@ export function TimetableDays({ days, slots, lessonBySlot, details, onAdd, onOpe
               <ul className="flex flex-col gap-1.5">
                 {daySlots.map((slot) => {
                   const lesson = lessonBySlot.get(slot.id);
+                  const lit = lesson ? highlight?.get(slot.id) : undefined;
                   const label = (name: string) => t(name, { day: dayName, range: ltr(`${slot.startTime}–${slot.endTime}`) });
                   const time = (
                     <span className="w-24 shrink-0 pt-0.5 text-xs text-muted-foreground">
@@ -53,7 +55,7 @@ export function TimetableDays({ days, slots, lessonBySlot, details, onAdd, onOpe
                     );
                   }
                   const content = lesson ? (
-                    <LessonCard lesson={lesson} details={details} className="flex-1" />
+                    <LessonCard lesson={lesson} details={details} highlight={lit} className="flex-1" />
                   ) : (
                     <span className="flex flex-1 items-center gap-1 text-sm text-muted-foreground">
                       {onAdd && <Plus className="size-4" aria-hidden />}
@@ -74,7 +76,7 @@ export function TimetableDays({ days, slots, lessonBySlot, details, onAdd, onOpe
                           {content}
                         </button>
                       ) : (
-                        <div className="flex min-h-11 gap-3 rounded-md border px-3 py-2">
+                        <div className={cn("flex min-h-11 gap-3 rounded-md border px-3 py-2", lit && HIGHLIGHT_FRAME[lit])}>
                           {time}
                           {content}
                         </div>

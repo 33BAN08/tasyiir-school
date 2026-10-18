@@ -77,7 +77,8 @@
     "students": "Élèves",
     "parents": "Parents",
     "teachers": "Enseignants",
-    "timetable": "Emploi du temps"
+    "timetable": "Emploi du temps",
+    "myTimetable": "Mon emploi du temps"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -975,7 +976,20 @@
     "noClass": "Pas encore de classe cette année",
     "emptyTitle": "Aucun enfant lié à votre compte",
     "emptyDescription": "Contactez l'établissement pour qu'il relie vos enfants à votre compte.",
-    "photoAlt": "Photo de {name}"
+    "photoAlt": "Photo de {name}",
+    "timetable": {
+      "open": "Emploi du temps",
+      "back": "Mes enfants",
+      "title": "Emploi du temps",
+      "children": "Choisir un enfant",
+      "of": "{name} · classe {class} · {year}",
+      "noChildTitle": "Aucun enfant lié à votre compte",
+      "noChildDescription": "Contactez l'établissement pour qu'il relie vos enfants à votre compte.",
+      "noClassTitle": "{name} n'a pas de classe cette année",
+      "noClassDescription": "L'emploi du temps s'affichera dès que l'établissement l'aura inscrit dans une classe.",
+      "notReadyTitle": "Emploi du temps pas encore prêt",
+      "notReadyDescription": "L'établissement n'a pas encore saisi l'emploi du temps de cette classe."
+    }
   },
   "setup": {
     "title": "Structure de l'établissement",
@@ -1714,6 +1728,20 @@
         "targetNotEmpty": "Cette classe a déjà des séances : la copie n'est possible que vers une classe vide.",
         "changedMeanwhile": "L'emploi du temps a changé pendant la copie. Rien n'a été copié : réessayez."
       }
+    },
+    "mine": {
+      "title": "Mon emploi du temps",
+      "description": "Vos séances de la semaine — {year}.",
+      "noYearTitle": "Aucune année scolaire en cours",
+      "noYearDescription": "Votre emploi du temps apparaîtra quand l'établissement aura ouvert l'année.",
+      "emptyTitle": "Aucune séance pour l'instant",
+      "emptyDescription": "L'établissement ne vous a pas encore attribué de séances cette année."
+    },
+    "highlight": {
+      "now": "En cours",
+      "next": "Ensuite",
+      "nowTitle": "En cours · {day}, {range}",
+      "nextTitle": "Prochaine séance · {day}, {range}"
     }
   }
 }

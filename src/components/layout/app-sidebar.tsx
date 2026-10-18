@@ -11,7 +11,7 @@ import {
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getPermissions } from "@/lib/auth/session";
+import { getCurrentUser, getPermissions } from "@/lib/auth/session";
 import { BRAND } from "@/lib/brand";
 
 import { NAV_ITEMS } from "./nav-config";
@@ -54,9 +54,10 @@ export async function AppSidebar({ area, side }: Props) {
 
 /** Nav items the user's role may see, with translated labels. */
 async function AreaNav({ area }: Pick<Props, "area">) {
-  const [permissions, t] = await Promise.all([getPermissions(), getTranslations("nav")]);
+  const [permissions, user, t] = await Promise.all([getPermissions(), getCurrentUser(), getTranslations("nav")]);
   const items = NAV_ITEMS[area]
     .filter((item) => !item.permission || permissions.has(item.permission))
+    .filter((item) => !item.role || item.role === user?.roleKey)
     .map((item) => ({ href: item.href, icon: item.icon, label: t(item.key) }));
 
   return <NavMenu items={items} />;

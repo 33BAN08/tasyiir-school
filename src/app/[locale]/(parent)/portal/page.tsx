@@ -1,9 +1,11 @@
-import { Baby } from "lucide-react";
+import { Baby, CalendarDays } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { StudentAvatar } from "@/components/features/students/student-avatar";
 import { EmptyState } from "@/components/layout/empty-state";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "@/i18n/navigation";
 import { requireArea } from "@/lib/auth/session";
 import { listMyChildren } from "@/lib/parents/portal";
 import { studentInitials, studentName, studentOtherName } from "@/lib/students/names";
@@ -54,6 +56,14 @@ export default async function PortalHomePage() {
                           t("noClass")
                         )}
                       </span>
+                      {child.classId && (
+                        <Button asChild variant="outline" size="sm" className="mt-2 min-h-11">
+                          <Link href={`/portal/timetable?child=${child.id}`}>
+                            <CalendarDays aria-hidden />
+                            {t("timetable.open")}
+                          </Link>
+                        </Button>
+                      )}
                     </div>
                   </CardContent>
                 </Card>

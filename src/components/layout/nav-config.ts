@@ -10,6 +10,8 @@ export type NavItem = {
   icon: NavIcon;
   /** Hidden unless the user's role has this permission. */
   permission?: string;
+  /** Hidden unless the user has this built-in role (e.g. a teacher's own pages). */
+  role?: string;
 };
 
 /** Sidebar entries per desktop area. Each phase adds its own items here. */
@@ -25,6 +27,7 @@ export const NAV_ITEMS: Record<"platform" | "school", NavItem[]> = {
     { key: "parents", href: "/parents", icon: "parents", permission: "parents.manage" },
     { key: "teachers", href: "/teachers", icon: "teachers", permission: "teachers.manage" },
     { key: "timetable", href: "/timetable", icon: "timetable", permission: "timetable.view" },
+    { key: "myTimetable", href: "/my-timetable", icon: "timetable", role: "teacher" },
     { key: "staff", href: "/staff", icon: "staff", permission: "users.view" },
     { key: "roles", href: "/staff/roles", icon: "roles", permission: "roles.manage" },
     { key: "setup", href: "/setup", icon: "structure", permission: "structure.manage" },

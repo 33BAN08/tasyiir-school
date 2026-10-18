@@ -77,7 +77,8 @@
     "students": "Students",
     "parents": "Parents",
     "teachers": "Teachers",
-    "timetable": "Timetable"
+    "timetable": "Timetable",
+    "myTimetable": "My timetable"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -975,7 +976,20 @@
     "noClass": "No class yet this year",
     "emptyTitle": "No child linked to your account",
     "emptyDescription": "Contact the school so they link your children to your account.",
-    "photoAlt": "Photo of {name}"
+    "photoAlt": "Photo of {name}",
+    "timetable": {
+      "open": "Timetable",
+      "back": "My children",
+      "title": "Timetable",
+      "children": "Choose a child",
+      "of": "{name} · class {class} · {year}",
+      "noChildTitle": "No child linked to your account",
+      "noChildDescription": "Contact the school so they link your children to your account.",
+      "noClassTitle": "{name} has no class this year",
+      "noClassDescription": "The timetable will show as soon as the school puts them in a class.",
+      "notReadyTitle": "Timetable not ready yet",
+      "notReadyDescription": "The school has not entered this class's timetable yet."
+    }
   },
   "setup": {
     "title": "School structure",
@@ -1714,6 +1728,20 @@
         "targetNotEmpty": "This class already has lessons: you can only copy into an empty class.",
         "changedMeanwhile": "The timetable changed during the copy. Nothing was copied: try again."
       }
+    },
+    "mine": {
+      "title": "My timetable",
+      "description": "Your lessons this week — {year}.",
+      "noYearTitle": "No current school year",
+      "noYearDescription": "Your timetable will appear once the school has opened the year.",
+      "emptyTitle": "No lessons yet",
+      "emptyDescription": "The school has not given you any lessons this year yet."
+    },
+    "highlight": {
+      "now": "Now",
+      "next": "Next",
+      "nowTitle": "Now · {day}, {range}",
+      "nextTitle": "Next lesson · {day}, {range}"
     }
   }
 }

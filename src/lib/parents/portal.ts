@@ -12,6 +12,7 @@ export type MyChild = StudentNames & {
   id: string;
   relation: Relation;
   photoPath: string | null;
+  classId: string | null;
   className: string | null;
 };
 
@@ -24,7 +25,7 @@ type Row = {
     first_name_ar: string | null;
     last_name_ar: string | null;
     photo_path: string | null;
-    enrollment: { academic_year_id: string; class: { name: string } | null }[];
+    enrollment: { academic_year_id: string; class_id: string; class: { name: string } | null }[];
   } | null;
 };
 
@@ -34,7 +35,7 @@ export async function listMyChildren(schoolId: string): Promise<MyChild[]> {
   const { data, error } = await supabase
     .from("student_guardians")
     .select(
-      "relation, student:students(id, first_name, last_name, first_name_ar, last_name_ar, photo_path, enrollment:student_enrollments(academic_year_id, class:classes(name)))",
+      "relation, student:students(id, first_name, last_name, first_name_ar, last_name_ar, photo_path, enrollment:student_enrollments(academic_year_id, class_id, class:classes(name)))",
     )
     .eq("school_id", schoolId)
     .overrideTypes<Row[], { merge: false }>();
@@ -53,6 +54,7 @@ export async function listMyChildren(schoolId: string): Promise<MyChild[]> {
         lastNameAr: s.last_name_ar,
         photoPath: s.photo_path,
         relation: row.relation as Relation,
+        classId: current?.class_id ?? null,
         className: current?.class?.name ?? null,
       };
     })

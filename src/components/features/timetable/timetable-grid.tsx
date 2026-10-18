@@ -8,7 +8,7 @@ import { DAY_KEYS, type SchoolDay } from "@/lib/structure/time-slot-template";
 import type { TimeSlot } from "@/lib/structure/time-slots";
 import type { TimetableLesson } from "@/lib/timetable/types";
 
-import type { LessonDetail } from "./lesson-card";
+import type { LessonDetail, LessonHighlight } from "./lesson-card";
 import { TimetableCell, type DragState } from "./timetable-cell";
 import type { WeekRow } from "./week-layout";
 
@@ -21,6 +21,8 @@ export type CellHandlers = {
   onOpen?: (lesson: TimetableLesson, slot: TimeSlot) => void;
   /** Set when lessons can be dragged to another cell (desktop grid only). */
   drag?: DragState;
+  /** Slot id → the lesson there is going on now, or is the next one. */
+  highlight?: Map<string, LessonHighlight>;
 };
 
 type Props = CellHandlers & {
@@ -30,7 +32,7 @@ type Props = CellHandlers & {
 };
 
 /** The week as a table: days across, time ranges down (desktop). */
-export function TimetableGrid({ days, rows, lessonBySlot, details, onAdd, onOpen, drag }: Props) {
+export function TimetableGrid({ days, rows, lessonBySlot, details, onAdd, onOpen, drag, highlight }: Props) {
   const t = useTranslations("timetable.grid");
   const tDays = useTranslations("setup.timeSlots.days");
 
@@ -78,6 +80,7 @@ export function TimetableGrid({ days, rows, lessonBySlot, details, onAdd, onOpen
                     onAdd={onAdd}
                     onOpen={onOpen}
                     drag={drag}
+                    highlight={highlight?.get(slot.id)}
                   />
                 </td>
               );
