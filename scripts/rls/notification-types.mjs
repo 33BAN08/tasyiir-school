@@ -14,9 +14,10 @@ const TYPES = [
   "subscription_expiring",
   "demo_request",
   "announcement",
+  "remark",
 ];
 // Types whose feature is not in the database yet: required once their table exists.
-const PENDING = [["remark", "student_remarks"]];
+const PENDING = [];
 
 export async function notificationTypes({ fx }) {
   const A = fx.schools.a;

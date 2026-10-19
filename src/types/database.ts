@@ -1550,6 +1550,84 @@ export type Database = {
           },
         ]
       }
+      student_remarks: {
+        Row: {
+          academic_year_id: string
+          body: string
+          created_at: string
+          created_by: string | null
+          id: string
+          read_at: string | null
+          read_by: string | null
+          school_id: string
+          student_id: string
+          type: string
+          updated_at: string | null
+        }
+        Insert: {
+          academic_year_id: string
+          body: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          read_at?: string | null
+          read_by?: string | null
+          school_id: string
+          student_id: string
+          type: string
+          updated_at?: string | null
+        }
+        Update: {
+          academic_year_id?: string
+          body?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          read_at?: string | null
+          read_by?: string | null
+          school_id?: string
+          student_id?: string
+          type?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_remarks_author_fkey"
+            columns: ["created_by", "school_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "student_remarks_read_by_fkey"
+            columns: ["read_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_remarks_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_remarks_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "student_remarks_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       students: {
         Row: {
           birth_date: string

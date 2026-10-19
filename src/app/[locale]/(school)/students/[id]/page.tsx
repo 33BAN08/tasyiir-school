@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense, type ReactNode } from "react";
 
 import { StudentAttendanceCard } from "@/components/features/attendance/student-attendance-card";
+import { StudentRemarksCard } from "@/components/features/remarks/student-remarks-card";
 import { StudentGuardiansCard } from "@/components/features/parents/student-guardians-card";
 import { StudentAvatar } from "@/components/features/students/student-avatar";
 import type { ClassOption } from "@/components/features/students/student-dialog";
@@ -15,6 +16,7 @@ import { Link } from "@/i18n/navigation";
 import { getPermissions, requireSchoolPermission } from "@/lib/auth/session";
 import { formatDate, ltr } from "@/lib/format";
 import { listStudentGuardians } from "@/lib/parents/guardians";
+import { getRemarkStaff } from "@/lib/remarks/writer";
 import { listClasses } from "@/lib/structure/classes";
 import { studentInitials, studentName, studentOtherName } from "@/lib/students/names";
 import { signPhotoUrls } from "@/lib/students/photos";
@@ -61,10 +63,11 @@ async function StudentDetail({ params }: { params: Params }) {
   if (!student) notFound();
 
   const canManage = permissions.has("students.manage");
-  const [guardians, photoUrls, classes] = await Promise.all([
+  const [guardians, photoUrls, classes, remarkStaff] = await Promise.all([
     listStudentGuardians(user.schoolId, student.id),
     signPhotoUrls([student.photoPath]),
     canManage && year ? listClasses(user.schoolId, year.id) : Promise.resolve(null),
+    getRemarkStaff(),
   ]);
   const classOptions: ClassOption[] | null = classes ? classes.map((c) => ({ id: c.id, name: c.name })) : null;
   const name = studentName(student, locale);
@@ -154,6 +157,13 @@ async function StudentDetail({ params }: { params: Params }) {
           <div className="lg:col-span-3">
             <Suspense fallback={<Skeleton className="h-48 w-full" />}>
               <StudentAttendanceCard schoolId={user.schoolId} studentId={student.id} />
+            </Suspense>
+          </div>
+        )}
+        {remarkStaff && (
+          <div className="lg:col-span-3">
+            <Suspense fallback={<Skeleton className="h-40 w-full" />}>
+              <StudentRemarksCard staff={remarkStaff} studentId={student.id} studentName={name} />
             </Suspense>
           </div>
         )}

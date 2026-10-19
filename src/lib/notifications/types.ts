@@ -8,7 +8,8 @@ export type NotificationType =
   | "repeated_lateness"
   | "subscription_expiring"
   | "demo_request"
-  | "announcement";
+  | "announcement"
+  | "remark";
 
 /** What a notification needs to write its sentence (see the Phase 8 migrations). */
 export type NotificationData = {
@@ -30,6 +31,9 @@ export type NotificationData = {
   /** announcement: the announcement to open and its title (kept in step when edited). */
   announcement_id?: string;
   title?: string;
+  /** remark: the remark and its type (behavior | homework | material | praise). */
+  remark_id?: string;
+  remark_type?: "behavior" | "homework" | "material" | "praise";
   /** demo_request: the request (home page form), for the platform owner. */
   request_id?: string;
   full_name?: string;

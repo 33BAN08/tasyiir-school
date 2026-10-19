@@ -83,7 +83,8 @@
     "absences": "Absences",
     "alerts": "Alertes",
     "demoRequests": "Demandes de démo",
-    "announcements": "Annonces"
+    "announcements": "Annonces",
+    "remarks": "Remarques"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -138,6 +139,15 @@
     },
     "announcement": {
       "title": "Nouvelle annonce"
+    },
+    "remark": {
+      "title": "Remarque sur {name}",
+      "types": {
+        "behavior": "Comportement",
+        "homework": "Travail non fait",
+        "material": "Oubli de matériel",
+        "praise": "Félicitations"
+      }
     }
   },
   "theme": {
@@ -1143,7 +1153,8 @@
       "absences": "Absences",
       "notifications": "Notifications",
       "announcements": "Annonces"
-    }
+    },
+    "remarksOpen": "Remarques"
   },
   "setup": {
     "title": "Structure de l'établissement",
@@ -2609,6 +2620,79 @@
       "forbidden": "Vous n'avez pas le droit de faire cela.",
       "notFound": "Cette annonce n'existe plus.",
       "noCurrentYear": "Aucune année scolaire en cours.",
+      "failed": "L'opération a échoué. Réessayez."
+    }
+  },
+  "remarks": {
+    "title": "Remarques",
+    "descriptionTeacher": "Écrivez une remarque sur un élève de vos classes : ses parents sont prévenus tout de suite.",
+    "descriptionStaff": "Les remarques par classe. Les parents de l'élève sont prévenus tout de suite.",
+    "add": "Ajouter une remarque",
+    "addShort": "Remarque",
+    "edit": "Modifier",
+    "read": "Lu",
+    "markRead": "Marquer comme lu",
+    "readByParents": "Lu par les parents",
+    "unreadByParents": "Pas encore lu",
+    "edited": "modifiée",
+    "byYou": "par vous",
+    "by": "par {name}",
+    "backHome": "Accueil",
+    "children": "Mes enfants",
+    "of": "Remarques de l'établissement sur {name}",
+    "unreadCount": "{count, plural, one {# non lue} other {# non lues}}",
+    "emptyParent": "Aucune remarque pour le moment.",
+    "emptyStudent": "Aucune remarque sur cet élève.",
+    "emptyClass": "Aucune remarque dans cette classe cette année.",
+    "noClassesTitle": "Aucune classe",
+    "noClasses": "Aucune classe cette année : l'emploi du temps ne vous en attribue pas encore.",
+    "noYear": "Aucune année scolaire en cours.",
+    "noStudents": "Aucun élève dans cette classe.",
+    "classList": "{count, plural, one {# élève} other {# élèves}}",
+    "latest": "Dernières remarques",
+    "count": "{count, plural, one {# remarque} other {# remarques}}",
+    "notInPlanTitle": "Remarques non incluses dans votre formule",
+    "notInPlanDescription": "Le module de communication n'est pas activé pour cet établissement.",
+    "noChildTitle": "Aucun enfant",
+    "noChildDescription": "Aucun enfant n'est encore lié à votre compte.",
+    "types": {
+      "behavior": "Comportement",
+      "homework": "Travail non fait",
+      "material": "Oubli de matériel",
+      "praise": "Félicitations"
+    },
+    "form": {
+      "createTitle": "Nouvelle remarque",
+      "createDescription": "Sur {name}. Ses parents la reçoivent tout de suite.",
+      "editTitle": "Modifier la remarque",
+      "editDescription": "Sur {name}. Les parents la verront de nouveau comme non lue.",
+      "type": "Type",
+      "body": "Remarque",
+      "count": "{count} / {max} caractères",
+      "note": "Vous pouvez la modifier ou la supprimer pendant 24 heures.",
+      "cancel": "Annuler",
+      "send": "Envoyer",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "created": "Remarque envoyée aux parents de {name}",
+      "updated": "Remarque modifiée"
+    },
+    "delete": {
+      "button": "Supprimer",
+      "title": "Supprimer cette remarque ?",
+      "description": "Elle disparaît pour les parents, avec leur notification.",
+      "moderateDescription": "Elle disparaît pour les parents. La suppression est enregistrée dans le journal (qui, quand, le texte).",
+      "done": "Remarque supprimée"
+    },
+    "errors": {
+      "typeRequired": "Choisissez le type de remarque.",
+      "bodyRequired": "Écrivez la remarque.",
+      "bodyTooLong": "La remarque ne doit pas dépasser 500 caractères.",
+      "invalid": "Les informations saisies ne sont pas valides.",
+      "forbidden": "Vous n'avez pas le droit de faire cela.",
+      "notFound": "Cette remarque n'existe plus.",
+      "notEnrolled": "Cet élève n'est inscrit dans aucune classe cette année.",
+      "locked": "Une remarque ne se modifie ou ne se supprime que par son auteur, dans les 24 heures.",
       "failed": "L'opération a échoué. Réessayez."
     }
   }

@@ -1,4 +1,4 @@
-import { Baby, CalendarCheck, CalendarDays } from "lucide-react";
+import { Baby, CalendarCheck, CalendarDays, MessageSquareText } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { StudentAvatar } from "@/components/features/students/student-avatar";
@@ -70,6 +70,14 @@ export default async function PortalHomePage() {
                             <Link href={`/portal/absences?child=${child.id}`}>
                               <CalendarCheck aria-hidden />
                               {t("absencesOpen")}
+                            </Link>
+                          </Button>
+                        )}
+                        {child.classId && (
+                          <Button asChild variant="outline" size="sm" className="min-h-11">
+                            <Link href={`/portal/remarks?child=${child.id}`}>
+                              <MessageSquareText aria-hidden />
+                              {t("remarksOpen")}
                             </Link>
                           </Button>
                         )}

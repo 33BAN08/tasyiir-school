@@ -1,6 +1,6 @@
 "use client";
 
-import { BellRing, CalendarClock, CalendarX2, Check, CheckCheck, Clock, Inbox, Megaphone, Undo2 } from "lucide-react";
+import { BellRing, CalendarClock, CalendarX2, Check, CheckCheck, Clock, Inbox, Megaphone, MessageSquareText, Undo2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState, useSyncExternalStore, useTransition } from "react";
 
@@ -107,6 +107,10 @@ function Row({ item, area, read, onRead }: { item: NotificationItem; area: Props
       city: isolate(data.city ?? ""),
       phone: data.phone ? ltr(formatMobile(data.phone)) : "",
     });
+  } else if (item.type === "remark") {
+    Icon = MessageSquareText;
+    title = t("remark.title", { name });
+    body = t(`remark.types.${data.remark_type ?? "behavior"}`);
   } else if (item.type === "announcement") {
     Icon = Megaphone;
     title = t("announcement.title");
@@ -140,7 +144,9 @@ function Row({ item, area, read, onRead }: { item: NotificationItem; area: Props
       ? data.announcement_id
         ? `${area === "portal" ? "/portal" : ""}/announcements/${data.announcement_id}`
         : null
-      : area === "platform"
+      : item.type === "remark"
+        ? `/portal/remarks?child=${item.studentId}`
+        : area === "platform"
       ? item.type === "demo_request"
         ? "/platform/demo-requests"
         : data.school_id

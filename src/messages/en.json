@@ -83,7 +83,8 @@
     "absences": "Absences",
     "alerts": "Alerts",
     "demoRequests": "Demo requests",
-    "announcements": "Announcements"
+    "announcements": "Announcements",
+    "remarks": "Remarks"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -138,6 +139,15 @@
     },
     "announcement": {
       "title": "New announcement"
+    },
+    "remark": {
+      "title": "Remark about {name}",
+      "types": {
+        "behavior": "Behaviour",
+        "homework": "Homework not done",
+        "material": "Forgot materials",
+        "praise": "Praise"
+      }
     }
   },
   "theme": {
@@ -1143,7 +1153,8 @@
       "absences": "Absences",
       "notifications": "Notifications",
       "announcements": "News"
-    }
+    },
+    "remarksOpen": "Remarks"
   },
   "setup": {
     "title": "School structure",
@@ -2609,6 +2620,79 @@
       "forbidden": "You are not allowed to do this.",
       "notFound": "This announcement no longer exists.",
       "noCurrentYear": "There is no current school year.",
+      "failed": "The operation failed. Try again."
+    }
+  },
+  "remarks": {
+    "title": "Remarks",
+    "descriptionTeacher": "Write a remark about a student of your classes: their parents are told right away.",
+    "descriptionStaff": "Remarks by class. The student's parents are told right away.",
+    "add": "Add a remark",
+    "addShort": "Remark",
+    "edit": "Edit",
+    "read": "Read",
+    "markRead": "Mark as read",
+    "readByParents": "Read by parents",
+    "unreadByParents": "Not read yet",
+    "edited": "edited",
+    "byYou": "by you",
+    "by": "by {name}",
+    "backHome": "Home",
+    "children": "My children",
+    "of": "The school's remarks about {name}",
+    "unreadCount": "{count, plural, one {# unread} other {# unread}}",
+    "emptyParent": "No remarks yet.",
+    "emptyStudent": "No remarks about this student.",
+    "emptyClass": "No remarks in this class this year.",
+    "noClassesTitle": "No classes",
+    "noClasses": "No class this year: the timetable has not given you one yet.",
+    "noYear": "There is no current school year.",
+    "noStudents": "No students in this class.",
+    "classList": "{count, plural, one {# student} other {# students}}",
+    "latest": "Latest remarks",
+    "count": "{count, plural, one {# remark} other {# remarks}}",
+    "notInPlanTitle": "Remarks are not in your plan",
+    "notInPlanDescription": "The communication module is not turned on for this school.",
+    "noChildTitle": "No children",
+    "noChildDescription": "No child is linked to your account yet.",
+    "types": {
+      "behavior": "Behaviour",
+      "homework": "Homework not done",
+      "material": "Forgot materials",
+      "praise": "Praise"
+    },
+    "form": {
+      "createTitle": "New remark",
+      "createDescription": "About {name}. Their parents receive it right away.",
+      "editTitle": "Edit remark",
+      "editDescription": "About {name}. Parents will see it as unread again.",
+      "type": "Type",
+      "body": "Remark",
+      "count": "{count} / {max} characters",
+      "note": "You can edit or delete it for 24 hours.",
+      "cancel": "Cancel",
+      "send": "Send",
+      "save": "Save",
+      "saving": "Saving…",
+      "created": "Remark sent to {name}'s parents",
+      "updated": "Remark updated"
+    },
+    "delete": {
+      "button": "Delete",
+      "title": "Delete this remark?",
+      "description": "It disappears for the parents, with their notification.",
+      "moderateDescription": "It disappears for the parents. The deletion is recorded in the log (who, when, the text).",
+      "done": "Remark deleted"
+    },
+    "errors": {
+      "typeRequired": "Choose the type of remark.",
+      "bodyRequired": "Write the remark.",
+      "bodyTooLong": "The remark cannot be longer than 500 characters.",
+      "invalid": "The information entered is not valid.",
+      "forbidden": "You are not allowed to do this.",
+      "notFound": "This remark no longer exists.",
+      "notEnrolled": "This student is not enrolled in a class this year.",
+      "locked": "Only its author can edit or delete a remark, within 24 hours.",
       "failed": "The operation failed. Try again."
     }
   }

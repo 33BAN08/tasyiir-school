@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { z } from "zod";
 
+import { RemarkDialog } from "@/components/features/remarks/remark-dialog";
 import { StudentAvatar } from "@/components/features/students/student-avatar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -12,6 +13,7 @@ import { getLessonClass } from "@/lib/attendance/roll-call";
 import { homeFor } from "@/lib/auth/roles";
 import { requireArea } from "@/lib/auth/session";
 import { ltr } from "@/lib/format";
+import { getRemarkStaff } from "@/lib/remarks/writer";
 import { SUBJECT_SWATCH } from "@/lib/structure/subject-template";
 import { DAY_KEYS, type SchoolDay } from "@/lib/structure/time-slot-template";
 import { studentInitials, studentName, studentOtherName } from "@/lib/students/names";
@@ -39,7 +41,7 @@ export default async function TeacherLessonPage({ params }: PageProps<"/[locale]
   if (!data) notFound();
   const { lesson, students } = data;
   const dayName = tDays(DAY_KEYS[lesson.day as SchoolDay]);
-  const photos = await signPhotoUrls(students.map((s) => s.photoPath));
+  const [photos, remarkStaff] = await Promise.all([signPhotoUrls(students.map((s) => s.photoPath)), getRemarkStaff()]);
 
   return (
     <div className="mx-auto flex w-full max-w-xl flex-col gap-4">
@@ -92,6 +94,7 @@ export default async function TeacherLessonPage({ params }: PageProps<"/[locale]
           ) : (
             <ul className="flex flex-col gap-2">
               {students.map((s) => {
+                const name = studentName(s, locale);
                 const other = studentOtherName(s, locale);
                 return (
                   <li key={s.id} className="flex min-h-12 items-center gap-3">
@@ -101,10 +104,11 @@ export default async function TeacherLessonPage({ params }: PageProps<"/[locale]
                       alt=""
                       className="size-10 shrink-0 text-xs"
                     />
-                    <span className="flex min-w-0 flex-col">
-                      <bdi className="truncate font-medium">{studentName(s, locale)}</bdi>
+                    <span className="flex min-w-0 flex-1 flex-col">
+                      <bdi className="truncate font-medium">{name}</bdi>
                       {other && <bdi className="truncate text-sm text-muted-foreground">{other}</bdi>}
                     </span>
+                    {remarkStaff?.canWrite && <RemarkDialog studentId={s.id} studentName={name} compact />}
                   </li>
                 );
               })}
