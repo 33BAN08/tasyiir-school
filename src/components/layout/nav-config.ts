@@ -1,6 +1,6 @@
 import type { Area } from "@/lib/auth/roles";
 
-export type NavIcon = "dashboard" | "schools" | "plans" | "staff" | "roles" | "structure" | "students" | "parents" | "teachers" | "timetable" | "attendance";
+export type NavIcon = "dashboard" | "schools" | "plans" | "staff" | "roles" | "structure" | "students" | "parents" | "teachers" | "timetable" | "attendance" | "alerts";
 
 export type NavItem = {
   /** Label key under `nav.*`. */
@@ -12,6 +12,8 @@ export type NavItem = {
   permission?: string;
   /** Hidden unless the user has this built-in role (e.g. a teacher's own pages). */
   role?: string;
+  /** Hidden unless this module is on for the school (plan or override). */
+  module?: string;
 };
 
 /** Sidebar entries per desktop area. Each phase adds its own items here. */
@@ -33,5 +35,6 @@ export const NAV_ITEMS: Record<"platform" | "school", NavItem[]> = {
     { key: "staff", href: "/staff", icon: "staff", permission: "users.view" },
     { key: "roles", href: "/staff/roles", icon: "roles", permission: "roles.manage" },
     { key: "setup", href: "/setup", icon: "structure", permission: "structure.manage" },
+    { key: "alerts", href: "/settings/alerts", icon: "alerts", permission: "alerts.manage", module: "alerts" },
   ],
 } satisfies Partial<Record<Area, NavItem[]>>;

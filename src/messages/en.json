@@ -80,7 +80,8 @@
     "timetable": "Timetable",
     "myTimetable": "My timetable",
     "attendance": "Attendance",
-    "absences": "Absences"
+    "absences": "Absences",
+    "alerts": "Alerts"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -1638,6 +1639,12 @@
         "label": "Manage timetables",
         "description": "Add, move and delete lessons; copy a timetable from last year."
       }
+    },
+    "alerts": {
+      "manage": {
+        "label": "Manage automatic alerts",
+        "description": "Choose when parents and supervision are told (unjustified absences, repeated lateness)."
+      }
     }
   },
   "teachers": {
@@ -2065,6 +2072,56 @@
         "fileUpload": "The file could not be uploaded. Try again.",
         "fileUnavailable": "The file is no longer available."
       }
+    }
+  },
+  "alertSettings": {
+    "title": "Automatic alerts",
+    "description": "Choose when the school automatically tells parents and staff.",
+    "instantNote": "The \"your child is absent\" message, sent 10 minutes after the roll call, is always on. The alerts below are checked every day.",
+    "enabled": "Turn this alert on",
+    "off": "This alert is off: nobody will be told.",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Alerts saved",
+    "unsaved": "Unsaved changes",
+    "lastChange": "Last changed on {when}",
+    "lastChangeBy": "Last changed by {name} on {when}",
+    "notInPlanTitle": "Not included in your plan",
+    "notInPlanDescription": "Automatic alerts are part of the Pro and Premium plans. The absence message to parents stays on. Contact us to change your plan.",
+    "absences": {
+      "title": "Unjustified absences",
+      "description": "When a student builds up unjustified absences in the same month.",
+      "threshold": "Number of days",
+      "thresholdHint": "Days with at least one unjustified absence, in the same month (1 to 20).",
+      "summary": "Tell when a student has an unjustified absence on {count, plural, one {# day} other {# days}} of the same month."
+    },
+    "lateness": {
+      "title": "Repeated lateness",
+      "description": "When a student is often late.",
+      "threshold": "Number of lates",
+      "thresholdHint": "From 2 to 20.",
+      "window": "Over a period of (days)",
+      "windowHint": "The last days counted, 7 to 60.",
+      "summary": "Tell when a student has been late {count, plural, one {# time} other {# times}} in the last {days} days."
+    },
+    "recipients": {
+      "title": "Who to tell",
+      "parents": "Parents",
+      "parentsHint": "Each parent of the student who has an account.",
+      "surveillance": "Supervision",
+      "surveillanceHint": "Staff who manage absences (not the director).",
+      "director": "Director",
+      "directorHint": "The school's director accounts."
+    },
+    "errors": {
+      "forbidden": "You are not allowed to change the alerts.",
+      "notInPlan": "Automatic alerts are not included in your plan.",
+      "failed": "Saving failed. Try again.",
+      "invalid": "Invalid value.",
+      "absenceDays": "Enter a number of days from 1 to 20.",
+      "lateCount": "Enter a number of lates from 2 to 20.",
+      "lateWindow": "Enter a period from 7 to 60 days.",
+      "recipientsRequired": "Choose at least one person to tell."
     }
   }
 }

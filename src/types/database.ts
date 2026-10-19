@@ -106,6 +106,47 @@ export type Database = {
           },
         ]
       }
+      alert_rules: {
+        Row: {
+          enabled: boolean
+          recipients: string[]
+          school_id: string
+          threshold: number
+          type: string
+          updated_at: string
+          updated_by: string | null
+          window_days: number | null
+        }
+        Insert: {
+          enabled?: boolean
+          recipients: string[]
+          school_id: string
+          threshold: number
+          type: string
+          updated_at?: string
+          updated_by?: string | null
+          window_days?: number | null
+        }
+        Update: {
+          enabled?: boolean
+          recipients?: string[]
+          school_id?: string
+          threshold?: number
+          type?: string
+          updated_at?: string
+          updated_by?: string | null
+          window_days?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "alert_rules_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       attendance_marks: {
         Row: {
           marked_at: string

@@ -80,7 +80,8 @@
     "timetable": "Emploi du temps",
     "myTimetable": "Mon emploi du temps",
     "attendance": "Appel",
-    "absences": "Absences"
+    "absences": "Absences",
+    "alerts": "Alertes"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -1638,6 +1639,12 @@
         "label": "Gérer les emplois du temps",
         "description": "Ajouter, déplacer et supprimer des séances ; copier l'emploi du temps de l'année précédente."
       }
+    },
+    "alerts": {
+      "manage": {
+        "label": "Gérer les alertes automatiques",
+        "description": "Choisir quand les parents et la surveillance sont prévenus (absences non justifiées, retards répétés)."
+      }
     }
   },
   "teachers": {
@@ -2065,6 +2072,56 @@
         "fileUpload": "Le fichier n'a pas pu être envoyé. Réessayez.",
         "fileUnavailable": "Le fichier n'est plus disponible."
       }
+    }
+  },
+  "alertSettings": {
+    "title": "Alertes automatiques",
+    "description": "Choisissez quand l'établissement prévient automatiquement les parents et l'équipe.",
+    "instantNote": "Le message « votre enfant est absent », envoyé 10 minutes après l'appel, est toujours actif. Les alertes ci-dessous sont vérifiées chaque jour.",
+    "enabled": "Activer cette alerte",
+    "off": "Cette alerte est désactivée : personne ne sera prévenu.",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "saved": "Alertes enregistrées",
+    "unsaved": "Modifications non enregistrées",
+    "lastChange": "Dernière modification le {when}",
+    "lastChangeBy": "Dernière modification par {name} le {when}",
+    "notInPlanTitle": "Non incluses dans votre formule",
+    "notInPlanDescription": "Les alertes automatiques font partie des formules Pro et Premium. Le message d'absence aux parents reste actif. Contactez-nous pour changer de formule.",
+    "absences": {
+      "title": "Absences non justifiées",
+      "description": "Quand un élève accumule des absences non justifiées dans le même mois.",
+      "threshold": "Nombre de jours",
+      "thresholdHint": "Jours avec au moins une absence non justifiée, dans le même mois (1 à 20).",
+      "summary": "Prévenir quand un élève a une absence non justifiée sur {count, plural, one {# jour} other {# jours}} du même mois."
+    },
+    "lateness": {
+      "title": "Retards répétés",
+      "description": "Quand un élève arrive souvent en retard.",
+      "threshold": "Nombre de retards",
+      "thresholdHint": "De 2 à 20.",
+      "window": "Sur une période de (jours)",
+      "windowHint": "Les derniers jours comptés, de 7 à 60.",
+      "summary": "Prévenir quand un élève a {count, plural, one {# retard} other {# retards}} sur les {days} derniers jours."
+    },
+    "recipients": {
+      "title": "Qui prévenir",
+      "parents": "Les parents",
+      "parentsHint": "Chaque parent de l'élève qui a un compte.",
+      "surveillance": "La surveillance",
+      "surveillanceHint": "Le personnel qui gère les absences (hors direction).",
+      "director": "La direction",
+      "directorHint": "Les comptes directeur de l'établissement."
+    },
+    "errors": {
+      "forbidden": "Vous n'avez pas le droit de modifier les alertes.",
+      "notInPlan": "Les alertes automatiques ne sont pas incluses dans votre formule.",
+      "failed": "L'enregistrement a échoué. Réessayez.",
+      "invalid": "Valeur invalide.",
+      "absenceDays": "Entrez un nombre de jours entre 1 et 20.",
+      "lateCount": "Entrez un nombre de retards entre 2 et 20.",
+      "lateWindow": "Entrez une période entre 7 et 60 jours.",
+      "recipientsRequired": "Choisissez au moins une personne à prévenir."
     }
   }
 }

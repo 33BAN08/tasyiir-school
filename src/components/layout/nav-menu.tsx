@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  BellRing,
   CalendarDays,
   ClipboardCheck,
   GraduationCap,
@@ -36,6 +37,7 @@ const ICONS: Record<NavIcon, typeof LayoutDashboard> = {
   teachers: Presentation,
   timetable: CalendarDays,
   attendance: ClipboardCheck,
+  alerts: BellRing,
 };
 
 export type NavMenuItem = { href: string; label: string; icon: NavIcon };
