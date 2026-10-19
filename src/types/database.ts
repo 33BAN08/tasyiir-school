@@ -195,6 +195,133 @@ export type Database = {
           },
         ]
       }
+      announcement_targets: {
+        Row: {
+          academic_year_id: string
+          announcement_id: string
+          class_id: string | null
+          id: string
+          level_id: string | null
+          school_id: string
+        }
+        Insert: {
+          academic_year_id: string
+          announcement_id: string
+          class_id?: string | null
+          id?: string
+          level_id?: string | null
+          school_id: string
+        }
+        Update: {
+          academic_year_id?: string
+          announcement_id?: string
+          class_id?: string | null
+          id?: string
+          level_id?: string | null
+          school_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "announcement_targets_announcement_fkey"
+            columns: ["announcement_id", "academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "announcements"
+            referencedColumns: ["id", "academic_year_id", "school_id"]
+          },
+          {
+            foreignKeyName: "announcement_targets_class_fkey"
+            columns: ["class_id", "academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id", "academic_year_id", "school_id"]
+          },
+          {
+            foreignKeyName: "announcement_targets_level_fkey"
+            columns: ["level_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "levels"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "announcement_targets_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      announcements: {
+        Row: {
+          academic_year_id: string | null
+          audience: string
+          body: string
+          created_at: string
+          created_by: string
+          id: string
+          school_id: string
+          scope: string
+          title: string
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          academic_year_id?: string | null
+          audience: string
+          body: string
+          created_at?: string
+          created_by: string
+          id?: string
+          school_id: string
+          scope: string
+          title: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          academic_year_id?: string | null
+          audience?: string
+          body?: string
+          created_at?: string
+          created_by?: string
+          id?: string
+          school_id?: string
+          scope?: string
+          title?: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "announcements_author_fkey"
+            columns: ["created_by", "school_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "announcements_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "announcements_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "announcements_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       attendance_marks: {
         Row: {
           marked_at: string
@@ -1714,6 +1841,17 @@ export type Database = {
       copy_time_slots: {
         Args: { p_from_year: string; p_to_year: string }
         Returns: number
+      }
+      create_announcement: {
+        Args: {
+          p_audience: string
+          p_body: string
+          p_class_ids?: string[]
+          p_level_ids?: string[]
+          p_scope: string
+          p_title: string
+        }
+        Returns: string
       }
       import_students: { Args: { p_rows: Json }; Returns: number }
       run_absence_notifications: { Args: { p_now?: string }; Returns: number }

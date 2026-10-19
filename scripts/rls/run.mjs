@@ -44,6 +44,8 @@ import { phase8AlertRules } from "./phase8-alert-rules.mjs";
 import { phase8DailyAlerts } from "./phase8-daily-alerts.mjs";
 import { phase8SubscriptionReminders } from "./phase8-subscription-reminders.mjs";
 import { phase8CrossSchool } from "./phase8-cross-school.mjs";
+import { phase9Announcements } from "./phase9-announcements.mjs";
+import { notificationTypes } from "./notification-types.mjs";
 import { publicDemoRequests } from "./public-demo-requests.mjs";
 import { demoRequestActions } from "./actions-demo-requests.mjs";
 import { phase6Lessons } from "./phase6-lessons.mjs";
@@ -100,6 +102,8 @@ try {
   await phase8DailyAlerts({ fx, as });
   await phase8SubscriptionReminders({ fx, as });
   await phase8CrossSchool({ fx, as });
+  await phase9Announcements({ fx, as });
+  await notificationTypes({ fx, as });
   await publicDemoRequests({ fx, as });
   await import("./rules.mjs");
   await import("./rules-phone.mjs");
@@ -138,7 +142,7 @@ try {
   failed = report();
   if (!withActions) console.log("(Server Action checks skipped: run npm run test:actions with the app running)");
 } catch (error) {
-  console.error("Security test run aborted:", error.message);
+  console.error("Security test run aborted:", error.stack);
 } finally {
   if (fx) {
     const leftovers = await removeFixtures(fx);

@@ -19,8 +19,8 @@ TASYIIR PLATFORM (platform owner)
 | School | surveillant | Absences, justifications, timetable |
 | School | accountant | Fees, payments, receipts |
 | School | transport_manager | Vehicles, routes, students on transport |
-| School | teacher | Own timetable, attendance, grades, cahier de textes, messages |
-| School | parent | Children's absences, grades, fees, bus, messages, justifications |
+| School | teacher | Own timetable, attendance, grades, cahier de textes, announcements to own classes, student remarks |
+| School | parent | Children's absences, grades, fees, bus, announcements, remarks, justifications |
 | School | student | Timetable, grades, absences |
 | School | driver | Route view, mark pickup/drop-off |
 
@@ -40,7 +40,7 @@ Expired subscription → school becomes read-only. Disabled module → routes bl
 - **Emploi du temps:** weekly grid per class/teacher/room, drag & drop, conflict detection (teacher/room/class double booking), PDF export.
 - **Absences:** teacher opens "current session" from timetable → all present by default → tap absent/late → save. Staff corrections. History & totals.
 - **Justifications:** parent uploads proof (photo/PDF) → staff approve/reject.
-- **Communication:** realtime chat parent↔teacher, teacher↔admin; announcements by school/level/class.
+- **Communication:** announcements by school/level/class; student remarks (comportement, travail non fait, oubli de matériel, félicitations) → parents notified at once, marked "Lu"; school contact card (phone + WhatsApp) in the parent portal. Remarks later feed report cards (Pro). **Private chat (parent↔teacher, teacher↔admin) = not planned** (user, 2026-10-19).
 - **Grades:** terms, assessments (contrôle/devoir/exam), coefficients, grade entry grid, averages, rank, bulletin PDF, publish to parents.
 - **Fees:** fee types, fee plans per level, discounts (siblings/scholarship), monthly invoice generation, payments (cash/cheque/transfer, partial), PDF receipts, overdue list. Online payment (CMI) later.
 - **Transport:** vehicles (insurance expiry), drivers, routes & stops, student assignment, pickup/drop-off logs + parent notification. GPS later.
@@ -91,10 +91,10 @@ justifications (id, school_id, student_id, from_date, to_date, reason, file_url,
 lesson_logs (id, school_id, session_id, content, homework)   -- cahier de textes
 
 -- Communication
-conversations (id, school_id, type, title)
-conversation_members (conversation_id, profile_id, last_read_at)
-messages (id, school_id, conversation_id, sender_id, body, attachment_url, created_at)
-announcements (id, school_id, target_type[school|level|class], target_id, title, body, created_by)
+-- (conversations / messages: private chat not planned)
+announcements (id, school_id, scope[school|levels|classes], audience[parents|staff|everyone], academic_year_id, title, body, created_by)
+announcement_targets (announcement_id, school_id, academic_year_id, level_id | class_id)
+student_remarks (id, school_id, student_id, academic_year_id, type[behavior|homework|material|praise], body, created_by, read_at, read_by)
 notifications (id, school_id, profile_id, type, payload jsonb, read_at)
 
 -- Grades
@@ -173,9 +173,9 @@ tasyiir-school/
 - [x] **6. Emploi du temps** — grid, drag & drop, conflict detection, PDF
 - [x] **7. Absences + justifications** — teacher roll call (phone), staff day view / corrections / totals, parent justifications with photo / PDF, staff review
 - [x] **8. Alerts engine + notifications** — in-app (bell, list, Realtime): absence after 10 min + corrections, daily unjustified-absence / repeated-lateness alerts with director settings, subscription reminders. Email (Resend, `tasyir.ma`) later, as a delivery of the same notifications
-- [ ] **9. Messaging + announcements**
+- [ ] **9. Announcements + remarks** — announcements (school / levels / classes; teachers to their own classes), student remarks with parent notification + "Lu", school contact card in the parent portal. Private chat not planned
 - [ ] 🎯 **MVP = Basic plan → deploy demo, start showing schools**
-- [ ] **10. Grades + report cards**
+- [ ] **10. Grades + report cards** (report cards include the term's student remarks, Pro)
 - [ ] **11. Massar import/export**
 - [ ] **12. Fees + payments + receipts**
 - [ ] **13. Transport + driver view**

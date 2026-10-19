@@ -111,6 +111,10 @@ export async function notificationActions({ fx, baseUrl }) {
     { school_id: A.id, recipient_id: fx.users.dirA.id, type: "subscription_expiring", data: reminder },
     { school_id: null, recipient_id: fx.users.owner.id, type: "subscription_expiring", data: reminder },
   ]).select("id");
+  // Every platform owner is told of each demo request: a real visitor's request during the run
+  // reaches the fixture owner too. Only this reminder may be unread for the bell count.
+  await admin.from("notifications").update({ read_at: new Date().toISOString() })
+    .eq("recipient_id", fx.users.owner.id).is("read_at", null).neq("id", subRows[1].id);
   const dirCookies = await sessionCookies(fx.users.dirA);
   const ownerCookies = await sessionCookies(fx.users.owner);
   const dirPage = await get("/fr/notifications", dirCookies);
