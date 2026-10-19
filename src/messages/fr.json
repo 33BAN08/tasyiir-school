@@ -90,6 +90,32 @@
     "poweredBy": "Propulsé par {brand}",
     "accountMenu": "Menu du compte"
   },
+  "notifications": {
+    "bell": "Notifications",
+    "bellUnread": "Notifications, {count, plural, one {# non lue} other {# non lues}}",
+    "title": "Notifications",
+    "description": "Les derniers messages qui vous sont destinés.",
+    "emptyTitle": "Aucune notification",
+    "emptyDescription": "Les nouvelles notifications apparaîtront ici dès leur arrivée.",
+    "unreadCount": "{count, plural, one {# non lue} other {# non lues}}",
+    "allRead": "Tout est lu",
+    "markAllRead": "Tout marquer comme lu",
+    "markRead": "Marquer comme lu",
+    "unread": "Non lue",
+    "aStudent": "un élève",
+    "limit": "Seules les {count} dernières notifications sont affichées.",
+    "absence": {
+      "title": "Absence de {name}",
+      "body": "{subject} · {hours} · {date}"
+    },
+    "corrected": {
+      "title": "Absence corrigée · {name}",
+      "present": "L'absence du {date} ({subject}, {hours}) a été retirée : la présence est confirmée.",
+      "late": "L'absence du {date} ({subject}, {hours}) est devenue un retard.",
+      "lateMinutes": "L'absence du {date} ({subject}, {hours}) est devenue un retard de {minutes} min.",
+      "cancelled": "L'absence a été annulée par l'établissement"
+    }
+  },
   "theme": {
     "label": "Apparence",
     "light": "Clair",

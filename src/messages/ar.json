@@ -90,6 +90,32 @@
     "poweredBy": "بدعم من {brand}",
     "accountMenu": "قائمة الحساب"
   },
+  "notifications": {
+    "bell": "الإشعارات",
+    "bellUnread": "الإشعارات، {count, plural, one {إشعار واحد غير مقروء} two {إشعاران غير مقروءين} few {# إشعارات غير مقروءة} many {# إشعارًا غير مقروء} other {# إشعار غير مقروء}}",
+    "title": "الإشعارات",
+    "description": "آخر الرسائل الموجَّهة إليك.",
+    "emptyTitle": "لا توجد إشعارات",
+    "emptyDescription": "ستظهر الإشعارات الجديدة هنا فور وصولها.",
+    "unreadCount": "{count, plural, one {إشعار واحد غير مقروء} two {إشعاران غير مقروءين} few {# إشعارات غير مقروءة} many {# إشعارًا غير مقروء} other {# إشعار غير مقروء}}",
+    "allRead": "كل الإشعارات مقروءة",
+    "markAllRead": "تعليم الكل كمقروء",
+    "markRead": "تعليم كمقروء",
+    "unread": "غير مقروء",
+    "aStudent": "تلميذ",
+    "limit": "تُعرض آخر {count} إشعارًا فقط.",
+    "absence": {
+      "title": "غياب {name}",
+      "body": "{subject} · {hours} · {date}"
+    },
+    "corrected": {
+      "title": "تصحيح غياب {name}",
+      "present": "أُلغي الغياب بتاريخ {date} ({subject}، {hours}): الحضور مؤكَّد.",
+      "late": "تحوّل الغياب بتاريخ {date} ({subject}، {hours}) إلى تأخر.",
+      "lateMinutes": "تحوّل الغياب بتاريخ {date} ({subject}، {hours}) إلى تأخر مدته {minutes} دقيقة.",
+      "cancelled": "أُلغي الغياب من طرف المؤسسة"
+    }
+  },
   "theme": {
     "label": "المظهر",
     "light": "فاتح",

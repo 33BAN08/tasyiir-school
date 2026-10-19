@@ -90,6 +90,32 @@
     "poweredBy": "Powered by {brand}",
     "accountMenu": "Account menu"
   },
+  "notifications": {
+    "bell": "Notifications",
+    "bellUnread": "Notifications, {count} unread",
+    "title": "Notifications",
+    "description": "The latest messages addressed to you.",
+    "emptyTitle": "No notifications",
+    "emptyDescription": "New notifications will appear here as soon as they arrive.",
+    "unreadCount": "{count} unread",
+    "allRead": "All read",
+    "markAllRead": "Mark all as read",
+    "markRead": "Mark as read",
+    "unread": "Unread",
+    "aStudent": "a student",
+    "limit": "Only the latest {count} notifications are shown.",
+    "absence": {
+      "title": "{name} was absent",
+      "body": "{subject} · {hours} · {date}"
+    },
+    "corrected": {
+      "title": "Absence corrected · {name}",
+      "present": "The absence on {date} ({subject}, {hours}) was removed: attendance is confirmed.",
+      "late": "The absence on {date} ({subject}, {hours}) became a late arrival.",
+      "lateMinutes": "The absence on {date} ({subject}, {hours}) became a late arrival of {minutes} min.",
+      "cancelled": "The absence was cancelled by the school"
+    }
+  },
   "theme": {
     "label": "Appearance",
     "light": "Light",

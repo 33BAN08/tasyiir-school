@@ -187,6 +187,30 @@ export async function phase8Notifications({ fx, as }) {
   const call = await dirA.rpc("run_absence_notifications", {});
   check("[P8 notif] a signed-in user cannot run the sender", call.error?.code === "42501", call.error?.code ?? "ACCEPTED!");
 
+  // --- Realtime (step 2): a parent is sent their own new notification, nobody else's ----------------
+  const heard = { own: [], other: [] };
+  // Resolves once Realtime confirms the Postgres subscription (SUBSCRIBED alone comes a moment earlier).
+  const listen = (client, bucket) =>
+    new Promise((resolve) => {
+      const channel = client.channel(`n8-${randomBytes(4).toString("hex")}`)
+        .on("system", {}, (m) => { if (m.extension === "postgres_changes" && m.status === "ok") resolve(channel); })
+        .on("postgres_changes", { event: "INSERT", schema: "public", table: "notifications" }, (m) => bucket.push(m.new.id));
+      channel.subscribe((status) => { if (status === "CHANNEL_ERROR" || status === "TIMED_OUT") resolve(null); });
+      setTimeout(() => resolve(null), 10_000);
+    });
+  const chOwn = await listen(par1.client, heard.own);
+  const chOther = await listen(par4.client, heard.other);
+  check("[P8 notif] Realtime: both parents subscribe", Boolean(chOwn && chOther));
+  const s3 = must(await save(past, [absent(kid1)]), "realtime roll call");
+  await run();
+  for (let i = 0; i < 40 && heard.own.length === 0; i++) await new Promise((r) => setTimeout(r, 250));
+  await new Promise((r) => setTimeout(r, 1000)); // time for a wrongly delivered event to arrive
+  const [latest] = (await notes(par1)).data.slice(-1);
+  check("[P8 notif] Realtime: the parent is sent their new notification", heard.own.length === 1 && heard.own[0] === latest.id, `${heard.own.length} event(s)`);
+  check("[P8 notif] Realtime: another parent is sent nothing", heard.other.length === 0, `${heard.other.length} event(s)`);
+  for (const ch of [chOwn, chOther]) if (ch) await ch.unsubscribe();
+  await admin.from("absence_notices").delete().eq("session_id", s3);
+
   // --- Clean up ---------------------------------------------------------------------------------------
   await admin.from("attendance_sessions").delete().eq("class_id", klass);
   await admin.from("absence_notices").delete().in("session_id", [session, oldSession, s2]);
