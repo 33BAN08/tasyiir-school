@@ -115,6 +115,14 @@
       "late": "The absence on {date} ({subject}, {hours}) became a late arrival.",
       "lateMinutes": "The absence on {date} ({subject}, {hours}) became a late arrival of {minutes} min.",
       "cancelled": "The absence was cancelled by the school"
+    },
+    "unjustified": {
+      "title": "Unjustified absences · {name}",
+      "body": "Unjustified absence on {days, plural, one {# day} other {# days}} in {month}."
+    },
+    "lateness": {
+      "title": "Repeated lateness · {name}",
+      "body": "Late {count, plural, one {# time} other {# times}} in the last {windowDays} days ({from} to {to})."
     }
   },
   "theme": {

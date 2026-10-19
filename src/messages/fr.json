@@ -115,6 +115,14 @@
       "late": "L'absence du {date} ({subject}, {hours}) est devenue un retard.",
       "lateMinutes": "L'absence du {date} ({subject}, {hours}) est devenue un retard de {minutes} min.",
       "cancelled": "L'absence a été annulée par l'établissement"
+    },
+    "unjustified": {
+      "title": "Absences non justifiées · {name}",
+      "body": "Absence non justifiée sur {days, plural, one {# jour} other {# jours}} en {month}."
+    },
+    "lateness": {
+      "title": "Retards répétés · {name}",
+      "body": "{count, plural, one {# retard} other {# retards}} sur les {windowDays} derniers jours (du {from} au {to})."
     }
   },
   "theme": {

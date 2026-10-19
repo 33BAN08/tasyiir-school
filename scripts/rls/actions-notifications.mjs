@@ -83,6 +83,28 @@ export async function notificationActions({ fx, baseUrl }) {
   const { data: again } = await admin.from("notifications").select("read_at").eq("id", a1).single();
   check("[P8 notif actions] marking an already-read notification keeps its first read time", first && again.read_at === first);
 
+  // --- Daily alerts (step 4): their sentences; a parent's opens the child's absences, staff's the student page ---
+  const { data: kid } = await admin.from("students")
+    .insert({ school_id: A.id, first_name: "Alerte", last_name: "NT", birth_date: "2014-01-01", gender: "male" }).select("id").single();
+  const { data: daily } = await admin.from("notifications").insert([
+    { school_id: A.id, recipient_id: par1.id, type: "unjustified_absences", student_id: kid.id, data: { month: "2026-10", days: 3 } },
+    { school_id: A.id, recipient_id: par1.id, type: "repeated_lateness", student_id: kid.id, data: { count: 4, window_days: 14, from: "2026-10-06", to: "2026-10-19" } },
+    { school_id: A.id, recipient_id: fx.users.survA.id, type: "unjustified_absences", student_id: kid.id, data: { month: "2026-10", days: 5 } },
+  ]).select("id");
+  const parentPage = await get(PAGE, par1.cookies);
+  check("[P8 notif pages] unjustified absences: month written in the UI language",
+    parentPage.html.includes("Absence non justifiée sur 3 jours en octobre 2026."), String(parentPage.status));
+  check("[P8 notif pages] repeated lateness: count, window and dates",
+    /4 retards sur les 14 derniers jours \(du ⁦?06\/10\/2026⁩? au ⁦?19\/10\/2026⁩?\)/.test(parentPage.html));
+  check("[P8 notif pages] a parent's alert opens the child's absences", parentPage.html.includes(`href="/fr/portal/absences?child=${kid.id}"`));
+  const arPage = await get("/ar/portal/notifications", par1.cookies);
+  check("[P8 notif pages] Arabic: month name in Arabic", arPage.html.includes("أكتوبر 2026"), String(arPage.status));
+  const survPage = await get("/fr/notifications", survCookies);
+  check("[P8 notif pages] staff: the alert opens the student's page",
+    survPage.html.includes(`href="/fr/students/${kid.id}"`) && survPage.html.includes("5 jours en octobre 2026"), String(survPage.status));
+  await admin.from("notifications").delete().in("id", daily.map((n) => n.id));
+  await admin.from("students").delete().eq("id", kid.id);
+
   // --- Clean up ---------------------------------------------------------------------------------------------------
   await admin.from("notifications").delete().in("id", [a1, a2, a3, b1, b2]);
 }

@@ -115,6 +115,14 @@
       "late": "تحوّل الغياب بتاريخ {date} ({subject}، {hours}) إلى تأخر.",
       "lateMinutes": "تحوّل الغياب بتاريخ {date} ({subject}، {hours}) إلى تأخر مدته {minutes} دقيقة.",
       "cancelled": "أُلغي الغياب من طرف المؤسسة"
+    },
+    "unjustified": {
+      "title": "غياب غير مبرر · {name}",
+      "body": "غياب غير مبرر في {days, plural, one {يوم واحد} two {يومين} few {# أيام} many {# يومًا} other {# يوم}} خلال شهر {month}."
+    },
+    "lateness": {
+      "title": "تأخر متكرر · {name}",
+      "body": "تأخر {count, plural, one {مرة واحدة} two {مرتين} few {# مرات} many {# مرة} other {# مرة}} خلال آخر {windowDays} يومًا (من {from} إلى {to})."
     }
   },
   "theme": {

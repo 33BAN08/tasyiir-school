@@ -1,12 +1,12 @@
 "use client";
 
-import { BellRing, CalendarX2, Check, CheckCheck, Undo2 } from "lucide-react";
+import { BellRing, CalendarClock, CalendarX2, Check, CheckCheck, Clock, Undo2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState, useSyncExternalStore, useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Link, useRouter } from "@/i18n/navigation";
-import { formatDate, formatDateTime, isolate, ltr } from "@/lib/format";
+import { formatDate, formatDateTime, formatMonth, isolate, ltr } from "@/lib/format";
 import { markAllNotificationsRead, markNotificationRead } from "@/lib/notifications/actions";
 import type { NotificationItem } from "@/lib/notifications/types";
 import { studentName } from "@/lib/students/names";
@@ -84,6 +84,19 @@ function Row({ item, area, read, onRead }: { item: NotificationItem; area: Props
   if (item.type === "absence") {
     title = t("absence.title", { name });
     body = t("absence.body", when);
+  } else if (item.type === "unjustified_absences") {
+    Icon = CalendarClock;
+    title = t("unjustified.title", { name });
+    body = t("unjustified.body", { days: data.days ?? 0, month: data.month ? formatMonth(data.month, locale) : "" });
+  } else if (item.type === "repeated_lateness") {
+    Icon = Clock;
+    title = t("lateness.title", { name });
+    body = t("lateness.body", {
+      count: data.count ?? 0,
+      windowDays: data.window_days ?? 0,
+      from: data.from ? ltr(formatDate(data.from)) : "",
+      to: data.to ? ltr(formatDate(data.to)) : "",
+    });
   } else {
     Icon = Undo2;
     title = t("corrected.title", { name });
@@ -97,7 +110,12 @@ function Row({ item, area, read, onRead }: { item: NotificationItem; area: Props
           : t("corrected.present", when);
   }
 
-  const href = area === "portal" && item.studentId ? `/portal/absences?child=${item.studentId}` : null;
+  // A parent opens the child's absences; staff (daily alerts) the student's page.
+  const href = !item.studentId
+    ? null
+    : area === "portal"
+      ? `/portal/absences?child=${item.studentId}`
+      : `/students/${item.studentId}`;
   const content = (
     <>
       <span

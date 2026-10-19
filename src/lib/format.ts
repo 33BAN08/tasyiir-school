@@ -46,6 +46,16 @@ export function formatDateTime(value: string | Date): string {
   return dateTimeFormat.format(new Date(value)).replace(",", "");
 }
 
+/** `2026-10` → "octobre 2026" / "أكتوبر 2026" / "October 2026" (UI language, Latin digits). */
+export function formatMonth(month: string, locale: string): string {
+  return new Intl.DateTimeFormat(locale === "ar" ? "ar-MA" : locale, {
+    timeZone: "UTC",
+    month: "long",
+    year: "numeric",
+    numberingSystem: "latn",
+  }).format(new Date(`${month}-15T12:00:00Z`));
+}
+
 /**
  * Keeps a left-to-right value (year "2026-2027", time range "08:00–09:00")
  * in order inside an Arabic sentence. Without it the browser treats digits

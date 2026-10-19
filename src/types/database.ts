@@ -106,6 +106,54 @@ export type Database = {
           },
         ]
       }
+      alert_events: {
+        Row: {
+          count: number
+          created_at: string
+          id: string
+          period_end: string
+          period_start: string
+          school_id: string
+          student_id: string
+          type: string
+        }
+        Insert: {
+          count: number
+          created_at?: string
+          id?: string
+          period_end: string
+          period_start: string
+          school_id: string
+          student_id: string
+          type: string
+        }
+        Update: {
+          count?: number
+          created_at?: string
+          id?: string
+          period_end?: string
+          period_start?: string
+          school_id?: string
+          student_id?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "alert_events_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "alert_events_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       alert_rules: {
         Row: {
           enabled: boolean
@@ -1567,6 +1615,7 @@ export type Database = {
       }
       import_students: { Args: { p_rows: Json }; Returns: number }
       run_absence_notifications: { Args: { p_now?: string }; Returns: number }
+      run_daily_alerts: { Args: { p_today: string }; Returns: number }
       save_attendance: {
         Args: { p_date: string; p_lesson: string; p_marks?: Json }
         Returns: string
