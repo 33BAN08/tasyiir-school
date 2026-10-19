@@ -35,6 +35,6 @@ export function AccessBlockedCard({ reason }: { reason: Reason }) {
 async function BlockedGate({ reason }: { reason: Reason }) {
   const user = await getCurrentUser();
   if (!user) return redirect({ href: "/login", locale: await getLocale() });
-  if (blockedPath(user) !== `/${reason}`) return redirect({ href: "/", locale: await getLocale() });
+  if (blockedPath(user) !== `/${reason}`) return redirect({ href: "/start", locale: await getLocale() });
   return <LogoutButton />;
 }

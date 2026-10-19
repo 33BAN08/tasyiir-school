@@ -52,6 +52,16 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 4. Update "Current phase" above and tick the phase in `docs/PLAN.md`.
 5. Commit with a clear message, push to GitHub (Vercel deploys automatically).
 
+## Public home page — done 2026-10-19 (outside the phases; user's request)
+- `/[locale]` = public landing (`PUBLIC_PATHS` in `src/proxy.ts`), fully static. The old role redirect lives at **`/start`**: every "go home" redirect (after sign-in, password change, not-found, `/login` while signed in) goes there; `safeNext("/")` → `/start`.
+- Components `src/components/features/landing/`; own light palette = `lp-*` tokens scoped to `.landing` in `globals.css` (never dark; `color-scheme: light`). Text pairs ≥ 4.5:1: buttons / green text `lp-brand` (#0B7A49), `lp-brand-strong` large headings only, `lp-deco` decoration only.
+- Fonts: `src/lib/fonts.ts` (Inter + Almarai). `latinThenArabic()` puts both REAL fonts before next/font's fallbacks — "Inter Fallback" is a local Arial with Arabic letters and otherwise wins over Almarai.
+- Demo form → `demo_requests` (migration `public_demo_requests`): no school_id (prospects); anon INSERT of the form's columns only (no SELECT: the action inserts without RETURNING, always as anon even for a signed-in visitor); platform owner SELECT + UPDATE(handled_at), trigger sets handled_by. Limits in the DB trigger: same phone 3 / 24 h (hint `phone`), 30 / hour overall (hint `global`) → the form shows a friendly panel + WhatsApp, never an error (user: a real school must never be blocked). Honeypot `website` in the action. Each request notifies every platform owner (`demo_request`, school_id NULL) → `/platform/demo-requests` inbox.
+- `NEXT_PUBLIC_WHATSAPP_NUMBER` (digits) — empty hides every WhatsApp button.
+- **No backups claim** on the page while production is on the Supabase free plan (no daily backups); add the "Sauvegardes" trust point back when it moves to Pro (user, 2026-10-19).
+- "Bientôt" badges come from `soon` in `landing/content.ts`: update them as phases ship.
+- Tests: `public-demo-requests.mjs` (24; the 30 / hour limit is NOT run — it would block real visitors for an hour; checked once in a rolled-back DO block), `actions-demo-requests.mjs` (15, incl. page access and `/start`).
+
 ## Phase 8 — done 2026-10-19 (notes kept for later phases)
 Same workflow (show every migration, wait for OK, commit + push each step, test in Chrome AR + FR). Decisions (user, 2026-10-18):
 - **Plans:** the instant "child absent" in-app notification is in every plan (Basic too, it belongs to attendance); the daily alerts (and email, later) only with the `alerts` module (Pro / Premium).

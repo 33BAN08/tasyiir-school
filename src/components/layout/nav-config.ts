@@ -1,6 +1,6 @@
 import type { Area } from "@/lib/auth/roles";
 
-export type NavIcon = "dashboard" | "schools" | "plans" | "staff" | "roles" | "structure" | "students" | "parents" | "teachers" | "timetable" | "attendance" | "alerts";
+export type NavIcon = "dashboard" | "schools" | "plans" | "staff" | "roles" | "structure" | "students" | "parents" | "teachers" | "timetable" | "attendance" | "alerts" | "inbox";
 
 export type NavItem = {
   /** Label key under `nav.*`. */
@@ -22,6 +22,7 @@ export const NAV_ITEMS: Record<"platform" | "school", NavItem[]> = {
     { key: "dashboard", href: "/platform", icon: "dashboard" },
     { key: "schools", href: "/platform/schools", icon: "schools" },
     { key: "plans", href: "/platform/plans", icon: "plans" },
+    { key: "demoRequests", href: "/platform/demo-requests", icon: "inbox" },
   ],
   school: [
     { key: "dashboard", href: "/dashboard", icon: "dashboard" },

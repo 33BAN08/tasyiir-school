@@ -468,6 +468,59 @@ export type Database = {
           },
         ]
       }
+      demo_requests: {
+        Row: {
+          city: string
+          created_at: string
+          email: string | null
+          full_name: string
+          handled_at: string | null
+          handled_by: string | null
+          id: string
+          locale: string
+          message: string | null
+          phone: string
+          school_name: string
+          students: string
+        }
+        Insert: {
+          city: string
+          created_at?: string
+          email?: string | null
+          full_name: string
+          handled_at?: string | null
+          handled_by?: string | null
+          id?: string
+          locale?: string
+          message?: string | null
+          phone: string
+          school_name: string
+          students: string
+        }
+        Update: {
+          city?: string
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          handled_at?: string | null
+          handled_by?: string | null
+          id?: string
+          locale?: string
+          message?: string | null
+          phone?: string
+          school_name?: string
+          students?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "demo_requests_handled_by_fkey"
+            columns: ["handled_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       guardians: {
         Row: {
           created_at: string

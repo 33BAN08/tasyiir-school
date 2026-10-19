@@ -43,7 +43,10 @@ import { phase8Notifications } from "./phase8-notifications.mjs";
 import { phase8AlertRules } from "./phase8-alert-rules.mjs";
 import { phase8DailyAlerts } from "./phase8-daily-alerts.mjs";
 import { phase8SubscriptionReminders } from "./phase8-subscription-reminders.mjs";
-import { phase8CrossSchool } from "./phase8-cross-school.mjs";import { phase6Lessons } from "./phase6-lessons.mjs";
+import { phase8CrossSchool } from "./phase8-cross-school.mjs";
+import { publicDemoRequests } from "./public-demo-requests.mjs";
+import { demoRequestActions } from "./actions-demo-requests.mjs";
+import { phase6Lessons } from "./phase6-lessons.mjs";
 import { lessonBlockActions } from "./actions-lesson-blocks.mjs";
 import { lessonCopyActions } from "./actions-lesson-copy.mjs";
 import { timetablePages } from "./pages-timetable.mjs";
@@ -96,7 +99,9 @@ try {
   await phase8AlertRules({ fx, as });
   await phase8DailyAlerts({ fx, as });
   await phase8SubscriptionReminders({ fx, as });
-  await phase8CrossSchool({ fx, as });  await import("./rules.mjs");
+  await phase8CrossSchool({ fx, as });
+  await publicDemoRequests({ fx, as });
+  await import("./rules.mjs");
   await import("./rules-phone.mjs");
   await import("./rules-import.mjs");
   await import("./rules-timetable-now.mjs");
@@ -127,6 +132,7 @@ try {
     await staffJustificationActions({ fx, baseUrl });
     await notificationActions({ fx, baseUrl });
     await alertRuleActions({ fx, baseUrl });
+    await demoRequestActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

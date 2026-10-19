@@ -181,6 +181,84 @@
   --subject-slate: #94a3b8;
 }
 
+/*
+ * Public home page (/[locale]): its own light palette, whatever the app theme.
+ * Text pairs reach 4.5:1 (lp-brand on white 5.4, on lp-tint 4.75); lp-brand-strong
+ * is for large headings only, lp-deco for decoration only.
+ */
+@theme inline {
+  --color-lp-bg: var(--lp-bg);
+  --color-lp-surface: var(--lp-surface);
+  --color-lp-tint: var(--lp-tint);
+  --color-lp-ink: var(--lp-ink);
+  --color-lp-muted: var(--lp-muted);
+  --color-lp-line: var(--lp-line);
+  --color-lp-field: var(--lp-field);
+  --color-lp-brand: var(--lp-brand);
+  --color-lp-brand-hover: var(--lp-brand-hover);
+  --color-lp-brand-strong: var(--lp-brand-strong);
+  --color-lp-deco: var(--lp-deco);
+  --color-lp-band: var(--lp-band);
+  --color-lp-band-2: var(--lp-band-2);
+  --color-lp-band-muted: var(--lp-band-muted);
+  --color-lp-band-accent: var(--lp-band-accent);
+  --color-lp-band-line: var(--lp-band-line);
+  --color-lp-on-brand: var(--lp-on-brand);
+  --color-lp-absent: var(--lp-absent);
+  --color-lp-absent-bg: var(--lp-absent-bg);
+  --color-lp-late: var(--lp-late);
+  --color-lp-late-bg: var(--lp-late-bg);
+  --color-lp-info: var(--lp-info);
+  --color-lp-info-bg: var(--lp-info-bg);
+  --color-lp-whatsapp: var(--lp-whatsapp);
+}
+
+.landing {
+  color-scheme: light;
+  --lp-bg: #f4fbf7;
+  --lp-surface: #ffffff;
+  --lp-tint: #e6f4ec;
+  --lp-ink: #0e2a1f;
+  --lp-muted: #4a6357;
+  --lp-line: #cfe6d9;
+  --lp-field: #6b8c7c;
+  --lp-brand: #0b7a49;
+  --lp-brand-hover: #096a3f;
+  --lp-brand-strong: #0f8a54;
+  --lp-deco: #1fb06e;
+  --lp-band: #063a27;
+  --lp-band-2: #0a4a32;
+  --lp-band-muted: #bfe3cf;
+  --lp-band-accent: #7ee2ae;
+  --lp-band-line: #2c6b50;
+  --lp-on-brand: #ffffff;
+  --lp-absent: #b42318;
+  --lp-absent-bg: #fdecea;
+  --lp-late: #a15c07;
+  --lp-late-bg: #fef3e2;
+  --lp-info: #1d4ed8;
+  --lp-info-bg: #eaf0fe;
+  /* WhatsApp's own green, with dark text (8.1:1) */
+  --lp-whatsapp: #25d366;
+  /* app tokens used by base styles (borders, outlines) */
+  --border: var(--lp-line);
+  --ring: var(--lp-brand);
+  --background: var(--lp-bg);
+  --foreground: var(--lp-ink);
+}
+
+/* Keep anchors and focused fields clear of the sticky header and the phone bar. */
+html:has(.landing) {
+  scroll-padding-top: 5rem;
+  scroll-padding-bottom: 5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.landing) {
+    scroll-behavior: smooth;
+  }
+}
+
 @utility font-numeric {
   font-family: var(--font-numeric);
   font-variant-numeric: tabular-nums;

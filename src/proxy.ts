@@ -6,8 +6,8 @@ import { refreshSession } from "@/lib/supabase/middleware";
 
 const handleI18nRouting = createIntlMiddleware(routing);
 
-/** Paths (without locale prefix) reachable while signed out. */
-const PUBLIC_PATHS = ["/login"];
+/** Paths (without locale prefix) reachable while signed out: the home page and sign-in. */
+const PUBLIC_PATHS = ["/", "/login"];
 
 export async function proxy(request: NextRequest) {
   // 1. Refresh the Supabase session first: it updates the request cookies,
@@ -25,12 +25,13 @@ export async function proxy(request: NextRequest) {
 
   if (!session.isSignedIn && !isPublic) {
     const url = new URL(`/${locale}/login`, request.url);
-    if (path !== "/") url.searchParams.set("next", path + request.nextUrl.search);
+    if (path !== "/start") url.searchParams.set("next", path + request.nextUrl.search);
     return session.applyTo(NextResponse.redirect(url));
   }
 
+  // Signed in, "Se connecter" on the home page opens the user's own area.
   if (session.isSignedIn && path === "/login") {
-    return session.applyTo(NextResponse.redirect(new URL(`/${locale}`, request.url)));
+    return session.applyTo(NextResponse.redirect(new URL(`/${locale}/start`, request.url)));
   }
 
   return response;

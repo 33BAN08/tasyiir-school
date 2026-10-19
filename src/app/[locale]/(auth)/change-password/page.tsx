@@ -32,6 +32,6 @@ async function ForcedChangeGate() {
   if (!user) return redirect({ href: "/login", locale: await getLocale() });
   const blocked = blockedPath(user);
   if (blocked) return redirect({ href: blocked, locale: await getLocale() });
-  if (!user.mustChangePassword) return redirect({ href: "/", locale: await getLocale() });
+  if (!user.mustChangePassword) return redirect({ href: "/start", locale: await getLocale() });
   return <ChangePasswordForm />;
 }

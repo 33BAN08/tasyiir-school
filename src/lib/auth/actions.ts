@@ -13,9 +13,12 @@ import { changePasswordSchema, loginSchema } from "@/lib/validations/auth";
 /** `error` is a next-intl key under `auth.errors`. */
 export type AuthActionResult = { ok: false; error: string };
 
-/** Only same-site relative paths; blocks open redirects like `//evil.com`. */
+/**
+ * Only same-site relative paths; blocks open redirects like `//evil.com`.
+ * "/" is the public home page: signed in, a user goes to their area (/start).
+ */
 function safeNext(next: unknown): string {
-  return typeof next === "string" && /^\/(?![/\\])/.test(next) ? next : "/";
+  return typeof next === "string" && next !== "/" && /^\/(?![/\\])/.test(next) ? next : "/start";
 }
 
 /** Server Actions cannot read the [locale] segment: the client passes it in. */
@@ -93,7 +96,7 @@ export async function changePassword(input: unknown, locale: unknown): Promise<A
 
   if (profileError) return { ok: false, error: "generic" };
 
-  return redirect({ href: "/", locale: safeLocale(locale) });
+  return redirect({ href: "/start", locale: safeLocale(locale) });
 }
 
 export async function signOut(locale: unknown): Promise<void> {

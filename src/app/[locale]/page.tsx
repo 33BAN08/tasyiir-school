@@ -1,23 +1,22 @@
-import { getLocale } from "next-intl/server";
-import { Suspense } from "react";
+import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 
-import { Skeleton } from "@/components/ui/skeleton";
-import { redirect } from "@/i18n/navigation";
-import { homeFor } from "@/lib/auth/roles";
-import { requireUser } from "@/lib/auth/session";
+import { LandingPage } from "@/components/features/landing/landing-page";
 
-/** "/" sends each user to their area: platform, school dashboard, parent portal or driver. */
-export default function RootPage() {
-  return (
-    <main className="flex flex-1 items-center justify-center p-6">
-      <Suspense fallback={<Skeleton className="size-12 rounded-xl" />}>
-        <RoleRedirect />
-      </Suspense>
-    </main>
-  );
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("landing.meta");
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: { languages: { ar: "/ar", fr: "/fr", en: "/en" } },
+  };
 }
 
-async function RoleRedirect(): Promise<never> {
-  const user = await requireUser();
-  return redirect({ href: homeFor(user), locale: await getLocale() });
+/**
+ * The public home page: no session needed (PUBLIC_PATHS in src/proxy.ts), fully
+ * static. Signed-in users reach their own area through /start (sign-in links
+ * and every "home" redirect go there).
+ */
+export default function HomePage() {
+  return <LandingPage />;
 }

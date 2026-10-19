@@ -1,6 +1,6 @@
 "use client";
 
-import { BellRing, CalendarClock, CalendarX2, Check, CheckCheck, Clock, Undo2 } from "lucide-react";
+import { BellRing, CalendarClock, CalendarX2, Check, CheckCheck, Clock, Inbox, Undo2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState, useSyncExternalStore, useTransition } from "react";
 
@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Link, useRouter } from "@/i18n/navigation";
 import { formatDate, formatDateTime, formatMonth, isolate, ltr } from "@/lib/format";
 import { markAllNotificationsRead, markNotificationRead } from "@/lib/notifications/actions";
+import { formatMobile } from "@/lib/parents/phone";
 import type { NotificationItem } from "@/lib/notifications/types";
 import { studentName } from "@/lib/students/names";
 import { cn } from "@/lib/utils";
@@ -98,6 +99,14 @@ function Row({ item, area, read, onRead }: { item: NotificationItem; area: Props
       date: data.last_day ? ltr(formatDate(data.last_day)) : "",
       days: data.days_left ?? 0,
     });
+  } else if (item.type === "demo_request") {
+    Icon = Inbox;
+    title = t("demoRequest.title", { school: isolate(data.school_name ?? "") });
+    body = t("demoRequest.body", {
+      name: isolate(data.full_name ?? ""),
+      city: isolate(data.city ?? ""),
+      phone: data.phone ? ltr(formatMobile(data.phone)) : "",
+    });
   } else if (item.type === "repeated_lateness") {
     Icon = Clock;
     title = t("lateness.title", { name });
@@ -121,10 +130,12 @@ function Row({ item, area, read, onRead }: { item: NotificationItem; area: Props
   }
 
   // A parent opens the child's absences; staff (daily alerts) the student's page;
-  // the platform owner the school's page (subscription reminders).
+  // the platform owner the school's page (subscription reminders) or the demo requests.
   const href =
     area === "platform"
-      ? data.school_id
+      ? item.type === "demo_request"
+        ? "/platform/demo-requests"
+        : data.school_id
         ? `/platform/schools/${data.school_id}`
         : null
       : !item.studentId

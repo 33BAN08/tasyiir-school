@@ -5,6 +5,7 @@ import {
   CalendarDays,
   ClipboardCheck,
   GraduationCap,
+  Inbox,
   Layers,
   LayoutDashboard,
   Package,
@@ -38,6 +39,7 @@ const ICONS: Record<NavIcon, typeof LayoutDashboard> = {
   timetable: CalendarDays,
   attendance: ClipboardCheck,
   alerts: BellRing,
+  inbox: Inbox,
 };
 
 export type NavMenuItem = { href: string; label: string; icon: NavIcon };

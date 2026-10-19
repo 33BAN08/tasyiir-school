@@ -180,7 +180,7 @@ tasyiir-school/
 - [ ] **12. Fees + payments + receipts**
 - [ ] **13. Transport + driver view**
 - [ ] **14. Dashboards & reports** (school + platform revenue)
-- [ ] **15. Demo polish** — rich seed data, "login as demo Director/Teacher/Parent" buttons, landing + pricing page, PWA
+- [ ] **15. Demo polish** — rich seed data, "login as demo Director/Teacher/Parent" buttons, landing + pricing page (public home page + demo requests done 2026-10-19), PWA
 
 ## 8. Phase 0 — Setup (detailed)
 1. Scaffold Next.js (TypeScript, App Router, Tailwind, ESLint, `src/` dir, alias `@/*`).

@@ -81,7 +81,8 @@
     "myTimetable": "Mon emploi du temps",
     "attendance": "Appel",
     "absences": "Absences",
-    "alerts": "Alertes"
+    "alerts": "Alertes",
+    "demoRequests": "Demandes de démo"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -129,7 +130,11 @@
       "titlePlatform": "Abonnement bientôt à échéance · {school}",
       "body": "{kind, select, trial {Essai} other {Abonnement}} {plan} : dernier jour le {date} ({days, plural, =0 {aujourd'hui} one {dans # jour} other {dans # jours}})."
     },
-    "back": "Accueil"
+    "back": "Accueil",
+    "demoRequest": {
+      "title": "Demande de démo · {school}",
+      "body": "{name} · {city} · {phone}"
+    }
   },
   "theme": {
     "label": "Apparence",
@@ -379,6 +384,22 @@
       "saved": "Formule « {name} » enregistrée.",
       "emptyTitle": "Aucune formule",
       "emptyDescription": "Les formules sont créées par les migrations de la base de données."
+    },
+    "demoRequests": {
+      "title": "Demandes de démo",
+      "description": "Les demandes envoyées depuis la page d’accueil, les plus récentes en premier.",
+      "emptyTitle": "Aucune demande",
+      "emptyDescription": "Les demandes envoyées depuis la page d’accueil apparaîtront ici.",
+      "open": "À traiter",
+      "handled": "Traitée",
+      "markHandled": "Marquer comme traitée",
+      "markOpen": "Remettre à traiter",
+      "call": "Appeler {name}",
+      "whatsapp": "Écrire à {name} sur WhatsApp",
+      "students": "Élèves : {range}",
+      "received": "Reçue le",
+      "error": "La modification a échoué. Réessayez.",
+      "limit": "Seules les {count} dernières demandes sont affichées."
     }
   },
   "staff": {
@@ -2142,6 +2163,368 @@
       "lateCount": "Entrez un nombre de retards entre 2 et 20.",
       "lateWindow": "Entrez une période entre 7 et 60 jours.",
       "recipientsRequired": "Choisissez au moins une personne à prévenir."
+    }
+  },
+  "landing": {
+    "meta": {
+      "title": "Tasyiir School · Absences, emploi du temps et parents, au même endroit",
+      "description": "Logiciel de gestion pour les écoles privées marocaines : appel sur téléphone, parents prévenus, justificatifs en photo, emploi du temps sans conflit, totaux d'absences en heures."
+    },
+    "skip": "Aller au contenu",
+    "nav": {
+      "label": "Navigation principale",
+      "home": "Tasyiir School, accueil",
+      "how": "Comment ça marche",
+      "features": "Fonctions",
+      "plans": "Formules",
+      "faq": "FAQ",
+      "login": "Se connecter",
+      "demo": "Demander une démo",
+      "menu": "Ouvrir le menu",
+      "closeMenu": "Fermer le menu"
+    },
+    "language": {
+      "label": "Langue du site",
+      "switchTo": "Afficher le site en {language}"
+    },
+    "hero": {
+      "eyebrow": "Pour les écoles privées au Maroc",
+      "title": "Chaque élève. Chaque cours. Un seul système.",
+      "subtitle": "L'appel se fait sur le téléphone du professeur, les parents sont prévenus, les justificatifs arrivent en photo et la direction voit les totaux. En arabe et en français.",
+      "ctaDemo": "Demander une démo",
+      "ctaHow": "Voir comment ça marche",
+      "chips": {
+        "phone": "Appel en 3 taps",
+        "parents": "Parents prévenus",
+        "conflicts": "Zéro double réservation",
+        "languages": "Arabe et français"
+      },
+      "demoLabel": "Exemple interactif avec des données de démonstration",
+      "demoNote": "Données de démonstration",
+      "rollCall": {
+        "title": "Appel",
+        "class": "3AC-B · Arabe",
+        "hint": "Touchez un élève pour changer son statut.",
+        "listLabel": "Élèves de la classe",
+        "save": "Enregistrer",
+        "saved": "Appel enregistré (démo).",
+        "counts": "Présents : {present} · Absents : {absent} · Retards : {late}"
+      },
+      "students": {
+        "salma": "Salma Bennani",
+        "youssef": "Youssef Amrani",
+        "imane": "Imane Kettani",
+        "adam": "Adam Rami",
+        "hiba": "Hiba Mansouri"
+      },
+      "parent": {
+        "title": "Portail parent",
+        "absent": "Salma absente · Arabe 08:00",
+        "sent": "Envoyé 10 minutes après l'appel",
+        "nothing": "Pas d'absence pour Salma aujourd'hui",
+        "nothingDetail": "Aucun message n'est envoyé."
+      },
+      "timetable": {
+        "title": "Emploi du temps · 1AC-A",
+        "dropping": "Placer : Maths · Prof. B",
+        "refused": "Refusé : Prof. B déjà occupé",
+        "detail": "Avec la 2AC-C, Lundi 10:00–11:00",
+        "mon": "Lun",
+        "tue": "Mar",
+        "french": "Français",
+        "arabic": "Arabe",
+        "maths": "Maths",
+        "pc": "PC",
+        "free": "Libre"
+      }
+    },
+    "how": {
+      "title": "Comment ça marche",
+      "subtitle": "Une absence, du premier cours jusqu'aux totaux de fin de mois.",
+      "steps": {
+        "teacher": {
+          "title": "Le professeur fait l'appel",
+          "body": "Sur son téléphone, au début du cours. Tout le monde est présent par défaut : il touche seulement les absents et les retards."
+        },
+        "parent": {
+          "title": "Le parent est prévenu",
+          "body": "10 minutes après l'appel. Si le professeur corrige entre-temps, rien n'est envoyé."
+        },
+        "photo": {
+          "title": "Le justificatif arrive en photo",
+          "body": "Le parent photographie le certificat ou le mot depuis son téléphone. Fini les papiers perdus."
+        },
+        "review": {
+          "title": "Le surveillant valide",
+          "body": "Il accepte ou refuse en un geste, avec une réponse au parent si besoin."
+        },
+        "director": {
+          "title": "Le directeur voit les totaux",
+          "body": "Par classe, par élève, par semaine ou par mois, en nombre d'absences et en heures."
+        }
+      }
+    },
+    "features": {
+      "title": "Fonctions",
+      "subtitle": "Trois formules. Chacune reprend tout ce que contient la précédente.",
+      "soon": "Bientôt",
+      "plans": {
+        "basic": "Basic",
+        "pro": "Pro ajoute…",
+        "premium": "Premium ajoute…"
+      },
+      "items": {
+        "attendance": {
+          "title": "Appel sur téléphone",
+          "body": "Présent, absent, retard en un tap, même avec une connexion lente."
+        },
+        "justifications": {
+          "title": "Justificatifs",
+          "body": "Envoyés en photo ou PDF par les parents, validés par la surveillance."
+        },
+        "timetable": {
+          "title": "Emploi du temps",
+          "body": "Grilles par classe, professeur et salle, conflits refusés, impression A4."
+        },
+        "notifications": {
+          "title": "Notifications aux parents",
+          "body": "Absence signalée dans le portail parent, avec correction automatique."
+        },
+        "people": {
+          "title": "Élèves, parents, professeurs",
+          "body": "Import depuis Excel, photos, plusieurs enfants par parent."
+        },
+        "messaging": {
+          "title": "Messagerie et annonces",
+          "body": "Parents, professeurs et administration, annonces par classe ou niveau."
+        },
+        "alerts": {
+          "title": "Alertes automatiques",
+          "body": "Absences non justifiées répétées, retards fréquents : chacun est prévenu le soir même."
+        },
+        "grades": {
+          "title": "Notes et bulletins",
+          "body": "Saisie des notes, moyennes, bulletins en PDF publiés aux parents."
+        },
+        "massar": {
+          "title": "Export Massar",
+          "body": "Absences et notes prêtes à reporter dans Massar."
+        },
+        "fees": {
+          "title": "Frais et paiements",
+          "body": "Mensualités, remises fratrie, reçus, liste des impayés."
+        },
+        "transport": {
+          "title": "Transport scolaire",
+          "body": "Circuits, arrêts, montée et descente signalées aux parents."
+        },
+        "sms": {
+          "title": "Alertes SMS et WhatsApp",
+          "body": "Les mêmes notifications, aussi par SMS ou WhatsApp."
+        }
+      }
+    },
+    "dives": {
+      "title": "Dans le détail",
+      "timetable": {
+        "kicker": "Emploi du temps",
+        "title": "Un emploi du temps sans conflit",
+        "body": "Avant même que vous déposiez un cours, chaque case dit si elle peut l'accueillir. Un professeur, une salle ou une classe déjà occupés : le cours est refusé, avec le nom de la classe et l'heure.",
+        "points": {
+          "a": "Glisser-déposer pour déplacer ou échanger deux cours",
+          "b": "Vues par classe, par professeur et par salle",
+          "c": "Copie de l'emploi du temps de l'an dernier, impression A4"
+        }
+      },
+      "phone": {
+        "kicker": "Appel",
+        "title": "L'appel sur le téléphone du professeur",
+        "body": "Le cours du moment s'ouvre en premier. Le professeur touche les absents, enregistre, c'est fini. Une connexion coupée ne fait rien perdre : l'appel reste sur le téléphone jusqu'à l'envoi.",
+        "points": {
+          "a": "Grandes lignes faciles à toucher, photo de chaque élève",
+          "b": "Minutes de retard en option",
+          "c": "La surveillance corrige n'importe quel jour"
+        }
+      },
+      "justify": {
+        "kicker": "Justificatifs",
+        "title": "Les justificatifs, sans papier",
+        "body": "Le parent choisit les jours, écrit la raison et ajoute une photo du certificat. La surveillance voit la liste des demandes en attente, ouvre la photo et répond.",
+        "points": {
+          "a": "Photo allégée et position GPS retirée avant l'envoi",
+          "b": "Fichiers privés, liens valables une minute",
+          "c": "Mot papier saisi par l'école pour une seule absence"
+        }
+      },
+      "totals": {
+        "kicker": "Totaux",
+        "title": "Les totaux d'absences, en heures comme Massar",
+        "body": "Massar compte les heures manquées. Tasyiir additionne la durée réelle de chaque cours manqué, par élève et par classe, sur la semaine, le mois ou l'année.",
+        "points": {
+          "a": "Élèves les plus absents en premier",
+          "b": "Retards comptés à part, avec les minutes",
+          "c": "Historique de chaque élève sur sa fiche"
+        },
+        "sample": {
+          "caption": "Exemple · 3AC-B · Octobre",
+          "student": "Élève",
+          "absences": "Absences",
+          "hours": "Heures"
+        }
+      }
+    },
+    "myths": {
+      "title": "Ce qu'on entend souvent",
+      "myth": "On dit",
+      "reality": "En vrai",
+      "teachers": {
+        "myth": "« Nos professeurs ne sont pas à l'aise avec la technologie. »",
+        "reality": "L'appel se fait en 3 taps : ouvrir le cours, toucher les absents, enregistrer. Tout le monde est présent par défaut."
+      },
+      "parents": {
+        "myth": "« Beaucoup de parents n'ont pas d'email. »",
+        "reality": "Les parents se connectent avec leur numéro de téléphone et un mot de passe. Aucun email n'est nécessaire."
+      }
+    },
+    "trust": {
+      "title": "Pourquoi les écoles peuvent nous faire confiance",
+      "morocco": {
+        "title": "Conçu au Maroc",
+        "body": "Pour le fonctionnement des écoles privées marocaines : cycles, filières, Massar."
+      },
+      "languages": {
+        "title": "Arabe et français",
+        "body": "Toute l'application en arabe (de droite à gauche) et en français. Chacun choisit sa langue."
+      },
+      "separated": {
+        "title": "Les données de chaque école sont séparées",
+        "body": "Une école ne peut jamais voir les données d'une autre : la règle est appliquée par la base de données elle-même."
+      }
+    },
+    "pricing": {
+      "title": "Formules",
+      "subtitle": "Le prix dépend du nombre d'élèves. Demandez une démo : nous vous envoyons une offre.",
+      "onRequest": "Prix sur demande",
+      "cta": "Demander un devis",
+      "recommended": "Recommandée",
+      "plans": {
+        "basic": {
+          "name": "Basic",
+          "lead": "L'essentiel : absences, emploi du temps, parents."
+        },
+        "pro": {
+          "name": "Pro",
+          "lead": "Basic, plus les alertes, les notes et Massar."
+        },
+        "premium": {
+          "name": "Premium",
+          "lead": "Pro, plus les frais, le transport et les SMS."
+        }
+      },
+      "compare": {
+        "title": "Comparer les formules",
+        "feature": "Fonction",
+        "included": "Inclus",
+        "notIncluded": "Non inclus",
+        "soon": "Bientôt"
+      }
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "security": {
+        "q": "Nos données sont-elles en sécurité ?",
+        "a": "Chaque école ne voit que ses propres données : la séparation est vérifiée par la base de données à chaque lecture, pas seulement par l'écran. Les photos et justificatifs sont dans des espaces privés, ouverts par des liens qui expirent après une minute. Les connexions sont chiffrées."
+      },
+      "arabic": {
+        "q": "L'application est-elle vraiment en arabe ?",
+        "a": "Oui. Chaque écran existe en arabe, de droite à gauche, et en français. Les noms des élèves peuvent être saisis en lettres latines et en arabe."
+      },
+      "massar": {
+        "q": "Est-ce compatible avec Massar ?",
+        "a": "Les totaux d'absences sont déjà comptés en heures, comme dans Massar, et chaque élève peut avoir son code Massar. L'export vers Massar (absences et notes) arrive avec la formule Pro."
+      },
+      "mobile": {
+        "q": "Faut-il installer une application ?",
+        "a": "Non. Tasyiir fonctionne dans le navigateur du téléphone, de la tablette ou de l'ordinateur. Les professeurs et les parents l'utilisent surtout sur leur téléphone."
+      },
+      "trial": {
+        "q": "Peut-on essayer avant de s'engager ?",
+        "a": "Oui. Après la démo, nous ouvrons un espace d'essai pour votre école, avec vos classes et vos élèves."
+      }
+    },
+    "demo": {
+      "title": "Demander une démo",
+      "subtitle": "Laissez vos coordonnées : nous vous appelons pour une démonstration de 30 minutes, dans votre école ou en ligne.",
+      "points": {
+        "a": "Démonstration avec un emploi du temps comme le vôtre",
+        "b": "Réponse à vos questions sur Massar et les parents",
+        "c": "Sans engagement"
+      },
+      "orWhatsapp": "Vous préférez écrire ?",
+      "whatsapp": "Écrire sur WhatsApp",
+      "whatsappMessage": "Bonjour, je souhaite une démo de Tasyiir School.",
+      "requiredNote": "Les champs marqués * sont obligatoires.",
+      "fields": {
+        "fullName": "Nom et prénom *",
+        "schoolName": "Nom de l'établissement *",
+        "city": "Ville *",
+        "phone": "Téléphone mobile *",
+        "phoneHint": "Numéro marocain commençant par 06 ou 07.",
+        "email": "Email (facultatif)",
+        "students": "Nombre d'élèves *",
+        "studentsPick": "Choisissez…",
+        "studentsOptions": {
+          "lt200": "Moins de 200",
+          "200_500": "200 à 500",
+          "500_1000": "500 à 1 000",
+          "gt1000": "Plus de 1 000"
+        },
+        "message": "Message (facultatif)",
+        "website": "Ne pas remplir ce champ"
+      },
+      "submit": "Envoyer la demande",
+      "sending": "Envoi…",
+      "privacy": "Vos coordonnées servent uniquement à vous recontacter au sujet de Tasyiir.",
+      "summaryTitle": "{count, plural, one {Un champ est à corriger :} other {# champs sont à corriger :}}",
+      "errors": {
+        "fullName": "Indiquez votre nom et prénom.",
+        "schoolName": "Indiquez le nom de l'établissement.",
+        "city": "Indiquez la ville.",
+        "phone": "Entrez un numéro mobile marocain : 10 chiffres commençant par 06 ou 07.",
+        "email": "Cette adresse email n'est pas valide.",
+        "students": "Choisissez le nombre d'élèves.",
+        "message": "Le message est trop long (1 000 caractères au maximum).",
+        "tooLong": "Ce texte est trop long.",
+        "generic": "L'envoi a échoué. Vérifiez votre connexion et réessayez."
+      },
+      "success": {
+        "title": "Merci, votre demande est envoyée.",
+        "body": "Nous vous appelons très vite au {phone} pour convenir d'un moment.",
+        "again": "Envoyer une autre demande"
+      },
+      "consent": "En envoyant ce formulaire, vous acceptez d'être contacté par Tasyiir au sujet de votre demande.",
+      "limited": {
+        "phoneTitle": "Votre demande est déjà entre nos mains.",
+        "phoneBody": "Nous avons bien reçu vos demandes avec ce numéro et nous vous appelons très vite.",
+        "phoneWhatsapp": "Pour ajouter une précision, écrivez-nous sur WhatsApp.",
+        "busyTitle": "Beaucoup de demandes en ce moment.",
+        "busyBody": "Pour ne pas attendre, écrivez-nous directement sur WhatsApp : nous vous répondons vite.",
+        "busyRetry": "Ou renvoyez ce formulaire dans une heure.",
+        "back": "Revenir au formulaire"
+      }
+    },
+    "mobileBar": {
+      "label": "Actions rapides",
+      "demo": "Démo",
+      "whatsapp": "WhatsApp"
+    },
+    "footer": {
+      "tagline": "La gestion des absences, de l'emploi du temps et des parents, pour les écoles privées au Maroc.",
+      "product": "Produit",
+      "access": "Accès",
+      "contact": "Contact",
+      "rights": "© Tasyiir. Tous droits réservés.",
+      "madeIn": "Conçu au Maroc"
     }
   }
 }
