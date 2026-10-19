@@ -13,7 +13,7 @@ type Result = { ok: true } | { ok: false; error: "forbidden" | "invalid" | "fail
 
 async function signedIn() {
   const user = await getCurrentUser();
-  return user && !user.mustChangePassword && !blockedPath(user) && user.schoolId ? user : null;
+  return user && !user.mustChangePassword && !blockedPath(user) && (user.schoolId || user.isPlatformOwner) ? user : null;
 }
 
 export async function markNotificationRead(id: unknown): Promise<Result> {

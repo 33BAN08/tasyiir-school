@@ -123,6 +123,11 @@
     "lateness": {
       "title": "Retards répétés · {name}",
       "body": "{count, plural, one {# retard} other {# retards}} sur les {windowDays} derniers jours (du {from} au {to})."
+    },
+    "subscription": {
+      "title": "Votre abonnement arrive à échéance",
+      "titlePlatform": "Abonnement bientôt à échéance · {school}",
+      "body": "{kind, select, trial {Essai} other {Abonnement}} {plan} : dernier jour le {date} ({days, plural, =0 {aujourd'hui} one {dans # jour} other {dans # jours}})."
     }
   },
   "theme": {

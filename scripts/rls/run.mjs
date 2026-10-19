@@ -42,7 +42,7 @@ import { phase7CrossSchool } from "./phase7-cross-school.mjs";
 import { phase8Notifications } from "./phase8-notifications.mjs";
 import { phase8AlertRules } from "./phase8-alert-rules.mjs";
 import { phase8DailyAlerts } from "./phase8-daily-alerts.mjs";
-import { phase6Lessons } from "./phase6-lessons.mjs";
+import { phase8SubscriptionReminders } from "./phase8-subscription-reminders.mjs";import { phase6Lessons } from "./phase6-lessons.mjs";
 import { lessonBlockActions } from "./actions-lesson-blocks.mjs";
 import { lessonCopyActions } from "./actions-lesson-copy.mjs";
 import { timetablePages } from "./pages-timetable.mjs";
@@ -94,7 +94,7 @@ try {
   await phase8Notifications({ fx, as });
   await phase8AlertRules({ fx, as });
   await phase8DailyAlerts({ fx, as });
-  await import("./rules.mjs");
+  await phase8SubscriptionReminders({ fx, as });  await import("./rules.mjs");
   await import("./rules-phone.mjs");
   await import("./rules-import.mjs");
   await import("./rules-timetable-now.mjs");

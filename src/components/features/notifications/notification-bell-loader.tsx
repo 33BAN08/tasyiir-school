@@ -8,12 +8,13 @@ import { NotificationBell } from "./notification-bell";
 export const NOTIFICATIONS_HREF: Partial<Record<Area, string>> = {
   school: "/notifications",
   portal: "/portal/notifications",
+  platform: "/platform/notifications",
 };
 
-/** The bell for school staff, teachers and parents; nothing for anyone else (platform owner, drivers). */
+/** The bell for school staff, teachers, parents and the platform owner; nothing for drivers. */
 export async function NotificationBellLoader() {
   const user = await getCurrentUser();
-  if (!user || !user.schoolId || user.mustChangePassword || blockedPath(user)) return null;
+  if (!user || (!user.schoolId && !user.isPlatformOwner) || user.mustChangePassword || blockedPath(user)) return null;
   const href = NOTIFICATIONS_HREF[areaFor(user)];
   if (!href) return null;
 

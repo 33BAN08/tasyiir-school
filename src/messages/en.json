@@ -123,6 +123,11 @@
     "lateness": {
       "title": "Repeated lateness · {name}",
       "body": "Late {count, plural, one {# time} other {# times}} in the last {windowDays} days ({from} to {to})."
+    },
+    "subscription": {
+      "title": "Your subscription is ending soon",
+      "titlePlatform": "Subscription ending soon · {school}",
+      "body": "{kind, select, trial {Trial} other {Subscription}} {plan}: last day {date} ({days, plural, =0 {today} one {in # day} other {in # days}})."
     }
   },
   "theme": {

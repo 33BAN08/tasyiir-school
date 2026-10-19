@@ -105,6 +105,31 @@ export async function notificationActions({ fx, baseUrl }) {
   await admin.from("notifications").delete().in("id", daily.map((n) => n.id));
   await admin.from("students").delete().eq("id", kid.id);
 
+  // --- Subscription reminders (step 5): the director's sentence; the platform owner's bell, list and link ------
+  const reminder = { school_id: A.id, school_name: "RLS École A", plan: "Pro", status: "trial", last_day: "2026-10-31", days_left: 7 };
+  const { data: subRows } = await admin.from("notifications").insert([
+    { school_id: A.id, recipient_id: fx.users.dirA.id, type: "subscription_expiring", data: reminder },
+    { school_id: null, recipient_id: fx.users.owner.id, type: "subscription_expiring", data: reminder },
+  ]).select("id");
+  const dirCookies = await sessionCookies(fx.users.dirA);
+  const ownerCookies = await sessionCookies(fx.users.owner);
+  const dirPage = await get("/fr/notifications", dirCookies);
+  check("[P8 notif pages] director: 'your subscription' reminder (trial, plan, last day, days left)",
+    dirPage.html.includes("Votre abonnement arrive à échéance") && /Essai ⁨?Pro⁩? : dernier jour le ⁦?31\/10\/2026⁩? \(dans 7 jours\)/.test(dirPage.html),
+    String(dirPage.status));
+  const ownerPage = await get("/fr/platform/notifications", ownerCookies);
+  check("[P8 notif pages] platform owner: the list shows the school and opens its page",
+    ownerPage.status === 200 && ownerPage.html.includes("RLS École A") && ownerPage.html.includes(`href="/fr/platform/schools/${A.id}"`),
+    String(ownerPage.status));
+  check("[P8 notif pages] platform owner: the bell is there with 1 unread", /Notifications, 1 non lue/.test(ownerPage.html));
+  const ownerRead = await callAction(baseUrl, { id: actionId(FILE, "markNotificationRead"), path: "/fr/platform/notifications", args: [subRows[1].id], cookies: ownerCookies });
+  const { data: ownerRow } = await admin.from("notifications").select("read_at").eq("id", subRows[1].id).single();
+  check("[P8 notif actions] the platform owner marks their reminder read", ownerRead.ok === true && ownerRow.read_at !== null, JSON.stringify(ownerRead));
+  const parentOnPlatform = await get("/fr/platform/notifications", par1.cookies);
+  check("[P8 notif pages] a parent opening the platform list does not get it",
+    parentOnPlatform.status !== 200 || !parentOnPlatform.html.includes("RLS École A"), String(parentOnPlatform.status));
+  await admin.from("notifications").delete().in("id", subRows.map((n) => n.id));
+
   // --- Clean up ---------------------------------------------------------------------------------------------------
   await admin.from("notifications").delete().in("id", [a1, a2, a3, b1, b2]);
 }

@@ -9,7 +9,7 @@ import { listNotifications, LIST_LIMIT } from "@/lib/notifications/queries";
 import { NotificationList } from "./notification-list";
 
 /** The signed-in user's notifications, newest first (RLS: only their own). Each page calls requireArea() itself. */
-export async function NotificationsView({ area }: { area: "school" | "portal" }) {
+export async function NotificationsView({ area }: { area: "school" | "portal" | "platform" }) {
   const [t, items] = await Promise.all([getTranslations("notifications"), listNotifications()]);
 
   return (

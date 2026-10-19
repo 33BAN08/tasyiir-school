@@ -782,7 +782,7 @@ export type Database = {
           id: string
           read_at: string | null
           recipient_id: string
-          school_id: string
+          school_id: string | null
           student_id: string | null
           type: string
         }
@@ -792,7 +792,7 @@ export type Database = {
           id?: string
           read_at?: string | null
           recipient_id: string
-          school_id: string
+          school_id?: string | null
           student_id?: string | null
           type: string
         }
@@ -802,7 +802,7 @@ export type Database = {
           id?: string
           read_at?: string | null
           recipient_id?: string
-          school_id?: string
+          school_id?: string | null
           student_id?: string | null
           type?: string
         }
@@ -813,6 +813,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "profiles"
             referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "notifications_recipient_id_fkey"
+            columns: ["recipient_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "notifications_school_id_fkey"
@@ -1454,6 +1461,48 @@ export type Database = {
           },
         ]
       }
+      subscription_reminders: {
+        Row: {
+          created_at: string
+          days_left: number
+          last_day: string
+          school_id: string
+          step: number
+          subscription_id: string
+        }
+        Insert: {
+          created_at?: string
+          days_left: number
+          last_day: string
+          school_id: string
+          step: number
+          subscription_id: string
+        }
+        Update: {
+          created_at?: string
+          days_left?: number
+          last_day?: string
+          school_id?: string
+          step?: number
+          subscription_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscription_reminders_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscription_reminders_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "school_subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       teacher_subjects: {
         Row: {
           created_at: string
@@ -1616,6 +1665,10 @@ export type Database = {
       import_students: { Args: { p_rows: Json }; Returns: number }
       run_absence_notifications: { Args: { p_now?: string }; Returns: number }
       run_daily_alerts: { Args: { p_today: string }; Returns: number }
+      run_subscription_reminders: {
+        Args: { p_schools: string[]; p_today: string }
+        Returns: number
+      }
       save_attendance: {
         Args: { p_date: string; p_lesson: string; p_marks?: Json }
         Returns: string

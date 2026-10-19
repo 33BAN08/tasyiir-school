@@ -12,7 +12,7 @@ import type { NotificationItem } from "@/lib/notifications/types";
 import { studentName } from "@/lib/students/names";
 import { cn } from "@/lib/utils";
 
-type Props = { items: NotificationItem[]; area: "school" | "portal" };
+type Props = { items: NotificationItem[]; area: "school" | "portal" | "platform" };
 
 /** True in the browser only: times are shown there, because the server's time-zone data for Morocco is outdated. */
 function useMounted() {
@@ -88,6 +88,16 @@ function Row({ item, area, read, onRead }: { item: NotificationItem; area: Props
     Icon = CalendarClock;
     title = t("unjustified.title", { name });
     body = t("unjustified.body", { days: data.days ?? 0, month: data.month ? formatMonth(data.month, locale) : "" });
+  } else if (item.type === "subscription_expiring") {
+    Icon = CalendarClock;
+    const school = isolate(data.school_name ?? "");
+    title = area === "platform" ? t("subscription.titlePlatform", { school }) : t("subscription.title");
+    body = t("subscription.body", {
+      kind: data.status === "trial" ? "trial" : "active",
+      plan: isolate(data.plan ?? ""),
+      date: data.last_day ? ltr(formatDate(data.last_day)) : "",
+      days: data.days_left ?? 0,
+    });
   } else if (item.type === "repeated_lateness") {
     Icon = Clock;
     title = t("lateness.title", { name });
@@ -110,12 +120,18 @@ function Row({ item, area, read, onRead }: { item: NotificationItem; area: Props
           : t("corrected.present", when);
   }
 
-  // A parent opens the child's absences; staff (daily alerts) the student's page.
-  const href = !item.studentId
-    ? null
-    : area === "portal"
-      ? `/portal/absences?child=${item.studentId}`
-      : `/students/${item.studentId}`;
+  // A parent opens the child's absences; staff (daily alerts) the student's page;
+  // the platform owner the school's page (subscription reminders).
+  const href =
+    area === "platform"
+      ? data.school_id
+        ? `/platform/schools/${data.school_id}`
+        : null
+      : !item.studentId
+        ? null
+        : area === "portal"
+          ? `/portal/absences?child=${item.studentId}`
+          : `/students/${item.studentId}`;
   const content = (
     <>
       <span

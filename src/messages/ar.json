@@ -123,6 +123,11 @@
     "lateness": {
       "title": "تأخر متكرر · {name}",
       "body": "تأخر {count, plural, one {مرة واحدة} two {مرتين} few {# مرات} many {# مرة} other {# مرة}} خلال آخر {windowDays} يومًا (من {from} إلى {to})."
+    },
+    "subscription": {
+      "title": "اشتراككم يقترب من نهايته",
+      "titlePlatform": "اشتراك يقترب من نهايته · {school}",
+      "body": "{kind, select, trial {الفترة التجريبية} other {الاشتراك}} {plan}: آخر يوم {date} ({days, plural, =0 {اليوم} one {بعد يوم واحد} two {بعد يومين} few {بعد # أيام} many {بعد # يومًا} other {بعد # يوم}})."
     }
   },
   "theme": {

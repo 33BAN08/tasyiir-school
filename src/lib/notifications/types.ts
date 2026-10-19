@@ -1,7 +1,12 @@
 import type { StudentNames } from "@/lib/students/names";
 
 /** Notification types written by the database (a CHECK on the table lists the same). */
-export type NotificationType = "absence" | "absence_corrected" | "unjustified_absences" | "repeated_lateness";
+export type NotificationType =
+  | "absence"
+  | "absence_corrected"
+  | "unjustified_absences"
+  | "repeated_lateness"
+  | "subscription_expiring";
 
 /** What a notification needs to write its sentence (see the Phase 8 migrations). */
 export type NotificationData = {
@@ -13,6 +18,13 @@ export type NotificationData = {
   window_days?: number;
   from?: string;
   to?: string;
+  /** subscription_expiring: the school (platform rows have no school_id of their own), plan, trial / active, last day. */
+  school_id?: string;
+  school_name?: string;
+  plan?: string;
+  status?: "trial" | "active";
+  last_day?: string;
+  days_left?: number;
   session_id?: string;
   date?: string;
   start?: string;
