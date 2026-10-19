@@ -128,7 +128,8 @@
       "title": "Your subscription is ending soon",
       "titlePlatform": "Subscription ending soon · {school}",
       "body": "{kind, select, trial {Trial} other {Subscription}} {plan}: last day {date} ({days, plural, =0 {today} one {in # day} other {in # days}})."
-    }
+    },
+    "back": "Home"
   },
   "theme": {
     "label": "Appearance",
@@ -1110,6 +1111,12 @@
         "fileUpload": "The file could not be uploaded. Try again.",
         "fileUnavailable": "The file is no longer available."
       }
+    },
+    "nav": {
+      "label": "Main navigation",
+      "home": "Home",
+      "absences": "Absences",
+      "notifications": "Notifications"
     }
   },
   "setup": {

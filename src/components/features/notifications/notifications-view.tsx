@@ -1,20 +1,29 @@
 import { Bell } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
+import { BackLink } from "@/components/layout/back-link";
 import { EmptyState } from "@/components/layout/empty-state";
 import { PageHeader } from "@/components/layout/page-header";
 import { Card } from "@/components/ui/card";
+import { homeFor } from "@/lib/auth/roles";
+import { getCurrentUser } from "@/lib/auth/session";
 import { listNotifications, LIST_LIMIT } from "@/lib/notifications/queries";
 
 import { NotificationList } from "./notification-list";
 
-/** The signed-in user's notifications, newest first (RLS: only their own). Each page calls requireArea() itself. */
+/**
+ * The signed-in user's notifications, newest first (RLS: only their own), with
+ * a way back to their home. Each page calls requireArea() itself.
+ */
 export async function NotificationsView({ area }: { area: "school" | "portal" | "platform" }) {
-  const [t, items] = await Promise.all([getTranslations("notifications"), listNotifications()]);
+  const [t, items, user] = await Promise.all([getTranslations("notifications"), listNotifications(), getCurrentUser()]);
 
   return (
     <div className="flex flex-col gap-4">
-      <PageHeader title={t("title")} description={t("description")} />
+      <div className="flex flex-col gap-2">
+        {user && <BackLink href={homeFor(user)} label={t("back")} />}
+        <PageHeader title={t("title")} description={t("description")} />
+      </div>
       {items.length === 0 ? (
         <Card className="py-0">
           <EmptyState icon={Bell} title={t("emptyTitle")} description={t("emptyDescription")} />

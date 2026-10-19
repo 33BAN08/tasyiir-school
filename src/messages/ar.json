@@ -128,7 +128,8 @@
       "title": "اشتراككم يقترب من نهايته",
       "titlePlatform": "اشتراك يقترب من نهايته · {school}",
       "body": "{kind, select, trial {الفترة التجريبية} other {الاشتراك}} {plan}: آخر يوم {date} ({days, plural, =0 {اليوم} one {بعد يوم واحد} two {بعد يومين} few {بعد # أيام} many {بعد # يومًا} other {بعد # يوم}})."
-    }
+    },
+    "back": "الرئيسية"
   },
   "theme": {
     "label": "المظهر",
@@ -1110,6 +1111,12 @@
         "fileUpload": "تعذر رفع الملف. أعد المحاولة.",
         "fileUnavailable": "الملف لم يعد متاحًا."
       }
+    },
+    "nav": {
+      "label": "التنقل الرئيسي",
+      "home": "الرئيسية",
+      "absences": "الغياب",
+      "notifications": "الإشعارات"
     }
   },
   "setup": {

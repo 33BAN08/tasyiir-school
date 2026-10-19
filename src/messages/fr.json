@@ -128,7 +128,8 @@
       "title": "Votre abonnement arrive à échéance",
       "titlePlatform": "Abonnement bientôt à échéance · {school}",
       "body": "{kind, select, trial {Essai} other {Abonnement}} {plan} : dernier jour le {date} ({days, plural, =0 {aujourd'hui} one {dans # jour} other {dans # jours}})."
-    }
+    },
+    "back": "Accueil"
   },
   "theme": {
     "label": "Apparence",
@@ -1110,6 +1111,12 @@
         "fileUpload": "Le fichier n'a pas pu être envoyé. Réessayez.",
         "fileUnavailable": "Le fichier n'est plus disponible."
       }
+    },
+    "nav": {
+      "label": "Navigation principale",
+      "home": "Accueil",
+      "absences": "Absences",
+      "notifications": "Notifications"
     }
   },
   "setup": {

@@ -1,5 +1,6 @@
 import { Suspense, type ReactNode } from "react";
 
+import { PortalBottomNavLoader } from "@/components/features/portal/portal-bottom-nav-loader";
 import { Skeleton } from "@/components/ui/skeleton";
 
 import { HeaderActions } from "./header-actions";
@@ -8,7 +9,7 @@ import { SchoolBrand } from "./school-brand";
 
 type Props = { children: ReactNode };
 
-/** Mobile-first shell for parents, students and drivers (bottom nav comes with their features). */
+/** Mobile-first shell for parents, students and drivers; parents get a bottom bar on phones. */
 export function MobileShell({ children }: Props) {
   return (
     <div className="flex min-h-svh flex-col">
@@ -24,6 +25,9 @@ export function MobileShell({ children }: Props) {
             check cannot stop a page from rendering. Each page calls requireArea(). */}
         <Suspense fallback={<PageSkeleton />}>{children}</Suspense>
       </main>
+      <Suspense fallback={null}>
+        <PortalBottomNavLoader />
+      </Suspense>
     </div>
   );
 }
