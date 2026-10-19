@@ -82,7 +82,8 @@
     "attendance": "Attendance",
     "absences": "Absences",
     "alerts": "Alerts",
-    "demoRequests": "Demo requests"
+    "demoRequests": "Demo requests",
+    "announcements": "Announcements"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -134,6 +135,9 @@
     "demoRequest": {
       "title": "Demo request · {school}",
       "body": "{name} · {city} · {phone}"
+    },
+    "announcement": {
+      "title": "New announcement"
     }
   },
   "theme": {
@@ -1137,7 +1141,8 @@
       "label": "Main navigation",
       "home": "Home",
       "absences": "Absences",
-      "notifications": "Notifications"
+      "notifications": "Notifications",
+      "announcements": "News"
     }
   },
   "setup": {
@@ -2525,6 +2530,86 @@
       "contact": "Contact",
       "rights": "© Tasyiir. All rights reserved.",
       "madeIn": "Designed in Morocco"
+    }
+  },
+  "announcements": {
+    "title": "Announcements",
+    "descriptionStaff": "The school's announcements, and the ones you posted.",
+    "descriptionParent": "The school's announcements for you.",
+    "new": "New announcement",
+    "back": "Announcements",
+    "backHome": "Home",
+    "mine": "You",
+    "edit": "Edit",
+    "postedAt": "Posted",
+    "editedAt": "edited",
+    "emptyTitle": "No announcements",
+    "emptyStaff": "Announcements posted for you or by you will appear here.",
+    "emptyParent": "When the school posts an announcement for you, it will appear here.",
+    "limit": "The {count} most recent announcements are shown.",
+    "notInPlanTitle": "Announcements are not in your plan",
+    "notInPlanDescription": "The communication module is not turned on for this school.",
+    "audience": {
+      "school": {
+        "parents": "All parents",
+        "staff": "All staff",
+        "everyone": "Whole school (parents and staff)"
+      },
+      "levels": "Parents · Levels: {names}",
+      "classes": "Parents · Classes: {names}"
+    },
+    "audienceOption": {
+      "parents": "Parents",
+      "staff": "Staff",
+      "everyone": "Parents and staff"
+    },
+    "form": {
+      "createTitle": "New announcement",
+      "createDescription": "Write a message: the people it is for are told right away.",
+      "scope": "Who is it for?",
+      "scopes": {
+        "school": "Whole school",
+        "levels": "Some levels",
+        "classes": "Some classes"
+      },
+      "audience": "Recipients",
+      "teacherNote": "You are writing to the parents of the classes you teach this year. Tick the classes concerned.",
+      "levelsLabel": "Levels concerned",
+      "classesLabel": "Classes concerned",
+      "noYear": "There is no current school year: create one to write to levels or classes.",
+      "noClasses": "You have no class this year: the timetable has not given you one yet.",
+      "title": "Title",
+      "body": "Message",
+      "count": "{count} / {max} characters",
+      "notifyNote": "Once posted, an announcement cannot change who it goes to: only the title and the text can be edited.",
+      "post": "Post announcement",
+      "posting": "Posting…",
+      "posted": "Announcement posted",
+      "editTitle": "Edit announcement",
+      "editDescription": "The title and text change; the recipients stay the same.",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving…",
+      "updated": "Announcement updated"
+    },
+    "delete": {
+      "button": "Delete",
+      "title": "Delete the announcement “{name}”?",
+      "description": "It disappears for all its recipients, with their notifications. This cannot be undone.",
+      "done": "Announcement deleted"
+    },
+    "errors": {
+      "titleRequired": "The title is required.",
+      "titleTooLong": "The title cannot be longer than 150 characters.",
+      "bodyRequired": "The message is required.",
+      "bodyTooLong": "The message cannot be longer than 5000 characters.",
+      "levelsRequired": "Choose at least one level.",
+      "classesRequired": "Choose at least one class.",
+      "invalid": "The information entered is not valid.",
+      "forbidden": "You are not allowed to do this.",
+      "notFound": "This announcement no longer exists.",
+      "noCurrentYear": "There is no current school year.",
+      "failed": "The operation failed. Try again."
     }
   }
 }

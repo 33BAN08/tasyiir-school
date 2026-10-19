@@ -7,7 +7,8 @@ export type NotificationType =
   | "unjustified_absences"
   | "repeated_lateness"
   | "subscription_expiring"
-  | "demo_request";
+  | "demo_request"
+  | "announcement";
 
 /** What a notification needs to write its sentence (see the Phase 8 migrations). */
 export type NotificationData = {
@@ -26,6 +27,9 @@ export type NotificationData = {
   status?: "trial" | "active";
   last_day?: string;
   days_left?: number;
+  /** announcement: the announcement to open and its title (kept in step when edited). */
+  announcement_id?: string;
+  title?: string;
   /** demo_request: the request (home page form), for the platform owner. */
   request_id?: string;
   full_name?: string;

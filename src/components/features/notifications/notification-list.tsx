@@ -1,6 +1,6 @@
 "use client";
 
-import { BellRing, CalendarClock, CalendarX2, Check, CheckCheck, Clock, Inbox, Undo2 } from "lucide-react";
+import { BellRing, CalendarClock, CalendarX2, Check, CheckCheck, Clock, Inbox, Megaphone, Undo2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState, useSyncExternalStore, useTransition } from "react";
 
@@ -107,6 +107,10 @@ function Row({ item, area, read, onRead }: { item: NotificationItem; area: Props
       city: isolate(data.city ?? ""),
       phone: data.phone ? ltr(formatMobile(data.phone)) : "",
     });
+  } else if (item.type === "announcement") {
+    Icon = Megaphone;
+    title = t("announcement.title");
+    body = isolate(data.title ?? "");
   } else if (item.type === "repeated_lateness") {
     Icon = Clock;
     title = t("lateness.title", { name });
@@ -132,7 +136,11 @@ function Row({ item, area, read, onRead }: { item: NotificationItem; area: Props
   // A parent opens the child's absences; staff (daily alerts) the student's page;
   // the platform owner the school's page (subscription reminders) or the demo requests.
   const href =
-    area === "platform"
+    item.type === "announcement"
+      ? data.announcement_id
+        ? `${area === "portal" ? "/portal" : ""}/announcements/${data.announcement_id}`
+        : null
+      : area === "platform"
       ? item.type === "demo_request"
         ? "/platform/demo-requests"
         : data.school_id

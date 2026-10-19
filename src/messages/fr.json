@@ -82,7 +82,8 @@
     "attendance": "Appel",
     "absences": "Absences",
     "alerts": "Alertes",
-    "demoRequests": "Demandes de démo"
+    "demoRequests": "Demandes de démo",
+    "announcements": "Annonces"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -134,6 +135,9 @@
     "demoRequest": {
       "title": "Demande de démo · {school}",
       "body": "{name} · {city} · {phone}"
+    },
+    "announcement": {
+      "title": "Nouvelle annonce"
     }
   },
   "theme": {
@@ -1137,7 +1141,8 @@
       "label": "Navigation principale",
       "home": "Accueil",
       "absences": "Absences",
-      "notifications": "Notifications"
+      "notifications": "Notifications",
+      "announcements": "Annonces"
     }
   },
   "setup": {
@@ -2525,6 +2530,86 @@
       "contact": "Contact",
       "rights": "© Tasyiir. Tous droits réservés.",
       "madeIn": "Conçu au Maroc"
+    }
+  },
+  "announcements": {
+    "title": "Annonces",
+    "descriptionStaff": "Les annonces de l'établissement, et celles que vous avez publiées.",
+    "descriptionParent": "Les annonces de l'établissement pour vous.",
+    "new": "Nouvelle annonce",
+    "back": "Annonces",
+    "backHome": "Accueil",
+    "mine": "Vous",
+    "edit": "Modifier",
+    "postedAt": "Publiée le",
+    "editedAt": "modifiée le",
+    "emptyTitle": "Aucune annonce",
+    "emptyStaff": "Les annonces publiées pour vous ou par vous apparaîtront ici.",
+    "emptyParent": "Quand l'établissement publiera une annonce pour vous, elle apparaîtra ici.",
+    "limit": "Les {count} annonces les plus récentes sont affichées.",
+    "notInPlanTitle": "Annonces non incluses dans votre formule",
+    "notInPlanDescription": "Le module de communication n'est pas activé pour cet établissement.",
+    "audience": {
+      "school": {
+        "parents": "Tous les parents",
+        "staff": "Tout le personnel",
+        "everyone": "Toute l'école (parents et personnel)"
+      },
+      "levels": "Parents · Niveaux : {names}",
+      "classes": "Parents · Classes : {names}"
+    },
+    "audienceOption": {
+      "parents": "Les parents",
+      "staff": "Le personnel",
+      "everyone": "Parents et personnel"
+    },
+    "form": {
+      "createTitle": "Nouvelle annonce",
+      "createDescription": "Écrivez un message : les personnes concernées sont prévenues tout de suite.",
+      "scope": "À qui l'envoyer ?",
+      "scopes": {
+        "school": "Toute l'école",
+        "levels": "Des niveaux",
+        "classes": "Des classes"
+      },
+      "audience": "Destinataires",
+      "teacherNote": "Vous écrivez aux parents des classes que vous enseignez cette année. Cochez les classes concernées.",
+      "levelsLabel": "Niveaux concernés",
+      "classesLabel": "Classes concernées",
+      "noYear": "Aucune année scolaire en cours : créez-en une pour écrire à des niveaux ou des classes.",
+      "noClasses": "Vous n'avez aucune classe cette année : l'emploi du temps ne vous en attribue pas encore.",
+      "title": "Titre",
+      "body": "Message",
+      "count": "{count} / {max} caractères",
+      "notifyNote": "Une fois publiée, l'annonce ne peut plus changer de destinataires : seuls le titre et le texte se modifient.",
+      "post": "Publier l'annonce",
+      "posting": "Publication…",
+      "posted": "Annonce publiée",
+      "editTitle": "Modifier l'annonce",
+      "editDescription": "Le titre et le texte changent ; les destinataires restent les mêmes.",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "updated": "Annonce modifiée"
+    },
+    "delete": {
+      "button": "Supprimer",
+      "title": "Supprimer l'annonce « {name} » ?",
+      "description": "Elle disparaît pour tous ses destinataires, avec leurs notifications. Cette action est définitive.",
+      "done": "Annonce supprimée"
+    },
+    "errors": {
+      "titleRequired": "Le titre est obligatoire.",
+      "titleTooLong": "Le titre ne doit pas dépasser 150 caractères.",
+      "bodyRequired": "Le message est obligatoire.",
+      "bodyTooLong": "Le message ne doit pas dépasser 5000 caractères.",
+      "levelsRequired": "Choisissez au moins un niveau.",
+      "classesRequired": "Choisissez au moins une classe.",
+      "invalid": "Les informations saisies ne sont pas valides.",
+      "forbidden": "Vous n'avez pas le droit de faire cela.",
+      "notFound": "Cette annonce n'existe plus.",
+      "noCurrentYear": "Aucune année scolaire en cours.",
+      "failed": "L'opération a échoué. Réessayez."
     }
   }
 }

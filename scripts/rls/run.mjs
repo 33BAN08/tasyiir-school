@@ -44,6 +44,7 @@ import { phase8AlertRules } from "./phase8-alert-rules.mjs";
 import { phase8DailyAlerts } from "./phase8-daily-alerts.mjs";
 import { phase8SubscriptionReminders } from "./phase8-subscription-reminders.mjs";
 import { phase8CrossSchool } from "./phase8-cross-school.mjs";
+import { announcementActions } from "./actions-announcements.mjs";
 import { phase9Announcements } from "./phase9-announcements.mjs";
 import { notificationTypes } from "./notification-types.mjs";
 import { publicDemoRequests } from "./public-demo-requests.mjs";
@@ -136,6 +137,7 @@ try {
     await staffJustificationActions({ fx, baseUrl });
     await notificationActions({ fx, baseUrl });
     await alertRuleActions({ fx, baseUrl });
+    await announcementActions({ fx, baseUrl });
     await demoRequestActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }

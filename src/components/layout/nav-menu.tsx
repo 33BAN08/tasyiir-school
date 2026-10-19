@@ -8,6 +8,7 @@ import {
   Inbox,
   Layers,
   LayoutDashboard,
+  Megaphone,
   Package,
   Presentation,
   School,
@@ -40,6 +41,7 @@ const ICONS: Record<NavIcon, typeof LayoutDashboard> = {
   attendance: ClipboardCheck,
   alerts: BellRing,
   inbox: Inbox,
+  announcements: Megaphone,
 };
 
 export type NavMenuItem = { href: string; label: string; icon: NavIcon };
