@@ -175,6 +175,7 @@ tasyiir-school/
 - [x] **8. Alerts engine + notifications** — in-app (bell, list, Realtime): absence after 10 min + corrections, daily unjustified-absence / repeated-lateness alerts with director settings, subscription reminders. Email (Resend, `tasyir.ma`) later, as a delivery of the same notifications
 - [x] **9. Announcements + remarks** — announcements (school / levels / classes; teachers to their own classes), student remarks with parent notification + "Lu", school contact card in the parent portal. Private chat not planned
 - [ ] 🎯 **MVP = Basic plan → deploy demo, start showing schools**
+- [ ] **Launch prep** (next, before Phase 10; user 2026-10-20) — 1 production Supabase project (separate from DEV) + Vercel Production points to it + test suites refuse to run against production · 2 demo school "École Démo Tasyir" + "Créer un essai" (7-day trial) · 3 rename Tasyiir → Tasyir everywhere · 4 privacy policy + terms pages (FR/AR) · 5 pricing on the home page · 6 closing pass
 - [ ] **10. Grades + report cards** (report cards include the term's student remarks, Pro)
 - [ ] **11. Massar import/export**
 - [ ] **12. Fees + payments + receipts**

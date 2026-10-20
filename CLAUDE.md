@@ -8,7 +8,13 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 - **Always read both before starting a phase.** Work on ONE phase at a time. Don't build ahead.
 
 ## Current phase
-> **Phase 10 — Grades + report cards** (update this line when a phase is finished). Phases 0–9 done — live at https://tasyiir-school.vercel.app
+> **Launch prep** (outside the numbered phases; Phase 10 — Grades waits, user 2026-10-20). Update this line when a phase is finished. Phases 0–9 done — live at https://tasyiir-school.vercel.app
+
+## Launch prep — started 2026-10-20 (user's change of plan: Phase 10 waits)
+Same workflow (show every migration / production change, wait for OK, commit + push each step, test in Chrome AR + FR). **Do not touch Vercel or the production Supabase project until the user approves the step's plan.**
+Steps: 1 production Supabase project (separate from DEV) + Vercel Production points to it + test suites refuse to run against production · 2 demo school "École Démo Tasyir" + "Créer un essai" (7-day trial) · 3 rename Tasyiir → Tasyir everywhere · 4 privacy policy + terms pages (FR/AR) · 5 pricing on the home page · 6 closing pass.
+- Brand zips (`brand/*.zip`) are git-ignored.
+- Step 1 decisions (user, 2026-10-20): production = NEW Supabase organization on the Pro plan, region Frankfurt; DEV stays in its own free organization (never billed). Pro has **daily backups only, no point-in-time recovery**: the home page may say only "sauvegardes quotidiennes" (add it back at step 5/6, once production is live). Vercel function region `fra1`. Production Auth: "Allow new users to sign up" OFF (every account is created with the server key). The migration push never runs `seed.sql` or any fixture. The user types the platform owner's email themself when running the script.
 
 ## Brand — Tasyir logo & palette (2026-10-20, outside the phases)
 Files in `public/brand` (source pack in `brand/`); `BRAND_ASSETS`, `OG_IMAGE`, `SITE_URL` in `src/lib/brand.ts`. Tokens: `--brand` atlas #0B5D3B (headers, landing band), `--primary` action #0B7A49 (buttons, links), `--mint` #CDEBDB, ink #0E2018, background #F4FBF7, `--sand` #E6C88F = decoration only, never text. Light logo on light backgrounds, `tasyir-logo-dark.svg` on green (hero). Amiri only inside the logo files. OG image 1200×630 (French tagline) = `public/brand/og-image.png`; manifest `public/manifest.webmanifest` (excluded from the proxy matcher).
@@ -29,7 +35,7 @@ Steps: 1 announcements in the DB · 2 announcement screens (staff write / edit /
 - Step 5 — closing pass: build, lint, full `test:actions` **1994 passed**, 1 skipped (the "no current year" branch of `phase9-announcements.mjs`: school B has one). New `phase9-cross-school.mjs` (77): school B posts a class announcement + a staff one, its teacher writes a remark, its director sets the contact card, while a parent, a teacher, a surveillant and the director of A listen on Realtime: none of it reaches them; they read no announcement / target / remark / contact card / notification of B, cannot edit, delete, mark read, moderate, add targets, post into B or write on B's student; B's parent (announcement + remark) and B's teacher (staff announcement) receive theirs (control). Browser sweep (headless Chrome, École Test B director / teacher / demo parent, AR + FR, 390 + 1366, 48 screens): every Phase 9 page, no overflow, no raw keys, no console errors (a page under load can need > 3.5 s to stream its heading — wait longer before calling it missing). Landing: the "messaging" card was "Messagerie… parents, professeurs et administration" (private chat, dropped) → now "Annonces et remarques" (announcements, remarks sent at once, school contact), no longer "Bientôt"; icon Megaphone.
 
 **Next**
-- Phase 10 — Grades + report cards (report cards include the term's student remarks, Pro): read `docs/PLAN.md` + `docs/DESIGN.md` first, then propose step 1 and its migration.
+- Launch prep step 1 (production Supabase + Vercel Production + test-suite guard): plan proposed, waiting for the user's approval. Phase 10 — Grades + report cards comes after Launch prep.
 
 ## Tech stack (do not change without asking)
 - Next.js (latest, App Router) + TypeScript (strict)

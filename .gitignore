@@ -47,3 +47,6 @@ supabase/.branches
 
 # claude code (per-machine)
 .claude/settings.local.json
+
+# brand source packs
+brand/*.zip
