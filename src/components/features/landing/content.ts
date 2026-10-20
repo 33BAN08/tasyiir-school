@@ -7,8 +7,8 @@ import {
   FileSpreadsheet,
   FileText,
   GraduationCap,
+  Megaphone,
   MessageSquare,
-  MessagesSquare,
   Users,
   Wallet,
   type LucideIcon,
@@ -44,7 +44,7 @@ export const PLAN_FEATURES: Record<PlanKey, Feature[]> = {
     { key: "timetable", icon: CalendarDays, soon: false },
     { key: "notifications", icon: Bell, soon: false },
     { key: "people", icon: Users, soon: false },
-    { key: "messaging", icon: MessagesSquare, soon: true },
+    { key: "messaging", icon: Megaphone, soon: false },
   ],
   pro: [
     { key: "alerts", icon: BellRing, soon: false },

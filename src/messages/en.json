@@ -2343,8 +2343,8 @@
           "body": "Excel import, photos, several children per parent."
         },
         "messaging": {
-          "title": "Messaging and announcements",
-          "body": "Parents, teachers and office, announcements per class or level."
+          "title": "Announcements and remarks",
+          "body": "Announcements per class or level, remarks on a student sent to parents at once, the school's contact one tap away."
         },
         "alerts": {
           "title": "Automatic alerts",

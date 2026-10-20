@@ -2343,8 +2343,8 @@
           "body": "Import depuis Excel, photos, plusieurs enfants par parent."
         },
         "messaging": {
-          "title": "Messagerie et annonces",
-          "body": "Parents, professeurs et administration, annonces par classe ou niveau."
+          "title": "Annonces et remarques",
+          "body": "Annonces par classe ou niveau, remarques sur l'élève envoyées aussitôt aux parents, contact de l'établissement en un geste."
         },
         "alerts": {
           "title": "Alertes automatiques",

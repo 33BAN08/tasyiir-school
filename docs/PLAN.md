@@ -173,7 +173,7 @@ tasyiir-school/
 - [x] **6. Emploi du temps** — grid, drag & drop, conflict detection, PDF
 - [x] **7. Absences + justifications** — teacher roll call (phone), staff day view / corrections / totals, parent justifications with photo / PDF, staff review
 - [x] **8. Alerts engine + notifications** — in-app (bell, list, Realtime): absence after 10 min + corrections, daily unjustified-absence / repeated-lateness alerts with director settings, subscription reminders. Email (Resend, `tasyir.ma`) later, as a delivery of the same notifications
-- [ ] **9. Announcements + remarks** — announcements (school / levels / classes; teachers to their own classes), student remarks with parent notification + "Lu", school contact card in the parent portal. Private chat not planned
+- [x] **9. Announcements + remarks** — announcements (school / levels / classes; teachers to their own classes), student remarks with parent notification + "Lu", school contact card in the parent portal. Private chat not planned
 - [ ] 🎯 **MVP = Basic plan → deploy demo, start showing schools**
 - [ ] **10. Grades + report cards** (report cards include the term's student remarks, Pro)
 - [ ] **11. Massar import/export**

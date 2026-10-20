@@ -48,6 +48,7 @@ import { announcementActions } from "./actions-announcements.mjs";
 import { phase9Remarks } from "./phase9-remarks.mjs";
 import { remarkActions } from "./actions-remarks.mjs";
 import { phase9SchoolContacts } from "./phase9-school-contacts.mjs";
+import { phase9CrossSchool } from "./phase9-cross-school.mjs";
 import { schoolContactActions } from "./actions-school-contact.mjs";
 import { phase9Announcements } from "./phase9-announcements.mjs";
 import { notificationTypes } from "./notification-types.mjs";
@@ -110,6 +111,7 @@ try {
   await phase9Announcements({ fx, as });
   await phase9Remarks({ fx, as });
   await phase9SchoolContacts({ fx, as });
+  await phase9CrossSchool({ fx, as });
   await notificationTypes({ fx, as });
   await publicDemoRequests({ fx, as });
   await import("./rules.mjs");
