@@ -2,6 +2,7 @@
 
 import {
   BellRing,
+  Building2,
   CalendarDays,
   ClipboardCheck,
   GraduationCap,
@@ -44,6 +45,7 @@ const ICONS: Record<NavIcon, typeof LayoutDashboard> = {
   inbox: Inbox,
   announcements: Megaphone,
   remarks: MessageSquareText,
+  school: Building2,
 };
 
 export type NavMenuItem = { href: string; label: string; icon: NavIcon };

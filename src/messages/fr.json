@@ -84,7 +84,8 @@
     "alerts": "Alertes",
     "demoRequests": "Demandes de démo",
     "announcements": "Annonces",
-    "remarks": "Remarques"
+    "remarks": "Remarques",
+    "schoolSettings": "Établissement"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -1154,7 +1155,14 @@
       "notifications": "Notifications",
       "announcements": "Annonces"
     },
-    "remarksOpen": "Remarques"
+    "remarksOpen": "Remarques",
+    "contact": {
+      "title": "Contacter l'établissement",
+      "call": "Appeler",
+      "whatsapp": "WhatsApp",
+      "callLabel": "Appeler l'établissement au {phone}",
+      "whatsappLabel": "Écrire à l'établissement sur WhatsApp au {phone}"
+    }
   },
   "setup": {
     "title": "Structure de l'établissement",
@@ -2179,6 +2187,30 @@
       "lateCount": "Entrez un nombre de retards entre 2 et 20.",
       "lateWindow": "Entrez une période entre 7 et 60 jours.",
       "recipientsRequired": "Choisissez au moins une personne à prévenir."
+    }
+  },
+  "schoolSettings": {
+    "title": "Établissement",
+    "description": "Les informations de l'établissement que voient les parents.",
+    "save": "Enregistrer",
+    "saved": "Coordonnées enregistrées",
+    "lastChange": "Dernière modification le {when}",
+    "lastChangeBy": "Dernière modification par {name} le {when}",
+    "contact": {
+      "title": "Contact des parents",
+      "description": "Ces numéros apparaissent sur la page d'accueil des parents, avec un bouton pour appeler et un pour écrire sur WhatsApp. Laissez un champ vide pour ne pas l'afficher.",
+      "phone": "Téléphone",
+      "phoneHint": "Fixe ou mobile, par exemple 05 37 12 34 56.",
+      "whatsapp": "WhatsApp",
+      "whatsappHint": "Un numéro mobile (06 ou 07).",
+      "samePhone": "Utiliser le même numéro que le téléphone"
+    },
+    "errors": {
+      "phone": "Saisissez un numéro marocain : 05, 06 ou 07 suivi de 8 chiffres.",
+      "whatsapp": "Saisissez un numéro mobile marocain : 06 ou 07 suivi de 8 chiffres.",
+      "invalid": "Les informations envoyées ne sont pas valides.",
+      "forbidden": "Vous n'avez pas le droit de modifier ces informations.",
+      "failed": "L'enregistrement a échoué. Réessayez."
     }
   },
   "landing": {

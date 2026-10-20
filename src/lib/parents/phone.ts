@@ -21,7 +21,7 @@ export function normalizeMobile(input: string): string | null {
   return m ? `+212${m[1]}` : null;
 }
 
-/** "+212612345678" → "06 12 34 56 78" (how Moroccans write it). */
+/** "+212612345678" → "06 12 34 56 78" (how Moroccans write it; landlines "05 …" too). */
 export function formatMobile(phone: string): string {
   const local = `0${phone.slice(4)}`;
   return local.replace(/^(\d{2})(\d{2})(\d{2})(\d{2})(\d{2})$/, "$1 $2 $3 $4 $5");

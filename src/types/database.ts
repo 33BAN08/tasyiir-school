@@ -1291,6 +1291,38 @@ export type Database = {
           },
         ]
       }
+      school_contacts: {
+        Row: {
+          phone: string | null
+          school_id: string
+          updated_at: string
+          updated_by: string | null
+          whatsapp: string | null
+        }
+        Insert: {
+          phone?: string | null
+          school_id: string
+          updated_at?: string
+          updated_by?: string | null
+          whatsapp?: string | null
+        }
+        Update: {
+          phone?: string | null
+          school_id?: string
+          updated_at?: string
+          updated_by?: string | null
+          whatsapp?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "school_contacts_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: true
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       school_days: {
         Row: {
           academic_year_id: string

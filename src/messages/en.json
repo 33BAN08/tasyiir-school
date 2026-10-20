@@ -84,7 +84,8 @@
     "alerts": "Alerts",
     "demoRequests": "Demo requests",
     "announcements": "Announcements",
-    "remarks": "Remarks"
+    "remarks": "Remarks",
+    "schoolSettings": "School"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -1154,7 +1155,14 @@
       "notifications": "Notifications",
       "announcements": "News"
     },
-    "remarksOpen": "Remarks"
+    "remarksOpen": "Remarks",
+    "contact": {
+      "title": "Contact the school",
+      "call": "Call",
+      "whatsapp": "WhatsApp",
+      "callLabel": "Call the school on {phone}",
+      "whatsappLabel": "Write to the school on WhatsApp on {phone}"
+    }
   },
   "setup": {
     "title": "School structure",
@@ -2179,6 +2187,30 @@
       "lateCount": "Enter a number of lates from 2 to 20.",
       "lateWindow": "Enter a period from 7 to 60 days.",
       "recipientsRequired": "Choose at least one person to tell."
+    }
+  },
+  "schoolSettings": {
+    "title": "School",
+    "description": "The school details parents see.",
+    "save": "Save",
+    "saved": "Contact details saved",
+    "lastChange": "Last changed on {when}",
+    "lastChangeBy": "Last changed by {name} on {when}",
+    "contact": {
+      "title": "Contact for parents",
+      "description": "These numbers appear on the parents' home page, with a button to call and one to write on WhatsApp. Leave a field empty to hide it.",
+      "phone": "Phone",
+      "phoneHint": "Landline or mobile, for example 05 37 12 34 56.",
+      "whatsapp": "WhatsApp",
+      "whatsappHint": "A mobile number (06 or 07).",
+      "samePhone": "Use the same number as the phone"
+    },
+    "errors": {
+      "phone": "Enter a Moroccan number: 05, 06 or 07 followed by 8 digits.",
+      "whatsapp": "Enter a Moroccan mobile number: 06 or 07 followed by 8 digits.",
+      "invalid": "The details sent are not valid.",
+      "forbidden": "You are not allowed to change these details.",
+      "failed": "Saving failed. Try again."
     }
   },
   "landing": {

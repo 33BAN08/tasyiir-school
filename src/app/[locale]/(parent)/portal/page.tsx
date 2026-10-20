@@ -1,6 +1,7 @@
 import { Baby, CalendarCheck, CalendarDays, MessageSquareText } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
+import { SchoolContactCard } from "@/components/features/school-settings/school-contact-card";
 import { StudentAvatar } from "@/components/features/students/student-avatar";
 import { EmptyState } from "@/components/layout/empty-state";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,7 @@ import { listMyChildren } from "@/lib/parents/portal";
 import { studentInitials, studentName, studentOtherName } from "@/lib/students/names";
 import { signPhotoUrls } from "@/lib/students/photos";
 
-/** Parent home (mobile-first): their children, nothing else. */
+/** Parent home (mobile-first): their children, then how to reach the school. */
 export default async function PortalHomePage() {
   // Page-level check: must run before anything is rendered.
   const user = await requireArea("portal");
@@ -90,6 +91,7 @@ export default async function PortalHomePage() {
           })}
         </ul>
       )}
+      {user.schoolId && <SchoolContactCard schoolId={user.schoolId} />}
     </div>
   );
 }
