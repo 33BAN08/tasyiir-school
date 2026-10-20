@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 
+import { BRAND, OG_IMAGE } from "@/lib/brand";
 import { LandingPage } from "@/components/features/landing/landing-page";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -8,6 +9,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: t("title"),
     description: t("description"),
+    openGraph: { title: t("title"), description: t("description"), siteName: BRAND.product, type: "website", images: [OG_IMAGE] },
+    twitter: { card: "summary_large_image", title: t("title"), description: t("description"), images: [OG_IMAGE.url] },
     alternates: { languages: { ar: "/ar", fr: "/fr", en: "/en" } },
   };
 }

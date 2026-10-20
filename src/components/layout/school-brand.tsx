@@ -1,10 +1,9 @@
-import { CalendarCheck } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 import { Link } from "@/i18n/navigation";
 import { homeFor } from "@/lib/auth/roles";
 import { getCurrentSchool, getCurrentUser } from "@/lib/auth/session";
-import { BRAND } from "@/lib/brand";
+import { BRAND, BRAND_ASSETS } from "@/lib/brand";
 
 /**
  * School logo + name (white-label), or the Tasyiir brand for the platform
@@ -24,9 +23,8 @@ export async function SchoolBrand() {
         // eslint-disable-next-line @next/next/no-img-element -- logos come from Supabase Storage
         <img src={school.logoUrl} alt="" className="size-8 shrink-0 rounded-lg object-cover" />
       ) : (
-        <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-          <CalendarCheck className="size-5" aria-hidden />
-        </div>
+        // eslint-disable-next-line @next/next/no-img-element -- static SVG
+        <img src={BRAND_ASSETS.icon} alt="" className="size-8 shrink-0 rounded-lg" />
       )}
       <div className="flex min-w-0 flex-col leading-tight group-data-[collapsible=icon]:hidden">
         <span className="truncate font-semibold" dir="auto">

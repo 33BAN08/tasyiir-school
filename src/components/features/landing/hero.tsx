@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 
 import { HeroDemo } from "./hero-demo";
-import { BUTTON, WRAP } from "./landing-ui";
+import { BUTTON, Logo, WRAP } from "./landing-ui";
 
 const CHIPS = ["phone", "parents", "conflicts", "languages"] as const;
 
@@ -15,6 +15,9 @@ export function Hero() {
     <section aria-labelledby="hero-title" className="bg-lp-band text-lp-on-brand">
       <div className={cn(WRAP, "grid items-center gap-12 py-14 lg:grid-cols-[1fr_minmax(0,1.05fr)] lg:py-20")}>
         <div className="flex flex-col items-start gap-6">
+          <Logo onDark className="-ms-3 -mb-2 h-20" />
+          {/* Sand: decoration only */}
+          <span aria-hidden className="h-1 w-16 rounded-full bg-lp-sand" />
           <p className="text-sm font-bold text-lp-band-accent">{t("eyebrow")}</p>
           <h1 id="hero-title" className="text-4xl leading-tight font-extrabold text-balance sm:text-5xl lg:text-[3.25rem]">
             {t("title")}

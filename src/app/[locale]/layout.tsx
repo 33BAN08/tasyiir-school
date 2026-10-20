@@ -10,7 +10,7 @@ import { DirectionProvider } from "@/components/ui/direction";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { getDirection, routing } from "@/i18n/routing";
-import { BRAND } from "@/lib/brand";
+import { BRAND, OG_IMAGE, SITE_URL } from "@/lib/brand";
 import { inter } from "@/lib/fonts";
 
 import "../globals.css";
@@ -28,7 +28,22 @@ export function generateStaticParams() {
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("home");
-  return { title: BRAND.product, description: `${BRAND.product} — ${t("tagline")}` };
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: BRAND.product,
+    description: `${BRAND.product} — ${t("tagline")}`,
+    manifest: "/manifest.webmanifest",
+    icons: {
+      icon: [
+        { url: "/brand/tasyir-icon-32.png", sizes: "32x32", type: "image/png" },
+        { url: "/brand/tasyir-icon-192.png", sizes: "192x192", type: "image/png" },
+        { url: "/brand/tasyir-icon-512.png", sizes: "512x512", type: "image/png" },
+      ],
+      apple: { url: "/brand/tasyir-icon-180.png", sizes: "180x180", type: "image/png" },
+    },
+    openGraph: { siteName: BRAND.product, type: "website", images: [OG_IMAGE] },
+    twitter: { card: "summary_large_image", images: [OG_IMAGE.url] },
+  };
 }
 
 export default async function LocaleLayout({ children }: LayoutProps<"/[locale]">) {

@@ -35,6 +35,10 @@
   --color-secondary-foreground: var(--secondary-foreground);
   --color-secondary: var(--secondary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-mint: var(--mint);
+  --color-sand: var(--sand);
   --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
@@ -74,24 +78,30 @@
 
 /* Brand tokens: docs/DESIGN.md. The only place raw color values are allowed. */
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --background: #f4fbf7;
+  --foreground: #0e2018;
   --card: #ffffff;
-  --card-foreground: #0f172a;
+  --card-foreground: #0e2018;
   --popover: #ffffff;
-  --popover-foreground: #0f172a;
-  --primary: #0f766e;
+  --popover-foreground: #0e2018;
+  /* Tasyir palette: atlas = brand / headers, action = buttons / links,
+     mint = soft fills, sand = decoration only (never text). */
+  --brand: #0b5d3b;
+  --brand-foreground: #ffffff;
+  --mint: #cdebdb;
+  --sand: #e6c88f;
+  --primary: #0b7a49;
   --primary-foreground: #ffffff;
-  --secondary: #f1f5f9;
-  --secondary-foreground: #0f172a;
-  --muted: #f1f5f9;
-  --muted-foreground: #64748b;
-  --accent: #f59e0b;
-  --accent-foreground: #0f172a;
+  --secondary: #e6f4ec;
+  --secondary-foreground: #0e2018;
+  --muted: #e6f4ec;
+  --muted-foreground: #4a6357;
+  --accent: #cdebdb;
+  --accent-foreground: #0e2018;
   --destructive: #dc2626;
-  --border: #e2e8f0;
-  --input: #e2e8f0;
-  --ring: #0f766e;
+  --border: #cfe6d9;
+  --input: #cfe6d9;
+  --ring: #0b7a49;
 
   --success: #16a34a;
   --success-foreground: #ffffff;
@@ -102,21 +112,21 @@
   --info: #2563eb;
   --info-foreground: #ffffff;
 
-  --chart-1: #0f766e;
-  --chart-2: #f59e0b;
+  --chart-1: #0b7a49;
+  --chart-2: #e6c88f;
   --chart-3: #2563eb;
   --chart-4: #16a34a;
   --chart-5: #64748b;
   --radius: 8px;
 
   --sidebar: #ffffff;
-  --sidebar-foreground: #0f172a;
-  --sidebar-primary: #0f766e;
+  --sidebar-foreground: #0e2018;
+  --sidebar-primary: #0b7a49;
   --sidebar-primary-foreground: #ffffff;
-  --sidebar-accent: #f1f5f9;
-  --sidebar-accent-foreground: #0f172a;
-  --sidebar-border: #e2e8f0;
-  --sidebar-ring: #0f766e;
+  --sidebar-accent: #e6f4ec;
+  --sidebar-accent-foreground: #0e2018;
+  --sidebar-border: #cfe6d9;
+  --sidebar-ring: #0b7a49;
 
   --subject-teal: #0d9488;
   --subject-blue: #2563eb;
@@ -133,39 +143,43 @@
 }
 
 .dark {
-  --background: #0b1220;
-  --foreground: #e2e8f0;
-  --card: #111a2e;
-  --card-foreground: #e2e8f0;
-  --popover: #111a2e;
-  --popover-foreground: #e2e8f0;
-  --primary: #14b8a6;
-  --primary-foreground: #042f2e;
-  --secondary: #1e293b;
-  --secondary-foreground: #e2e8f0;
-  --muted: #1e293b;
-  --muted-foreground: #94a3b8;
-  --accent: #fbbf24;
-  --accent-foreground: #0b1220;
+  --background: #0a1711;
+  --foreground: #e3f1ea;
+  --card: #10241a;
+  --card-foreground: #e3f1ea;
+  --popover: #10241a;
+  --popover-foreground: #e3f1ea;
+  --brand: #0b5d3b;
+  --brand-foreground: #ffffff;
+  --mint: #cdebdb;
+  --sand: #e6c88f;
+  --primary: #3fc48a;
+  --primary-foreground: #06251a;
+  --secondary: #1a3427;
+  --secondary-foreground: #e3f1ea;
+  --muted: #1a3427;
+  --muted-foreground: #9db8aa;
+  --accent: #1a3427;
+  --accent-foreground: #e3f1ea;
   --destructive: #dc2626;
-  --border: #1e293b;
-  --input: #1e293b;
-  --ring: #14b8a6;
+  --border: #1f3b2d;
+  --input: #1f3b2d;
+  --ring: #3fc48a;
 
-  --chart-1: #14b8a6;
-  --chart-2: #fbbf24;
+  --chart-1: #3fc48a;
+  --chart-2: #e6c88f;
   --chart-3: #2563eb;
   --chart-4: #16a34a;
   --chart-5: #94a3b8;
 
-  --sidebar: #111a2e;
-  --sidebar-foreground: #e2e8f0;
-  --sidebar-primary: #14b8a6;
-  --sidebar-primary-foreground: #042f2e;
-  --sidebar-accent: #1e293b;
-  --sidebar-accent-foreground: #e2e8f0;
-  --sidebar-border: #1e293b;
-  --sidebar-ring: #14b8a6;
+  --sidebar: #10241a;
+  --sidebar-foreground: #e3f1ea;
+  --sidebar-primary: #3fc48a;
+  --sidebar-primary-foreground: #06251a;
+  --sidebar-accent: #1a3427;
+  --sidebar-accent-foreground: #e3f1ea;
+  --sidebar-border: #1f3b2d;
+  --sidebar-ring: #3fc48a;
 
   --subject-teal: #2dd4bf;
   --subject-blue: #60a5fa;
@@ -203,6 +217,7 @@
   --color-lp-band-muted: var(--lp-band-muted);
   --color-lp-band-accent: var(--lp-band-accent);
   --color-lp-band-line: var(--lp-band-line);
+  --color-lp-sand: var(--lp-sand);
   --color-lp-on-brand: var(--lp-on-brand);
   --color-lp-absent: var(--lp-absent);
   --color-lp-absent-bg: var(--lp-absent-bg);
@@ -218,7 +233,7 @@
   --lp-bg: #f4fbf7;
   --lp-surface: #ffffff;
   --lp-tint: #e6f4ec;
-  --lp-ink: #0e2a1f;
+  --lp-ink: #0e2018;
   --lp-muted: #4a6357;
   --lp-line: #cfe6d9;
   --lp-field: #6b8c7c;
@@ -226,11 +241,13 @@
   --lp-brand-hover: #096a3f;
   --lp-brand-strong: #0f8a54;
   --lp-deco: #1fb06e;
-  --lp-band: #063a27;
-  --lp-band-2: #0a4a32;
-  --lp-band-muted: #bfe3cf;
+  --lp-band: #0b5d3b;
+  --lp-band-2: #0f6e47;
+  --lp-band-muted: #cdebdb;
   --lp-band-accent: #7ee2ae;
-  --lp-band-line: #2c6b50;
+  --lp-band-line: #3b8a69;
+  /* Sand #E6C88F: decoration only (thin lines, accents), never text. */
+  --lp-sand: #e6c88f;
   --lp-on-brand: #ffffff;
   --lp-absent: #b42318;
   --lp-absent-bg: #fdecea;

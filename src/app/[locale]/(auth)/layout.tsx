@@ -1,8 +1,6 @@
-import { CalendarCheck } from "lucide-react";
-
 import { LocaleSwitcher } from "@/components/features/i18n/locale-switcher";
 import { ThemeToggle } from "@/components/features/theme/theme-toggle";
-import { BRAND } from "@/lib/brand";
+import { BRAND, BRAND_ASSETS } from "@/lib/brand";
 
 export default function AuthLayout({ children }: LayoutProps<"/[locale]">) {
   return (
@@ -12,14 +10,10 @@ export default function AuthLayout({ children }: LayoutProps<"/[locale]">) {
         <ThemeToggle />
       </div>
       <div className="flex w-full max-w-sm flex-col items-center gap-6">
-        <div className="flex flex-col items-center gap-2 text-center">
-          <div className="flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-            <CalendarCheck className="size-7" aria-hidden />
-          </div>
-          <p className="text-xl font-semibold text-primary">
-            {BRAND.nameAr} <span className="text-muted-foreground">·</span>{" "}
-            <span dir="ltr">{BRAND.product}</span>
-          </p>
+        {/* Logo files are fixed light art: the light one stays on a white tile in dark mode. */}
+        <div className="rounded-2xl px-4 py-1 dark:bg-white">
+          {/* eslint-disable-next-line @next/next/no-img-element -- static SVG */}
+          <img src={BRAND_ASSETS.logo} alt={BRAND.product} width={635} height={365} className="h-24 w-auto" />
         </div>
         {children}
       </div>

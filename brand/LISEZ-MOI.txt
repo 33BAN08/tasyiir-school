@@ -1,0 +1,11 @@
+TASYIR SCHOOL - Logo (livre + "تسيير" en Amiri + SCHOOL)
+
+tasyir-logo.svg / .png ............ logo complet, fond clair (site, documents, factures)
+tasyir-logo-dark.svg / .png ....... logo complet, fond vert (bandeaux, visuels Instagram)
+tasyir-icon.svg + 1024/512/192/180/32 px ... icone seule (application, favicon, onglet)
+tasyir-icon-white.svg / 512 ....... icone inversee sur fond blanc
+tasyir-instagram.svg / 1080 ....... photo de profil Instagram / WhatsApp (ronde)
+
+Couleurs : Vert Atlas #0B5D3B · Vert action #0B7A49 · Menthe #CDEBDB · Encre #0E2018 · Fond #F4FBF7
+Polices : Amiri (logo arabe), Inter (latin), Almarai (arabe dans l'application)
+Les lettres du logo sont dessinees en formes (SVG), pas besoin d'installer la police.

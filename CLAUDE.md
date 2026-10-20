@@ -10,6 +10,9 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 ## Current phase
 > **Phase 10 — Grades + report cards** (update this line when a phase is finished). Phases 0–9 done — live at https://tasyiir-school.vercel.app
 
+## Brand — Tasyir logo & palette (2026-10-20, outside the phases)
+Files in `public/brand` (source pack in `brand/`); `BRAND_ASSETS`, `OG_IMAGE`, `SITE_URL` in `src/lib/brand.ts`. Tokens: `--brand` atlas #0B5D3B (headers, landing band), `--primary` action #0B7A49 (buttons, links), `--mint` #CDEBDB, ink #0E2018, background #F4FBF7, `--sand` #E6C88F = decoration only, never text. Light logo on light backgrounds, `tasyir-logo-dark.svg` on green (hero). Amiri only inside the logo files. OG image 1200×630 (French tagline) = `public/brand/og-image.png`; manifest `public/manifest.webmanifest` (excluded from the proxy matcher).
+
 ## Phase 9 — done 2026-10-20 (notes kept for later phases)
 Same workflow (show every migration, wait for OK, commit + push each step, test in Chrome AR + FR). Decisions (user, 2026-10-19): **no private messaging at all** (no parent↔teacher / teacher↔admin chat; the Phase 7 "Demander un changement" idea is dropped with it). Remarks later feed report cards (Pro).
 Steps: 1 announcements in the DB · 2 announcement screens (staff write / edit / delete, teachers to their own classes, parents + staff read, bell row opens it) — done · 3 student remarks (DB, then screens) — done: teacher (students of classes they teach this year) or attendance.manage writes type (behavior / homework / material / praise) + text ≤ 500; each parent account notified at once; parents mark "Lu" (read_at per remark); director + attendance.manage read all, teacher reads their classes' students; author edits / deletes within 24 h only · 4 school contact card in the parent portal (phone + WhatsApp, set by the director in school settings) — done · 5 closing pass — done.

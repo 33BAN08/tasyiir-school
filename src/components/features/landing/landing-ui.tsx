@@ -1,7 +1,6 @@
-import { CalendarCheck } from "lucide-react";
 import type { ComponentProps, ReactNode } from "react";
 
-import { BRAND } from "@/lib/brand";
+import { BRAND, BRAND_ASSETS } from "@/lib/brand";
 import { cn } from "@/lib/utils";
 
 /** Page width + side gutters (16 px on phones). */
@@ -34,25 +33,17 @@ export const BUTTON = {
   link: cn("rounded-sm font-semibold text-lp-brand underline-offset-4 hover:underline focus-visible:outline-lp-brand", FOCUS),
 } as const;
 
-/** Brand mark + names, as on the sign-in page. */
+/** Full Tasyir logo; `onDark` = the white-lettered version for the green bands. */
 export function Logo({ className, onDark = false }: { className?: string; onDark?: boolean }) {
   return (
-    <span className={cn("inline-flex items-center gap-2", className)}>
-      <span
-        className={cn(
-          "flex size-9 shrink-0 items-center justify-center rounded-lg",
-          onDark ? "bg-lp-surface text-lp-brand" : "bg-lp-brand text-lp-on-brand",
-        )}
-      >
-        <CalendarCheck className="size-5" aria-hidden />
-      </span>
-      <span className="flex flex-col leading-tight">
-        <span className="text-lg font-extrabold">{BRAND.nameAr}</span>
-        <span dir="ltr" className={cn("text-xs font-semibold", onDark ? "text-lp-band-muted" : "text-lp-muted")}>
-          {BRAND.product}
-        </span>
-      </span>
-    </span>
+    // eslint-disable-next-line @next/next/no-img-element -- static SVG, nothing to optimize
+    <img
+      src={onDark ? BRAND_ASSETS.logoDark : BRAND_ASSETS.logo}
+      alt={BRAND.product}
+      width={635}
+      height={365}
+      className={cn("h-12 w-auto", className)}
+    />
   );
 }
 
@@ -99,7 +90,8 @@ export function IconBadge({ children, className }: { children: ReactNode; classN
 /** "Bientôt" tag for features not built yet. */
 export function SoonBadge({ label }: { label: string }) {
   return (
-    <span className="inline-flex items-center rounded-full bg-lp-info-bg px-2 py-0.5 text-xs font-bold text-lp-info">
+    <span className="inline-flex items-center gap-1 rounded-full bg-lp-info-bg px-2 py-0.5 text-xs font-bold text-lp-info">
+      <span aria-hidden className="size-1.5 rounded-full bg-lp-sand" />
       {label}
     </span>
   );

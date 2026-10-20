@@ -1,4 +1,3 @@
-import { CalendarCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { TimeRange } from "@/components/features/setup/time-slot-day-card";
@@ -49,9 +48,8 @@ export function PrintSheet({ school, view, name, yearLabel, days, slots, lessons
             // eslint-disable-next-line @next/next/no-img-element -- logos come from Supabase Storage
             <img src={school.logoUrl} alt="" className="size-10 shrink-0 rounded-lg object-cover" />
           ) : (
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <CalendarCheck className="size-6" aria-hidden />
-            </div>
+            // eslint-disable-next-line @next/next/no-img-element -- static SVG
+            <img src="/brand/tasyir-icon.svg" alt="" className="size-10 shrink-0 rounded-lg" />
           )}
           <span className="truncate text-lg font-semibold" dir="auto">
             {school.name}
