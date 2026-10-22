@@ -4,15 +4,11 @@ import type { ComponentType } from "react";
 
 import { cn } from "@/lib/utils";
 
-import { JustifyVisual, PhoneVisual, TimetableVisual, TotalsVisual } from "./dive-visuals";
+import { TimetableVisual } from "./dive-visuals";
 import { Section } from "./landing-ui";
 
-const DIVES: { key: "timetable" | "phone" | "justify" | "totals"; Visual: ComponentType }[] = [
-  { key: "timetable", Visual: TimetableVisual },
-  { key: "phone", Visual: PhoneVisual },
-  { key: "justify", Visual: JustifyVisual },
-  { key: "totals", Visual: TotalsVisual },
-];
+// Roll call, justifications and totals are shown on the phones of the features section.
+const DIVES: { key: "timetable"; Visual: ComponentType }[] = [{ key: "timetable", Visual: TimetableVisual }];
 
 export function DeepDives() {
   const t = useTranslations("landing.dives");

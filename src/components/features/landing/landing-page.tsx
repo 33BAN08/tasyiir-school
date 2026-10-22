@@ -3,6 +3,7 @@ import { useTranslations } from "next-intl";
 import { latinThenArabic } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 
+import { ComingSoon } from "./coming-soon";
 import { DeepDives } from "./deep-dives";
 import { DemoSection } from "./demo-section";
 import { Faq } from "./faq";
@@ -39,6 +40,7 @@ export function LandingPage() {
         <Myths />
         <Trust />
         <Pricing />
+        <ComingSoon />
         <Faq />
         <DemoSection />
       </main>

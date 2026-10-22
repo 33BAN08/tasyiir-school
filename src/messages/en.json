@@ -2312,44 +2312,35 @@
         }
       }
     },
-    "features": {
+    "showcase": {
       "title": "Features",
-      "subtitle": "Three plans. Each one includes everything in the one before.",
-      "soon": "Coming soon",
-      "plans": {
-        "basic": "Basic",
-        "pro": "Pro adds…",
-        "premium": "Premium adds…"
+      "subtitle": "The app as teachers, parents and supervisors see it. Demo data, made-up names.",
+      "school": "Demo School",
+      "demo": {
+        "announcement": "Parents' meeting on Saturday at 10 am",
+        "reason": "Doctor's appointment"
       },
       "items": {
-        "attendance": {
-          "title": "Roll call on the phone",
-          "body": "Present, absent, late in one tap, even on a slow connection."
+        "rollCall": {
+          "title": "Roll call in 3 taps",
+          "line": "The teacher taps the absent and late students, then saves."
         },
-        "justifications": {
-          "title": "Absence notes",
-          "body": "Sent by parents as a photo or PDF, approved by the supervisors."
+        "alert": {
+          "title": "The parent is told",
+          "line": "10 minutes after the roll call, in the parent space."
         },
-        "timetable": {
-          "title": "Timetable",
-          "body": "Grids per class, teacher and room, conflicts refused, A4 printing."
+        "justify": {
+          "title": "Absence notes by photo",
+          "line": "The parent attaches a photo of the note, the school validates it."
         },
-        "notifications": {
-          "title": "Parent notifications",
-          "body": "Absences shown in the parent portal, corrected automatically."
-        },
-        "people": {
-          "title": "Students, parents, teachers",
-          "body": "Excel import, photos, several children per parent."
-        },
-        "messaging": {
-          "title": "Announcements and remarks",
-          "body": "Announcements per class or level, remarks on a student sent to parents at once, the school's contact one tap away."
-        },
-        "alerts": {
-          "title": "Automatic alerts",
-          "body": "Repeated unexcused absences, frequent lateness: everyone concerned is told that evening."
-        },
+        "totals": {
+          "title": "Totals in hours",
+          "line": "Per student and per class, in hours like Massar."
+        }
+      }
+    },
+    "features": {
+      "items": {
         "grades": {
           "title": "Grades and report cards",
           "body": "Grade entry, averages, PDF report cards published to parents."
@@ -2361,6 +2352,10 @@
         "fees": {
           "title": "Fees and payments",
           "body": "Monthly fees, sibling discounts, receipts, unpaid list."
+        },
+        "homework": {
+          "title": "Homework",
+          "body": "Homework set per class, visible to parents."
         },
         "transport": {
           "title": "School transport",
@@ -2382,42 +2377,6 @@
           "a": "Drag and drop to move or swap two lessons",
           "b": "Views per class, teacher and room",
           "c": "Copy last year's timetable, A4 printing"
-        }
-      },
-      "phone": {
-        "kicker": "Roll call",
-        "title": "Roll call on the teacher's phone",
-        "body": "The current lesson opens first. The teacher taps the absent students, saves, done. A dropped connection loses nothing: the roll call stays on the phone until it is sent.",
-        "points": {
-          "a": "Large rows easy to tap, a photo of each student",
-          "b": "Minutes late, optional",
-          "c": "Supervisors can correct any day"
-        }
-      },
-      "justify": {
-        "kicker": "Absence notes",
-        "title": "Absence notes without paper",
-        "body": "The parent picks the days, writes the reason and adds a photo of the certificate. Supervisors see the waiting requests, open the photo and reply.",
-        "points": {
-          "a": "Photo made lighter and GPS location removed before sending",
-          "b": "Private files, links valid for one minute",
-          "c": "A paper note entered by the school for one absence"
-        }
-      },
-      "totals": {
-        "kicker": "Totals",
-        "title": "Absence totals in hours, like Massar",
-        "body": "Massar counts missed hours. Tasyiir adds up the real length of every missed lesson, per student and per class, over the week, month or year.",
-        "points": {
-          "a": "Most absent students first",
-          "b": "Lateness counted separately, with minutes",
-          "c": "Each student's history on their page"
-        },
-        "sample": {
-          "caption": "Example · 3AC-B · October",
-          "student": "Student",
-          "absences": "Absences",
-          "hours": "Hours"
         }
       }
     },
@@ -2451,22 +2410,35 @@
     },
     "pricing": {
       "title": "Plans",
-      "subtitle": "The price depends on the number of students. Request a demo and we will send you an offer.",
-      "onRequest": "Price on request",
-      "cta": "Request a quote",
+      "subtitle": "A clear price based on the size of your school. No setup fee.",
       "recommended": "Recommended",
+      "perMonth": "/ month",
+      "yearly": "or {price} / year · save {saving}",
+      "alerts": {
+        "yes": "Daily automatic alerts",
+        "no": "Without daily automatic alerts"
+      },
+      "ctaTrial": "14-day free trial",
+      "ctaDemo": "Request a demo",
       "plans": {
-        "basic": {
-          "name": "Basic",
-          "lead": "The essentials: attendance, timetable, parents."
+        "small": {
+          "name": "Small school",
+          "for": "Up to 150 students",
+          "admins": "2 admin accounts",
+          "support": "Remote import · WhatsApp Monday to Friday"
         },
-        "pro": {
-          "name": "Pro",
-          "lead": "Basic, plus alerts, grades and Massar."
+        "medium": {
+          "name": "Medium school",
+          "for": "151 to 400 students",
+          "admins": "5 admin accounts",
+          "support": "Import + one training visit · priority WhatsApp Monday to Saturday"
         },
-        "premium": {
-          "name": "Premium",
-          "lead": "Pro, plus fees, transport and SMS."
+        "large": {
+          "name": "Large school",
+          "for": "401 to 800 students",
+          "admins": "Unlimited admin accounts",
+          "support": "Import + two training visits and a named contact · priority WhatsApp and phone",
+          "quote": "Over 800 students: on quote."
         }
       },
       "compare": {
@@ -2474,8 +2446,67 @@
         "feature": "Feature",
         "included": "Included",
         "notIncluded": "Not included",
-        "soon": "Coming soon"
+        "groups": {
+          "differences": "What changes",
+          "allPlans": "In every plan"
+        },
+        "rows": {
+          "students": "Students",
+          "admins": "Admin accounts",
+          "alerts": "Daily automatic alerts",
+          "visits": "On-site training visits",
+          "namedContact": "Named contact",
+          "support": "Support",
+          "teachersParents": "Unlimited teachers and parents",
+          "rollCall": "Roll call on the phone, lateness and corrections",
+          "parentAlert": "Parent told 10 minutes after the roll call",
+          "justifications": "Photo absence notes validated by the school",
+          "totals": "Absence totals in hours",
+          "timetable": "Conflict-free timetable, A4 printing",
+          "people": "Students, parents and teachers, with photos",
+          "announcements": "Announcements",
+          "remarks": "Remarks about the student",
+          "contact": "School contact card",
+          "phoneLogin": "Parents sign in with their phone number",
+          "languages": "Arabic, French and English",
+          "import": "We import your Excel lists",
+          "noSetupFee": "No setup fee"
+        },
+        "values": {
+          "students": {
+            "small": "Up to 150",
+            "medium": "151 to 400",
+            "large": "401 to 800"
+          },
+          "admins": {
+            "small": "2",
+            "medium": "5",
+            "large": "Unlimited"
+          },
+          "visits": {
+            "small": "—",
+            "medium": "1",
+            "large": "2"
+          },
+          "support": {
+            "small": "WhatsApp, Mon–Fri",
+            "medium": "Priority WhatsApp, Mon–Sat",
+            "large": "Priority WhatsApp and phone"
+          }
+        }
+      },
+      "founding": {
+        "label": "Founding-school offer:",
+        "text": "490 DH/month on the Medium school plan, price locked for 2 years, limited to the first 5 schools.",
+        "ctaWhatsapp": "Talk to us on WhatsApp",
+        "ctaDemo": "Contact us",
+        "whatsappMessage": "Hello, I am interested in the Tasyiir School founding-school offer (Medium school at 490 DH/month)."
       }
+    },
+    "soon": {
+      "title": "Coming soon",
+      "badge": "Coming soon",
+      "keepPrice": "Schools already signed up keep their price when these modules arrive."
     },
     "faq": {
       "title": "Frequently asked questions",
@@ -2489,7 +2520,7 @@
       },
       "massar": {
         "q": "Does it work with Massar?",
-        "a": "Absence totals are already counted in hours, as in Massar, and each student can have their Massar code. Export to Massar (absences and grades) comes with the Pro plan."
+        "a": "Absence totals are already counted in hours, as in Massar, and each student can have their Massar code. Export to Massar (absences and grades) is coming soon; schools already signed up keep their price."
       },
       "mobile": {
         "q": "Do we need to install an app?",
@@ -2497,7 +2528,7 @@
       },
       "trial": {
         "q": "Can we try it before committing?",
-        "a": "Yes. After the demo we open a trial space for your school, with your classes and students."
+        "a": "Yes. Request a demo or write to us on WhatsApp: we open a 14-day free trial for your school, with your classes and students."
       }
     },
     "demo": {

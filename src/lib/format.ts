@@ -22,6 +22,13 @@ export function formatMoney(amount: number): string {
   return `${amountFormat.format(amount)} DH`;
 }
 
+const wholeAmountFormat = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 });
+
+/** Whole prices: `2900` → `2 900 DH` (Western digits in every language). */
+export function formatPriceDh(amount: number): string {
+  return `${wholeAmountFormat.format(amount)} DH`;
+}
+
 /** UTC timestamp or `yyyy-MM-dd` date → `dd/MM/yyyy` (Casablanca time). */
 export function formatDate(value: string | Date): string {
   // A bare date has no time zone: read it as noon UTC so it never shifts a day.

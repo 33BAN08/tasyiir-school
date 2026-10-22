@@ -2312,44 +2312,35 @@
         }
       }
     },
-    "features": {
+    "showcase": {
       "title": "Fonctions",
-      "subtitle": "Trois formules. Chacune reprend tout ce que contient la précédente.",
-      "soon": "Bientôt",
-      "plans": {
-        "basic": "Basic",
-        "pro": "Pro ajoute…",
-        "premium": "Premium ajoute…"
+      "subtitle": "L'application telle que la voient le professeur, le parent et la surveillance. Données de démonstration, noms fictifs.",
+      "school": "École Démo",
+      "demo": {
+        "announcement": "Réunion des parents samedi à 10 h",
+        "reason": "Rendez-vous médical"
       },
       "items": {
-        "attendance": {
-          "title": "Appel sur téléphone",
-          "body": "Présent, absent, retard en un tap, même avec une connexion lente."
+        "rollCall": {
+          "title": "L'appel en 3 taps",
+          "line": "Le professeur touche les absents et les retards, puis enregistre."
         },
-        "justifications": {
-          "title": "Justificatifs",
-          "body": "Envoyés en photo ou PDF par les parents, validés par la surveillance."
+        "alert": {
+          "title": "Le parent est prévenu",
+          "line": "10 minutes après l'appel, dans son espace parent."
         },
-        "timetable": {
-          "title": "Emploi du temps",
-          "body": "Grilles par classe, professeur et salle, conflits refusés, impression A4."
+        "justify": {
+          "title": "Le justificatif en photo",
+          "line": "Le parent joint la photo du certificat, la surveillance valide."
         },
-        "notifications": {
-          "title": "Notifications aux parents",
-          "body": "Absence signalée dans le portail parent, avec correction automatique."
-        },
-        "people": {
-          "title": "Élèves, parents, professeurs",
-          "body": "Import depuis Excel, photos, plusieurs enfants par parent."
-        },
-        "messaging": {
-          "title": "Annonces et remarques",
-          "body": "Annonces par classe ou niveau, remarques sur l'élève envoyées aussitôt aux parents, contact de l'établissement en un geste."
-        },
-        "alerts": {
-          "title": "Alertes automatiques",
-          "body": "Absences non justifiées répétées, retards fréquents : chacun est prévenu le soir même."
-        },
+        "totals": {
+          "title": "Les totaux en heures",
+          "line": "Par élève et par classe, en heures comme Massar."
+        }
+      }
+    },
+    "features": {
+      "items": {
         "grades": {
           "title": "Notes et bulletins",
           "body": "Saisie des notes, moyennes, bulletins en PDF publiés aux parents."
@@ -2361,6 +2352,10 @@
         "fees": {
           "title": "Frais et paiements",
           "body": "Mensualités, remises fratrie, reçus, liste des impayés."
+        },
+        "homework": {
+          "title": "Devoirs",
+          "body": "Devoirs donnés par classe, visibles par les parents."
         },
         "transport": {
           "title": "Transport scolaire",
@@ -2382,42 +2377,6 @@
           "a": "Glisser-déposer pour déplacer ou échanger deux cours",
           "b": "Vues par classe, par professeur et par salle",
           "c": "Copie de l'emploi du temps de l'an dernier, impression A4"
-        }
-      },
-      "phone": {
-        "kicker": "Appel",
-        "title": "L'appel sur le téléphone du professeur",
-        "body": "Le cours du moment s'ouvre en premier. Le professeur touche les absents, enregistre, c'est fini. Une connexion coupée ne fait rien perdre : l'appel reste sur le téléphone jusqu'à l'envoi.",
-        "points": {
-          "a": "Grandes lignes faciles à toucher, photo de chaque élève",
-          "b": "Minutes de retard en option",
-          "c": "La surveillance corrige n'importe quel jour"
-        }
-      },
-      "justify": {
-        "kicker": "Justificatifs",
-        "title": "Les justificatifs, sans papier",
-        "body": "Le parent choisit les jours, écrit la raison et ajoute une photo du certificat. La surveillance voit la liste des demandes en attente, ouvre la photo et répond.",
-        "points": {
-          "a": "Photo allégée et position GPS retirée avant l'envoi",
-          "b": "Fichiers privés, liens valables une minute",
-          "c": "Mot papier saisi par l'école pour une seule absence"
-        }
-      },
-      "totals": {
-        "kicker": "Totaux",
-        "title": "Les totaux d'absences, en heures comme Massar",
-        "body": "Massar compte les heures manquées. Tasyiir additionne la durée réelle de chaque cours manqué, par élève et par classe, sur la semaine, le mois ou l'année.",
-        "points": {
-          "a": "Élèves les plus absents en premier",
-          "b": "Retards comptés à part, avec les minutes",
-          "c": "Historique de chaque élève sur sa fiche"
-        },
-        "sample": {
-          "caption": "Exemple · 3AC-B · Octobre",
-          "student": "Élève",
-          "absences": "Absences",
-          "hours": "Heures"
         }
       }
     },
@@ -2451,22 +2410,35 @@
     },
     "pricing": {
       "title": "Formules",
-      "subtitle": "Le prix dépend du nombre d'élèves. Demandez une démo : nous vous envoyons une offre.",
-      "onRequest": "Prix sur demande",
-      "cta": "Demander un devis",
+      "subtitle": "Un prix clair selon la taille de l'école. Sans frais d'installation.",
       "recommended": "Recommandée",
+      "perMonth": "/ mois",
+      "yearly": "ou {price} / an · {saving} d'économie",
+      "alerts": {
+        "yes": "Alertes quotidiennes automatiques",
+        "no": "Sans alertes quotidiennes automatiques"
+      },
+      "ctaTrial": "Essai gratuit de 14 jours",
+      "ctaDemo": "Demander une démo",
       "plans": {
-        "basic": {
-          "name": "Basic",
-          "lead": "L'essentiel : absences, emploi du temps, parents."
+        "small": {
+          "name": "Petite école",
+          "for": "Jusqu'à 150 élèves",
+          "admins": "2 comptes administration",
+          "support": "Import à distance · WhatsApp du lundi au vendredi"
         },
-        "pro": {
-          "name": "Pro",
-          "lead": "Basic, plus les alertes, les notes et Massar."
+        "medium": {
+          "name": "École moyenne",
+          "for": "De 151 à 400 élèves",
+          "admins": "5 comptes administration",
+          "support": "Import + une visite de formation · WhatsApp prioritaire du lundi au samedi"
         },
-        "premium": {
-          "name": "Premium",
-          "lead": "Pro, plus les frais, le transport et les SMS."
+        "large": {
+          "name": "Grande école",
+          "for": "De 401 à 800 élèves",
+          "admins": "Comptes administration illimités",
+          "support": "Import + deux visites de formation et un interlocuteur dédié · WhatsApp et téléphone prioritaires",
+          "quote": "Plus de 800 élèves : sur devis."
         }
       },
       "compare": {
@@ -2474,8 +2446,67 @@
         "feature": "Fonction",
         "included": "Inclus",
         "notIncluded": "Non inclus",
-        "soon": "Bientôt"
+        "groups": {
+          "differences": "Ce qui change",
+          "allPlans": "Dans toutes les formules"
+        },
+        "rows": {
+          "students": "Élèves",
+          "admins": "Comptes administration",
+          "alerts": "Alertes quotidiennes automatiques",
+          "visits": "Visites de formation sur place",
+          "namedContact": "Interlocuteur dédié",
+          "support": "Support",
+          "teachersParents": "Professeurs et parents illimités",
+          "rollCall": "Appel sur téléphone, retards et corrections",
+          "parentAlert": "Parent prévenu 10 minutes après l'appel",
+          "justifications": "Justificatifs en photo validés par l'école",
+          "totals": "Totaux d'absences en heures",
+          "timetable": "Emploi du temps sans conflit, impression A4",
+          "people": "Élèves, parents et professeurs, avec photos",
+          "announcements": "Annonces",
+          "remarks": "Remarques sur l'élève",
+          "contact": "Carte de contact de l'établissement",
+          "phoneLogin": "Connexion des parents par numéro de téléphone",
+          "languages": "Arabe, français et anglais",
+          "import": "Nous importons vos listes Excel",
+          "noSetupFee": "Aucun frais d'installation"
+        },
+        "values": {
+          "students": {
+            "small": "Jusqu'à 150",
+            "medium": "151 à 400",
+            "large": "401 à 800"
+          },
+          "admins": {
+            "small": "2",
+            "medium": "5",
+            "large": "Illimités"
+          },
+          "visits": {
+            "small": "—",
+            "medium": "1",
+            "large": "2"
+          },
+          "support": {
+            "small": "WhatsApp, lun.–ven.",
+            "medium": "WhatsApp prioritaire, lun.–sam.",
+            "large": "WhatsApp et téléphone prioritaires"
+          }
+        }
+      },
+      "founding": {
+        "label": "Offre écoles fondatrices :",
+        "text": "490 DH/mois en formule École moyenne, prix bloqué 2 ans, limité aux 5 premières écoles.",
+        "ctaWhatsapp": "En parler sur WhatsApp",
+        "ctaDemo": "Nous contacter",
+        "whatsappMessage": "Bonjour, je suis intéressé(e) par l'offre écoles fondatrices de Tasyiir School (École moyenne à 490 DH/mois)."
       }
+    },
+    "soon": {
+      "title": "Bientôt",
+      "badge": "Bientôt",
+      "keepPrice": "Les écoles inscrites gardent leur prix quand ces modules arrivent."
     },
     "faq": {
       "title": "Questions fréquentes",
@@ -2489,7 +2520,7 @@
       },
       "massar": {
         "q": "Est-ce compatible avec Massar ?",
-        "a": "Les totaux d'absences sont déjà comptés en heures, comme dans Massar, et chaque élève peut avoir son code Massar. L'export vers Massar (absences et notes) arrive avec la formule Pro."
+        "a": "Les totaux d'absences sont déjà comptés en heures, comme dans Massar, et chaque élève peut avoir son code Massar. L'export vers Massar (absences et notes) arrive bientôt ; les écoles inscrites gardent leur prix."
       },
       "mobile": {
         "q": "Faut-il installer une application ?",
@@ -2497,7 +2528,7 @@
       },
       "trial": {
         "q": "Peut-on essayer avant de s'engager ?",
-        "a": "Oui. Après la démo, nous ouvrons un espace d'essai pour votre école, avec vos classes et vos élèves."
+        "a": "Oui. Demandez une démo ou écrivez-nous sur WhatsApp : nous ouvrons un essai gratuit de 14 jours pour votre école, avec vos classes et vos élèves."
       }
     },
     "demo": {

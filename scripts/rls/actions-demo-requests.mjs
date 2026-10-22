@@ -33,6 +33,33 @@ export async function demoRequestActions({ fx, baseUrl }) {
     const html = home.status === 200 ? await home.text() : "";
     check("[home] /fr is public: the home page, signed out", home.status === 200 && html.includes('id="hero-title"'), `status ${home.status}`);
     check("[home] …with the demo form", html.includes('id="demo-phone"'));
+    // Pricing (launch step 5): real prices, Western digits, unfinished modules only in "Bientôt".
+    const dh = (n) => `${new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 }).format(n)} DH`;
+    for (const locale of ["fr", "ar"]) {
+      const page = locale === "fr" ? html : await (await fetch(new URL(`/${locale}`, baseUrl))).text();
+      const plans = page.slice(page.indexOf('<section id="plans"'), page.indexOf('<section id="soon"'));
+      check(`[home ${locale}] three plans, then the coming-soon section`, plans.length > 0 && ["small", "medium", "large"].every((p) => plans.includes(`id="plan-${p}"`)));
+      check(
+        `[home ${locale}] monthly + yearly prices and savings in DH`,
+        [290, 590, 990, 2900, 5900, 9900, 580, 1180, 1980].every((n) => plans.includes(dh(n))),
+      );
+      check(`[home ${locale}] no Arabic-Indic digits in the plans`, !/[٠-٩۰-۹]/.test(plans));
+      const soon = page.slice(page.indexOf('<section id="soon"'));
+      check(`[home ${locale}] coming-soon modules listed under the plans`, (soon.match(/data-soon-item=/g) ?? []).length === 6);
+      check(`[home ${locale}] no coming-soon module inside a plan`, !plans.includes("data-soon-item="));
+      check(
+        `[home ${locale}] comparison table: what differs, then what every plan has`,
+        plans.includes('data-compare="differences"') && plans.includes('data-compare="allPlans"'),
+      );
+      check(`[home ${locale}] the product on 4 phones`, (page.match(/data-showcase="/g) ?? []).length === 4);
+      check(`[home ${locale}] no monthly / annual switch left`, !plans.includes("aria-pressed"));
+    }
+    check("[home] no 'Prix sur demande' left", !html.includes("Prix sur demande"));
+    const banner = html.slice(html.indexOf("data-founding-banner"), html.indexOf('id="plan-small"'));
+    check(
+      "[home] founding banner carries its button (shown on phones too)",
+      /En parler sur WhatsApp|Nous contacter/.test(banner) && !banner.includes("hidden shrink-0"),
+    );
     const start = await fetch(new URL("/fr/start", baseUrl), { redirect: "manual" });
     check("[home] /fr/start signed out → sign-in", start.status === 307 && start.headers.get("location")?.includes("/fr/login"), `status ${start.status}`);
     const dirCookies = await sessionCookies(fx.users.dirA);

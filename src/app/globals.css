@@ -225,6 +225,9 @@
   --color-lp-late-bg: var(--lp-late-bg);
   --color-lp-info: var(--lp-info);
   --color-lp-info-bg: var(--lp-info-bg);
+  --color-lp-app-success: var(--lp-app-success);
+  --color-lp-app-danger: var(--lp-app-danger);
+  --color-lp-app-warning: var(--lp-app-warning);
   --color-lp-whatsapp: var(--lp-whatsapp);
 }
 
@@ -255,6 +258,10 @@
   --lp-late-bg: #fef3e2;
   --lp-info: #1d4ed8;
   --lp-info-bg: #eaf0fe;
+  /* The app's own status colours, for the drawn phone screens only (aria-hidden pictures). */
+  --lp-app-success: #16a34a;
+  --lp-app-danger: #dc2626;
+  --lp-app-warning: #d97706;
   /* WhatsApp's own green, with dark text (8.1:1) */
   --lp-whatsapp: #25d366;
   /* app tokens used by base styles (borders, outlines) */

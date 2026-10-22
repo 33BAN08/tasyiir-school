@@ -1,67 +1,76 @@
-import {
-  Bell,
-  BellRing,
-  Bus,
-  CalendarDays,
-  ClipboardCheck,
-  FileSpreadsheet,
-  FileText,
-  GraduationCap,
-  Megaphone,
-  MessageSquare,
-  Users,
-  Wallet,
-  type LucideIcon,
-} from "lucide-react";
+import { BookOpen, Bus, FileSpreadsheet, GraduationCap, MessageSquare, Wallet, type LucideIcon } from "lucide-react";
 
-export const PLANS = ["basic", "pro", "premium"] as const;
+/** Plans named by school size (display only: the DB plan keys stay basic / pro / premium). */
+export const PLANS = ["small", "medium", "large"] as const;
 export type PlanKey = (typeof PLANS)[number];
 
-export type FeatureKey =
-  | "attendance"
-  | "justifications"
-  | "timetable"
-  | "notifications"
-  | "people"
-  | "messaging"
-  | "alerts"
-  | "grades"
-  | "massar"
-  | "fees"
-  | "transport"
-  | "sms";
-
-export type Feature = { key: FeatureKey; icon: LucideIcon; soon: boolean };
-
 /**
- * What each plan ADDS to the one before (docs/PLAN.md §3). `soon` = not built
- * yet: keep in step with the phases (Phase 9 = messaging, 10 = grades, …).
+ * Prices in DH (no VAT mention). A year = 12 months for the price of 10.
+ * Display only: the platform's `plans` table does not hold these yet.
  */
-export const PLAN_FEATURES: Record<PlanKey, Feature[]> = {
-  basic: [
-    { key: "attendance", icon: ClipboardCheck, soon: false },
-    { key: "justifications", icon: FileText, soon: false },
-    { key: "timetable", icon: CalendarDays, soon: false },
-    { key: "notifications", icon: Bell, soon: false },
-    { key: "people", icon: Users, soon: false },
-    { key: "messaging", icon: Megaphone, soon: false },
-  ],
-  pro: [
-    { key: "alerts", icon: BellRing, soon: false },
-    { key: "grades", icon: GraduationCap, soon: true },
-    { key: "massar", icon: FileSpreadsheet, soon: true },
-  ],
-  premium: [
-    { key: "fees", icon: Wallet, soon: true },
-    { key: "transport", icon: Bus, soon: true },
-    { key: "sms", icon: MessageSquare, soon: true },
-  ],
+export const PLAN_OFFER: Record<PlanKey, { monthly: number; yearly: number; alerts: boolean }> = {
+  small: { monthly: 290, yearly: 2900, alerts: false },
+  medium: { monthly: 590, yearly: 5900, alerts: true },
+  large: { monthly: 990, yearly: 9900, alerts: true },
 };
 
-/** The first plan that includes a feature; later plans include it too. */
-export function planOf(feature: FeatureKey): PlanKey {
-  return PLANS.find((plan) => PLAN_FEATURES[plan].some((f) => f.key === feature))!;
+export const RECOMMENDED_PLAN: PlanKey = "medium";
+
+/** What a year saves against 12 monthly payments. */
+export function yearlySaving(plan: PlanKey): number {
+  const { monthly, yearly } = PLAN_OFFER[plan];
+  return monthly * 12 - yearly;
 }
+
+/**
+ * Comparison table rows (`landing.pricing.compare.rows.<key>`). A row is either
+ * a text per plan (`compare.values.<key>.<plan>`) or included / not included.
+ * Only features that work end to end with a passing test belong here.
+ */
+type CompareRow = { key: string; text: true } | { key: string; included: Record<PlanKey, boolean> };
+
+const ALL = { small: true, medium: true, large: true };
+
+export const COMPARE_DIFFERENCES: CompareRow[] = [
+  { key: "students", text: true },
+  { key: "admins", text: true },
+  { key: "alerts", included: { small: false, medium: true, large: true } },
+  { key: "visits", text: true },
+  { key: "namedContact", included: { small: false, medium: false, large: true } },
+  { key: "support", text: true },
+];
+
+export const COMPARE_ALL_PLANS: CompareRow[] = [
+  { key: "teachersParents", included: ALL },
+  { key: "rollCall", included: ALL },
+  { key: "parentAlert", included: ALL },
+  { key: "justifications", included: ALL },
+  { key: "totals", included: ALL },
+  { key: "timetable", included: ALL },
+  { key: "people", included: ALL },
+  { key: "announcements", included: ALL },
+  { key: "remarks", included: ALL },
+  { key: "contact", included: ALL },
+  { key: "phoneLogin", included: ALL },
+  { key: "languages", included: ALL },
+  { key: "import", included: ALL },
+  { key: "noSetupFee", included: ALL },
+];
+
+export type SoonKey = "grades" | "massar" | "fees" | "homework" | "transport" | "sms";
+
+/**
+ * Not built yet: only in the "Bientôt" section, never inside a plan or the
+ * comparison table. Move one out once it works end to end with a passing test.
+ */
+export const COMING_SOON: { key: SoonKey; icon: LucideIcon }[] = [
+  { key: "grades", icon: GraduationCap },
+  { key: "massar", icon: FileSpreadsheet },
+  { key: "fees", icon: Wallet },
+  { key: "homework", icon: BookOpen },
+  { key: "transport", icon: Bus },
+  { key: "sms", icon: MessageSquare },
+];
 
 /** Section anchors, in page order (header + footer links). */
 export const SECTION_LINKS = [

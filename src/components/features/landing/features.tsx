@@ -1,44 +1,44 @@
 import { useTranslations } from "next-intl";
+import type { ComponentType } from "react";
 
-import { cn } from "@/lib/utils";
+import { Section } from "./landing-ui";
+import { PhoneFrame } from "./phone-frame";
+import { JustifyScreen, ParentAlertScreen } from "./showcase-parent";
+import { RollCallScreen, TotalsScreen } from "./showcase-staff";
 
-import { PLAN_FEATURES, PLANS } from "./content";
-import { IconBadge, Section, SoonBadge } from "./landing-ui";
+const SCREENS: { key: "rollCall" | "alert" | "justify" | "totals"; Screen: ComponentType }[] = [
+  { key: "rollCall", Screen: RollCallScreen },
+  { key: "alert", Screen: ParentAlertScreen },
+  { key: "justify", Screen: JustifyScreen },
+  { key: "totals", Screen: TotalsScreen },
+];
 
-/** Features grouped by the plan that adds them; not-yet-built ones say "Bientôt". */
+/**
+ * The product on four phones (drawn copies of the real screens, fictional
+ * names). Phones: the row scrolls sideways on its own, never the page.
+ */
 export function Features() {
-  const t = useTranslations("landing.features");
+  const t = useTranslations("landing.showcase");
 
   return (
     <Section id="features" tone="tint" title={t("title")} subtitle={t("subtitle")}>
-      <div className="grid gap-6 lg:grid-cols-3">
-        {PLANS.map((plan) => (
-          <div
-            key={plan}
-            className={cn(
-              "flex flex-col gap-4 rounded-xl border bg-lp-surface p-6",
-              plan === "basic" ? "border-lp-brand" : "border-lp-line",
-            )}
-          >
-            <h3 className="text-xl font-extrabold text-lp-brand">{t(`plans.${plan}`)}</h3>
-            <ul className="flex flex-col gap-4">
-              {PLAN_FEATURES[plan].map(({ key, icon: Icon, soon }) => (
-                <li key={key} className="flex items-start gap-3">
-                  <IconBadge className="size-10">
-                    <Icon className="size-5" aria-hidden />
-                  </IconBadge>
-                  <div className="flex min-w-0 flex-col gap-0.5">
-                    <p className="flex flex-wrap items-center gap-2 font-bold">
-                      {t(`items.${key}.title`)}
-                      {soon && <SoonBadge label={t("soon")} />}
-                    </p>
-                    <p className="text-sm text-lp-muted">{t(`items.${key}.body`)}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+      <div className="-mx-4 overflow-x-auto px-4 pb-4 sm:-mx-6 sm:px-6 xl:mx-0 xl:px-0">
+        <ul className="flex snap-x snap-mandatory gap-6 xl:justify-between">
+          {SCREENS.map(({ key, Screen }) => (
+            <li key={key} className="flex" data-showcase={key}>
+              <PhoneFrame
+                caption={
+                  <>
+                    <strong className="block text-base font-bold text-lp-ink">{t(`items.${key}.title`)}</strong>
+                    {t(`items.${key}.line`)}
+                  </>
+                }
+              >
+                <Screen />
+              </PhoneFrame>
+            </li>
+          ))}
+        </ul>
       </div>
     </Section>
   );
