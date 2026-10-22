@@ -53,3 +53,6 @@ brand/*.zip
 
 # local screenshots for review (never committed)
 tmp-screens/
+
+# database CA certificates (production comparison)
+*.crt
