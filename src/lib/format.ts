@@ -24,9 +24,13 @@ export function formatMoney(amount: number): string {
 
 const wholeAmountFormat = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 });
 
-/** Whole prices: `2900` → `2 900 DH` (Western digits in every language). */
+/**
+ * Whole prices: `2900` → `2 900 DH` (Western digits in every language).
+ * Groups and the space before "DH" are plain no-break spaces (U+00A0): fr-FR's
+ * narrow one (U+202F) all but vanishes after a "1" ("1180").
+ */
 export function formatPriceDh(amount: number): string {
-  return `${wholeAmountFormat.format(amount)} DH`;
+  return `${wholeAmountFormat.format(amount).replace(/\s/g, " ")} DH`;
 }
 
 /** UTC timestamp or `yyyy-MM-dd` date → `dd/MM/yyyy` (Casablanca time). */

@@ -20,7 +20,8 @@ export function PlanCard({ plan }: { plan: PlanKey }) {
       role="group"
       className={cn(
         "relative flex flex-col gap-5 rounded-xl border bg-lp-surface p-6",
-        recommended ? "border-2 border-lp-brand" : "border-lp-line",
+        // A ring (not a 2 px border) keeps the contents, and so the trial buttons, level with the other cards.
+        recommended ? "border-lp-brand ring-1 ring-lp-brand" : "border-lp-line",
       )}
     >
       {recommended && (
@@ -33,6 +34,11 @@ export function PlanCard({ plan }: { plan: PlanKey }) {
           {t(`plans.${plan}.name`)}
         </h3>
         <p className="font-semibold text-lp-muted">{t(`plans.${plan}.for`)}</p>
+        {plan === "large" && (
+          <p data-plan-quote className="text-sm text-lp-muted">
+            {t("plans.large.quote")}
+          </p>
+        )}
       </div>
 
       <div>
@@ -61,7 +67,6 @@ export function PlanCard({ plan }: { plan: PlanKey }) {
           {t("ctaDemo")}
         </a>
       </div>
-      {plan === "large" && <p className="text-center text-sm text-lp-muted">{t("plans.large.quote")}</p>}
     </div>
   );
 }

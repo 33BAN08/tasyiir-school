@@ -34,7 +34,8 @@ export async function demoRequestActions({ fx, baseUrl }) {
     check("[home] /fr is public: the home page, signed out", home.status === 200 && html.includes('id="hero-title"'), `status ${home.status}`);
     check("[home] …with the demo form", html.includes('id="demo-phone"'));
     // Pricing (launch step 5): real prices, Western digits, unfinished modules only in "Bientôt".
-    const dh = (n) => `${new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 }).format(n)} DH`;
+    // Groups and the space before "DH" are U+00A0 (formatPriceDh), never fr-FR's narrow U+202F.
+    const dh = (n) => `${new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 }).format(n).replace(/\s/g, " ")} DH`;
     for (const locale of ["fr", "ar"]) {
       const page = locale === "fr" ? html : await (await fetch(new URL(`/${locale}`, baseUrl))).text();
       const plans = page.slice(page.indexOf('<section id="plans"'), page.indexOf('<section id="soon"'));
@@ -44,6 +45,12 @@ export async function demoRequestActions({ fx, baseUrl }) {
         [290, 590, 990, 2900, 5900, 9900, 580, 1180, 1980].every((n) => plans.includes(dh(n))),
       );
       check(`[home ${locale}] no Arabic-Indic digits in the plans`, !/[٠-٩۰-۹]/.test(plans));
+      check(`[home ${locale}] prices use one kind of thousands space (no narrow U+202F)`, !plans.includes(" "));
+      const large = plans.slice(plans.indexOf('id="plan-large"'));
+      check(
+        `[home ${locale}] large plan: the quote line sits above the price`,
+        large.includes("data-plan-quote") && large.indexOf("data-plan-quote") < large.indexOf(dh(990)),
+      );
       const soon = page.slice(page.indexOf('<section id="soon"'));
       check(`[home ${locale}] coming-soon modules listed under the plans`, (soon.match(/data-soon-item=/g) ?? []).length === 6);
       check(`[home ${locale}] no coming-soon module inside a plan`, !plans.includes("data-soon-item="));
