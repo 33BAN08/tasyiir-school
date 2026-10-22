@@ -50,7 +50,8 @@ Steps: 1 announcements in the DB · 2 announcement screens (staff write / edit /
 - OS: the developer is on **Windows** (CMD/PowerShell). Use cross-platform commands.
 
 ## Supabase
-- Project ref: `ndnfeioxagdjjulmjonz` (DEV project). The Supabase MCP server is configured in `.mcp.json`.
+- Project ref: `ndnfeioxagdjjulmjonz` (DEV project). The Supabase MCP server is configured in `.mcp.json` (DEV only).
+- **The local Supabase CLI is linked to PRODUCTION** (`blycnuuomfqgvfczkbxc`, see `supabase/.temp/project-ref`, since 2026-10-22). **Never run any `supabase db …` or `supabase migration …` command without the user's explicit OK** for that command (user, 2026-10-22). The production database password never appears in the chat: the user keeps it in `.env.prod-compare.local` (git-ignored, never read / printed by Claude) and runs password prompts in their own terminal, not with `!`. DEV ↔ production comparisons read production with `pg` (dev dependency) in a read-only transaction, DEV through the MCP.
 - Every schema change = a new SQL migration file in `supabase/migrations/` (timestamped). Never edit an old migration.
 - After schema changes, regenerate types into `src/types/database.ts`.
 - **Every tenant table has `school_id`** and **RLS enabled** with policies. No exceptions.

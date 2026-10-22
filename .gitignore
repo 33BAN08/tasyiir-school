@@ -50,3 +50,6 @@ supabase/.branches
 
 # brand source packs
 brand/*.zip
+
+# local screenshots for review (never committed)
+tmp-screens/
