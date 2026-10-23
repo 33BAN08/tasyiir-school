@@ -2,6 +2,9 @@
 //   node --env-file=.env.local scripts/rls/cleanup-run.mjs <run id>
 // The run id is the 8 hex characters in the leftover school slugs (rls-test-a-<run>).
 // Removes those schools' Storage files, the run's accounts (rls-test+<run>-*) and the schools.
+// First: refuses to go on against production (see guard.mjs).
+import "./guard.mjs";
+
 import { admin, removeFixtures } from "./fixtures.mjs";
 
 const run = process.argv[2];

@@ -1,5 +1,8 @@
 // Runs ONE suite (Server Action or database) with fresh fixtures (debugging aid):
 //   node --env-file=.env.local --experimental-strip-types scripts/rls/debug-one.mjs <module> <export>
+// First: refuses to go on against production (see guard.mjs).
+import "./guard.mjs";
+
 import { report } from "./checks.mjs";
 import { anon, createFixtures, removeFixtures, signIn } from "./fixtures.mjs";
 

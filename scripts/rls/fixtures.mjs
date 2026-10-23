@@ -1,5 +1,8 @@
 // Temporary fixtures for the RLS tests: created with the secret key, removed
 // at the end. Passwords are random and never printed.
+// First: refuses to go on against production (see guard.mjs).
+import "./guard.mjs";
+
 import { randomBytes } from "node:crypto";
 
 import { createClient } from "@supabase/supabase-js";

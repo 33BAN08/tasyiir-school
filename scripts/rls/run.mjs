@@ -5,6 +5,9 @@
 //                           TEST_APP_URL (default http://localhost:3000)
 // Creates temporary schools/users, runs every check as real signed-in users,
 // then deletes everything it created. Exit code 1 if any check fails.
+// First: refuses to go on against production (see guard.mjs).
+import "./guard.mjs";
+
 import { staffActions } from "./actions-staff.mjs";
 import { staffMemberActions } from "./actions-staff-member.mjs";
 import { roleActions } from "./actions-roles.mjs";
@@ -118,6 +121,7 @@ try {
   await import("./rules-phone.mjs");
   await import("./rules-import.mjs");
   await import("./rules-timetable-now.mjs");
+  await import("./rules-test-guard.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });
     await roleActions({ fx, baseUrl });

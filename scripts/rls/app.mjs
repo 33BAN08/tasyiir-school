@@ -1,6 +1,9 @@
 // Calls the app's real Server Actions over HTTP, as a given signed-in user,
 // exactly like the browser does (Next-Action header + session cookies).
 // Needs a production build running: `npm run build && npm start`.
+// First: refuses to go on against production (see guard.mjs).
+import "./guard.mjs";
+
 import { readFileSync } from "node:fs";
 
 import { createServerClient } from "@supabase/ssr";
