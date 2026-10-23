@@ -128,6 +128,7 @@ try {
   await import("./rules-import.mjs");
   await import("./rules-timetable-now.mjs");
   await import("./rules-test-guard.mjs");
+  await import("./rules-seed-demo.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });
     await roleActions({ fx, baseUrl });
