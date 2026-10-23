@@ -51,6 +51,8 @@ import { announcementActions } from "./actions-announcements.mjs";
 import { phase9Remarks } from "./phase9-remarks.mjs";
 import { remarkActions } from "./actions-remarks.mjs";
 import { phase9SchoolContacts } from "./phase9-school-contacts.mjs";
+import { planLimitActions } from "./actions-plan-limits.mjs";
+import { phaseLaunchLimits } from "./phase-launch-limits.mjs";
 import { phase9CrossSchool } from "./phase9-cross-school.mjs";
 import { schoolContactActions } from "./actions-school-contact.mjs";
 import { phase9Announcements } from "./phase9-announcements.mjs";
@@ -114,6 +116,7 @@ try {
   await phase9Announcements({ fx, as });
   await phase9Remarks({ fx, as });
   await phase9SchoolContacts({ fx, as });
+  await phaseLaunchLimits({ fx, as });
   await phase9CrossSchool({ fx, as });
   await notificationTypes({ fx, as });
   await publicDemoRequests({ fx, as });
@@ -152,6 +155,7 @@ try {
     await announcementActions({ fx, baseUrl });
     await remarkActions({ fx, baseUrl });
     await schoolContactActions({ fx, baseUrl });
+    await planLimitActions({ fx, baseUrl });
     await demoRequestActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }

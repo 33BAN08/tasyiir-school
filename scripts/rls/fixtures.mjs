@@ -50,7 +50,7 @@ export async function createFixtures() {
     fx.schools[key] = { id: school.id, roles: Object.fromEntries(roles.map((r) => [r.key, r.id])) };
 
     must(
-      await admin.from("school_subscriptions").insert({ school_id: school.id, plan_id: plan.id, status: "trial" }),
+      await admin.from("school_subscriptions").insert({ school_id: school.id, plan_id: plan.id, status: "trial", max_students_override: 5000, max_admins_override: 100 }),
       "subscription",
     );
     must(

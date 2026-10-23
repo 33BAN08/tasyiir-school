@@ -1,4 +1,6 @@
 import { FileUp, GraduationCap, SearchX } from "lucide-react";
+import { PlanLimitNotice } from "@/components/features/plan/plan-limit-notice";
+import { atLimit, getSchoolUsage } from "@/lib/plan/usage";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 
@@ -30,6 +32,8 @@ export default async function StudentsPage({ searchParams }: PageProps<"/[locale
     getPermissions(),
     getTranslations("students"),
   ]);
+  const usage = await getSchoolUsage();
+  const full = usage !== null && atLimit(usage.students, usage.maxStudents);
   const classes: ClassOption[] | null = year
     ? (await listClasses(user.schoolId, year.id)).map((c) => ({ id: c.id, name: c.name }))
     : null;
@@ -42,7 +46,7 @@ export default async function StudentsPage({ searchParams }: PageProps<"/[locale
         title={t("title")}
         description={year ? t("description", { year: ltr(year.label) }) : t("descriptionNoYear")}
         actions={
-          canManage && (
+          canManage && !full && (
             <>
               <Button variant="outline" asChild>
                 <Link href="/students/import">
@@ -55,6 +59,9 @@ export default async function StudentsPage({ searchParams }: PageProps<"/[locale
           )
         }
       />
+      <Suspense>
+        <PlanLimitNotice kind="students" />
+      </Suspense>
       <Suspense fallback={<Skeleton className="h-9 w-full max-w-md" />}>
         <StudentsFilters classes={classes} />
       </Suspense>

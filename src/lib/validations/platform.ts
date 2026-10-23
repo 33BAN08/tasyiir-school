@@ -66,6 +66,14 @@ function checkSubscriptionDates(v: SubscriptionDates, ctx: z.RefinementCtx) {
   }
 }
 
+/** Empty = no limit / no exception. */
+const optionalCount = z
+  .string()
+  .trim()
+  .regex(/^(d{1,6})?$/, { error: "maxStudentsInvalid" })
+  .refine((v) => v === "" || Number(v) > 0, { error: "maxStudentsInvalid" })
+  .transform((v) => (v === "" ? null : Number(v)));
+
 export const newSchoolSchema = z
   .object({
     // Step 1 — school
@@ -108,7 +116,13 @@ export type SchoolInfoInput = z.output<typeof schoolInfoSchema>;
 export const EDITABLE_SUBSCRIPTION_STATUSES = ["trial", "active", "expired"] as const;
 
 export const subscriptionSchema = z
-  .object({ ...subscriptionFields, subscriptionStatus: z.enum(EDITABLE_SUBSCRIPTION_STATUSES) })
+  .object({
+    ...subscriptionFields,
+    subscriptionStatus: z.enum(EDITABLE_SUBSCRIPTION_STATUSES),
+    /** Per-school exceptions to the plan's limits (empty = follow the plan). */
+    maxStudentsOverride: optionalCount,
+    maxAdminsOverride: optionalCount,
+  })
   .superRefine(checkSubscriptionDates);
 export type SubscriptionFormValues = z.input<typeof subscriptionSchema>;
 export type SubscriptionInput = z.output<typeof subscriptionSchema>;
@@ -163,6 +177,7 @@ export const planSchema = z.object({
     .regex(/^(\d{1,6})?$/, { error: "maxStudentsInvalid" })
     .refine((v) => v === "" || Number(v) > 0, { error: "maxStudentsInvalid" })
     .transform((v) => (v === "" ? null : Number(v))),
+  maxAdminAccounts: optionalCount,
   isActive: z.boolean(),
   modules: z.array(z.string().regex(/^[a-z_]+$/)).min(1, { error: "modulesRequired" }),
 });

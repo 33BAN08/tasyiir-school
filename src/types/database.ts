@@ -1082,6 +1082,7 @@ export type Database = {
           id: string
           is_active: boolean
           key: string
+          max_admin_accounts: number | null
           max_students: number | null
           name: string
           price_monthly: number
@@ -1093,6 +1094,7 @@ export type Database = {
           id?: string
           is_active?: boolean
           key: string
+          max_admin_accounts?: number | null
           max_students?: number | null
           name: string
           price_monthly?: number
@@ -1104,6 +1106,7 @@ export type Database = {
           id?: string
           is_active?: boolean
           key?: string
+          max_admin_accounts?: number | null
           max_students?: number | null
           name?: string
           price_monthly?: number
@@ -1396,6 +1399,8 @@ export type Database = {
           created_at: string
           end_date: string | null
           id: string
+          max_admins_override: number | null
+          max_students_override: number | null
           plan_id: string
           school_id: string
           start_date: string
@@ -1407,6 +1412,8 @@ export type Database = {
           created_at?: string
           end_date?: string | null
           id?: string
+          max_admins_override?: number | null
+          max_students_override?: number | null
           plan_id: string
           school_id: string
           start_date?: string
@@ -1418,6 +1425,8 @@ export type Database = {
           created_at?: string
           end_date?: string | null
           id?: string
+          max_admins_override?: number | null
+          max_students_override?: number | null
           plan_id?: string
           school_id?: string
           start_date?: string
@@ -1980,6 +1989,15 @@ export type Database = {
           local_date: string
           local_time: string
           weekday: number
+        }[]
+      }
+      school_usage: {
+        Args: never
+        Returns: {
+          admins: number
+          max_admins: number | null
+          max_students: number | null
+          students: number
         }[]
       }
       swap_lessons: { Args: { p_a: string; p_b: string }; Returns: undefined }

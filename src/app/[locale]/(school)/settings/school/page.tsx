@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 import { LastChange } from "@/components/features/alerts/last-change";
 import { SchoolContactForm } from "@/components/features/school-settings/school-contact-form";
+import { PlanUsageCard } from "@/components/features/plan/plan-usage-card";
 import { PageHeader } from "@/components/layout/page-header";
 import { Skeleton } from "@/components/ui/skeleton";
 import { requireSchoolPermission } from "@/lib/auth/session";
@@ -16,6 +17,9 @@ export default async function SchoolSettingsPage() {
   return (
     <div className="flex max-w-3xl flex-col gap-6">
       <PageHeader title={t("title")} description={t("description")} />
+      <Suspense fallback={<Skeleton className="h-32 w-full" />}>
+        <PlanUsageCard />
+      </Suspense>
       <Suspense fallback={<Skeleton className="h-80 w-full" />}>
         <ContactSection schoolId={user.schoolId} />
       </Suspense>

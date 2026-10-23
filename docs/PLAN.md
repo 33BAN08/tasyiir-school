@@ -176,6 +176,7 @@ tasyiir-school/
 - [x] **9. Announcements + remarks** — announcements (school / levels / classes; teachers to their own classes), student remarks with parent notification + "Lu", school contact card in the parent portal. Private chat not planned
 - [ ] 🎯 **MVP = Basic plan → deploy demo, start showing schools**
 - [ ] **Launch prep** (next, before Phase 10; user 2026-10-20) — ✅ 1 production Supabase project (separate from DEV) + Vercel Production points to it + test suites refuse to run against production (done 2026-10-23; Vercel Preview / Development have no Supabase env vars yet) · 2 demo school "École Démo Tasyir" + "Créer un essai" (14-day trial) · 3 rename Tasyiir → Tasyir everywhere · 4 privacy policy + terms pages (FR/AR) · ✅ 5 pricing on the home page (done 2026-10-22) · 6 closing pass
+- [ ] **Later — students "left the school" status** (user 2026-10-23): today every student row counts toward the plan's student limit (`launch_plan_limits`, trigger `students_plan_limit`, `school_usage()`). Add a status (e.g. `left_at`) so former students keep their history but stop counting; update the trigger, `school_usage()`, the students list filter and the import "places left".
 - [ ] **10. Parent app on the phone** (user 2026-10-22) — install button + iPhone guide ("Sur l'écran d'accueil"), maskable icon, service worker, free web push notifications for absences (Web Push, no WhatsApp, no paid messages)
 - [ ] **11. Grades + report cards** (report cards include the term's student remarks, Pro)
 - [ ] **12. Massar import/export**

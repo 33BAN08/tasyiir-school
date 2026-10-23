@@ -21,6 +21,7 @@ import {
 } from "@/lib/validations/platform";
 
 import { FormDateField } from "@/components/features/forms/form-date-field";
+import { FormTextField } from "@/components/features/forms/form-text-field";
 
 type Props = {
   schoolId: string;
@@ -119,6 +120,28 @@ export function SubscriptionForm({ schoolId, plans, defaults, isNew }: Props) {
                 <FormDateField form={form} name="trialEndsOn" label={tPlan("trialEndsOn")} />
               )}
               <FormDateField form={form} name="endDate" label={tPlan("endDate")} optional />
+            </div>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <FormTextField
+                form={form}
+                name="maxStudentsOverride"
+                label={t("maxStudentsOverride")}
+                description={t("overrideHint")}
+                inputMode="numeric"
+                dir="ltr"
+                className="font-numeric"
+                optional
+              />
+              <FormTextField
+                form={form}
+                name="maxAdminsOverride"
+                label={t("maxAdminsOverride")}
+                description={t("overrideHint")}
+                inputMode="numeric"
+                dir="ltr"
+                className="font-numeric"
+                optional
+              />
             </div>
           </FieldGroup>
           <div className="flex justify-end">

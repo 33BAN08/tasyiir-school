@@ -276,6 +276,7 @@ export async function validateImport(
       ignoredHeaders: read.ignoredHeaders,
       hasArabic: read.columns.has("lastNameAr") || read.columns.has("firstNameAr"),
       hasParents: PARENT_COLUMNS.some((c) => read.columns.has(c)),
+      placesLeft: null,
     },
     payload,
   };

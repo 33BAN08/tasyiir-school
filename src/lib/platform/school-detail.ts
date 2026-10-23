@@ -18,6 +18,8 @@ export type SchoolSubscription = {
   endDate: string | null;
   /** Last day of the trial in Casablanca, `yyyy-MM-dd`. */
   trialEndsOn: string | null;
+  maxStudentsOverride: number | null;
+  maxAdminsOverride: number | null;
 };
 
 export type SchoolDirector = {
@@ -66,7 +68,7 @@ export async function getSchoolDetail(id: string): Promise<SchoolDetail | null> 
   const [subs, modules, overrides, directors, audit] = await Promise.all([
     supabase
       .from("school_subscriptions")
-      .select("id, plan_id, status, start_date, end_date, trial_ends_at, plan:plans(name, plan_modules(module_key))")
+      .select("id, plan_id, status, start_date, end_date, trial_ends_at, max_students_override, max_admins_override, plan:plans(name, plan_modules(module_key))")
       .eq("school_id", id)
       .order("created_at", { ascending: false }),
     supabase.from("modules").select("key").order("sort_order"),
@@ -99,6 +101,8 @@ export async function getSchoolDetail(id: string): Promise<SchoolDetail | null> 
         startDate: sub.start_date,
         endDate: sub.end_date,
         trialEndsOn: sub.trial_ends_at ? dateInCasablanca(sub.trial_ends_at) : null,
+        maxStudentsOverride: sub.max_students_override,
+        maxAdminsOverride: sub.max_admins_override,
       }
     : null;
   // Same rule as private.has_module(): only a trial/active subscription grants plan modules.

@@ -66,6 +66,8 @@ async function SchoolDetail({ params }: { params: Params }) {
         startDate: sub.startDate,
         trialEndsOn: sub.trialEndsOn ?? "",
         endDate: sub.endDate ?? "",
+        maxStudentsOverride: sub.maxStudentsOverride === null ? "" : String(sub.maxStudentsOverride),
+        maxAdminsOverride: sub.maxAdminsOverride === null ? "" : String(sub.maxAdminsOverride),
       }
     : {
         planId: plans[0]?.id ?? "",
@@ -73,6 +75,8 @@ async function SchoolDetail({ params }: { params: Params }) {
         startDate: today,
         trialEndsOn: addDays(today, 30),
         endDate: "",
+        maxStudentsOverride: "",
+        maxAdminsOverride: "",
       };
 
   return (

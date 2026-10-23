@@ -27,6 +27,7 @@ type Authorized = { actor: StaffManager; target: LoadedStaffTarget };
 /** The database also keeps one active director per school (trigger); a concurrent change can still hit it. */
 function writeError(error: { hint?: string | null; message?: string }) {
   if (error.hint === "last_active_director") return "lastDirector";
+  if (error.message?.includes("plan_admin_limit")) return "planAdminLimit";
   // A teacher who leaves the teacher role loses their subjects, which their
   // timetable lessons still use (lessons_teacher_subject_fkey).
   if (error.message?.includes("lessons_teacher_subject_fkey")) return "teacherHasLessons";

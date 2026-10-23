@@ -38,6 +38,9 @@ async function prepare(formData: FormData): Promise<Prepared> {
   const year = await getCurrentYear(actor.schoolId);
   if (!year) return { ok: false, error: "file", file: { key: "noCurrentYear" } };
   const checked = await validateImport(actor.schoolId, year.id, file!.name, read);
+  const { data: usage } = await (await createClient()).rpc("school_usage");
+  const row = usage?.[0];
+  if (row?.max_students != null) checked.preview.placesLeft = Math.max(0, row.max_students - row.students);
   return { ok: true, actor, ...checked };
 }
 

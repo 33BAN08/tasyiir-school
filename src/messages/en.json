@@ -336,7 +336,10 @@
         "status": "Status",
         "save": "Save subscription",
         "saving": "Saving…",
-        "saved": "Subscription saved."
+        "saved": "Subscription saved.",
+        "maxStudentsOverride": "Students: limit for this school only",
+        "maxAdminsOverride": "Admin accounts: limit for this school only",
+        "overrideHint": "Leave empty to follow the plan."
       },
       "modules": {
         "title": "Modules",
@@ -398,7 +401,8 @@
       "saving": "Saving…",
       "saved": "Plan “{name}” saved.",
       "emptyTitle": "No plans",
-      "emptyDescription": "Plans are created by database migrations."
+      "emptyDescription": "Plans are created by database migrations.",
+      "maxAdminAccounts": "Maximum admin accounts"
     },
     "demoRequests": {
       "title": "Demo requests",
@@ -488,7 +492,8 @@
       "lastDirector": "The school must keep at least one active director.",
       "accountDeactivated": "This account is deactivated. Reactivate it first.",
       "readOnly": "Read only: you are not allowed to manage staff.",
-      "teacherHasLessons": "This teacher has lessons in the timetable. Give them to another teacher or delete them before changing their role."
+      "teacherHasLessons": "This teacher has lessons in the timetable. Give them to another teacher or delete them before changing their role.",
+      "planAdminLimit": "Your plan's admin account limit is reached. Contact us to move to a bigger plan."
     },
     "credentials": {
       "email": "Email address",
@@ -704,7 +709,8 @@
       "photoType": "Choose a JPG, PNG or WebP photo.",
       "photoTooBig": "The photo is larger than 10 MB.",
       "photoUnreadable": "This photo cannot be read.",
-      "photoUpload": "The photo could not be uploaded. Please try again."
+      "photoUpload": "The photo could not be uploaded. Please try again.",
+      "planStudentLimit": "Your plan's student limit is reached. Contact us to move to a bigger plan."
     },
     "photo": {
       "label": "Photo",
@@ -901,7 +907,8 @@
         "explain": "{count, plural, one {# student looks} other {# students look}} like a recorded student or another line of the file. {count, plural, one {It} other {They}} will be imported unless you untick {count, plural, one {it} other {them}}.",
         "untickAll": "Untick possible duplicates",
         "tickAll": "Tick possible duplicates again"
-      }
+      },
+      "planLimit": "Your plan has only {left} place(s) left for students, and the file has {count}. Untick some lines or contact us to change plan."
     },
     "importAction": "Import"
   },
@@ -2757,6 +2764,16 @@
       "notEnrolled": "This student is not enrolled in a class this year.",
       "locked": "Only its author can edit or delete a remark, within 24 hours.",
       "failed": "The operation failed. Try again."
+    }
+  },
+  "plan": {
+    "title": "Your plan",
+    "description": "Places used out of the places your plan allows.",
+    "students": "Students",
+    "admins": "Admin accounts (teachers excluded)",
+    "full": {
+      "students": "You have used all {max} student places of your plan. Contact us to move to a bigger plan.",
+      "admins": "You have used all {max} admin accounts of your plan. Teacher accounts are still possible. Contact us to move to a bigger plan."
     }
   }
 }

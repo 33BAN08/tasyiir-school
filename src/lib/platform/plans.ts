@@ -41,6 +41,7 @@ function byTier<T extends PlanOption>(plans: T[]): T[] {
 export type PlanAdmin = PlanOption & {
   priceYearly: number;
   maxStudents: number | null;
+  maxAdminAccounts: number | null;
   isActive: boolean;
   /** Schools whose current (non-expired) subscription is on this plan. */
   schoolCount: number;
@@ -53,7 +54,7 @@ export async function listPlansForAdmin(): Promise<PlanAdmin[]> {
     supabase
       .from("plans")
       .select(
-        "id, key, name, price_monthly, price_yearly, max_students, is_active, plan_modules(module_key, module:modules(sort_order))",
+        "id, key, name, price_monthly, price_yearly, max_students, max_admin_accounts, is_active, plan_modules(module_key, module:modules(sort_order))",
       )
       .order("price_monthly"),
     supabase.from("school_subscriptions").select("plan_id").neq("status", "expired"),
@@ -70,6 +71,7 @@ export async function listPlansForAdmin(): Promise<PlanAdmin[]> {
     priceMonthly: Number(plan.price_monthly),
     priceYearly: Number(plan.price_yearly),
     maxStudents: plan.max_students,
+    maxAdminAccounts: plan.max_admin_accounts,
     isActive: plan.is_active,
     schoolCount: counts.get(plan.id) ?? 0,
     modules: [...plan.plan_modules]

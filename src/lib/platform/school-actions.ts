@@ -92,6 +92,8 @@ export async function updateSubscription(
     end_date: v.endDate || null,
     trial_ends_at:
       v.subscriptionStatus === "trial" && v.trialEndsOn ? endOfDayInCasablanca(v.trialEndsOn) : null,
+    max_students_override: v.maxStudentsOverride,
+    max_admins_override: v.maxAdminsOverride,
   };
   const { error } = current
     ? await admin.from("school_subscriptions").update(row).eq("id", current.id)

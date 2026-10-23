@@ -35,6 +35,7 @@ function toFormValues(plan: PlanAdmin): PlanFormValues {
     priceMonthly: plan.priceMonthly.toFixed(2),
     priceYearly: plan.priceYearly.toFixed(2),
     maxStudents: plan.maxStudents === null ? "" : String(plan.maxStudents),
+    maxAdminAccounts: plan.maxAdminAccounts === null ? "" : String(plan.maxAdminAccounts),
     isActive: plan.isActive,
     modules: plan.modules,
   };
@@ -108,6 +109,16 @@ export function PlanCard({ plan, moduleKeys }: Props) {
                 form={form}
                 name="maxStudents"
                 label={t("maxStudents")}
+                description={t("maxStudentsHint")}
+                inputMode="numeric"
+                dir="ltr"
+                className="font-numeric"
+                optional
+              />
+              <FormTextField
+                form={form}
+                name="maxAdminAccounts"
+                label={t("maxAdminAccounts")}
                 description={t("maxStudentsHint")}
                 inputMode="numeric"
                 dir="ltr"

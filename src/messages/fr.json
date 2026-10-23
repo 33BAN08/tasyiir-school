@@ -336,7 +336,10 @@
         "status": "Statut",
         "save": "Enregistrer l'abonnement",
         "saving": "Enregistrement…",
-        "saved": "Abonnement enregistré."
+        "saved": "Abonnement enregistré.",
+        "maxStudentsOverride": "Élèves : limite propre à cet établissement",
+        "maxAdminsOverride": "Comptes d'administration : limite propre à cet établissement",
+        "overrideHint": "Laissez vide pour suivre la formule."
       },
       "modules": {
         "title": "Modules",
@@ -398,7 +401,8 @@
       "saving": "Enregistrement…",
       "saved": "Formule « {name} » enregistrée.",
       "emptyTitle": "Aucune formule",
-      "emptyDescription": "Les formules sont créées par les migrations de la base de données."
+      "emptyDescription": "Les formules sont créées par les migrations de la base de données.",
+      "maxAdminAccounts": "Nombre maximal de comptes d'administration"
     },
     "demoRequests": {
       "title": "Demandes de démo",
@@ -488,7 +492,8 @@
       "lastDirector": "L'établissement doit garder au moins un directeur actif.",
       "accountDeactivated": "Ce compte est désactivé. Réactivez-le d'abord.",
       "readOnly": "Lecture seule : vous n'avez pas le droit de gérer le personnel.",
-      "teacherHasLessons": "Cet enseignant a des séances dans l'emploi du temps. Confiez-les à un autre enseignant ou supprimez-les avant de changer son rôle."
+      "teacherHasLessons": "Cet enseignant a des séances dans l'emploi du temps. Confiez-les à un autre enseignant ou supprimez-les avant de changer son rôle.",
+      "planAdminLimit": "La limite de comptes administrateurs de votre formule est atteinte. Contactez-nous pour passer à une formule supérieure."
     },
     "credentials": {
       "email": "Adresse e-mail",
@@ -704,7 +709,8 @@
       "photoType": "Choisissez une photo JPG, PNG ou WebP.",
       "photoTooBig": "La photo dépasse 10 Mo.",
       "photoUnreadable": "Cette photo ne peut pas être lue.",
-      "photoUpload": "L'envoi de la photo a échoué. Veuillez réessayer."
+      "photoUpload": "L'envoi de la photo a échoué. Veuillez réessayer.",
+      "planStudentLimit": "La limite d'élèves de votre formule est atteinte. Contactez-nous pour passer à une formule supérieure."
     },
     "photo": {
       "label": "Photo",
@@ -901,7 +907,8 @@
         "explain": "{count, plural, one {# élève ressemble} other {# élèves ressemblent}} à un élève déjà enregistré ou à une autre ligne du fichier. {count, plural, one {Il sera importé} other {Ils seront importés}} sauf si vous {count, plural, one {le décochez} other {les décochez}}.",
         "untickAll": "Décocher les doublons possibles",
         "tickAll": "Recocher les doublons possibles"
-      }
+      },
+      "planLimit": "Votre formule n'a plus que {left} place(s) pour des élèves, et le fichier en contient {count}. Décochez des lignes ou contactez-nous pour changer de formule."
     },
     "importAction": "Importer"
   },
@@ -2757,6 +2764,16 @@
       "notEnrolled": "Cet élève n'est inscrit dans aucune classe cette année.",
       "locked": "Une remarque ne se modifie ou ne se supprime que par son auteur, dans les 24 heures.",
       "failed": "L'opération a échoué. Réessayez."
+    }
+  },
+  "plan": {
+    "title": "Votre formule",
+    "description": "Les places utilisées sur celles que votre formule autorise.",
+    "students": "Élèves",
+    "admins": "Comptes d'administration (hors enseignants)",
+    "full": {
+      "students": "Vous avez utilisé les {max} places d'élèves de votre formule. Contactez-nous pour passer à une formule supérieure.",
+      "admins": "Vous avez utilisé les {max} comptes d'administration de votre formule. Les comptes enseignants restent possibles. Contactez-nous pour passer à une formule supérieure."
     }
   }
 }

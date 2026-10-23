@@ -75,6 +75,7 @@ export async function createStaff(
   if (profileError) {
     // No half-created account: remove the auth user again.
     await admin.auth.admin.deleteUser(created.user.id);
+    if (profileError.message.includes("plan_admin_limit")) return { ok: false, error: "planAdminLimit" };
     console.error("createStaff: profile insert failed", profileError.code);
     return { ok: false, error: "generic" };
   }

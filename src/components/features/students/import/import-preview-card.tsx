@@ -44,6 +44,7 @@ export function ImportPreviewCard({ preview, excluded, onExcludedChange, pending
   );
   const pageCount = Math.max(1, Math.ceil(rows.length / PAGE_SIZE));
   const toImport = preview.counts.ready - [...excluded].length;
+  const overLimit = preview.placesLeft !== null && toImport > preview.placesLeft;
   const duplicateLines = preview.rows.filter(isDuplicate).map((r) => r.line);
   const allDuplicatesOut = duplicateLines.length > 0 && duplicateLines.every((l) => excluded.has(l));
   const list = (items: string[]) => new Intl.ListFormat(locale, { type: "conjunction" }).format(items);
@@ -99,6 +100,11 @@ export function ImportPreviewCard({ preview, excluded, onExcludedChange, pending
             ? t("summary.fix", { count: preview.counts.error })
             : t("summary.ready", { count: toImport, skipped: preview.counts.exists })}
         </p>
+        {overLimit && (
+          <p role="alert" className="rounded-md border border-danger/40 bg-danger/5 p-3 text-sm text-danger">
+            {t("planLimit", { left: preview.placesLeft ?? 0, count: toImport })}
+          </p>
+        )}
         {preview.duplicates > 0 && preview.counts.error === 0 && (
           <div className="flex flex-wrap items-center gap-3 rounded-md border border-warning/40 bg-warning/5 p-3 text-sm">
             <p className="min-w-0 flex-1">{t("duplicates.explain", { count: preview.duplicates })}</p>
@@ -134,7 +140,7 @@ export function ImportPreviewCard({ preview, excluded, onExcludedChange, pending
             <RotateCcw aria-hidden />
             {t("changeFile")}
           </Button>
-          <Button type="button" onClick={onImport} disabled={pending || preview.counts.error > 0 || toImport <= 0}>
+          <Button type="button" onClick={onImport} disabled={pending || preview.counts.error > 0 || toImport <= 0 || overLimit}>
             {pending ? t("importing") : t("importButton", { count: toImport })}
           </Button>
         </div>

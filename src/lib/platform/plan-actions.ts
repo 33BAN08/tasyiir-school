@@ -72,6 +72,7 @@ export async function updatePlan(
       price_monthly: v.priceMonthly,
       price_yearly: v.priceYearly,
       max_students: v.maxStudents,
+      max_admin_accounts: v.maxAdminAccounts,
       is_active: v.isActive,
     })
     .eq("id", id.data)
@@ -93,6 +94,7 @@ export async function updatePlan(
       price_monthly: v.priceMonthly,
       price_yearly: v.priceYearly,
       max_students: v.maxStudents,
+      max_admin_accounts: v.maxAdminAccounts,
       is_active: v.isActive,
       modules_added: added,
       modules_removed: removed,

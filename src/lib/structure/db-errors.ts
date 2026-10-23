@@ -7,6 +7,9 @@ type PgError = { code?: string; message?: string; details?: string | null };
 /** `byConstraint`: constraint name → error key, for errors that name one. */
 export function dbErrorKey(error: PgError, byConstraint: Record<string, string> = {}): string {
   const text = `${error.message ?? ""} ${error.details ?? ""}`;
+  // Plan limits (launch_plan_limits): raised by the database triggers.
+  if (text.includes("plan_student_limit")) return "planStudentLimit";
+  if (text.includes("plan_admin_limit")) return "planAdminLimit";
   const named = Object.entries(byConstraint).find(([constraint]) => text.includes(constraint));
   if (named) return named[1];
   switch (error.code) {

@@ -1,4 +1,5 @@
 import { SearchX, Users } from "lucide-react";
+import { PlanLimitNotice } from "@/components/features/plan/plan-limit-notice";
 import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 
@@ -38,6 +39,9 @@ export default async function StaffPage({ searchParams }: PageProps<"/[locale]/s
         description={t("description")}
         actions={assignableRoles && <NewStaffDialog roles={assignableRoles} />}
       />
+      <Suspense>
+        <PlanLimitNotice kind="admins" />
+      </Suspense>
       <Suspense fallback={<Skeleton className="h-9 w-full max-w-md" />}>
         <StaffFilters roles={roles} />
       </Suspense>

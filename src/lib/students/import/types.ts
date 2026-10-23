@@ -89,6 +89,8 @@ export type ImportPreview = {
   /** Which optional columns the file has (the preview only shows those). */
   hasArabic: boolean;
   hasParents: boolean;
+  /** Places the plan still has for students (null = no limit). The database enforces it. */
+  placesLeft: number | null;
 };
 
 export type PreviewResult = { ok: true; data: ImportPreview } | { ok: false; error: string; file?: ImportFileError };
