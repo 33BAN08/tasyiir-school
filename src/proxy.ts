@@ -7,7 +7,7 @@ import { refreshSession } from "@/lib/supabase/middleware";
 const handleI18nRouting = createIntlMiddleware(routing);
 
 /** Paths (without locale prefix) reachable while signed out: the home page and sign-in. */
-const PUBLIC_PATHS = ["/", "/login"];
+const PUBLIC_PATHS = ["/", "/login", "/privacy", "/terms"];
 
 export async function proxy(request: NextRequest) {
   // 1. Refresh the Supabase session first: it updates the request cookies,

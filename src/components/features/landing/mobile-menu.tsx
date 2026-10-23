@@ -11,13 +11,15 @@ import { BUTTON } from "./landing-ui";
 type Props = {
   className?: string;
   links: { href: string; label: string }[];
+  /** "#demo" on the home page, "/fr#demo" elsewhere. */
+  demoHref?: string;
   labels: { menu: string; close: string; nav: string; login: string; demo: string };
   /** The language links (server-rendered). */
   children: ReactNode;
 };
 
 /** Phones and tablets: the header's links in a panel under the header. */
-export function MobileMenu({ className, links, labels, children }: Props) {
+export function MobileMenu({ className, links, demoHref = "#demo", labels, children }: Props) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -74,7 +76,7 @@ export function MobileMenu({ className, links, labels, children }: Props) {
               <Link href="/login" className={cn(BUTTON.outline)}>
                 {labels.login}
               </Link>
-              <a href="#demo" onClick={close} className={BUTTON.primary}>
+              <a href={demoHref} onClick={close} className={BUTTON.primary}>
                 {labels.demo}
               </a>
             </div>

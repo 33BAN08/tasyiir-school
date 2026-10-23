@@ -1,4 +1,4 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { cn } from "@/lib/utils";
@@ -8,9 +8,12 @@ import { LanguageLinks } from "./language-links";
 import { BUTTON, Logo, WRAP } from "./landing-ui";
 import { MobileMenu } from "./mobile-menu";
 
-export function SiteHeader() {
+/** `page` = the public page shown (its path), so section links and the language switch work off the home page too. */
+export function SiteHeader({ page = "/" }: { page?: string }) {
   const t = useTranslations("landing.nav");
-  const links = SECTION_LINKS.map(({ id, key }) => ({ href: `#${id}`, label: t(key) }));
+  const locale = useLocale();
+  const base = page === "/" ? "" : `/${locale}`;
+  const links = SECTION_LINKS.map(({ id, key }) => ({ href: `${base}#${id}`, label: t(key) }));
 
   return (
     <header className="sticky top-0 z-40 border-b border-lp-line bg-lp-bg">
@@ -39,11 +42,11 @@ export function SiteHeader() {
         </nav>
 
         <div className="ms-auto hidden items-center gap-2 lg:flex">
-          <LanguageLinks />
+          <LanguageLinks href={page} />
           <Link href="/login" className={cn(BUTTON.link, "flex min-h-11 items-center px-3")}>
             {t("login")}
           </Link>
-          <a href="#demo" className={BUTTON.primary}>
+          <a href={`${base}#demo`} className={BUTTON.primary}>
             {t("demo")}
           </a>
         </div>
@@ -51,9 +54,10 @@ export function SiteHeader() {
         <MobileMenu
           className="ms-auto lg:hidden"
           links={links}
+          demoHref={`${base}#demo`}
           labels={{ menu: t("menu"), close: t("closeMenu"), nav: t("label"), login: t("login"), demo: t("demo") }}
         >
-          <LanguageLinks />
+          <LanguageLinks href={page} />
         </MobileMenu>
       </div>
     </header>

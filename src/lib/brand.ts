@@ -24,3 +24,9 @@ export const BRAND_ASSETS = {
   logoDark: "/brand/tasyir-logo-dark.svg",
   icon: "/brand/tasyir-icon.svg",
 } as const;
+
+/** Publisher named on the privacy policy and terms (/privacy, /terms), and the date they last changed. */
+export const LEGAL = {
+  publisher: "IAM AGENCY",
+  updated: "2026-10-23",
+} as const;

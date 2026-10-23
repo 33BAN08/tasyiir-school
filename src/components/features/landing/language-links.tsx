@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 /** Visible short names; the full name goes in the aria-label. */
 const SHORT = { ar: "عربي", fr: "FR", en: "EN" } as const;
 
-/** Language switch of the home page: three plain links (works without JavaScript). */
-export function LanguageLinks({ className }: { className?: string }) {
+/** Language switch of the public pages: three plain links to `href` in each language (works without JavaScript). */
+export function LanguageLinks({ className, href = "/" }: { className?: string; href?: string }) {
   const t = useTranslations("landing.language");
   const current = useLocale();
 
@@ -18,7 +18,7 @@ export function LanguageLinks({ className }: { className?: string }) {
         {routing.locales.map((locale) => (
           <li key={locale}>
             <Link
-              href="/"
+              href={href}
               locale={locale}
               lang={locale}
               hrefLang={locale}

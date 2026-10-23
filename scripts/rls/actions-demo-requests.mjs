@@ -67,6 +67,20 @@ export async function demoRequestActions({ fx, baseUrl }) {
       "[home] founding banner carries its button (shown on phones too)",
       /En parler sur WhatsApp|Nous contacter/.test(banner) && !banner.includes("hidden shrink-0"),
     );
+    // Privacy policy + terms (launch step 4): public, publisher named, no placeholder left, linked from the home page.
+    for (const locale of ["fr", "ar"]) {
+      for (const doc of ["privacy", "terms"]) {
+        const res = await fetch(new URL(`/${locale}/${doc}`, baseUrl), { redirect: "manual" });
+        const body = res.status === 200 ? await res.text() : "";
+        const article = body.slice(body.indexOf(`data-legal="${doc}"`), body.indexOf("</article>"));
+        check(
+          `[legal ${locale}] /${locale}/${doc} is public, names IAM AGENCY, no placeholder`,
+          res.status === 200 && article.includes("IAM AGENCY") && !article.includes("{publisher}") && (article.match(/<h2/g) ?? []).length >= 10,
+          `status ${res.status}`,
+        );
+      }
+    }
+    check("[legal] home page links both pages", html.includes('href="/fr/privacy"') && html.includes('href="/fr/terms"'));
     const start = await fetch(new URL("/fr/start", baseUrl), { redirect: "manual" });
     check("[home] /fr/start signed out → sign-in", start.status === 307 && start.headers.get("location")?.includes("/fr/login"), `status ${start.status}`);
     const dirCookies = await sessionCookies(fx.users.dirA);

@@ -1,5 +1,5 @@
 import { MessageCircle } from "lucide-react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
 import { whatsappUrl } from "@/lib/landing/whatsapp";
@@ -12,8 +12,12 @@ import { Logo, WRAP } from "./landing-ui";
 const LINK =
   "inline-flex min-h-11 items-center rounded-sm text-lp-muted outline-none hover:text-lp-ink hover:underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-lp-brand";
 
-export function SiteFooter() {
+/** `onHome` = the section links stay on this page; elsewhere they lead back to the home page's sections. */
+export function SiteFooter({ onHome = true }: { onHome?: boolean }) {
   const t = useTranslations("landing");
+  const tLegal = useTranslations("legal.nav");
+  const locale = useLocale();
+  const base = onHome ? "" : `/${locale}`;
   const whatsapp = whatsappUrl(t("demo.whatsappMessage"));
 
   return (
@@ -32,7 +36,7 @@ export function SiteFooter() {
           <ul className="text-sm">
             {SECTION_LINKS.map(({ id, key }) => (
               <li key={id}>
-                <a href={`#${id}`} className={LINK}>
+                <a href={`${base}#${id}`} className={LINK}>
                   {t(`nav.${key}`)}
                 </a>
               </li>
@@ -50,9 +54,19 @@ export function SiteFooter() {
               </Link>
             </li>
             <li>
-              <a href="#demo" className={LINK}>
+              <a href={`${base}#demo`} className={LINK}>
                 {t("nav.demo")}
               </a>
+            </li>
+            <li>
+              <Link href="/privacy" className={LINK}>
+                {tLegal("privacy")}
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms" className={LINK}>
+                {tLegal("terms")}
+              </Link>
             </li>
           </ul>
         </nav>

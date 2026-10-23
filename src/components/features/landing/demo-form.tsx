@@ -7,6 +7,7 @@ import { useEffect, useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import type { z } from "zod";
 
+import { Link } from "@/i18n/navigation";
 import { requestDemo } from "@/lib/demo-requests/actions";
 import { formatMobile, normalizeMobile } from "@/lib/parents/phone";
 import { cn } from "@/lib/utils";
@@ -40,6 +41,7 @@ const EMPTY: DemoRequestInput = {
  */
 export function DemoForm() {
   const t = useTranslations("landing.demo");
+  const tLegal = useTranslations("legal.nav");
   const locale = useLocale();
   const [pending, startTransition] = useTransition();
   const [summary, setSummary] = useState(false);
@@ -209,7 +211,12 @@ export function DemoForm() {
         </button>
       </div>
       <p className="text-sm text-lp-muted">{t("consent")}</p>
-      <p className="text-sm text-lp-muted">{t("privacy")}</p>
+      <p className="text-sm text-lp-muted">
+        {t("privacy")}{" "}
+        <Link href="/privacy" className={BUTTON.link}>
+          {tLegal("privacy")}
+        </Link>
+      </p>
     </form>
   );
 }

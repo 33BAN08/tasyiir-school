@@ -2778,5 +2778,187 @@
       "students": "Vous avez utilisé les {max} places d'élèves de votre formule. Contactez-nous pour passer à une formule supérieure.",
       "admins": "Vous avez utilisé les {max} comptes d'administration de votre formule. Les comptes enseignants restent possibles. Contactez-nous pour passer à une formule supérieure."
     }
+  },
+  "legal": {
+    "nav": {
+      "label": "Informations légales",
+      "privacy": "Politique de confidentialité",
+      "terms": "Conditions d'utilisation"
+    },
+    "home": "Retour à l'accueil",
+    "updated": "Dernière mise à jour : {date}",
+    "contactTitle": "Nous contacter",
+    "contactWhatsapp": "Nous écrire sur WhatsApp",
+    "contactFallback": "Écrivez-nous depuis le formulaire de demande de démo de la page d'accueil.",
+    "whatsappMessage": "Bonjour, j'ai une question au sujet de mes données personnelles sur Tasyir School.",
+    "privacy": {
+      "metaTitle": "Politique de confidentialité · Tasyir School",
+      "metaDescription": "Quelles données Tasyir School traite, pourquoi, où elles sont hébergées et comment exercer vos droits (loi 09-08).",
+      "title": "Politique de confidentialité",
+      "intro": "Tasyir School aide les écoles privées au Maroc à gérer les absences, l'emploi du temps et la communication avec les parents. Cette page explique quelles données personnelles sont traitées, pourquoi, et comment exercer vos droits, conformément à la loi n° 09-08 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel.",
+      "sections": [
+        {
+          "title": "1. Qui sommes-nous",
+          "paragraphs": [
+            "Tasyir School est édité par {publisher} (« nous »).",
+            "Pour les données que chaque école saisit dans son espace (élèves, parents, personnel, absences…), l'école est responsable du traitement : c'est elle qui décide quelles données elle enregistre et pourquoi. Nous agissons pour son compte, comme sous-traitant, et seulement pour faire fonctionner le service.",
+            "Pour les demandes de démo envoyées depuis ce site et pour les comptes des responsables des écoles clientes, nous sommes responsables du traitement."
+          ]
+        },
+        {
+          "title": "2. Les données traitées",
+          "paragraphs": [
+            "Nous ne traitons que ce dont le service a besoin. Aucun numéro de carte nationale n'est demandé."
+          ],
+          "items": [
+            "Demande de démo : nom et prénom, établissement, ville, téléphone mobile, email (facultatif), nombre d'élèves, message (facultatif).",
+            "Comptes : nom, adresse email ou téléphone de connexion, rôle dans l'école, langue choisie. Les mots de passe sont stockés chiffrés et ne sont jamais visibles, même par nous.",
+            "Élèves : nom et prénom (en lettres latines, et en arabe si l'école les saisit), date de naissance, sexe, classe, code Massar et photo (facultatifs).",
+            "Parents et tuteurs : nom et prénom, téléphone mobile, email (facultatif), lien avec l'élève.",
+            "Vie scolaire : appels, absences et retards, justificatifs (motif et, si vous en joignez un, photo ou PDF du justificatif), remarques, annonces, emploi du temps, notifications.",
+            "Données techniques : journaux de connexion et de sécurité, et l'historique des actions importantes faites dans l'espace de l'école."
+          ]
+        },
+        {
+          "title": "3. Pourquoi nous les utilisons",
+          "items": [
+            "Faire fonctionner le service pour l'école : appel, suivi des absences, emploi du temps, annonces et remarques.",
+            "Informer les parents : par exemple quand leur enfant est marqué absent.",
+            "Protéger les comptes et le service : connexion, limites contre les abus, journal des actions.",
+            "Répondre à une demande de démo et suivre la relation avec les écoles clientes."
+          ],
+          "paragraphs_after": [
+            "Nous ne vendons aucune donnée, nous ne faisons pas de publicité et nous n'utilisons pas les données des élèves à d'autres fins que le service rendu à leur école."
+          ]
+        },
+        {
+          "title": "4. Qui peut voir les données",
+          "paragraphs": [
+            "Chaque école ne voit que ses propres données. Dans une école, chacun voit ce que son rôle permet : un professeur voit les élèves de ses classes, un parent voit uniquement ses propres enfants.",
+            "Nous n'ouvrons pas les dossiers des élèves. Notre équipe accède aux données d'une école seulement si c'est nécessaire pour faire fonctionner le service ou à la demande de l'école."
+          ]
+        },
+        {
+          "title": "5. Où les données sont hébergées",
+          "paragraphs": [
+            "Le service s'appuie sur deux prestataires techniques : Supabase (base de données, comptes et fichiers), hébergé dans l'Union européenne (Irlande), et Vercel (hébergement du site), dont les serveurs utilisés sont aussi en Europe. Les données sont donc hébergées hors du Maroc, chez des prestataires soumis au règlement européen sur la protection des données (RGPD).",
+            "Les échanges entre votre appareil et le service sont chiffrés (HTTPS)."
+          ]
+        },
+        {
+          "title": "6. Combien de temps",
+          "items": [
+            "Données d'une école : tant que l'école utilise Tasyir School. À la fin de l'abonnement, l'école peut demander une copie de ses données puis leur suppression.",
+            "Demandes de démo : le temps nécessaire pour vous répondre et assurer le suivi de votre demande.",
+            "École de démonstration : ses données sont fictives et entièrement remises à zéro chaque nuit."
+          ]
+        },
+        {
+          "title": "7. Sécurité",
+          "items": [
+            "Accès selon le rôle, contrôlé par la base de données elle-même.",
+            "Photos et justificatifs dans un espace privé, affichés par des liens temporaires.",
+            "Position GPS retirée des photos de justificatifs avant l'envoi.",
+            "Historique des actions importantes (qui a fait quoi, et quand)."
+          ]
+        },
+        {
+          "title": "8. Cookies",
+          "paragraphs": [
+            "Le site utilise uniquement les cookies nécessaires à son fonctionnement : garder votre session ouverte et retenir votre langue. Votre téléphone ou navigateur garde aussi votre choix de thème et, le temps de l'enregistrer, un appel pas encore envoyé. Aucun cookie publicitaire ni outil de mesure d'audience."
+          ]
+        },
+        {
+          "title": "9. Vos droits",
+          "paragraphs": [
+            "Vous pouvez demander l'accès à vos données, leur rectification, ou vous opposer à leur traitement pour un motif légitime (loi n° 09-08).",
+            "Parent, élève ou membre du personnel d'une école : adressez-vous d'abord à votre école, qui gère ces données. Vous pouvez aussi nous écrire : nous transmettrons à l'école et l'aiderons à répondre.",
+            "Vous pouvez également saisir la Commission nationale de contrôle de la protection des données à caractère personnel (CNDP), www.cndp.ma."
+          ]
+        },
+        {
+          "title": "10. Modifications",
+          "paragraphs": [
+            "Nous pouvons mettre cette page à jour, par exemple quand le service évolue. La date de la dernière mise à jour figure en haut de la page."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "metaTitle": "Conditions d'utilisation · Tasyir School",
+      "metaDescription": "Les règles d'utilisation de Tasyir School pour les écoles, leur personnel et les parents.",
+      "title": "Conditions d'utilisation",
+      "intro": "Ces conditions s'appliquent à toute personne qui utilise Tasyir School : l'école cliente, son personnel, les parents et les visiteurs du site. En utilisant le service, vous les acceptez.",
+      "sections": [
+        {
+          "title": "1. Le service",
+          "paragraphs": [
+            "Tasyir School, édité par {publisher}, est une plateforme en ligne de gestion scolaire : appel et absences, justificatifs, emploi du temps, annonces, remarques et notifications aux parents. Elle fonctionne dans le navigateur d'un téléphone, d'une tablette ou d'un ordinateur."
+          ]
+        },
+        {
+          "title": "2. Les comptes",
+          "items": [
+            "Il n'y a pas d'inscription libre : les comptes sont créés par l'école (personnel, parents) ou par nous (direction de l'école).",
+            "Un compte est personnel. Gardez votre mot de passe secret et prévenez votre école si vous pensez que quelqu'un d'autre l'utilise.",
+            "L'école décide qui a un compte et ce que chaque rôle peut faire ; elle peut désactiver un compte à tout moment."
+          ]
+        },
+        {
+          "title": "3. Ce que l'école s'engage à faire",
+          "items": [
+            "Saisir des données exactes et seulement celles utiles à la vie scolaire.",
+            "Informer les parents et son personnel de l'utilisation de Tasyir School et de leurs droits.",
+            "Respecter la loi n° 09-08 pour les données qu'elle enregistre, dont elle reste responsable.",
+            "Ne pas publier de contenu illégal, injurieux ou sans rapport avec l'école dans les annonces et les remarques."
+          ]
+        },
+        {
+          "title": "4. Ce qui est interdit",
+          "items": [
+            "Essayer d'accéder aux données d'une autre école, d'un autre élève ou d'un autre compte.",
+            "Perturber le service, le surcharger volontairement ou tenter d'en contourner la sécurité.",
+            "Revendre ou copier le service, ou l'utiliser pour envoyer de la publicité."
+          ]
+        },
+        {
+          "title": "5. Abonnement",
+          "paragraphs": [
+            "Les formules et leurs prix sont présentés sur la page d'accueil. Les conditions propres à chaque école (formule, durée, prix, paiement) sont fixées dans son devis ou son contrat. Si l'abonnement n'est pas renouvelé ou réglé, l'accès de l'école peut être suspendu ; ses données ne sont pas supprimées pour autant.",
+            "L'école de démonstration sert seulement à découvrir le service : ses données sont fictives et remises à zéro chaque nuit. N'y saisissez aucune donnée réelle."
+          ]
+        },
+        {
+          "title": "6. Disponibilité",
+          "paragraphs": [
+            "Nous faisons tout notre possible pour que le service soit disponible à tout moment, mais nous ne pouvons pas garantir qu'il fonctionne sans aucune interruption (maintenance, panne d'un prestataire, problème de connexion). Nous prévenons les écoles à l'avance des interventions prévues quand c'est possible."
+          ]
+        },
+        {
+          "title": "7. Les données",
+          "paragraphs": [
+            "Les données de l'école lui appartiennent. Nous les traitons pour son compte, comme expliqué dans la politique de confidentialité, et l'école peut en demander une copie."
+          ]
+        },
+        {
+          "title": "8. Responsabilité",
+          "paragraphs": [
+            "Tasyir School est un outil : l'école reste responsable des décisions qu'elle prend et des informations qu'elle saisit. Notre responsabilité ne peut pas être engagée pour une mauvaise utilisation du service, pour des données inexactes saisies par un utilisateur ou pour une interruption due à une cause extérieure."
+          ]
+        },
+        {
+          "title": "9. Propriété",
+          "paragraphs": [
+            "Le service, son nom, son logo et son contenu appartiennent à {publisher}. Leur reproduction sans autorisation est interdite."
+          ]
+        },
+        {
+          "title": "10. Modifications et droit applicable",
+          "paragraphs": [
+            "Nous pouvons modifier ces conditions ; les écoles clientes sont prévenues des changements importants. Ces conditions sont soumises au droit marocain. En cas de désaccord, nous cherchons d'abord une solution amiable ; à défaut, les tribunaux compétents du Maroc seront saisis."
+          ]
+        }
+      ]
+    }
   }
 }

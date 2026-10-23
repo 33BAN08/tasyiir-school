@@ -2778,5 +2778,187 @@
       "students": "You have used all {max} student places of your plan. Contact us to move to a bigger plan.",
       "admins": "You have used all {max} admin accounts of your plan. Teacher accounts are still possible. Contact us to move to a bigger plan."
     }
+  },
+  "legal": {
+    "nav": {
+      "label": "Legal information",
+      "privacy": "Privacy policy",
+      "terms": "Terms of use"
+    },
+    "home": "Back to the home page",
+    "updated": "Last updated: {date}",
+    "contactTitle": "Contact us",
+    "contactWhatsapp": "Write to us on WhatsApp",
+    "contactFallback": "Write to us through the demo request form on the home page.",
+    "whatsappMessage": "Hello, I have a question about my personal data on Tasyir School.",
+    "privacy": {
+      "metaTitle": "Privacy policy · Tasyir School",
+      "metaDescription": "What data Tasyir School processes, why, where it is hosted and how to exercise your rights (Moroccan law 09-08).",
+      "title": "Privacy policy",
+      "intro": "Tasyir School helps private schools in Morocco manage attendance, timetables and communication with parents. This page explains what personal data is processed, why, and how to exercise your rights, in line with Moroccan law no. 09-08 on the protection of individuals with regard to the processing of personal data.",
+      "sections": [
+        {
+          "title": "1. Who we are",
+          "paragraphs": [
+            "Tasyir School is published by {publisher} (\"we\").",
+            "For the data each school enters in its space (students, parents, staff, absences…), the school is the data controller: it decides what it records and why. We act on its behalf, as a processor, and only to run the service.",
+            "For demo requests sent from this site and for the accounts of client schools' managers, we are the data controller."
+          ]
+        },
+        {
+          "title": "2. The data we process",
+          "paragraphs": [
+            "We only process what the service needs. No national ID card number is asked for."
+          ],
+          "items": [
+            "Demo request: full name, school, city, mobile phone, email (optional), number of students, message (optional).",
+            "Accounts: name, sign-in email or phone, role in the school, chosen language. Passwords are stored encrypted and are never visible, not even to us.",
+            "Students: full name (in Latin letters, and in Arabic if the school enters it), date of birth, gender, class, Massar code and photo (optional).",
+            "Parents and guardians: full name, mobile phone, email (optional), relationship to the student.",
+            "School life: roll calls, absences and lateness, justifications (reason and, if you attach one, a photo or PDF of the note), remarks, announcements, timetable, notifications.",
+            "Technical data: sign-in and security logs, and a history of the important actions taken in the school's space."
+          ]
+        },
+        {
+          "title": "3. Why we use it",
+          "items": [
+            "To run the service for the school: roll call, attendance follow-up, timetable, announcements and remarks.",
+            "To inform parents: for example when their child is marked absent.",
+            "To protect accounts and the service: sign-in, limits against abuse, action history.",
+            "To answer demo requests and follow the relationship with client schools."
+          ],
+          "paragraphs_after": [
+            "We sell no data, show no advertising, and never use students' data for anything other than the service provided to their school."
+          ]
+        },
+        {
+          "title": "4. Who can see the data",
+          "paragraphs": [
+            "Each school sees only its own data. Within a school, everyone sees what their role allows: a teacher sees the students of their classes, a parent sees only their own children.",
+            "We do not open students' records. Our team accesses a school's data only when needed to run the service or at the school's request."
+          ]
+        },
+        {
+          "title": "5. Where the data is hosted",
+          "paragraphs": [
+            "The service relies on two technical providers: Supabase (database, accounts and files), hosted in the European Union (Ireland), and Vercel (website hosting), whose servers used are also in Europe. The data is therefore hosted outside Morocco, with providers subject to the European data protection regulation (GDPR).",
+            "Traffic between your device and the service is encrypted (HTTPS)."
+          ]
+        },
+        {
+          "title": "6. How long",
+          "items": [
+            "A school's data: as long as the school uses Tasyir School. When the subscription ends, the school can ask for a copy of its data and then for its deletion.",
+            "Demo requests: as long as needed to answer you and follow up on your request.",
+            "Demo school: its data is fictional and fully reset every night."
+          ]
+        },
+        {
+          "title": "7. Security",
+          "items": [
+            "Access by role, enforced by the database itself.",
+            "Photos and justification notes in a private space, shown through temporary links.",
+            "GPS location removed from photos of justification notes before they are sent.",
+            "History of important actions (who did what, and when)."
+          ]
+        },
+        {
+          "title": "8. Cookies",
+          "paragraphs": [
+            "The site only uses the cookies it needs to work: keeping you signed in and remembering your language. Your phone or browser also keeps your theme choice and, until it is saved, a roll call not sent yet. No advertising cookies and no audience measurement tools."
+          ]
+        },
+        {
+          "title": "9. Your rights",
+          "paragraphs": [
+            "You can ask to access your data, to have it corrected, or object to its processing for a legitimate reason (law no. 09-08).",
+            "If you are a parent, student or staff member of a school, contact your school first: it manages this data. You can also write to us: we will pass your request on to the school and help it answer.",
+            "You can also contact Morocco's data protection authority, the CNDP (Commission nationale de contrôle de la protection des données à caractère personnel), www.cndp.ma."
+          ]
+        },
+        {
+          "title": "10. Changes",
+          "paragraphs": [
+            "We may update this page, for example when the service changes. The date of the last update is shown at the top of the page."
+          ]
+        }
+      ]
+    },
+    "terms": {
+      "metaTitle": "Terms of use · Tasyir School",
+      "metaDescription": "The rules for using Tasyir School, for schools, their staff and parents.",
+      "title": "Terms of use",
+      "intro": "These terms apply to everyone who uses Tasyir School: the client school, its staff, parents and visitors of the site. By using the service, you accept them.",
+      "sections": [
+        {
+          "title": "1. The service",
+          "paragraphs": [
+            "Tasyir School, published by {publisher}, is an online school management platform: roll call and absences, justifications, timetables, announcements, remarks and notifications to parents. It works in the browser of a phone, tablet or computer."
+          ]
+        },
+        {
+          "title": "2. Accounts",
+          "items": [
+            "There is no open sign-up: accounts are created by the school (staff, parents) or by us (school management).",
+            "An account is personal. Keep your password secret and tell your school if you think someone else is using it.",
+            "The school decides who has an account and what each role can do; it can deactivate an account at any time."
+          ]
+        },
+        {
+          "title": "3. What the school commits to",
+          "items": [
+            "Enter accurate data, and only what school life needs.",
+            "Inform parents and staff that it uses Tasyir School, and of their rights.",
+            "Comply with law no. 09-08 for the data it records, for which it remains responsible.",
+            "Not post illegal, abusive or unrelated content in announcements and remarks."
+          ]
+        },
+        {
+          "title": "4. What is not allowed",
+          "items": [
+            "Trying to access the data of another school, student or account.",
+            "Disrupting the service, deliberately overloading it or trying to get around its security.",
+            "Reselling or copying the service, or using it to send advertising."
+          ]
+        },
+        {
+          "title": "5. Subscription",
+          "paragraphs": [
+            "Plans and prices are shown on the home page. Each school's own terms (plan, length, price, payment) are set in its quote or contract. If the subscription is not renewed or paid, the school's access may be suspended; its data is not deleted for that.",
+            "The demo school is only for discovering the service: its data is fictional and reset every night. Do not enter any real data in it."
+          ]
+        },
+        {
+          "title": "6. Availability",
+          "paragraphs": [
+            "We do our best to keep the service available at all times, but we cannot guarantee it will run without any interruption (maintenance, a provider's outage, connection problems). We tell schools in advance about planned work whenever possible."
+          ]
+        },
+        {
+          "title": "7. Data",
+          "paragraphs": [
+            "A school's data belongs to it. We process it on the school's behalf as explained in the privacy policy, and the school can ask for a copy."
+          ]
+        },
+        {
+          "title": "8. Liability",
+          "paragraphs": [
+            "Tasyir School is a tool: the school remains responsible for its decisions and for the information it enters. We cannot be held liable for misuse of the service, for inaccurate data entered by a user, or for an interruption due to an outside cause."
+          ]
+        },
+        {
+          "title": "9. Ownership",
+          "paragraphs": [
+            "The service, its name, logo and content belong to {publisher}. Copying them without permission is forbidden."
+          ]
+        },
+        {
+          "title": "10. Changes and governing law",
+          "paragraphs": [
+            "We may change these terms; client schools are told about important changes. These terms are governed by Moroccan law. In case of disagreement we first look for an amicable solution; failing that, the competent courts of Morocco will decide."
+          ]
+        }
+      ]
+    }
   }
 }
