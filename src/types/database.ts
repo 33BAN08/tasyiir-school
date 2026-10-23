@@ -1978,7 +1978,7 @@ export type Database = {
       import_students: { Args: { p_rows: Json }; Returns: number }
       run_absence_notifications: { Args: { p_now?: string }; Returns: number }
       run_daily_alerts: { Args: { p_today: string }; Returns: number }
-      run_demo_reset: { Args: { p_school: string }; Returns: undefined }
+      run_demo_reset: { Args: { p_school: string }; Returns: string }
       run_subscription_reminders: {
         Args: { p_schools: string[]; p_today: string }
         Returns: number

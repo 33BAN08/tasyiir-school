@@ -159,13 +159,20 @@ export async function removeFixtures(fx) {
   // Accounts created by the tests themselves (e.g. createStaff) live in the fixture schools.
   const { data: extra } = await admin.from("profiles").select("id").in("school_id", fx.createdSchoolIds);
   const ids = new Set([...fx.createdUserIds, ...(extra ?? []).map((p) => p.id)]);
+  // An account still referenced by its school's rows (lessons it teaches, roll calls it took: the
+  // demo school's content) can only go once that school is gone: retried after the schools.
+  const retry = [];
   for (const id of ids) {
     const { error } = await admin.auth.admin.deleteUser(id);
-    if (error) leftovers.push(`user ${id}`);
+    if (error) retry.push(id);
   }
   for (const id of fx.createdSchoolIds) {
     const { error } = await admin.from("schools").delete().eq("id", id);
     if (error) leftovers.push(`school ${id}`);
+  }
+  for (const id of retry) {
+    const { error } = await admin.auth.admin.deleteUser(id);
+    if (error) leftovers.push(`user ${id}`);
   }
   return leftovers;
 }

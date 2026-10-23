@@ -51,7 +51,7 @@ export async function demoActions({ fx, baseUrl }) {
   expectDemo("createParentAccount as the demo director", await call(ACCOUNT, "createParentAccount", page, dirCookies, guardian.data?.id, "fr"));
   expectDemo("resetParentPassword as the demo director", await call(ACCOUNT, "resetParentPassword", page, dirCookies, guardian.data?.id));
   expectDemo("setParentActive(false) as the demo director", await call(ACCOUNT, "setParentActive", page, dirCookies, guardian.data?.id, false));
-  check(label("... still exactly the 3 demo accounts"), (await profiles()) === 3, String(await profiles()));
+  check(label("... still exactly the 8 demo accounts"), (await profiles()) === 8, String(await profiles()));
 
   // --- Own password -------------------------------------------------------------------------------------
   const changed = await call("src/lib/auth/actions.ts", "changePassword", "/fr/change-password", parentCookies,

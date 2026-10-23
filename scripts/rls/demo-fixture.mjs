@@ -1,7 +1,10 @@
 // A demo school for the test suites (launch prep step 2c): school "d" of the run
-// (slug rls-test-d-<run>, so cleanup-run.mjs finds it), with a director, a teacher
-// and a parent account like the real demo school, then flagged is_demo. Created once
-// per run, on first use. removeFixtures() clears the flag before deleting it.
+// (slug rls-test-d-<run>, so cleanup-run.mjs finds it), with the accounts of the real
+// demo school: director, the demo teacher (e-mail ending in "prof"), five more
+// teachers (...arabe, ...francais, ...sciences, ...histoire, ...anglais: private.demo_fill
+// finds them by that ending) and a parent, plus a demo contact card in its settings,
+// then flagged is_demo. Created once per run, on first use (empty until a reset fills
+// it). removeFixtures() clears the flag before deleting it.
 import { admin, must, password } from "./fixtures.mjs";
 
 export async function ensureDemoSchool(fx) {
@@ -11,7 +14,11 @@ export async function ensureDemoSchool(fx) {
   const school = must(
     await admin
       .from("schools")
-      .insert({ name: `RLS test D (demo) ${fx.run}`, slug: `rls-test-d-${fx.run}` })
+      .insert({
+        name: `RLS test D (demo) ${fx.run}`,
+        slug: `rls-test-d-${fx.run}`,
+        settings: { demo_contact: { phone: "+212522000000", whatsapp: "+212600000000" } },
+      })
       .select("id")
       .single(),
     "demo school",
@@ -26,7 +33,11 @@ export async function ensureDemoSchool(fx) {
   );
 
   const users = {};
-  for (const [name, roleKey] of [["demoDir", "director"], ["demoProf", "teacher"], ["demoParent", "parent"]]) {
+  for (const [name, roleKey] of [
+    ["demoDir", "director"], ["demoProf", "teacher"], ["demoParent", "parent"],
+    ["demoArabe", "teacher"], ["demoFrancais", "teacher"], ["demoSciences", "teacher"],
+    ["demoHistoire", "teacher"], ["demoAnglais", "teacher"],
+  ]) {
     const email = `rls-test+${fx.run}-${name.toLowerCase()}@example.com`;
     const pw = password();
     const created = must(await admin.auth.admin.createUser({ email, password: pw, email_confirm: true }), `user ${name}`);

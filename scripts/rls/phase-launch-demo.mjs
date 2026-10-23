@@ -27,8 +27,16 @@ async function authState(id) {
 
 const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
-/** Tables the reset keeps for a demo school (everything else with a school_id must be emptied). */
+/** Tables the reset keeps for a demo school (not deleted; demo_fill may update them). */
 const KEPT = ["schools", "profiles", "roles", "role_permissions", "school_modules", "school_subscriptions", "alert_rules", "school_contacts"];
+/** Tables private.demo_fill writes (always rows). Any other table with a school_id must be empty after a reset. */
+const FILLED = [
+  "academic_years", "school_days", "time_slots", "levels", "rooms", "classes", "subjects", "teacher_subjects", "lessons",
+  "students", "student_enrollments", "guardians", "student_guardians", "student_remarks", "announcements",
+  "announcement_targets", "notifications",
+];
+/** Filled from the roll calls of the last weeks: none in the first days of a school year. */
+const FILLED_FROM_HISTORY = ["attendance_sessions", "attendance_marks", "absence_notices", "justifications"];
 
 /** Every public table with a school_id column, from the Data API's OpenAPI description (secret key). */
 async function tablesWithSchoolId() {
@@ -71,9 +79,11 @@ export async function phaseLaunchDemo({ fx, as }) {
   check(label("... the new password does not"), Boolean(newWorks.error), newWorks.error ? "refused" : "NEW PASSWORD WORKS!");
 
   // --- Email change via auth.updateUser ---------------------------------------------------------------
-  // demo.tasyir.ma: an address Auth accepts (example.com is refused as invalid before the lock is
-  // reached) and that has no mail server, so nothing could be delivered even if the lock failed.
-  const em = await dir.auth.updateUser({ email: `rls-test+${fx.run}-hijack@demo.tasyir.ma` });
+  // Auth refuses a domain without a mail server (example.com, demo.tasyir.ma: 400
+  // email_address_invalid) before the database is reached, so the new address must be on a real
+  // mail domain: a random, unused Gmail address. Nothing is delivered from DEV even if the lock
+  // failed (the default Supabase mailer only sends to the team's own addresses).
+  const em = await dir.auth.updateUser({ email: `tasyir-rls-${fx.run}-${randomBytes(4).toString("hex")}@gmail.com` });
   // Auth's email rate limit (429) answers before the database: then the lock was not reached, so the
   // check is skipped (the secret-key email change below always reaches it).
   if (em.error?.code === "over_email_send_rate_limit") {
@@ -214,21 +224,66 @@ export async function phaseLaunchDemo({ fx, as }) {
   await admin.from("audit_logs").insert({ school_id: demo.id, action: "rls.test", entity: "school" });
   const ran = await admin.rpc("run_demo_reset", { p_school: demo.id });
   check(label("run_demo_reset (secret key) resets the demo school"), !ran.error, ran.error?.message ?? "");
-  await rows(label("... the visitor's student is gone"), admin.from("students").select("id").eq("school_id", demo.id), 0);
+  check(label("... and auth.uid() is null once it returns (no demo impersonation left)"),
+    !ran.error && ran.data === null, ran.error ? "" : `auth.uid() = ${ran.data}`);
+  await rows(label("... the visitor's student is gone"),
+    admin.from("students").select("id").eq("school_id", demo.id).eq("first_name", "Visiteur"), 0);
   await rows(label("... the demo audit log is emptied"), admin.from("audit_logs").select("id").eq("school_id", demo.id), 0);
-  await rows(label("... the 3 demo accounts are kept"), admin.from("profiles").select("id").eq("school_id", demo.id).is("deactivated_at", null), 3);
+  await rows(label("... the 8 demo accounts are kept"), admin.from("profiles").select("id").eq("school_id", demo.id).is("deactivated_at", null), 8);
   await rows(label("... the roles and the subscription are kept"),
     admin.from("school_subscriptions").select("id").eq("school_id", demo.id).eq("status", "active"), 1);
-  // Generic: every table with a school_id is empty for the demo school after a reset, except the kept
-  // ones — a table added later and forgotten in private.reset_demo_school fails here.
+
+  // --- Demo content (private.demo_fill) ---------------------------------------------------------------
+  // `today` (above) = the UTC date = Morocco's date (UTC+0 permanently since 2026-09-20).
+  const { data: classes } = await admin.from("classes").select("name, lessons(id)").eq("school_id", demo.id).order("name");
+  check(label("4 classes, each with its 29 weekly lessons"),
+    classes?.length === 4 && classes.every((c) => c.lessons.length === 29), classes?.map((c) => `${c.name}:${c.lessons.length}`).join(" ") ?? "");
+  await rows(label("96 students, all enrolled"), admin.from("student_enrollments").select("student_id").eq("school_id", demo.id), 96);
+  await rows(label("the demo teacher has the 20 Maths lessons"), admin.from("lessons").select("id").eq("school_id", demo.id).eq("teacher_id", demoProf.id), 20);
+  await rows(label("no roll call today or later (today's is the visitor's)"),
+    admin.from("attendance_sessions").select("id").eq("school_id", demo.id).gte("session_date", today), 0);
+  const { data: sessions } = await admin.from("attendance_sessions").select("session_date, taken_at").eq("school_id", demo.id);
+  check(label("each roll call is dated on its own day (backdated)"),
+    (sessions ?? []).every((x) => x.taken_at.slice(0, 10) === x.session_date), `${sessions?.length ?? 0} roll call(s)`);
+  await rows(label("no announcement shows as edited"),
+    admin.from("announcements").select("id").eq("school_id", demo.id).not("updated_at", "is", null), 0);
+  await rows(label("contact card restored from settings.demo_contact"),
+    admin.from("school_contacts").select("school_id").eq("school_id", demo.id).eq("phone", "+212522000000").eq("whatsapp", "+212600000000"), 1);
+  await rows(label("the demo parent sees exactly their 2 children (RLS)"), parent.from("students").select("id"), 2);
+  await rows(label("... their remarks"), parent.from("student_remarks").select("id"), 2);
+  await rows(label("... and announcement notifications"), parent.from("notifications").select("id").eq("type", "announcement"), (r) => r.length >= 3);
+  if (today.slice(5) >= "09-15" || today.slice(5) <= "06-30") {
+    await rows(label("one justification approved, one pending (the demo children)"),
+      admin.from("justifications").select("status").eq("school_id", demo.id),
+      (r) => r.filter((j) => j.status === "approved").length === 1 && r.filter((j) => j.status === "pending").length === 1);
+  } else {
+    skip(label("one justification approved, one pending"), "fewer than 8 school days in this school year");
+  }
+
+  // Generic: every table with a school_id. Filled tables have rows; every other one (not kept) is
+  // empty; a second reset the same day gives the same counts everywhere. A table added later and
+  // forgotten in private.reset_demo_school fails here (it doubles, or keeps a visitor's rows).
   const tables = await tablesWithSchoolId();
   check(label("OpenAPI lists the school tables"), tables.length >= 32 && tables.includes("students"), `${tables.length} table(s)`);
-  const leftOver = [];
-  for (const table of tables.filter((t) => !KEPT.includes(t))) {
-    const { count, error } = await admin.from(table).select("*", { count: "exact", head: true }).eq("school_id", demo.id);
-    if (error || count !== 0) leftOver.push(`${table}: ${error ? error.code : count}`);
-  }
-  check(label("after the reset, no table but the kept ones has rows of the demo school"), leftOver.length === 0, leftOver.join(", ") || `${tables.length - KEPT.length} table(s) empty`);
+  const countAll = async () => {
+    const out = {};
+    for (const table of tables) {
+      const { count, error } = await admin.from(table).select("*", { count: "exact", head: true }).eq("school_id", demo.id);
+      out[table] = error ? `error ${error.code}` : count;
+    }
+    return out;
+  };
+  const first = await countAll();
+  const emptyMissing = FILLED.filter((t) => !(first[t] > 0));
+  check(label("every table demo_fill writes has rows"), emptyMissing.length === 0, emptyMissing.join(", ") || `${FILLED.length} table(s)`);
+  const unexpected = tables.filter((t) => ![...KEPT, ...FILLED, ...FILLED_FROM_HISTORY].includes(t) && first[t] !== 0);
+  check(label("every other table with a school_id is empty after the reset"), unexpected.length === 0,
+    unexpected.map((t) => `${t}: ${first[t]}`).join(", ") || "none");
+  const again = await admin.rpc("run_demo_reset", { p_school: demo.id });
+  const second = await countAll();
+  const changed = tables.filter((t) => first[t] !== second[t]);
+  check(label("a second reset the same day gives the same counts in every table"), !again.error && changed.length === 0,
+    again.error?.message ?? (changed.map((t) => `${t}: ${first[t]} -> ${second[t]}`).join(", ") || `${tables.length} table(s)`));
 
   const signInAfter = await anon().auth.signInWithPassword({ email: demoDir.email, password: demoDir.password });
   check(label("... the demo director still signs in with the demo password"), !signInAfter.error, signInAfter.error?.code ?? "");
