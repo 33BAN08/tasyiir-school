@@ -22,7 +22,7 @@ Steps: 1 production Supabase project (separate from DEV) + Vercel Production poi
   2. Claude checks DEV through the MCP (flag on, 8 accounts, 4 classes / 96 students / 116 lessons, contact card, `run_demo_reset` null) and signs in once as directeur@ / prof@ / parent@ in headless Chrome, AR + FR.
   3. Seed production the same way (the user): `DEMO_PASSWORD` + `NEXT_PUBLIC_WHATSAPP_NUMBER` in `.env.prod.local`, `node --env-file=.env.prod.local scripts/prod/seed-demo-school.mjs --production --dry-run`, then `… --production` (types `yes`); then the same MCP-free check through the read-only comparison script + a browser sign-in on the live site.
   4. Step 2 continued: real screenshots of the demo school replace the drawn phone screens of the home page features section.
-  5. Step 3 — rename Tasyiir → Tasyir everywhere (incl. the `tasyiir-*` pg_cron jobs, `@phone.tasyiir.invalid`).
+  5. ✅ Step 3 — rename Tasyiir → Tasyir **in the interface only** (done 2026-10-23, user: "not the backend"): fr / en texts, `BRAND`, OG alt, manifest, docs. Internal names stay `tasyiir` on purpose: pg_cron jobs `tasyiir-*`, parent sign-in domain `@phone.tasyiir.invalid`, roll-call storage key `tasyiir:rollcall:v1:`, package / Supabase project id, repo `tasyiir-school`, Vercel URL `tasyiir-school.vercel.app`. Arabic name تسيير unchanged. New user-facing text says Tasyir.
   6. Step 4 — privacy policy + terms pages (FR / AR).
   7. Step 2b — self-serve 14-day trial ("Créer un essai", with the trial expiry job), only after step 4.
   8. Step 6 — closing pass. Then Phase 10.

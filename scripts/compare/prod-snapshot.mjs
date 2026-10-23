@@ -37,7 +37,7 @@ const snapshot = readFileSync(new URL("./snapshot.sql", import.meta.url), "utf8"
   .filter((line) => !line.trimStart().startsWith("--"))
   .join("\n");
 
-const client = new pg.Client({ connectionString, ssl, application_name: "tasyir-compare", statement_timeout: 120000 });
+const client = new pg.Client({ connectionString, ssl, application_name: "tasyiir-compare", statement_timeout: 120000 });
 
 try {
   await client.connect();
