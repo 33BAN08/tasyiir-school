@@ -3022,5 +3022,27 @@
     "title": "Pas de connexion",
     "description": "Votre téléphone n'est pas connecté à internet. Vérifiez le Wi-Fi ou les données mobiles, puis réessayez.",
     "retry": "Réessayer"
+  },
+  "push": {
+    "turnOn": "Activer les notifications",
+    "turnOff": "Désactiver sur ce téléphone",
+    "enabled": "Notifications activées sur ce téléphone.",
+    "error": "Impossible d'activer les notifications. Réessayez.",
+    "on": {
+      "title": "Notifications activées",
+      "body": "Ce téléphone reçoit les absences, les remarques et les annonces, même quand l'application est fermée."
+    },
+    "off": {
+      "title": "Recevoir les notifications sur ce téléphone",
+      "body": "Soyez prévenu tout de suite d'une absence, d'une remarque ou d'une annonce, même quand l'application est fermée."
+    },
+    "denied": {
+      "title": "Notifications bloquées",
+      "body": "Les notifications de Tasyir sont bloquées sur ce téléphone. Autorisez-les dans les réglages du navigateur pour ce site, puis revenez ici."
+    },
+    "iosInstall": {
+      "title": "Notifications sur iPhone",
+      "body": "Sur iPhone, ajoutez d'abord Tasyir à l'écran d'accueil (voir la page d'accueil), puis ouvrez l'application pour activer les notifications."
+    }
   }
 }

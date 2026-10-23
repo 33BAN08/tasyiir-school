@@ -3022,5 +3022,27 @@
     "title": "No connection",
     "description": "Your phone is not connected to the internet. Check Wi-Fi or mobile data, then try again.",
     "retry": "Try again"
+  },
+  "push": {
+    "turnOn": "Turn on notifications",
+    "turnOff": "Turn off on this phone",
+    "enabled": "Notifications are on for this phone.",
+    "error": "Could not turn on notifications. Try again.",
+    "on": {
+      "title": "Notifications are on",
+      "body": "This phone receives absences, remarks and announcements, even when the app is closed."
+    },
+    "off": {
+      "title": "Get notifications on this phone",
+      "body": "Be told at once about an absence, a remark or an announcement, even when the app is closed."
+    },
+    "denied": {
+      "title": "Notifications are blocked",
+      "body": "Tasyir's notifications are blocked on this phone. Allow them in the browser's settings for this site, then come back here."
+    },
+    "iosInstall": {
+      "title": "Notifications on iPhone",
+      "body": "On iPhone, first add Tasyir to your home screen (see the home page), then open the app to turn on notifications."
+    }
   }
 }

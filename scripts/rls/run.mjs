@@ -55,6 +55,7 @@ import { planLimitActions } from "./actions-plan-limits.mjs";
 import { phaseLaunchLimits } from "./phase-launch-limits.mjs";
 import { phaseLaunchDemo } from "./phase-launch-demo.mjs";
 import { phaseLaunchTrial } from "./phase-launch-trial.mjs";
+import { phase10Push } from "./phase10-push.mjs";
 import { demoActions } from "./actions-demo.mjs";
 import { phase9CrossSchool } from "./phase9-cross-school.mjs";
 import { schoolContactActions } from "./actions-school-contact.mjs";
@@ -124,6 +125,7 @@ try {
   await phaseLaunchLimits({ fx, as });
   await phaseLaunchDemo({ fx, as });
   await phaseLaunchTrial({ fx, as });
+  await phase10Push({ fx, as });
   await phase9CrossSchool({ fx, as });
   await notificationTypes({ fx, as });
   await publicDemoRequests({ fx, as });

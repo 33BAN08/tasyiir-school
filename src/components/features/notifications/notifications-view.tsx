@@ -1,4 +1,5 @@
 import { Bell } from "lucide-react";
+import type { ReactNode } from "react";
 import { getTranslations } from "next-intl/server";
 
 import { BackLink } from "@/components/layout/back-link";
@@ -13,9 +14,9 @@ import { NotificationList } from "./notification-list";
 
 /**
  * The signed-in user's notifications, newest first (RLS: only their own), with
- * a way back to their home. Each page calls requireArea() itself.
+ * a way back to their home; `top` = a card above the list (parents: this phone's push). Each page calls requireArea() itself.
  */
-export async function NotificationsView({ area }: { area: "school" | "portal" | "platform" }) {
+export async function NotificationsView({ area, top }: { area: "school" | "portal" | "platform"; top?: ReactNode }) {
   const [t, items, user] = await Promise.all([getTranslations("notifications"), listNotifications(), getCurrentUser()]);
 
   return (
@@ -24,6 +25,7 @@ export async function NotificationsView({ area }: { area: "school" | "portal" | 
         {user && <BackLink href={homeFor(user)} label={t("back")} />}
         <PageHeader title={t("title")} description={t("description")} />
       </div>
+      {top}
       {items.length === 0 ? (
         <Card className="py-0">
           <EmptyState icon={Bell} title={t("emptyTitle")} description={t("emptyDescription")} />

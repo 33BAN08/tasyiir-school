@@ -1188,6 +1188,60 @@ export type Database = {
           },
         ]
       }
+      push_subscriptions: {
+        Row: {
+          auth: string
+          created_at: string
+          endpoint: string
+          failures: number
+          id: string
+          last_success_at: string | null
+          p256dh: string
+          profile_id: string
+          school_id: string
+          user_agent: string | null
+        }
+        Insert: {
+          auth: string
+          created_at?: string
+          endpoint: string
+          failures?: number
+          id?: string
+          last_success_at?: string | null
+          p256dh: string
+          profile_id: string
+          school_id: string
+          user_agent?: string | null
+        }
+        Update: {
+          auth?: string
+          created_at?: string
+          endpoint?: string
+          failures?: number
+          id?: string
+          last_success_at?: string | null
+          p256dh?: string
+          profile_id?: string
+          school_id?: string
+          user_agent?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "push_subscriptions_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "push_subscriptions_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       role_permissions: {
         Row: {
           created_at: string
@@ -2001,6 +2055,10 @@ export type Database = {
         Returns: number
       }
       run_trial_expiry: { Args: { p_now: string; p_schools: string[] }; Returns: number }
+      save_push_subscription: {
+        Args: { p_auth: string; p_endpoint: string; p_p256dh: string; p_user_agent?: string }
+        Returns: string
+      }
       save_attendance: {
         Args: { p_date: string; p_lesson: string; p_marks?: Json }
         Returns: string
