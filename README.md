@@ -1,4 +1,4 @@
-# Tasyiir School
+# Tasyir School
 
 Multi-tenant school management SaaS for Moroccan private schools.
 

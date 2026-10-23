@@ -6,7 +6,9 @@
 
 import type { RollCallMark } from "./types";
 
-const PREFIX = "tasyiir:rollcall:v1:";
+const PREFIX = "tasyir:rollcall:v1:";
+/** Copies saved under the old brand spelling: never read, removed by the purges. */
+const LEGACY_PREFIX = "tasyiir:rollcall:v1:";
 
 export type RollCallDraft = Record<string, RollCallMark>;
 
@@ -24,7 +26,7 @@ function keys(): string[] {
   const store = storage();
   if (!store) return [];
   try {
-    return Array.from({ length: store.length }, (_, i) => store.key(i)).filter((k): k is string => !!k?.startsWith(PREFIX));
+    return Array.from({ length: store.length }, (_, i) => store.key(i)).filter((k): k is string => !!k && (k.startsWith(PREFIX) || k.startsWith(LEGACY_PREFIX)));
   } catch {
     return [];
   }
@@ -62,7 +64,7 @@ export function deleteDraft(userId: string, lessonId: string, date: string): voi
 export function purgeDrafts(userId: string, today: string, keep: string = today): void {
   for (const key of keys()) {
     const [owner, , date] = key.slice(PREFIX.length).split(":");
-    if (owner !== userId || (date !== today && date !== keep)) {
+    if (!key.startsWith(PREFIX) || owner !== userId || (date !== today && date !== keep)) {
       try {
         storage()?.removeItem(key);
       } catch {

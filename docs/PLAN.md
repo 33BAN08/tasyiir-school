@@ -1,11 +1,11 @@
-# Tasyiir School — Product & Build Plan
+# Tasyir School — Product & Build Plan
 
 ## 1. Vision
-A multi-tenant SaaS sold to private schools in Morocco. The **platform owner** (Tasyiir) manages client schools,
+A multi-tenant SaaS sold to private schools in Morocco. The **platform owner** (Tasyir) manages client schools,
 plans and modules. Each **school** has a director who creates staff accounts and runs the school.
 
 ```
-TASYIIR PLATFORM (platform owner)
+TASYIR PLATFORM (platform owner)
 ├── School A (tenant) → Director → staff, teachers, parents, students
 ├── School B
 └── School C
@@ -194,6 +194,6 @@ tasyiir-school/
 5. Create `.env.example` (NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, SUPABASE_SECRET_KEY, NEXT_PUBLIC_APP_URL). Ensure `.env*.local` is git-ignored. Developer fills `.env.local`.
 6. Apply design tokens from `docs/DESIGN.md` (CSS variables, fonts IBM Plex Sans Arabic + Inter via next/font).
 7. Init Supabase CLI folder (`supabase/migrations`, `seed.sql`).
-8. Simple home page showing "Tasyiir School" in the brand style + a Supabase connection check.
+8. Simple home page showing "Tasyir School" in the brand style + a Supabase connection check.
 9. `git init`, first commit, push to GitHub `33BAN08/tasyiir-school`.
 10. Developer imports the repo in Vercel and adds the env variables → live URL.

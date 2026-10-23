@@ -6,7 +6,7 @@ import { getCurrentSchool, getCurrentUser } from "@/lib/auth/session";
 import { BRAND, BRAND_ASSETS } from "@/lib/brand";
 
 /**
- * School logo + name (white-label), or the Tasyiir brand for the platform
+ * School logo + name (white-label), or the Tasyir brand for the platform
  * owner. Links to the signed-in user's home (portal, dashboard, platform).
  */
 export async function SchoolBrand() {

@@ -1,8 +1,8 @@
 /** Brand names: proper nouns, identical in every locale (docs/DESIGN.md). */
 export const BRAND = {
-  name: "Tasyiir",
+  name: "Tasyir",
   nameAr: "تسيير",
-  product: "Tasyiir School",
+  product: "Tasyir School",
 } as const;
 
 /** Public address of the site (link previews need absolute URLs). */
@@ -15,7 +15,7 @@ export const OG_IMAGE = {
   url: "/brand/og-image.png",
   width: 1200,
   height: 630,
-  alt: "Tasyiir School — Chaque élève. Chaque cours. Un seul système.",
+  alt: "Tasyir School — Chaque élève. Chaque cours. Un seul système.",
 } as const;
 
 /** Logo files in public/brand (Amiri lettering is drawn as shapes inside the SVGs). */

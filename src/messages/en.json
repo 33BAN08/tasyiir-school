@@ -33,7 +33,7 @@
     },
     "suspended": {
       "title": "School suspended",
-      "description": "Access to your school has been temporarily suspended. Please contact your school's administration or the Tasyiir team for more information."
+      "description": "Access to your school has been temporarily suspended. Please contact your school's administration or the Tasyir team for more information."
     },
     "deactivated": {
       "title": "Account deactivated",
@@ -2225,13 +2225,13 @@
   },
   "landing": {
     "meta": {
-      "title": "Tasyiir School · Attendance, timetables and parents in one place",
+      "title": "Tasyir School · Attendance, timetables and parents in one place",
       "description": "School management for Moroccan private schools: roll call on the teacher's phone, parents told, notes sent as photos, conflict-free timetables, absence totals in hours."
     },
     "skip": "Skip to content",
     "nav": {
       "label": "Main navigation",
-      "home": "Tasyiir School, home",
+      "home": "Tasyir School, home",
       "how": "How it works",
       "features": "Features",
       "plans": "Plans",
@@ -2510,7 +2510,7 @@
         "text": "490 DH/month on the Medium school plan, price locked for 2 years, limited to the first 5 schools.",
         "ctaWhatsapp": "Talk to us on WhatsApp",
         "ctaDemo": "Contact us",
-        "whatsappMessage": "Hello, I am interested in the Tasyiir School founding-school offer (Medium school at 490 DH/month)."
+        "whatsappMessage": "Hello, I am interested in the Tasyir School founding-school offer (Medium school at 490 DH/month)."
       }
     },
     "soon": {
@@ -2534,7 +2534,7 @@
       },
       "mobile": {
         "q": "Do we need to install an app?",
-        "a": "No. Tasyiir runs in the browser of a phone, tablet or computer. Teachers and parents mostly use it on their phone."
+        "a": "No. Tasyir runs in the browser of a phone, tablet or computer. Teachers and parents mostly use it on their phone."
       },
       "trial": {
         "q": "Can we try it before committing?",
@@ -2551,7 +2551,7 @@
       },
       "orWhatsapp": "Prefer to write?",
       "whatsapp": "Message us on WhatsApp",
-      "whatsappMessage": "Hello, I would like a demo of Tasyiir School.",
+      "whatsappMessage": "Hello, I would like a demo of Tasyir School.",
       "requiredNote": "Fields marked * are required.",
       "fields": {
         "fullName": "Full name *",
@@ -2573,7 +2573,7 @@
       },
       "submit": "Send request",
       "sending": "Sending…",
-      "privacy": "Your details are only used to contact you about Tasyiir.",
+      "privacy": "Your details are only used to contact you about Tasyir.",
       "summaryTitle": "{count, plural, one {One field needs fixing:} other {# fields need fixing:}}",
       "errors": {
         "fullName": "Enter your full name.",
@@ -2591,7 +2591,7 @@
         "body": "We will call you very soon at {phone} to find a time.",
         "again": "Send another request"
       },
-      "consent": "By sending this form, you agree to be contacted by Tasyiir about your request.",
+      "consent": "By sending this form, you agree to be contacted by Tasyir about your request.",
       "limited": {
         "phoneTitle": "We already have your request.",
         "phoneBody": "We have received your requests with this number and will call you very soon.",
@@ -2612,7 +2612,7 @@
       "product": "Product",
       "access": "Access",
       "contact": "Contact",
-      "rights": "© Tasyiir. All rights reserved.",
+      "rights": "© Tasyir. All rights reserved.",
       "madeIn": "Designed in Morocco"
     }
   },

@@ -33,7 +33,7 @@
     },
     "suspended": {
       "title": "Établissement suspendu",
-      "description": "L'accès à votre établissement est temporairement suspendu. Veuillez contacter la direction de votre établissement ou l'équipe Tasyiir pour plus d'informations."
+      "description": "L'accès à votre établissement est temporairement suspendu. Veuillez contacter la direction de votre établissement ou l'équipe Tasyir pour plus d'informations."
     },
     "deactivated": {
       "title": "Compte désactivé",
@@ -2225,13 +2225,13 @@
   },
   "landing": {
     "meta": {
-      "title": "Tasyiir School · Absences, emploi du temps et parents, au même endroit",
+      "title": "Tasyir School · Absences, emploi du temps et parents, au même endroit",
       "description": "Logiciel de gestion pour les écoles privées marocaines : appel sur téléphone, parents prévenus, justificatifs en photo, emploi du temps sans conflit, totaux d'absences en heures."
     },
     "skip": "Aller au contenu",
     "nav": {
       "label": "Navigation principale",
-      "home": "Tasyiir School, accueil",
+      "home": "Tasyir School, accueil",
       "how": "Comment ça marche",
       "features": "Fonctions",
       "plans": "Formules",
@@ -2510,7 +2510,7 @@
         "text": "490 DH/mois en formule École moyenne, prix bloqué 2 ans, limité aux 5 premières écoles.",
         "ctaWhatsapp": "En parler sur WhatsApp",
         "ctaDemo": "Nous contacter",
-        "whatsappMessage": "Bonjour, je suis intéressé(e) par l'offre écoles fondatrices de Tasyiir School (École moyenne à 490 DH/mois)."
+        "whatsappMessage": "Bonjour, je suis intéressé(e) par l'offre écoles fondatrices de Tasyir School (École moyenne à 490 DH/mois)."
       }
     },
     "soon": {
@@ -2534,7 +2534,7 @@
       },
       "mobile": {
         "q": "Faut-il installer une application ?",
-        "a": "Non. Tasyiir fonctionne dans le navigateur du téléphone, de la tablette ou de l'ordinateur. Les professeurs et les parents l'utilisent surtout sur leur téléphone."
+        "a": "Non. Tasyir fonctionne dans le navigateur du téléphone, de la tablette ou de l'ordinateur. Les professeurs et les parents l'utilisent surtout sur leur téléphone."
       },
       "trial": {
         "q": "Peut-on essayer avant de s'engager ?",
@@ -2551,7 +2551,7 @@
       },
       "orWhatsapp": "Vous préférez écrire ?",
       "whatsapp": "Écrire sur WhatsApp",
-      "whatsappMessage": "Bonjour, je souhaite une démo de Tasyiir School.",
+      "whatsappMessage": "Bonjour, je souhaite une démo de Tasyir School.",
       "requiredNote": "Les champs marqués * sont obligatoires.",
       "fields": {
         "fullName": "Nom et prénom *",
@@ -2573,7 +2573,7 @@
       },
       "submit": "Envoyer la demande",
       "sending": "Envoi…",
-      "privacy": "Vos coordonnées servent uniquement à vous recontacter au sujet de Tasyiir.",
+      "privacy": "Vos coordonnées servent uniquement à vous recontacter au sujet de Tasyir.",
       "summaryTitle": "{count, plural, one {Un champ est à corriger :} other {# champs sont à corriger :}}",
       "errors": {
         "fullName": "Indiquez votre nom et prénom.",
@@ -2591,7 +2591,7 @@
         "body": "Nous vous appelons très vite au {phone} pour convenir d'un moment.",
         "again": "Envoyer une autre demande"
       },
-      "consent": "En envoyant ce formulaire, vous acceptez d'être contacté par Tasyiir au sujet de votre demande.",
+      "consent": "En envoyant ce formulaire, vous acceptez d'être contacté par Tasyir au sujet de votre demande.",
       "limited": {
         "phoneTitle": "Votre demande est déjà entre nos mains.",
         "phoneBody": "Nous avons bien reçu vos demandes avec ce numéro et nous vous appelons très vite.",
@@ -2612,7 +2612,7 @@
       "product": "Produit",
       "access": "Accès",
       "contact": "Contact",
-      "rights": "© Tasyiir. Tous droits réservés.",
+      "rights": "© Tasyir. Tous droits réservés.",
       "madeIn": "Conçu au Maroc"
     }
   },

@@ -1,12 +1,12 @@
-# Tasyiir School — Design & Brand Guide
+# Tasyir School — Design & Brand Guide
 
 > Status: **v0.1 draft** (teal + saffron direction). Final logo & mockups to come; update this file when they do.
 
 ## Brand
-- **Name:** Tasyiir (تسيير) — "running things smoothly". Product: *Tasyiir School*.
+- **Name:** Tasyir (تسيير) — "running things smoothly". Product: *Tasyir School*.
 - **Personality:** trustworthy, calm, modern, quietly Moroccan. Never childish, never cluttered.
 - **Tone:** French formal "vous"; Arabic = clear Modern Standard Arabic; short sentences, no jargon.
-- **White-label feel:** each school's logo & name appear in its space; "Powered by Tasyiir" in the footer.
+- **White-label feel:** each school's logo & name appear in its space; "Powered by Tasyir" in the footer.
 
 ## Colors (CSS variables — use tokens, never raw hex in components)
 | Token | Light | Dark | Use |
