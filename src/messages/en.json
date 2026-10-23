@@ -3005,5 +3005,10 @@
     "description": "Your school's 14-day trial is over. Your data is kept: choose a plan to carry on where you left off.",
     "contact": "Choose a plan on WhatsApp",
     "whatsappMessage": "Hello, our Tasyir School trial has ended and we would like to continue."
+  },
+  "offline": {
+    "title": "No connection",
+    "description": "Your phone is not connected to the internet. Check Wi-Fi or mobile data, then try again.",
+    "retry": "Try again"
   }
 }

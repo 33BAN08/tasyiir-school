@@ -63,6 +63,7 @@ import { notificationTypes } from "./notification-types.mjs";
 import { publicDemoRequests } from "./public-demo-requests.mjs";
 import { demoRequestActions } from "./actions-demo-requests.mjs";
 import { trialActions } from "./actions-trial.mjs";
+import { phoneAppPages } from "./pages-phone-app.mjs";
 import { phase6Lessons } from "./phase6-lessons.mjs";
 import { lessonBlockActions } from "./actions-lesson-blocks.mjs";
 import { lessonCopyActions } from "./actions-lesson-copy.mjs";
@@ -166,6 +167,7 @@ try {
     await demoActions({ fx, baseUrl });
     await demoRequestActions({ fx, baseUrl });
     await trialActions({ fx, baseUrl });
+    await phoneAppPages({ baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

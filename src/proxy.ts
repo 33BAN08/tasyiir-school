@@ -7,7 +7,7 @@ import { refreshSession } from "@/lib/supabase/middleware";
 const handleI18nRouting = createIntlMiddleware(routing);
 
 /** Paths (without locale prefix) reachable while signed out: the home page and sign-in. */
-const PUBLIC_PATHS = ["/", "/login", "/privacy", "/terms"];
+const PUBLIC_PATHS = ["/", "/login", "/privacy", "/terms", "/offline"];
 
 export async function proxy(request: NextRequest) {
   // 1. Refresh the Supabase session first: it updates the request cookies,
@@ -48,6 +48,6 @@ function splitLocale(pathname: string) {
 export const config = {
   matcher: [
     // Everything except Next internals, static files and images.
-    "/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
+    "/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|sw.js|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
   ],
 };

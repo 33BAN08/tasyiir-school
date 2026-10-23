@@ -3005,5 +3005,10 @@
     "description": "Les 14 jours d'essai de votre école sont écoulés. Vos données sont gardées : choisissez une formule pour continuer là où vous vous êtes arrêté.",
     "contact": "Choisir une formule sur WhatsApp",
     "whatsappMessage": "Bonjour, notre essai Tasyir School est terminé et nous souhaitons continuer."
+  },
+  "offline": {
+    "title": "Pas de connexion",
+    "description": "Votre téléphone n'est pas connecté à internet. Vérifiez le Wi-Fi ou les données mobiles, puis réessayez.",
+    "retry": "Réessayer"
   }
 }

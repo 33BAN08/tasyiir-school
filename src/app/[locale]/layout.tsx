@@ -7,6 +7,7 @@ import { locale as rootLocale } from "next/root-params";
 
 import { ThemeScript } from "@/components/features/theme/theme-script";
 import { DirectionProvider } from "@/components/ui/direction";
+import { ServiceWorkerRegister } from "@/components/features/app/service-worker-register";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { getDirection, routing } from "@/i18n/routing";
@@ -67,6 +68,7 @@ export default async function LocaleLayout({ children }: LayoutProps<"/[locale]"
           <DirectionProvider dir={dir}>
             <TooltipProvider>
               {children}
+              <ServiceWorkerRegister />
               <Toaster dir={dir} position={dir === "rtl" ? "bottom-left" : "bottom-right"} />
             </TooltipProvider>
           </DirectionProvider>
