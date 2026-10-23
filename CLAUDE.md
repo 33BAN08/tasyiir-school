@@ -9,7 +9,7 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 
 ## Current phase
 > **Launch prep** (outside the numbered phases, user 2026-10-20; then Phase 10 — Parent app on the phone, user 2026-10-22; Grades = Phase 11). Update this line when a phase is finished. Phases 0–9 done — live at https://tasyiir-school.vercel.app
-> **Where we are (2026-10-23):** launch prep step 2c — the demo school's migrations are on DEV and production, the seed script is written; next = seed DEV, then production (see "Next steps, in order" under Launch prep).
+> **Where we are (2026-10-23):** launch prep step 2c — the demo school is seeded on PRODUCTION (user's run 2026-10-23: school `8773fdba-6ae0-4743-8e61-78ce301cb30e`, 8 accounts, 4 classes, 96 students, 116 lessons, 458 roll calls, contact card on); step 3 (Tasyir in the interface) done. Next = check the demo school (read-only comparison script + browser sign-in as directeur@ / prof@ / parent@ on the live site, AR + FR), then the real screenshots for the home page.
 
 ## Launch prep — started 2026-10-20 (user's change of plan: the numbered phases wait)
 Same workflow (show every migration / production change, wait for OK, commit + push each step, test in Chrome AR + FR). **Do not touch Vercel or the production Supabase project until the user approves the step's plan.**
