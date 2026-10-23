@@ -24,6 +24,7 @@ check(
 );
 check("[guard] production ref in capitals: refused", refused({ ...DEV, OTHER: PROD_URL.toUpperCase() }), "");
 check("[guard] PROD_DB_URL loaded: refused", refused({ ...DEV, PROD_DB_URL: "postgresql://somewhere" }), "");
+check("[guard] production secret key loaded (PROD_*): refused", refused({ ...DEV, PROD_SUPABASE_SECRET_KEY: "sb_secret_x" }), "");
 check("[guard] another Supabase project: refused", refused({ ...DEV, NEXT_PUBLIC_SUPABASE_URL: "https://abcdefghijklmnopqrst.supabase.co" }), "");
 check("[guard] no Supabase URL: refused", refused({ ...DEV, NEXT_PUBLIC_SUPABASE_URL: "" }), "");
 check("[guard] deployed app as TEST_APP_URL: refused", refused({ ...DEV, TEST_APP_URL: "https://tasyiir-school.vercel.app" }), "");

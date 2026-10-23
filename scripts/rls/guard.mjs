@@ -26,7 +26,10 @@ export function guardProblems(env) {
       problems.push(`${name} points at the PRODUCTION project`);
     }
   }
-  if (env.PROD_DB_URL) problems.push("PROD_DB_URL is set: the production env file is loaded");
+  // .env.prod.local holds PROD_DB_URL, PROD_SUPABASE_URL, PROD_SUPABASE_SECRET_KEY…
+  for (const name of Object.keys(env)) {
+    if (name.startsWith("PROD_") && env[name]) problems.push(`${name} is set: the production env file is loaded`);
+  }
 
   // Supabase: the DEV project, or a local stack; nothing else.
   const url = env.NEXT_PUBLIC_SUPABASE_URL;

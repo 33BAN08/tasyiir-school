@@ -1,6 +1,6 @@
 // Read-only snapshot of the PRODUCTION database for the DEV <-> production comparison.
-//   node --env-file=.env.prod-compare.local scripts/compare/prod-snapshot.mjs <out.json>
-// PROD_DB_URL lives only in .env.prod-compare.local (git-ignored). This script never
+//   node --env-file=.env.prod.local scripts/compare/prod-snapshot.mjs <out.json>
+// PROD_DB_URL lives only in .env.prod.local (git-ignored). This script never
 // prints it, nor a driver error message (they can name the host / user): codes only.
 // Optional PROD_DB_CA = path to the project's CA certificate (dashboard → Database → SSL).
 import { readFileSync, writeFileSync } from "node:fs";
@@ -16,7 +16,7 @@ function fail(message) {
 const out = process.argv[2];
 if (!out) fail("usage: prod-snapshot.mjs <out.json>");
 const raw = process.env.PROD_DB_URL;
-if (!raw) fail("PROD_DB_URL is not set (expected in .env.prod-compare.local)");
+if (!raw) fail("PROD_DB_URL is not set (expected in .env.prod.local)");
 if (!raw.includes(PRODUCTION_REF)) fail("PROD_DB_URL is not the production project: refused");
 
 // TLS is set here, not by a ?sslmode= left in the URL.
