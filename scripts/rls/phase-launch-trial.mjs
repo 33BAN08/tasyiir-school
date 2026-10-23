@@ -94,7 +94,11 @@ export async function phaseLaunchTrial({ fx, as }) {
       "director profile",
     );
     const dir = await signIn(director);
-    const rules = async () => ((await dir.from("alert_rules").select("id")).data ?? []).length;
+    const rules = async () => {
+      const r = await dir.from("alert_rules").select("type");
+      if (r.error) throw new Error(`phaseLaunchTrial: alert_rules read failed (${r.error.code})`);
+      return r.data.length;
+    };
 
     check(label("during the trial: the plan's modules are on (alert rules readable)"), (await rules()) === 2);
     must(await admin.from("school_subscriptions").update({ trial_ends_at: new Date(Date.now() - 60_000).toISOString() }).eq("id", T.sub), "end");
