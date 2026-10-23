@@ -5,6 +5,7 @@ import { refresh } from "next/cache";
 import { logAudit } from "@/lib/audit";
 import { endOfDayInCasablanca } from "@/lib/dates";
 import type { PlatformActionResult } from "@/lib/platform/actions";
+import { TRIAL } from "@/lib/demo-requests/trial";
 import { getPlatformOwner } from "@/lib/platform/guard";
 import { createAdminClient } from "@/lib/supabase/admin";
 import {
@@ -73,7 +74,7 @@ export async function updateSubscription(
 
   const { data: subs, error: subsError } = await admin
     .from("school_subscriptions")
-    .select("id, plan_id, status")
+    .select("id, plan_id, status, max_students_override")
     .eq("school_id", id.data)
     .order("created_at", { ascending: false });
   if (subsError) return { ok: false, error: "generic" };
@@ -85,6 +86,14 @@ export async function updateSubscription(
     return { ok: false, error: "planRequired", field: "planId" };
   }
 
+  // A trial turned into a paid plan: the trial's 50-student cap goes, the plan's limit applies
+  // (user, 2026-10-23). Any other number the platform owner typed is kept.
+  const fromTrial = current && (current.status === "trial" || current.status === "expired");
+  const maxStudentsOverride =
+    fromTrial && v.subscriptionStatus === "active" && v.maxStudentsOverride === TRIAL.maxStudents
+      ? null
+      : v.maxStudentsOverride;
+
   const row = {
     plan_id: plan.id,
     status: v.subscriptionStatus,
@@ -92,7 +101,7 @@ export async function updateSubscription(
     end_date: v.endDate || null,
     trial_ends_at:
       v.subscriptionStatus === "trial" && v.trialEndsOn ? endOfDayInCasablanca(v.trialEndsOn) : null,
-    max_students_override: v.maxStudentsOverride,
+    max_students_override: maxStudentsOverride,
     max_admins_override: v.maxAdminsOverride,
   };
   const { error } = current

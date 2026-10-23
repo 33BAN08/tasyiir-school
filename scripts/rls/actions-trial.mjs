@@ -3,7 +3,8 @@
 // page) makes the school, its director (temporary password, changed at first
 // sign-in) and a 14-day "pro" trial capped at 50 students, links the request and
 // marks it handled, never twice; when the trial has ended its director sees
-// "Votre essai est terminé" on /suspended.
+// "Votre essai est terminé" on /suspended; turned into a paid plan, the trial's
+// 50-student cap is cleared (a number typed later is kept).
 import { actionId, callAction, sessionCookies } from "./app.mjs";
 import { check } from "./checks.mjs";
 import { admin, anon } from "./fixtures.mjs";
@@ -11,6 +12,7 @@ import { removeDemoRequests, testPhone } from "./public-demo-requests.mjs";
 
 const FILE = "src/lib/demo-requests/actions.ts";
 const TRIAL_FILE = "src/lib/demo-requests/trial-actions.ts";
+const SCHOOL_FILE = "src/lib/platform/school-actions.ts";
 const INBOX = "/fr/platform/demo-requests";
 
 export async function trialActions({ fx, baseUrl }) {
@@ -97,6 +99,23 @@ export async function trialActions({ fx, baseUrl }) {
     check("[trial action] after the trial the director is sent to /suspended", blockedTo.includes("/suspended"), blockedTo || `status ${start.status}`);
     const page = await (await fetch(new URL("/fr/suspended", baseUrl), { headers: { Cookie: directorCookies } })).text();
     check("[trial action] /suspended says the trial has ended", page.includes('data-blocked="trial_ended"'));
+
+    // --- Turning the ended trial into a paid plan (school page) -------------------------------------------------
+    const proId = (await admin.from("plans").select("id").eq("key", "pro").single()).data.id;
+    const today = new Date().toISOString().slice(0, 10);
+    const subscribe = (maxStudents) =>
+      callAction(baseUrl, {
+        id: actionId(SCHOOL_FILE, "updateSubscription"),
+        path: `/fr/platform/schools/${schoolId}`,
+        args: [schoolId, { planId: proId, subscriptionStatus: "active", startDate: today, trialEndsOn: "", endDate: "", maxStudentsOverride: maxStudents, maxAdminsOverride: "" }],
+        cookies: ownerCookies,
+      });
+    const override = async () => (await admin.from("school_subscriptions").select("status, max_students_override").eq("school_id", schoolId).single()).data;
+    const paid = await subscribe("50");
+    const afterPaid = await override();
+    check("[trial action] trial → paid plan: the trial's 50-student cap is cleared", paid.ok === true && afterPaid?.status === "active" && afterPaid.max_students_override === null, JSON.stringify({ paid, afterPaid }));
+    const typed = await subscribe("120");
+    check("[trial action] a number typed on a paid plan is kept", typed.ok === true && (await override())?.max_students_override === 120, JSON.stringify(typed));
   } finally {
     await removeDemoRequests([phone]);
   }

@@ -70,7 +70,7 @@ function checkSubscriptionDates(v: SubscriptionDates, ctx: z.RefinementCtx) {
 const optionalCount = z
   .string()
   .trim()
-  .regex(/^(d{1,6})?$/, { error: "maxStudentsInvalid" })
+  .regex(/^(\d{1,6})?$/, { error: "maxStudentsInvalid" })
   .refine((v) => v === "" || Number(v) > 0, { error: "maxStudentsInvalid" })
   .transform((v) => (v === "" ? null : Number(v)));
 
