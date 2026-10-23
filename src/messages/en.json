@@ -1197,6 +1197,18 @@
       "whatsapp": "WhatsApp",
       "callLabel": "Call the school on {phone}",
       "whatsappLabel": "Write to the school on WhatsApp on {phone}"
+    },
+    "install": {
+      "title": "Install Tasyir on your phone",
+      "body": "Open it in one tap from your home screen, like an app.",
+      "install": "Install the app",
+      "later": "Later",
+      "ios": {
+        "title": "Add Tasyir to your home screen",
+        "share": "Tap the browser's Share button.",
+        "addToHome": "Choose “Add to Home Screen”.",
+        "add": "Tap “Add”."
+      }
     }
   },
   "setup": {

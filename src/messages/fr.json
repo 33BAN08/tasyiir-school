@@ -1197,6 +1197,18 @@
       "whatsapp": "WhatsApp",
       "callLabel": "Appeler l'établissement au {phone}",
       "whatsappLabel": "Écrire à l'établissement sur WhatsApp au {phone}"
+    },
+    "install": {
+      "title": "Installez Tasyir sur votre téléphone",
+      "body": "Ouvrez-le d'un geste depuis l'écran d'accueil, comme une application.",
+      "install": "Installer l'application",
+      "later": "Plus tard",
+      "ios": {
+        "title": "Ajouter Tasyir à l'écran d'accueil",
+        "share": "Touchez le bouton Partager du navigateur.",
+        "addToHome": "Choisissez « Sur l'écran d'accueil ».",
+        "add": "Touchez « Ajouter »."
+      }
     }
   },
   "setup": {

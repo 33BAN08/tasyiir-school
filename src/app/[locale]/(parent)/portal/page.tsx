@@ -1,6 +1,7 @@
 import { Baby, CalendarCheck, CalendarDays, MessageSquareText } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 
+import { InstallAppCard } from "@/components/features/app/install-app-card";
 import { SchoolContactCard } from "@/components/features/school-settings/school-contact-card";
 import { StudentAvatar } from "@/components/features/students/student-avatar";
 import { EmptyState } from "@/components/layout/empty-state";
@@ -26,6 +27,7 @@ export default async function PortalHomePage() {
         <h1 className="text-2xl font-semibold">{t("title")}</h1>
         <p className="text-muted-foreground">{t("welcome", { name: user.fullName })}</p>
       </div>
+      <InstallAppCard />
       {children.length === 0 ? (
         <Card>
           <EmptyState icon={Baby} title={t("emptyTitle")} description={t("emptyDescription")} />
