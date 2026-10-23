@@ -34,8 +34,9 @@ export type NotificationData = {
   /** remark: the remark and its type (behavior | homework | material | praise). */
   remark_id?: string;
   remark_type?: "behavior" | "homework" | "material" | "praise";
-  /** demo_request: the request (home page form), for the platform owner. */
+  /** demo_request: the request (home page form), for the platform owner; kind demo | trial (absent before launch step 2b = demo). */
   request_id?: string;
+  kind?: "demo" | "trial";
   full_name?: string;
   city?: string;
   phone?: string;

@@ -83,7 +83,7 @@
     "attendance": "Appel",
     "absences": "Absences",
     "alerts": "Alertes",
-    "demoRequests": "Demandes de démo",
+    "demoRequests": "Demandes de démo et d'essai",
     "announcements": "Annonces",
     "remarks": "Remarques",
     "schoolSettings": "Établissement"
@@ -136,7 +136,7 @@
     },
     "back": "Accueil",
     "demoRequest": {
-      "title": "Demande de démo · {school}",
+      "title": "{kind, select, trial {Demande d'essai} other {Demande de démo}} · {school}",
       "body": "{name} · {city} · {phone}"
     },
     "announcement": {
@@ -406,8 +406,8 @@
       "maxAdminAccounts": "Nombre maximal de comptes d'administration"
     },
     "demoRequests": {
-      "title": "Demandes de démo",
-      "description": "Les demandes envoyées depuis la page d’accueil, les plus récentes en premier.",
+      "title": "Demandes de démo et d'essai",
+      "description": "Les demandes envoyées depuis la page d’accueil, les plus récentes en premier. Une demande d'essai se transforme en école d'essai en un clic.",
       "emptyTitle": "Aucune demande",
       "emptyDescription": "Les demandes envoyées depuis la page d’accueil apparaîtront ici.",
       "open": "À traiter",
@@ -419,7 +419,32 @@
       "students": "Élèves : {range}",
       "received": "Reçue le",
       "error": "La modification a échoué. Réessayez.",
-      "limit": "Seules les {count} dernières demandes sont affichées."
+      "limit": "Seules les {count} dernières demandes sont affichées.",
+      "trial": "Essai",
+      "trialSchool": "Voir l'école d'essai"
+    },
+    "trial": {
+      "create": "Créer l'essai",
+      "confirmTitle": "Créer l'école d'essai « {school} » ?",
+      "confirmDescription": "L'école, le compte du directeur (mot de passe provisoire) et un essai École moyenne de 14 jours, limité à 50 élèves, seront créés. À la fin de l'essai, l'école est bloquée et ses données gardées.",
+      "cancel": "Annuler",
+      "confirm": "Créer l'essai",
+      "creating": "Création…",
+      "doneTitle": "École d'essai créée",
+      "doneDescription": "Essai jusqu'au {date}. Envoyez maintenant les accès au directeur.",
+      "email": "Identifiant",
+      "password": "Mot de passe provisoire",
+      "passwordOnce": "Ce mot de passe n'est affiché qu'une fois. Le directeur le change à sa première connexion.",
+      "viewSchool": "Voir l'école",
+      "sendWhatsapp": "Envoyer les accès sur WhatsApp",
+      "whatsappMessage": "Bonjour {name}, votre école d'essai « {school} » est prête sur Tasyir School (gratuite jusqu'au {date}).\n\nConnexion : {url}\nIdentifiant : {email}\nMot de passe provisoire : {password}\n\nVous choisirez votre propre mot de passe à la première connexion.",
+      "errors": {
+        "forbidden": "Action réservée au propriétaire de la plateforme.",
+        "notFound": "Cette demande d'essai est introuvable.",
+        "alreadyCreated": "L'école d'essai de cette demande existe déjà.",
+        "emailTaken": "Cette adresse email a déjà un compte : créez l'école à la main avec une autre adresse.",
+        "generic": "La création a échoué. Rien n'a été créé ; réessayez."
+      }
     }
   },
   "staff": {
@@ -2538,7 +2563,7 @@
       },
       "trial": {
         "q": "Peut-on essayer avant de s'engager ?",
-        "a": "Oui. Demandez une démo ou écrivez-nous sur WhatsApp : nous ouvrons un essai gratuit de 14 jours pour votre école, avec vos classes et vos élèves."
+        "a": "Oui. Choisissez « Un essai gratuit de 14 jours » dans le formulaire en bas de la page : nous créons votre école (jusqu'à 50 élèves) et vous envoyons vos accès sur WhatsApp. Vous pouvez aussi demander une démo."
       }
     },
     "demo": {
@@ -2569,7 +2594,9 @@
           "gt1000": "Plus de 1 000"
         },
         "message": "Message (facultatif)",
-        "website": "Ne pas remplir ce champ"
+        "website": "Ne pas remplir ce champ",
+        "emailTrial": "Email * (votre identifiant de connexion)",
+        "emailTrialHint": "Vous vous connecterez avec cette adresse."
       },
       "submit": "Envoyer la demande",
       "sending": "Envoi…",
@@ -2584,7 +2611,8 @@
         "students": "Choisissez le nombre d'élèves.",
         "message": "Le message est trop long (1 000 caractères au maximum).",
         "tooLong": "Ce texte est trop long.",
-        "generic": "L'envoi a échoué. Vérifiez votre connexion et réessayez."
+        "generic": "L'envoi a échoué. Vérifiez votre connexion et réessayez.",
+        "emailRequired": "Indiquez l'adresse email avec laquelle vous vous connecterez."
       },
       "success": {
         "title": "Merci, votre demande est envoyée.",
@@ -2600,6 +2628,17 @@
         "busyBody": "Pour ne pas attendre, écrivez-nous directement sur WhatsApp : nous vous répondons vite.",
         "busyRetry": "Ou renvoyez ce formulaire dans une heure.",
         "back": "Revenir au formulaire"
+      },
+      "kind": {
+        "label": "Votre demande",
+        "demo": "Une démo avec nous",
+        "trial": "Un essai gratuit de 14 jours",
+        "trialNote": "Nous créons votre école d'essai (jusqu'à 50 élèves) et vous envoyons vos accès sur WhatsApp. À la fin des 14 jours, l'école est mise en pause et vos données sont gardées."
+      },
+      "submitTrial": "Demander mon essai",
+      "successTrial": {
+        "title": "Merci, votre demande d'essai est envoyée.",
+        "body": "Nous préparons votre école et vous envoyons vos accès sur WhatsApp au {phone}."
       }
     },
     "mobileBar": {
@@ -2960,5 +2999,11 @@
         }
       ]
     }
+  },
+  "trialEnded": {
+    "title": "Votre essai est terminé",
+    "description": "Les 14 jours d'essai de votre école sont écoulés. Vos données sont gardées : choisissez une formule pour continuer là où vous vous êtes arrêté.",
+    "contact": "Choisir une formule sur WhatsApp",
+    "whatsappMessage": "Bonjour, notre essai Tasyir School est terminé et nous souhaitons continuer."
   }
 }

@@ -604,9 +604,11 @@ export type Database = {
           handled_at: string | null
           handled_by: string | null
           id: string
+          kind: string
           locale: string
           message: string | null
           phone: string
+          school_id: string | null
           school_name: string
           students: string
         }
@@ -618,9 +620,11 @@ export type Database = {
           handled_at?: string | null
           handled_by?: string | null
           id?: string
+          kind?: string
           locale?: string
           message?: string | null
           phone: string
+          school_id?: string | null
           school_name: string
           students: string
         }
@@ -632,9 +636,11 @@ export type Database = {
           handled_at?: string | null
           handled_by?: string | null
           id?: string
+          kind?: string
           locale?: string
           message?: string | null
           phone?: string
+          school_id?: string | null
           school_name?: string
           students?: string
         }
@@ -644,6 +650,13 @@ export type Database = {
             columns: ["handled_by"]
             isOneToOne: false
             referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "demo_requests_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
             referencedColumns: ["id"]
           },
         ]
@@ -1465,6 +1478,7 @@ export type Database = {
           slug: string
           status: string
           suspended_at: string | null
+          suspension_reason: string | null
           updated_at: string
         }
         Insert: {
@@ -1480,6 +1494,7 @@ export type Database = {
           slug: string
           status?: string
           suspended_at?: string | null
+          suspension_reason?: string | null
           updated_at?: string
         }
         Update: {
@@ -1495,6 +1510,7 @@ export type Database = {
           slug?: string
           status?: string
           suspended_at?: string | null
+          suspension_reason?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -1976,6 +1992,7 @@ export type Database = {
         Returns: string
       }
       import_students: { Args: { p_rows: Json }; Returns: number }
+      my_school_suspension: { Args: never; Returns: string }
       run_absence_notifications: { Args: { p_now?: string }; Returns: number }
       run_daily_alerts: { Args: { p_today: string }; Returns: number }
       run_demo_reset: { Args: { p_school: string }; Returns: string }
@@ -1983,6 +2000,7 @@ export type Database = {
         Args: { p_schools: string[]; p_today: string }
         Returns: number
       }
+      run_trial_expiry: { Args: { p_now: string; p_schools: string[] }; Returns: number }
       save_attendance: {
         Args: { p_date: string; p_lesson: string; p_marks?: Json }
         Returns: string

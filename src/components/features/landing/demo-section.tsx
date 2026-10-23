@@ -38,7 +38,8 @@ export function DemoSection() {
             </div>
           )}
         </div>
-        <div className="relative rounded-2xl bg-lp-surface p-5 text-lp-ink shadow-xl sm:p-8">
+        {/* id="trial": the plan cards' "Essai gratuit" buttons land here, the form then picks the trial. */}
+        <div id="trial" className="relative scroll-mt-20 rounded-2xl bg-lp-surface p-5 text-lp-ink shadow-xl sm:p-8">
           <DemoForm />
         </div>
       </div>

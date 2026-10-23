@@ -165,6 +165,8 @@ export async function setSchoolStatus(schoolId: unknown, status: unknown): Promi
     .update({
       status: next.data,
       suspended_at: next.data === "suspended" ? new Date().toISOString() : null,
+      // Set only by the trial expiry job ('trial_ended'); a hand suspension or a reactivation clears it.
+      suspension_reason: null,
     })
     .eq("id", id.data)
     .neq("status", next.data) // already in that state: nothing to do, nothing to log

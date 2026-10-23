@@ -1,16 +1,19 @@
 "use client";
 
-import { Check, Mail, MessageCircle, Phone, RotateCcw } from "lucide-react";
+import { Check, ExternalLink, Mail, MessageCircle, Phone, RotateCcw } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useSyncExternalStore, useTransition } from "react";
 import { toast } from "sonner";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import { setDemoRequestHandled } from "@/lib/demo-requests/platform-actions";
 import type { DemoRequestItem } from "@/lib/demo-requests/queries";
 import { formatDateTime, ltr } from "@/lib/format";
 import { formatMobile } from "@/lib/parents/phone";
+
+import { CreateTrialButton } from "./create-trial-button";
 
 /** True in the browser only: times are shown there (the server's Morocco time-zone data is outdated). */
 function useMounted() {
@@ -48,7 +51,7 @@ function Row({ item }: { item: DemoRequestItem }) {
   }
 
   return (
-    <li data-handled={handled ? "true" : "false"} className="flex flex-col gap-3 p-4">
+    <li data-handled={handled ? "true" : "false"} data-kind={item.kind} className="flex flex-col gap-3 p-4">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="flex min-w-0 flex-col gap-0.5">
           <p className="font-semibold">
@@ -58,7 +61,10 @@ function Row({ item }: { item: DemoRequestItem }) {
             <bdi>{item.fullName}</bdi> · {t("students", { range: tr(item.students) })}
           </p>
         </div>
-        <Badge variant={handled ? "secondary" : "default"}>{handled ? t("handled") : t("open")}</Badge>
+        <div className="flex flex-wrap gap-2">
+          {item.kind === "trial" && <Badge variant="outline">{t("trial")}</Badge>}
+          <Badge variant={handled ? "secondary" : "default"}>{handled ? t("handled") : t("open")}</Badge>
+        </div>
       </div>
       {item.message && <p className="text-sm whitespace-pre-line">{item.message}</p>}
       <div className="flex flex-wrap items-center gap-2">
@@ -85,6 +91,17 @@ function Row({ item }: { item: DemoRequestItem }) {
               <Mail aria-hidden />
               <span dir="ltr">{item.email}</span>
             </a>
+          </Button>
+        )}
+        {item.kind === "trial" && !item.schoolId && item.email && (
+          <CreateTrialButton requestId={item.id} schoolName={item.schoolName} />
+        )}
+        {item.schoolId && (
+          <Button asChild variant="outline" size="sm">
+            <Link href={`/platform/schools/${item.schoolId}`}>
+              <ExternalLink aria-hidden />
+              {t("trialSchool")}
+            </Link>
           </Button>
         )}
         <Button variant={handled ? "ghost" : "secondary"} size="sm" className="ms-auto" onClick={toggle} disabled={pending}>

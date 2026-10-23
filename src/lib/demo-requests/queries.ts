@@ -1,13 +1,16 @@
 import "server-only";
 
 import { createClient } from "@/lib/supabase/server";
-import type { DemoStudentRange } from "@/lib/validations/demo-request";
+import type { DemoRequestKind, DemoStudentRange } from "@/lib/validations/demo-request";
 
 /** The newest requests shown on /platform/demo-requests. */
 export const DEMO_LIST_LIMIT = 100;
 
 export type DemoRequestItem = {
   id: string;
+  kind: DemoRequestKind;
+  /** The trial school made from this request. */
+  schoolId: string | null;
   fullName: string;
   schoolName: string;
   city: string;
@@ -24,13 +27,15 @@ export async function listDemoRequests(): Promise<DemoRequestItem[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
     .from("demo_requests")
-    .select("id, full_name, school_name, city, phone, email, students, message, created_at, handled_at")
+    .select("id, kind, school_id, full_name, school_name, city, phone, email, students, message, created_at, handled_at")
     .order("created_at", { ascending: false })
     .limit(DEMO_LIST_LIMIT);
   if (error) throw new Error(error.message);
 
   return data.map((row) => ({
     id: row.id,
+    kind: row.kind as DemoRequestKind,
+    schoolId: row.school_id,
     fullName: row.full_name,
     schoolName: row.school_name,
     city: row.city,

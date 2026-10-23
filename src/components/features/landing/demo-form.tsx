@@ -4,26 +4,33 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { CircleAlert, Loader2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useRef, useState, useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import type { z } from "zod";
 
 import { Link } from "@/i18n/navigation";
 import { requestDemo } from "@/lib/demo-requests/actions";
 import { formatMobile, normalizeMobile } from "@/lib/parents/phone";
 import { cn } from "@/lib/utils";
-import { DEMO_STUDENT_RANGES, demoRequestSchema, type DemoRequestInput } from "@/lib/validations/demo-request";
+import {
+  DEMO_REQUEST_KINDS,
+  DEMO_STUDENT_RANGES,
+  demoRequestSchema,
+  type DemoRequestInput,
+  type DemoRequestKind,
+} from "@/lib/validations/demo-request";
 
 import { CONTROL, controlProps, DemoField, fieldIds } from "./demo-field";
 import { DemoOutcomePanel, type DemoOutcome } from "./demo-outcome";
 import { BUTTON } from "./landing-ui";
 
 type Values = z.output<typeof demoRequestSchema>;
-type FieldName = Exclude<keyof DemoRequestInput, "website">;
+type FieldName = Exclude<keyof DemoRequestInput, "website" | "kind">;
 
 /** Field order: the error summary lists errors in this order. */
 const FIELDS: FieldName[] = ["fullName", "schoolName", "city", "phone", "email", "students", "message"];
 
 const EMPTY: DemoRequestInput = {
+  kind: "demo",
   fullName: "",
   schoolName: "",
   city: "",
@@ -34,8 +41,11 @@ const EMPTY: DemoRequestInput = {
   website: "",
 };
 
+/** "#trial" in the address (the plan cards' "Essai gratuit" buttons) opens the form on the trial. */
+const kindFromHash = (): DemoRequestKind | null => (window.location.hash === "#trial" ? "trial" : null);
+
 /**
- * "Demander une démo". Each field is checked when it loses focus (error under
+ * "Demander une démo" or "Essai gratuit de 14 jours" (a choice at the top). Each field is checked when it loses focus (error under
  * it); a failed submit also shows a summary at the top, focused, with links to
  * each field. The server checks everything again.
  */
@@ -58,6 +68,17 @@ export function DemoForm() {
     defaultValues: EMPTY,
   });
   const { errors } = form.formState;
+  const kind = useWatch({ control: form.control, name: "kind" });
+
+  useEffect(() => {
+    const pick = () => {
+      const fromHash = kindFromHash();
+      if (fromHash) form.setValue("kind", fromHash);
+    };
+    pick();
+    window.addEventListener("hashchange", pick);
+    return () => window.removeEventListener("hashchange", pick);
+  }, [form]);
   const message = (name: FieldName) => {
     const key = errors[name]?.message;
     return key ? t(`errors.${key}`) : undefined;
@@ -91,7 +112,7 @@ export function DemoForm() {
         return setServerError(result.error);
       }
       setSummary(false);
-      setOutcome({ kind: "sent", phone: formatMobile(result.data.phone) });
+      setOutcome({ kind: "sent", request: values.kind, phone: formatMobile(result.data.phone) });
     });
   }
 
@@ -101,7 +122,7 @@ export function DemoForm() {
         outcome={outcome}
         onBack={() => {
           // Sent: start again empty. Limited: keep what was typed.
-          if (outcome.kind === "sent") form.reset(EMPTY);
+          if (outcome.kind === "sent") form.reset({ ...EMPTY, kind });
           setOutcome(null);
         }}
       />
@@ -146,6 +167,25 @@ export function DemoForm() {
         </p>
       )}
 
+      <fieldset>
+        <legend className="mb-2 font-bold">{t("kind.label")}</legend>
+        <div className="grid gap-2 sm:grid-cols-2">
+          {DEMO_REQUEST_KINDS.map((option) => (
+            <label
+              key={option}
+              className={cn(
+                "flex min-h-11 cursor-pointer items-center gap-3 rounded-lg border px-4 py-2 font-semibold has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-lp-brand",
+                kind === option ? "border-lp-brand bg-lp-tint text-lp-brand" : "border-lp-line",
+              )}
+            >
+              <input type="radio" value={option} {...form.register("kind")} className="size-4 accent-lp-brand" />
+              {t(`kind.${option}`)}
+            </label>
+          ))}
+        </div>
+        {kind === "trial" && <p className="mt-2 text-sm text-lp-muted" data-trial-note>{t("kind.trialNote")}</p>}
+      </fieldset>
+
       <p className="text-sm text-lp-muted">{t("requiredNote")}</p>
 
       <div className="grid gap-5 sm:grid-cols-2">
@@ -174,10 +214,15 @@ export function DemoForm() {
             className={cn(CONTROL, "[unicode-bidi:plaintext]")}
           />
         </DemoField>
-        <DemoField name="email" label={t("fields.email")} error={message("email")}>
+        <DemoField
+          name="email"
+          label={kind === "trial" ? t("fields.emailTrial") : t("fields.email")}
+          hint={kind === "trial" ? t("fields.emailTrialHint") : undefined}
+          error={message("email")}
+        >
           <input
             {...form.register("email")}
-            {...controlProps("email", message("email"))}
+            {...controlProps("email", message("email"), kind === "trial")}
             type="email"
             autoComplete="email"
             className={cn(CONTROL, "[unicode-bidi:plaintext]")}
@@ -207,7 +252,7 @@ export function DemoForm() {
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
         <button type="submit" disabled={pending} className={cn(BUTTON.primary, "disabled:opacity-70")}>
           {pending && <Loader2 className="size-4 animate-spin motion-reduce:animate-none" aria-hidden />}
-          {pending ? t("sending") : t("submit")}
+          {pending ? t("sending") : kind === "trial" ? t("submitTrial") : t("submit")}
         </button>
       </div>
       <p className="text-sm text-lp-muted">{t("consent")}</p>

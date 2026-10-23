@@ -54,6 +54,7 @@ import { phase9SchoolContacts } from "./phase9-school-contacts.mjs";
 import { planLimitActions } from "./actions-plan-limits.mjs";
 import { phaseLaunchLimits } from "./phase-launch-limits.mjs";
 import { phaseLaunchDemo } from "./phase-launch-demo.mjs";
+import { phaseLaunchTrial } from "./phase-launch-trial.mjs";
 import { demoActions } from "./actions-demo.mjs";
 import { phase9CrossSchool } from "./phase9-cross-school.mjs";
 import { schoolContactActions } from "./actions-school-contact.mjs";
@@ -61,6 +62,7 @@ import { phase9Announcements } from "./phase9-announcements.mjs";
 import { notificationTypes } from "./notification-types.mjs";
 import { publicDemoRequests } from "./public-demo-requests.mjs";
 import { demoRequestActions } from "./actions-demo-requests.mjs";
+import { trialActions } from "./actions-trial.mjs";
 import { phase6Lessons } from "./phase6-lessons.mjs";
 import { lessonBlockActions } from "./actions-lesson-blocks.mjs";
 import { lessonCopyActions } from "./actions-lesson-copy.mjs";
@@ -120,6 +122,7 @@ try {
   await phase9SchoolContacts({ fx, as });
   await phaseLaunchLimits({ fx, as });
   await phaseLaunchDemo({ fx, as });
+  await phaseLaunchTrial({ fx, as });
   await phase9CrossSchool({ fx, as });
   await notificationTypes({ fx, as });
   await publicDemoRequests({ fx, as });
@@ -162,6 +165,7 @@ try {
     await planLimitActions({ fx, baseUrl });
     await demoActions({ fx, baseUrl });
     await demoRequestActions({ fx, baseUrl });
+    await trialActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

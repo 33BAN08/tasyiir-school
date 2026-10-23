@@ -60,7 +60,7 @@ export function PlanCard({ plan }: { plan: PlanKey }) {
       </ul>
 
       <div className="flex flex-col gap-2">
-        <a href="#demo" className={recommended ? BUTTON.primary : BUTTON.outline}>
+        <a href="#trial" className={recommended ? BUTTON.primary : BUTTON.outline}>
           {t("ctaTrial")}
         </a>
         <a href="#demo" className={cn(BUTTON.link, "self-center py-2")}>

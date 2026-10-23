@@ -6,11 +6,14 @@ import { useEffect, useRef } from "react";
 
 import { ltr } from "@/lib/format";
 import { whatsappUrl } from "@/lib/landing/whatsapp";
+import type { DemoRequestKind } from "@/lib/validations/demo-request";
 
 import { BUTTON } from "./landing-ui";
 
 /** What the form shows once sent: done, or a database limit hit (never shown as an error). */
-export type DemoOutcome = { kind: "sent"; phone: string } | { kind: "limited"; reason: "phone" | "busy" };
+export type DemoOutcome =
+  | { kind: "sent"; request: DemoRequestKind; phone: string }
+  | { kind: "limited"; reason: "phone" | "busy" };
 
 type Props = { outcome: DemoOutcome; onBack: () => void };
 
@@ -27,8 +30,9 @@ export function DemoOutcomePanel({ outcome, onBack }: Props) {
 
   const sent = outcome.kind === "sent";
   const Icon = sent ? CircleCheck : PhoneCall;
+  const success = sent && outcome.request === "trial" ? "successTrial" : "success";
   const title = sent
-    ? t("success.title")
+    ? t(`${success}.title`)
     : outcome.reason === "phone"
       ? t("limited.phoneTitle")
       : t("limited.busyTitle");
@@ -39,7 +43,7 @@ export function DemoOutcomePanel({ outcome, onBack }: Props) {
       <h3 ref={headingRef} tabIndex={-1} className="text-2xl font-extrabold outline-none">
         {title}
       </h3>
-      {sent && <p className="text-lp-muted">{t("success.body", { phone: ltr(outcome.phone) })}</p>}
+      {sent && <p className="text-lp-muted">{t(`${success}.body`, { phone: ltr(outcome.phone) })}</p>}
       {outcome.kind === "limited" && outcome.reason === "phone" && (
         <p className="text-lp-muted">
           {t("limited.phoneBody")} {whatsapp && t("limited.phoneWhatsapp")}

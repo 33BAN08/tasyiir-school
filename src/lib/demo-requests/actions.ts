@@ -20,7 +20,7 @@ export type DemoRequestResult =
   | { ok: false; error: string; field?: string };
 
 /**
- * The home page's "Demander une démo" form (public: no session needed).
+ * The home page's "Demander une démo" / "Essai gratuit" form (public: no session needed).
  * Always inserted as an anonymous visitor (publishable key, no cookies), so the
  * grant is anon INSERT only — even a signed-in visitor cannot read requests back.
  * The database enforces the limits (same phone 3 / 24 h, 30 / hour overall) and
@@ -45,6 +45,7 @@ export async function requestDemo(input: unknown, locale: unknown): Promise<Demo
   );
   // No .select(): anon has no SELECT, so the insert must not return the row.
   const { error } = await anon.from("demo_requests").insert({
+    kind: values.kind,
     full_name: values.fullName,
     school_name: values.schoolName,
     city: values.city,

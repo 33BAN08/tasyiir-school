@@ -101,7 +101,7 @@ function Row({ item, area, read, onRead }: { item: NotificationItem; area: Props
     });
   } else if (item.type === "demo_request") {
     Icon = Inbox;
-    title = t("demoRequest.title", { school: isolate(data.school_name ?? "") });
+    title = t("demoRequest.title", { kind: data.kind === "trial" ? "trial" : "demo", school: isolate(data.school_name ?? "") });
     body = t("demoRequest.body", {
       name: isolate(data.full_name ?? ""),
       city: isolate(data.city ?? ""),

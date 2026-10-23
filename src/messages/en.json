@@ -83,7 +83,7 @@
     "attendance": "Attendance",
     "absences": "Absences",
     "alerts": "Alerts",
-    "demoRequests": "Demo requests",
+    "demoRequests": "Demo and trial requests",
     "announcements": "Announcements",
     "remarks": "Remarks",
     "schoolSettings": "School"
@@ -136,7 +136,7 @@
     },
     "back": "Home",
     "demoRequest": {
-      "title": "Demo request · {school}",
+      "title": "{kind, select, trial {Trial request} other {Demo request}} · {school}",
       "body": "{name} · {city} · {phone}"
     },
     "announcement": {
@@ -406,8 +406,8 @@
       "maxAdminAccounts": "Maximum admin accounts"
     },
     "demoRequests": {
-      "title": "Demo requests",
-      "description": "Requests sent from the home page, newest first.",
+      "title": "Demo and trial requests",
+      "description": "Requests sent from the home page, newest first. A trial request becomes a trial school in one click.",
       "emptyTitle": "No requests",
       "emptyDescription": "Requests sent from the home page will appear here.",
       "open": "To handle",
@@ -419,7 +419,32 @@
       "students": "Students: {range}",
       "received": "Received",
       "error": "The change failed. Try again.",
-      "limit": "Only the latest {count} requests are shown."
+      "limit": "Only the latest {count} requests are shown.",
+      "trial": "Trial",
+      "trialSchool": "View the trial school"
+    },
+    "trial": {
+      "create": "Create the trial",
+      "confirmTitle": "Create the trial school “{school}”?",
+      "confirmDescription": "The school, the director's account (temporary password) and a 14-day Medium school trial, capped at 50 students, will be created. When the trial ends the school is blocked and its data kept.",
+      "cancel": "Cancel",
+      "confirm": "Create the trial",
+      "creating": "Creating…",
+      "doneTitle": "Trial school created",
+      "doneDescription": "Trial until {date}. Now send the sign-in details to the director.",
+      "email": "Sign-in",
+      "password": "Temporary password",
+      "passwordOnce": "This password is shown only once. The director changes it at first sign-in.",
+      "viewSchool": "View the school",
+      "sendWhatsapp": "Send the sign-in details on WhatsApp",
+      "whatsappMessage": "Hello {name}, your trial school “{school}” is ready on Tasyir School (free until {date}).\n\nSign in: {url}\nSign-in: {email}\nTemporary password: {password}\n\nYou will choose your own password at first sign-in.",
+      "errors": {
+        "forbidden": "Only the platform owner can do this.",
+        "notFound": "This trial request cannot be found.",
+        "alreadyCreated": "This request's trial school already exists.",
+        "emailTaken": "This email address already has an account: create the school by hand with another address.",
+        "generic": "Creation failed. Nothing was created; try again."
+      }
     }
   },
   "staff": {
@@ -2538,7 +2563,7 @@
       },
       "trial": {
         "q": "Can we try it before committing?",
-        "a": "Yes. Request a demo or write to us on WhatsApp: we open a 14-day free trial for your school, with your classes and students."
+        "a": "Yes. Choose “A free 14-day trial” in the form at the bottom of the page: we create your school (up to 50 students) and send your sign-in details on WhatsApp. You can also ask for a demo."
       }
     },
     "demo": {
@@ -2569,7 +2594,9 @@
           "gt1000": "More than 1,000"
         },
         "message": "Message (optional)",
-        "website": "Leave this field empty"
+        "website": "Leave this field empty",
+        "emailTrial": "Email * (your sign-in)",
+        "emailTrialHint": "You will sign in with this address."
       },
       "submit": "Send request",
       "sending": "Sending…",
@@ -2584,7 +2611,8 @@
         "students": "Choose the number of students.",
         "message": "The message is too long (1,000 characters at most).",
         "tooLong": "This text is too long.",
-        "generic": "Sending failed. Check your connection and try again."
+        "generic": "Sending failed. Check your connection and try again.",
+        "emailRequired": "Enter the email address you will sign in with."
       },
       "success": {
         "title": "Thank you, your request has been sent.",
@@ -2600,6 +2628,17 @@
         "busyBody": "To avoid waiting, message us directly on WhatsApp: we reply quickly.",
         "busyRetry": "Or send this form again in an hour.",
         "back": "Back to the form"
+      },
+      "kind": {
+        "label": "Your request",
+        "demo": "A demo with us",
+        "trial": "A free 14-day trial",
+        "trialNote": "We create your trial school (up to 50 students) and send your sign-in details on WhatsApp. After the 14 days the school is paused and your data is kept."
+      },
+      "submitTrial": "Request my trial",
+      "successTrial": {
+        "title": "Thank you, your trial request is sent.",
+        "body": "We are preparing your school and will send your sign-in details on WhatsApp to {phone}."
       }
     },
     "mobileBar": {
@@ -2960,5 +2999,11 @@
         }
       ]
     }
+  },
+  "trialEnded": {
+    "title": "Your trial has ended",
+    "description": "Your school's 14-day trial is over. Your data is kept: choose a plan to carry on where you left off.",
+    "contact": "Choose a plan on WhatsApp",
+    "whatsappMessage": "Hello, our Tasyir School trial has ended and we would like to continue."
   }
 }
