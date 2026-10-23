@@ -72,6 +72,7 @@ export async function signIn(
 export async function changePassword(input: unknown, locale: unknown): Promise<AuthActionResult> {
   const user = await getCurrentUser();
   if (!user) return { ok: false, error: "sessionExpired" };
+  if (user.isDemo) return { ok: false, error: "demoLocked" };
 
   const parsed = changePasswordSchema.safeParse(input);
   if (!parsed.success) {

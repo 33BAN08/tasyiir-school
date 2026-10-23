@@ -22,6 +22,7 @@ export async function createStaff(
 ): Promise<StaffActionResult<{ id: string; email: string; temporaryPassword: string }>> {
   const actor = await getStaffManager();
   if (!actor) return { ok: false, error: "forbidden" };
+  if (actor.isDemo) return { ok: false, error: "demoLocked" };
 
   const parsed = newStaffSchema.safeParse(input);
   if (!parsed.success) {

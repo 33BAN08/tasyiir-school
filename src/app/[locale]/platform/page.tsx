@@ -52,11 +52,22 @@ async function Stats() {
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-      <StatCard icon={School} label={t("totalSchools")} value={String(stats.totalSchools)} />
+      <StatCard
+        icon={School}
+        label={t("totalSchools")}
+        value={String(stats.totalSchools)}
+        stat={{ name: "totalSchools", raw: stats.totalSchools }}
+      />
       <StatCard icon={CheckCircle2} label={t("activeSchools")} value={String(stats.activeSchools)} />
       <StatCard icon={Ban} label={t("suspendedSchools")} value={String(stats.suspendedSchools)} />
       <StatCard icon={Clock} label={t("trialSchools")} value={String(stats.trialSchools)} />
-      <StatCard icon={Banknote} label={t("mrr")} value={formatMoney(stats.mrr)} hint={t("mrrHint")} />
+      <StatCard
+        icon={Banknote}
+        label={t("mrr")}
+        value={formatMoney(stats.mrr)}
+        hint={t("mrrHint")}
+        stat={{ name: "mrr", raw: stats.mrr }}
+      />
     </div>
   );
 }

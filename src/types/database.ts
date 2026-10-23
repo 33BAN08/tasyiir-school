@@ -1457,6 +1457,7 @@ export type Database = {
           city: string | null
           created_at: string
           id: string
+          is_demo: boolean
           logo_url: string | null
           name: string
           phone: string | null
@@ -1471,6 +1472,7 @@ export type Database = {
           city?: string | null
           created_at?: string
           id?: string
+          is_demo?: boolean
           logo_url?: string | null
           name: string
           phone?: string | null
@@ -1485,6 +1487,7 @@ export type Database = {
           city?: string | null
           created_at?: string
           id?: string
+          is_demo?: boolean
           logo_url?: string | null
           name?: string
           phone?: string | null
@@ -1975,6 +1978,7 @@ export type Database = {
       import_students: { Args: { p_rows: Json }; Returns: number }
       run_absence_notifications: { Args: { p_now?: string }; Returns: number }
       run_daily_alerts: { Args: { p_today: string }; Returns: number }
+      run_demo_reset: { Args: { p_school: string }; Returns: undefined }
       run_subscription_reminders: {
         Args: { p_schools: string[]; p_today: string }
         Returns: number
@@ -1995,8 +1999,8 @@ export type Database = {
         Args: never
         Returns: {
           admins: number
-          max_admins: number | null
-          max_students: number | null
+          max_admins: number
+          max_students: number
           students: number
         }[]
       }

@@ -27,6 +27,11 @@ export type CurrentUser = {
    * role, with no school on the profile NOR on the role. Never decide this from roleKey.
    */
   isPlatformOwner: boolean;
+  /**
+   * Account of a demo school (schools.is_demo): no account creation, password,
+   * email or account changes. The database refuses them too; this gives clear errors.
+   */
+  isDemo: boolean;
 };
 
 /**
@@ -45,7 +50,7 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
   const { data: profile } = await supabase
     .from("profiles")
     .select(
-      "id, full_name, school_id, role_id, locale, must_change_password, deactivated_at, role:roles(key, name, school_id), school:schools(id)",
+      "id, full_name, school_id, role_id, locale, must_change_password, deactivated_at, role:roles(key, name, school_id), school:schools(id, is_demo)",
     )
     .eq("id", claims.sub)
     .maybeSingle();
@@ -76,6 +81,7 @@ export const getCurrentUser = cache(async (): Promise<CurrentUser | null> => {
     schoolSuspended,
     accountDeactivated,
     isPlatformOwner,
+    isDemo: profile.school?.is_demo === true,
   };
 });
 

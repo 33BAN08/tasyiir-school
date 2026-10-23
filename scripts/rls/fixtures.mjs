@@ -20,9 +20,9 @@ export const admin = createClient(URL, SECRET, NO_SESSION);
 export const anon = () => createClient(URL, PUBLISHABLE, NO_SESSION);
 
 const run = randomBytes(4).toString("hex");
-const password = () => `${randomBytes(18).toString("base64url")}a1`;
+export const password = () => `${randomBytes(18).toString("base64url")}a1`;
 
-function must({ data, error }, what) {
+export function must({ data, error }, what) {
   if (error) throw new Error(`fixture: ${what} failed (${error.code ?? error.message})`);
   return data;
 }
@@ -154,6 +154,8 @@ export function usersOf(fx, schoolKey) {
 
 export async function removeFixtures(fx) {
   const leftovers = [];
+  // A demo school's accounts cannot be deleted while it is flagged (launch_demo_school).
+  if (fx.createdSchoolIds.length) await admin.from("schools").update({ is_demo: false }).in("id", fx.createdSchoolIds);
   // Accounts created by the tests themselves (e.g. createStaff) live in the fixture schools.
   const { data: extra } = await admin.from("profiles").select("id").in("school_id", fx.createdSchoolIds);
   const ids = new Set([...fx.createdUserIds, ...(extra ?? []).map((p) => p.id)]);

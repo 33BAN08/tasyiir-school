@@ -41,6 +41,7 @@ async function authorize(
 ): Promise<Authorized | { error: string }> {
   const actor = await getStaffManager();
   if (!actor) return { error: "forbidden" };
+  if (actor.isDemo) return { error: "demoLocked" };
   const id = staffIdSchema.safeParse(staffId);
   if (!id.success) return { error: "notFound" };
 
@@ -96,6 +97,7 @@ export async function updateStaffDetails(
 export async function changeStaffRole(staffId: unknown, input: unknown): Promise<StaffActionResult<null, "roleId">> {
   const actor = await getStaffManager();
   if (!actor) return { ok: false, error: "forbidden" };
+  if (actor.isDemo) return { ok: false, error: "demoLocked" };
   const parsed = staffRoleSchema.safeParse(input);
   if (!parsed.success) return { ok: false, error: "roleRequired", field: "roleId" };
 

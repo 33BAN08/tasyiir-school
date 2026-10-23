@@ -88,16 +88,18 @@ export type PlatformStats = {
   mrr: number;
 };
 
+// The demo school (is_demo) is a sales tool, not a customer: left out of every count and the MRR.
 export async function getPlatformStats(): Promise<PlatformStats> {
   const supabase = await createClient();
 
   const [schools, subs] = await Promise.all([
-    supabase.from("schools").select("status"),
+    supabase.from("schools").select("status").eq("is_demo", false),
     supabase
       .from("school_subscriptions")
-      .select("status, plan:plans(price_monthly), school:schools!inner(status)")
+      .select("status, plan:plans(price_monthly), school:schools!inner(status, is_demo)")
       .in("status", ["trial", "active"])
-      .eq("school.status", "active"),
+      .eq("school.status", "active")
+      .eq("school.is_demo", false),
   ]);
   if (schools.error || subs.error) throw new Error("getPlatformStats failed");
 

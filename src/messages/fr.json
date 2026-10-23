@@ -56,7 +56,8 @@
       "generic": "Une erreur inattendue s'est produite. Veuillez réessayer.",
       "accountDeactivated": "Ce compte a été désactivé. Veuillez contacter la direction de votre établissement.",
       "loginRequired": "Veuillez saisir votre adresse e-mail ou votre numéro de téléphone.",
-      "invalidLogin": "Saisissez une adresse e-mail ou un numéro de mobile marocain (06 ou 07)."
+      "invalidLogin": "Saisissez une adresse e-mail ou un numéro de mobile marocain (06 ou 07).",
+      "demoLocked": "Compte de démonstration : le mot de passe ne peut pas être changé."
     }
   },
   "localeSwitcher": {
@@ -493,7 +494,8 @@
       "accountDeactivated": "Ce compte est désactivé. Réactivez-le d'abord.",
       "readOnly": "Lecture seule : vous n'avez pas le droit de gérer le personnel.",
       "teacherHasLessons": "Cet enseignant a des séances dans l'emploi du temps. Confiez-les à un autre enseignant ou supprimez-les avant de changer son rôle.",
-      "planAdminLimit": "La limite de comptes administrateurs de votre formule est atteinte. Contactez-nous pour passer à une formule supérieure."
+      "planAdminLimit": "La limite de comptes administrateurs de votre formule est atteinte. Contactez-nous pour passer à une formule supérieure.",
+      "demoLocked": "Compte de démonstration : la création et la modification des comptes sont désactivées."
     },
     "credentials": {
       "email": "Adresse e-mail",
@@ -1052,7 +1054,8 @@
       "studentNotFound": "Cet élève n'existe pas.",
       "accountExists": "Ce parent a déjà un compte.",
       "noAccount": "Ce parent n'a pas de compte.",
-      "guardianRequired": "Choisissez un parent."
+      "guardianRequired": "Choisissez un parent.",
+      "demoLocked": "Compte de démonstration : la création et la modification des comptes sont désactivées."
     }
   },
   "portal": {

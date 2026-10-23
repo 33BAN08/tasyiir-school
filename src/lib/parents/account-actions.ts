@@ -44,6 +44,7 @@ export async function createParentAccount(
 ): Promise<Result<{ phone: string; temporaryPassword: string }>> {
   const actor = await getSchoolActor("parents.manage");
   if (!actor) return { ok: false, error: "forbidden" };
+  if (actor.isDemo) return { ok: false, error: "demoLocked" };
   const guardian = await guardianOf(actor, guardianId);
   if (!guardian) return { ok: false, error: "notFound" };
   if (guardian.profile_id) return { ok: false, error: "accountExists" };
@@ -124,6 +125,7 @@ export async function resetParentPassword(
 ): Promise<Result<{ phone: string; temporaryPassword: string }>> {
   const actor = await getSchoolActor("parents.manage");
   if (!actor) return { ok: false, error: "forbidden" };
+  if (actor.isDemo) return { ok: false, error: "demoLocked" };
   const target = await parentAccountOf(actor, guardianId);
   if ("error" in target) return { ok: false, error: target.error };
 
@@ -153,6 +155,7 @@ export async function resetParentPassword(
 export async function setParentActive(guardianId: unknown, active: unknown): Promise<Result<null>> {
   const actor = await getSchoolActor("parents.manage");
   if (!actor) return { ok: false, error: "forbidden" };
+  if (actor.isDemo) return { ok: false, error: "demoLocked" };
   const wanted = parentActiveSchema.safeParse(active);
   if (!wanted.success) return { ok: false, error: "generic" };
   const target = await parentAccountOf(actor, guardianId);

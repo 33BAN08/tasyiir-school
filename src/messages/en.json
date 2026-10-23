@@ -56,7 +56,8 @@
       "generic": "Something went wrong. Please try again.",
       "accountDeactivated": "This account has been deactivated. Please contact your school administration.",
       "loginRequired": "Enter your email address or phone number.",
-      "invalidLogin": "Enter an email address or a Moroccan mobile number (06 or 07)."
+      "invalidLogin": "Enter an email address or a Moroccan mobile number (06 or 07).",
+      "demoLocked": "Demo account: the password cannot be changed."
     }
   },
   "localeSwitcher": {
@@ -493,7 +494,8 @@
       "accountDeactivated": "This account is deactivated. Reactivate it first.",
       "readOnly": "Read only: you are not allowed to manage staff.",
       "teacherHasLessons": "This teacher has lessons in the timetable. Give them to another teacher or delete them before changing their role.",
-      "planAdminLimit": "Your plan's admin account limit is reached. Contact us to move to a bigger plan."
+      "planAdminLimit": "Your plan's admin account limit is reached. Contact us to move to a bigger plan.",
+      "demoLocked": "Demo account: creating and changing accounts is turned off."
     },
     "credentials": {
       "email": "Email address",
@@ -1052,7 +1054,8 @@
       "studentNotFound": "This student does not exist.",
       "accountExists": "This parent already has an account.",
       "noAccount": "This parent has no account.",
-      "guardianRequired": "Choose a parent."
+      "guardianRequired": "Choose a parent.",
+      "demoLocked": "Demo account: creating and changing accounts is turned off."
     }
   },
   "portal": {
