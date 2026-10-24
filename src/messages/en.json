@@ -2507,6 +2507,7 @@
           "teachersParents": "Unlimited teachers and parents",
           "rollCall": "Roll call on the phone, lateness and corrections",
           "parentAlert": "Parent told 10 minutes after the roll call",
+          "phoneApp": "App on the parents' phone, with notifications (Android and iPhone)",
           "justifications": "Photo absence notes validated by the school",
           "totals": "Absence totals in hours",
           "timetable": "Conflict-free timetable, A4 printing",
@@ -2571,7 +2572,7 @@
       },
       "mobile": {
         "q": "Do we need to install an app?",
-        "a": "No. Tasyir runs in the browser of a phone, tablet or computer. Teachers and parents mostly use it on their phone."
+        "a": "Nothing to download from an app store. Tasyir runs in the browser of a phone, tablet or computer. Parents add it to their home screen in two taps and get absences, remarks and announcements as notifications, even when the app is closed."
       },
       "trial": {
         "q": "Can we try it before committing?",

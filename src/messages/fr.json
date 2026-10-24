@@ -2507,6 +2507,7 @@
           "teachersParents": "Professeurs et parents illimités",
           "rollCall": "Appel sur téléphone, retards et corrections",
           "parentAlert": "Parent prévenu 10 minutes après l'appel",
+          "phoneApp": "Application sur le téléphone des parents, avec notifications (Android et iPhone)",
           "justifications": "Justificatifs en photo validés par l'école",
           "totals": "Totaux d'absences en heures",
           "timetable": "Emploi du temps sans conflit, impression A4",
@@ -2571,7 +2572,7 @@
       },
       "mobile": {
         "q": "Faut-il installer une application ?",
-        "a": "Non. Tasyir fonctionne dans le navigateur du téléphone, de la tablette ou de l'ordinateur. Les professeurs et les parents l'utilisent surtout sur leur téléphone."
+        "a": "Rien à télécharger depuis un store. Tasyir fonctionne dans le navigateur du téléphone, de la tablette ou de l'ordinateur. Les parents l'ajoutent à l'écran d'accueil en deux gestes et reçoivent les absences, les remarques et les annonces en notification, même quand l'application est fermée."
       },
       "trial": {
         "q": "Peut-on essayer avant de s'engager ?",

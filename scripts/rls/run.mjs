@@ -58,6 +58,7 @@ import { phaseLaunchTrial } from "./phase-launch-trial.mjs";
 import { phase10Push } from "./phase10-push.mjs";
 import { phase10PushSend } from "./phase10-push-send.mjs";
 import { phase10PushPreferences } from "./phase10-push-preferences.mjs";
+import { phase10CrossSchool } from "./phase10-cross-school.mjs";
 import { demoActions } from "./actions-demo.mjs";
 import { phase9CrossSchool } from "./phase9-cross-school.mjs";
 import { schoolContactActions } from "./actions-school-contact.mjs";
@@ -132,6 +133,7 @@ try {
   await phase10Push({ fx, as });
   await phase10PushSend({ fx, as });
   await phase10PushPreferences({ fx, as });
+  await phase10CrossSchool({ fx, as });
   await phase9CrossSchool({ fx, as });
   await notificationTypes({ fx, as });
   await publicDemoRequests({ fx, as });

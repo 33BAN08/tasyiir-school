@@ -44,6 +44,7 @@ export const COMPARE_ALL_PLANS: CompareRow[] = [
   { key: "teachersParents", included: ALL },
   { key: "rollCall", included: ALL },
   { key: "parentAlert", included: ALL },
+  { key: "phoneApp", included: ALL },
   { key: "justifications", included: ALL },
   { key: "totals", included: ALL },
   { key: "timetable", included: ALL },
