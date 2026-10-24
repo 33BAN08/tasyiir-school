@@ -33,7 +33,7 @@ type Claimed = {
   locale: string;
   subscriptions: unknown;
 };
-type Subscription = { endpoint: string; p256dh: string; auth: string };
+export type Subscription = { endpoint: string; p256dh: string; auth: string };
 
 export type DeliverResult = { rows: number; sent: number; gone: number; failed: number };
 
@@ -62,21 +62,38 @@ export async function pushPayload(row: Claimed) {
     },
     { t, locale, area: "portal" },
   );
-  return { title, body, url: `/${locale}${href ?? "/portal/notifications"}`, tag: row.notification_id, lang: locale };
+  return { title, body, url: `/${locale}${href ?? "/portal/notifications"}`, tag: row.notification_id, lang: locale } satisfies PushPayload;
 }
 
 export function vapidReady() {
   return Boolean(process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY && process.env.VAPID_PRIVATE_KEY);
 }
 
+export type PushPayload = { title: string; body: string; url: string; tag: string; lang: string };
+
+/** One push to one phone: "ok", "gone" (the push service no longer knows it: 404 / 410) or "failed". */
+export async function sendToPhone(phone: Subscription, payload: PushPayload): Promise<"ok" | "gone" | "failed"> {
+  try {
+    await webpush.sendNotification({ endpoint: phone.endpoint, keys: { p256dh: phone.p256dh, auth: phone.auth } }, JSON.stringify(payload), {
+      vapidDetails: {
+        // Push services want an https: contact address (a local http one is refused).
+        subject: SITE_URL.startsWith("https://") ? SITE_URL : "https://tasyiir-school.vercel.app",
+        publicKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
+        privateKey: process.env.VAPID_PRIVATE_KEY!,
+      },
+      TTL: 24 * 3600,
+      urgency: "high",
+      timeout: 10_000,
+    });
+    return "ok";
+  } catch (e) {
+    const status = (e as { statusCode?: number }).statusCode;
+    return status === 404 || status === 410 ? "gone" : "failed";
+  }
+}
+
 export async function deliverPushes(): Promise<DeliverResult> {
   const admin = createAdminClient();
-  const vapidDetails = {
-    // Push services want an https: contact address (a local http one is refused).
-    subject: SITE_URL.startsWith("https://") ? SITE_URL : "https://tasyiir-school.vercel.app",
-    publicKey: process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY!,
-    privateKey: process.env.VAPID_PRIVATE_KEY!,
-  };
   const total: DeliverResult = { rows: 0, sent: 0, gone: 0, failed: 0 };
   const started = Date.now();
 
@@ -91,20 +108,10 @@ export async function deliverPushes(): Promise<DeliverResult> {
     const failed = new Set<string>();
     await Promise.all(
       rows.map(async (row) => {
-        const payload = JSON.stringify(await pushPayload(row));
-        for (const s of (row.subscriptions ?? []) as Subscription[]) {
-          try {
-            await webpush.sendNotification({ endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } }, payload, {
-              vapidDetails,
-              TTL: 24 * 3600,
-              urgency: "high",
-              timeout: 10_000,
-            });
-            ok.add(s.endpoint);
-          } catch (e) {
-            const status = (e as { statusCode?: number }).statusCode;
-            (status === 404 || status === 410 ? gone : failed).add(s.endpoint);
-          }
+        const payload = await pushPayload(row);
+        for (const phone of (row.subscriptions ?? []) as Subscription[]) {
+          const result = await sendToPhone(phone, payload);
+          (result === "ok" ? ok : result === "gone" ? gone : failed).add(phone.endpoint);
         }
       }),
     );

@@ -3030,7 +3030,7 @@
     "error": "Could not turn on notifications. Try again.",
     "on": {
       "title": "Notifications are on",
-      "body": "This phone receives absences, remarks and announcements, even when the app is closed."
+      "body": "This phone tells you even when the app is closed. Choose below what you want to receive."
     },
     "off": {
       "title": "Get notifications on this phone",
@@ -3043,6 +3043,26 @@
     "iosInstall": {
       "title": "Notifications on iPhone",
       "body": "On iPhone, first add Tasyir to your home screen (see the home page), then open the app to turn on notifications."
+    },
+    "preferences": {
+      "legend": "Receive on my phones",
+      "hint": "This choice applies to your account, on all your phones. Everything stays in the list below.",
+      "absences": "Absences and late arrivals",
+      "absencesHint": "An absence, its correction, and alerts about repeated absences or late arrivals.",
+      "remarks": "Remarks",
+      "remarksHint": "A remark about your child from a teacher or the supervisors.",
+      "announcements": "Announcements",
+      "announcementsHint": "The school's announcements.",
+      "saved": "Choice saved.",
+      "error": "This choice could not be saved. Try again."
+    },
+    "test": {
+      "button": "Test",
+      "title": "Test notification",
+      "body": "Tasyir notifications work on this phone.",
+      "sent": "Test notification sent: it should arrive within a few seconds.",
+      "gone": "This phone no longer receives notifications. Turn them on again.",
+      "error": "The test notification could not be sent. Try again."
     }
   }
 }

@@ -3030,7 +3030,7 @@
     "error": "Impossible d'activer les notifications. Réessayez.",
     "on": {
       "title": "Notifications activées",
-      "body": "Ce téléphone reçoit les absences, les remarques et les annonces, même quand l'application est fermée."
+      "body": "Ce téléphone vous prévient même quand l'application est fermée. Choisissez ci-dessous ce que vous voulez recevoir."
     },
     "off": {
       "title": "Recevoir les notifications sur ce téléphone",
@@ -3043,6 +3043,26 @@
     "iosInstall": {
       "title": "Notifications sur iPhone",
       "body": "Sur iPhone, ajoutez d'abord Tasyir à l'écran d'accueil (voir la page d'accueil), puis ouvrez l'application pour activer les notifications."
+    },
+    "preferences": {
+      "legend": "Recevoir sur mes téléphones",
+      "hint": "Ce choix vaut pour votre compte, sur tous vos téléphones. Tout reste visible dans la liste ci-dessous.",
+      "absences": "Absences et retards",
+      "absencesHint": "Une absence, sa correction, et les alertes d'absences ou de retards répétés.",
+      "remarks": "Remarques",
+      "remarksHint": "Une remarque d'un enseignant ou de la surveillance sur votre enfant.",
+      "announcements": "Annonces",
+      "announcementsHint": "Les annonces de l'établissement.",
+      "saved": "Choix enregistré.",
+      "error": "Impossible d'enregistrer ce choix. Réessayez."
+    },
+    "test": {
+      "button": "Tester",
+      "title": "Notification de test",
+      "body": "Les notifications de Tasyir fonctionnent sur ce téléphone.",
+      "sent": "Notification de test envoyée : elle doit arriver dans quelques secondes.",
+      "gone": "Ce téléphone ne reçoit plus les notifications. Activez-les à nouveau.",
+      "error": "La notification de test n'a pas pu être envoyée. Réessayez."
     }
   }
 }

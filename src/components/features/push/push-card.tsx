@@ -8,8 +8,10 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { removePushSubscription, savePushSubscription } from "@/lib/push/actions";
+import type { PushPreferences as Preferences } from "@/lib/push/preferences";
 
 import { installState } from "../app/install-prompt";
+import { PushPreferences } from "./push-preferences";
 
 const PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? "";
 
@@ -47,8 +49,9 @@ async function currentState(): Promise<{ state: PushState; subscription: PushSub
  * Turning on asks the browser's permission, subscribes this phone and saves it;
  * turning off removes it. An existing subscription is saved again on every visit,
  * so the server always knows this phone (it is cleared e.g. by the demo reset).
+ * Once on, the parent picks which kinds are pushed and can send a test (step 5).
  */
-export function PushCard() {
+export function PushCard({ preferences }: { preferences: Preferences }) {
   const t = useTranslations("push");
   const [state, setState] = useState<PushState>("loading");
   const [pending, startTransition] = useTransition();
@@ -115,6 +118,13 @@ export function PushCard() {
             <p className="text-sm text-muted-foreground">{t(`${state}.body`)}</p>
           </div>
         </div>
+        {on && (
+          <PushPreferences
+            initial={preferences}
+            endpoint={async () => (await (await registration())?.pushManager.getSubscription())?.endpoint ?? null}
+            onGone={() => setState("off")}
+          />
+        )}
         {(state === "on" || state === "off") && (
           <div>
             <Button variant={on ? "outline" : "default"} className="min-h-11" onClick={on ? turnOff : turnOn} disabled={pending}>

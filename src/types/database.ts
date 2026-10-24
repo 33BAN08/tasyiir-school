@@ -1230,6 +1230,48 @@ export type Database = {
           },
         ]
       }
+      push_preferences: {
+        Row: {
+          absences: boolean
+          announcements: boolean
+          profile_id: string
+          remarks: boolean
+          school_id: string
+          updated_at: string
+        }
+        Insert: {
+          absences?: boolean
+          announcements?: boolean
+          profile_id: string
+          remarks?: boolean
+          school_id: string
+          updated_at?: string
+        }
+        Update: {
+          absences?: boolean
+          announcements?: boolean
+          profile_id?: string
+          remarks?: boolean
+          school_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "push_preferences_profile_id_fkey"
+            columns: ["profile_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "push_preferences_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       push_subscriptions: {
         Row: {
           auth: string
@@ -2114,6 +2156,10 @@ export type Database = {
         Returns: number
       }
       run_trial_expiry: { Args: { p_now: string; p_schools: string[] }; Returns: number }
+      save_push_preferences: {
+        Args: { p_absences: boolean; p_announcements: boolean; p_remarks: boolean }
+        Returns: undefined
+      }
       save_push_subscription: {
         Args: { p_auth: string; p_endpoint: string; p_p256dh: string; p_user_agent?: string }
         Returns: string
