@@ -1188,6 +1188,48 @@ export type Database = {
           },
         ]
       }
+      push_outbox: {
+        Row: {
+          attempts: number
+          claimed_at: string | null
+          created_at: string
+          id: number
+          notification_id: string
+          school_id: string | null
+        }
+        Insert: {
+          attempts?: number
+          claimed_at?: string | null
+          created_at?: string
+          id?: never
+          notification_id: string
+          school_id?: string | null
+        }
+        Update: {
+          attempts?: number
+          claimed_at?: string | null
+          created_at?: string
+          id?: never
+          notification_id?: string
+          school_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "push_outbox_notification_id_fkey"
+            columns: ["notification_id"]
+            isOneToOne: true
+            referencedRelation: "notifications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "push_outbox_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       push_subscriptions: {
         Row: {
           auth: string
@@ -2047,6 +2089,23 @@ export type Database = {
       }
       import_students: { Args: { p_rows: Json }; Returns: number }
       my_school_suspension: { Args: never; Returns: string }
+      push_claim: {
+        Args: { p_limit?: number }
+        Returns: {
+          data: Json
+          locale: string
+          notification_id: string
+          outbox_id: number
+          student: Json
+          student_id: string
+          subscriptions: Json
+          type: string
+        }[]
+      }
+      push_done: {
+        Args: { p_failed?: string[]; p_gone?: string[]; p_ok?: string[]; p_outbox: number[] }
+        Returns: undefined
+      }
       run_absence_notifications: { Args: { p_now?: string }; Returns: number }
       run_daily_alerts: { Args: { p_today: string }; Returns: number }
       run_demo_reset: { Args: { p_school: string }; Returns: string }

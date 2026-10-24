@@ -6,14 +6,24 @@ import { useState, useSyncExternalStore, useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Link, useRouter } from "@/i18n/navigation";
-import { formatDate, formatDateTime, formatMonth, isolate, ltr } from "@/lib/format";
+import { formatDateTime, ltr } from "@/lib/format";
 import { markAllNotificationsRead, markNotificationRead } from "@/lib/notifications/actions";
-import { formatMobile } from "@/lib/parents/phone";
-import type { NotificationItem } from "@/lib/notifications/types";
-import { studentName } from "@/lib/students/names";
+import { describeNotification } from "@/lib/notifications/describe";
+import type { NotificationItem, NotificationType } from "@/lib/notifications/types";
 import { cn } from "@/lib/utils";
 
 type Props = { items: NotificationItem[]; area: "school" | "portal" | "platform" };
+
+const ICONS: Record<NotificationType, typeof CalendarX2> = {
+  absence: CalendarX2,
+  absence_corrected: Undo2,
+  unjustified_absences: CalendarClock,
+  repeated_lateness: Clock,
+  subscription_expiring: CalendarClock,
+  demo_request: Inbox,
+  announcement: Megaphone,
+  remark: MessageSquareText,
+};
 
 /** True in the browser only: times are shown there, because the server's time-zone data for Morocco is outdated. */
 function useMounted() {
@@ -70,93 +80,9 @@ function Row({ item, area, read, onRead }: { item: NotificationItem; area: Props
   const t = useTranslations("notifications");
   const locale = useLocale();
   const mounted = useMounted();
-  const { data } = item;
 
-  const name = isolate(item.student ? studentName(item.student, locale) : t("aStudent"));
-  const when = {
-    date: data.date ? ltr(formatDate(data.date)) : "",
-    hours: ltr(`${data.start ?? ""}–${data.end ?? ""}`),
-    subject: isolate(data.subject ?? ""),
-  };
-
-  let Icon = CalendarX2;
-  let title: string;
-  let body: string;
-  if (item.type === "absence") {
-    title = t("absence.title", { name });
-    body = t("absence.body", when);
-  } else if (item.type === "unjustified_absences") {
-    Icon = CalendarClock;
-    title = t("unjustified.title", { name });
-    body = t("unjustified.body", { days: data.days ?? 0, month: data.month ? formatMonth(data.month, locale) : "" });
-  } else if (item.type === "subscription_expiring") {
-    Icon = CalendarClock;
-    const school = isolate(data.school_name ?? "");
-    title = area === "platform" ? t("subscription.titlePlatform", { school }) : t("subscription.title");
-    body = t("subscription.body", {
-      kind: data.status === "trial" ? "trial" : "active",
-      plan: isolate(data.plan ?? ""),
-      date: data.last_day ? ltr(formatDate(data.last_day)) : "",
-      days: data.days_left ?? 0,
-    });
-  } else if (item.type === "demo_request") {
-    Icon = Inbox;
-    title = t("demoRequest.title", { kind: data.kind === "trial" ? "trial" : "demo", school: isolate(data.school_name ?? "") });
-    body = t("demoRequest.body", {
-      name: isolate(data.full_name ?? ""),
-      city: isolate(data.city ?? ""),
-      phone: data.phone ? ltr(formatMobile(data.phone)) : "",
-    });
-  } else if (item.type === "remark") {
-    Icon = MessageSquareText;
-    title = t("remark.title", { name });
-    body = t(`remark.types.${data.remark_type ?? "behavior"}`);
-  } else if (item.type === "announcement") {
-    Icon = Megaphone;
-    title = t("announcement.title");
-    body = isolate(data.title ?? "");
-  } else if (item.type === "repeated_lateness") {
-    Icon = Clock;
-    title = t("lateness.title", { name });
-    body = t("lateness.body", {
-      count: data.count ?? 0,
-      windowDays: data.window_days ?? 0,
-      from: data.from ? ltr(formatDate(data.from)) : "",
-      to: data.to ? ltr(formatDate(data.to)) : "",
-    });
-  } else {
-    Icon = Undo2;
-    title = t("corrected.title", { name });
-    body =
-      data.now === "cancelled"
-        ? t("corrected.cancelled")
-        : data.now === "late"
-          ? data.minutes_late
-            ? t("corrected.lateMinutes", { ...when, minutes: data.minutes_late })
-            : t("corrected.late", when)
-          : t("corrected.present", when);
-  }
-
-  // A parent opens the child's absences; staff (daily alerts) the student's page;
-  // the platform owner the school's page (subscription reminders) or the demo requests.
-  const href =
-    item.type === "announcement"
-      ? data.announcement_id
-        ? `${area === "portal" ? "/portal" : ""}/announcements/${data.announcement_id}`
-        : null
-      : item.type === "remark"
-        ? `/portal/remarks?child=${item.studentId}`
-        : area === "platform"
-      ? item.type === "demo_request"
-        ? "/platform/demo-requests"
-        : data.school_id
-        ? `/platform/schools/${data.school_id}`
-        : null
-      : !item.studentId
-        ? null
-        : area === "portal"
-          ? `/portal/absences?child=${item.studentId}`
-          : `/students/${item.studentId}`;
+  const { title, body, href } = describeNotification(item, { t, locale, area });
+  const Icon = ICONS[item.type] ?? Undo2;
   const content = (
     <>
       <span

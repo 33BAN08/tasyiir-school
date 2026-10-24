@@ -47,7 +47,7 @@ function splitLocale(pathname: string) {
 
 export const config = {
   matcher: [
-    // Everything except Next internals, static files and images.
-    "/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|sw.js|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
+    // Everything except route handlers (/api), Next internals, static files and images.
+    "/((?!api/|_next/static|_next/image|favicon.ico|manifest.webmanifest|sw.js|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
   ],
 };
