@@ -1,7 +1,7 @@
 {
   "id": "/start",
-  "name": "Tasyir School",
-  "short_name": "Tasyir",
+  "name": "Madar School",
+  "short_name": "Madar",
   "start_url": "/start",
   "scope": "/",
   "display": "standalone",

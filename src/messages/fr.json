@@ -33,7 +33,7 @@
     },
     "suspended": {
       "title": "Établissement suspendu",
-      "description": "L'accès à votre établissement est temporairement suspendu. Veuillez contacter la direction de votre établissement ou l'équipe Tasyir pour plus d'informations."
+      "description": "L'accès à votre établissement est temporairement suspendu. Veuillez contacter la direction de votre établissement ou l'équipe Madar pour plus d'informations."
     },
     "deactivated": {
       "title": "Compte désactivé",
@@ -439,7 +439,7 @@
       "passwordOnce": "Ce mot de passe n'est affiché qu'une fois. Le directeur le change à sa première connexion.",
       "viewSchool": "Voir l'école",
       "sendWhatsapp": "Envoyer les accès sur WhatsApp",
-      "whatsappMessage": "Bonjour {name}, votre école d'essai « {school} » est prête sur Tasyir School (gratuite jusqu'au {date}).\n\nConnexion : {url}\nIdentifiant : {email}\nMot de passe provisoire : {password}\n\nVous choisirez votre propre mot de passe à la première connexion.",
+      "whatsappMessage": "Bonjour {name}, votre école d'essai « {school} » est prête sur Madar School (gratuite jusqu'au {date}).\n\nConnexion : {url}\nIdentifiant : {email}\nMot de passe provisoire : {password}\n\nVous choisirez votre propre mot de passe à la première connexion.",
       "errors": {
         "forbidden": "Action réservée au propriétaire de la plateforme.",
         "notFound": "Cette demande d'essai est introuvable.",
@@ -1201,12 +1201,12 @@
       "whatsappLabel": "Écrire à l'établissement sur WhatsApp au {phone}"
     },
     "install": {
-      "title": "Installez Tasyir sur votre téléphone",
+      "title": "Installez Madar sur votre téléphone",
       "body": "Ouvrez-le d'un geste depuis l'écran d'accueil, comme une application.",
       "install": "Installer l'application",
       "later": "Plus tard",
       "ios": {
-        "title": "Ajouter Tasyir à l'écran d'accueil",
+        "title": "Ajouter Madar à l'écran d'accueil",
         "share": "Touchez le bouton Partager du navigateur.",
         "addToHome": "Choisissez « Sur l'écran d'accueil ».",
         "add": "Touchez « Ajouter »."
@@ -2266,13 +2266,13 @@
   },
   "landing": {
     "meta": {
-      "title": "Tasyir School · Absences, emploi du temps et parents, au même endroit",
+      "title": "Madar School · Absences, emploi du temps et parents, au même endroit",
       "description": "Logiciel de gestion pour les écoles privées marocaines : appel sur téléphone, parents prévenus, justificatifs en photo, emploi du temps sans conflit, totaux d'absences en heures."
     },
     "skip": "Aller au contenu",
     "nav": {
       "label": "Navigation principale",
-      "home": "Tasyir School, accueil",
+      "home": "Madar School, accueil",
       "how": "Comment ça marche",
       "features": "Fonctions",
       "plans": "Formules",
@@ -2552,7 +2552,7 @@
         "text": "490 DH/mois en formule École moyenne, prix bloqué 2 ans, limité aux 5 premières écoles.",
         "ctaWhatsapp": "En parler sur WhatsApp",
         "ctaDemo": "Nous contacter",
-        "whatsappMessage": "Bonjour, je suis intéressé(e) par l'offre écoles fondatrices de Tasyir School (École moyenne à 490 DH/mois)."
+        "whatsappMessage": "Bonjour, je suis intéressé(e) par l'offre écoles fondatrices de Madar School (École moyenne à 490 DH/mois)."
       }
     },
     "soon": {
@@ -2576,7 +2576,7 @@
       },
       "mobile": {
         "q": "Faut-il installer une application ?",
-        "a": "Rien à télécharger depuis un store. Tasyir fonctionne dans le navigateur du téléphone, de la tablette ou de l'ordinateur. Les parents l'ajoutent à l'écran d'accueil en deux gestes et reçoivent les absences, les remarques et les annonces en notification, même quand l'application est fermée."
+        "a": "Rien à télécharger depuis un store. Madar fonctionne dans le navigateur du téléphone, de la tablette ou de l'ordinateur. Les parents l'ajoutent à l'écran d'accueil en deux gestes et reçoivent les absences, les remarques et les annonces en notification, même quand l'application est fermée."
       },
       "trial": {
         "q": "Peut-on essayer avant de s'engager ?",
@@ -2593,7 +2593,7 @@
       },
       "orWhatsapp": "Vous préférez écrire ?",
       "whatsapp": "Écrire sur WhatsApp",
-      "whatsappMessage": "Bonjour, je souhaite une démo de Tasyir School.",
+      "whatsappMessage": "Bonjour, je souhaite une démo de Madar School.",
       "requiredNote": "Les champs marqués * sont obligatoires.",
       "fields": {
         "fullName": "Nom et prénom *",
@@ -2617,7 +2617,7 @@
       },
       "submit": "Envoyer la demande",
       "sending": "Envoi…",
-      "privacy": "Vos coordonnées servent uniquement à vous recontacter au sujet de Tasyir.",
+      "privacy": "Vos coordonnées servent uniquement à vous recontacter au sujet de Madar.",
       "summaryTitle": "{count, plural, one {Un champ est à corriger :} other {# champs sont à corriger :}}",
       "errors": {
         "fullName": "Indiquez votre nom et prénom.",
@@ -2636,7 +2636,7 @@
         "body": "Nous vous appelons très vite au {phone} pour convenir d'un moment.",
         "again": "Envoyer une autre demande"
       },
-      "consent": "En envoyant ce formulaire, vous acceptez d'être contacté par Tasyir au sujet de votre demande.",
+      "consent": "En envoyant ce formulaire, vous acceptez d'être contacté par Madar au sujet de votre demande.",
       "limited": {
         "phoneTitle": "Votre demande est déjà entre nos mains.",
         "phoneBody": "Nous avons bien reçu vos demandes avec ce numéro et nous vous appelons très vite.",
@@ -2668,7 +2668,7 @@
       "product": "Produit",
       "access": "Accès",
       "contact": "Contact",
-      "rights": "© Tasyir. Tous droits réservés.",
+      "rights": "© Madar. Tous droits réservés.",
       "madeIn": "Conçu au Maroc"
     }
   },
@@ -2846,17 +2846,17 @@
     "contactTitle": "Nous contacter",
     "contactWhatsapp": "Nous écrire sur WhatsApp",
     "contactFallback": "Écrivez-nous depuis le formulaire de demande de démo de la page d'accueil.",
-    "whatsappMessage": "Bonjour, j'ai une question au sujet de mes données personnelles sur Tasyir School.",
+    "whatsappMessage": "Bonjour, j'ai une question au sujet de mes données personnelles sur Madar School.",
     "privacy": {
-      "metaTitle": "Politique de confidentialité · Tasyir School",
-      "metaDescription": "Quelles données Tasyir School traite, pourquoi, où elles sont hébergées et comment exercer vos droits (loi 09-08).",
+      "metaTitle": "Politique de confidentialité · Madar School",
+      "metaDescription": "Quelles données Madar School traite, pourquoi, où elles sont hébergées et comment exercer vos droits (loi 09-08).",
       "title": "Politique de confidentialité",
-      "intro": "Tasyir School aide les écoles privées au Maroc à gérer les absences, l'emploi du temps et la communication avec les parents. Cette page explique quelles données personnelles sont traitées, pourquoi, et comment exercer vos droits, conformément à la loi n° 09-08 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel.",
+      "intro": "Madar School aide les écoles privées au Maroc à gérer les absences, l'emploi du temps et la communication avec les parents. Cette page explique quelles données personnelles sont traitées, pourquoi, et comment exercer vos droits, conformément à la loi n° 09-08 relative à la protection des personnes physiques à l'égard du traitement des données à caractère personnel.",
       "sections": [
         {
           "title": "1. Qui sommes-nous",
           "paragraphs": [
-            "Tasyir School est édité par {publisher} (« nous »).",
+            "Madar School est édité par {publisher} (« nous »).",
             "Pour les données que chaque école saisit dans son espace (élèves, parents, personnel, absences…), l'école est responsable du traitement : c'est elle qui décide quelles données elle enregistre et pourquoi. Nous agissons pour son compte, comme sous-traitant, et seulement pour faire fonctionner le service.",
             "Pour les demandes de démo envoyées depuis ce site et pour les comptes des responsables des écoles clientes, nous sommes responsables du traitement."
           ]
@@ -2904,7 +2904,7 @@
         {
           "title": "6. Combien de temps",
           "items": [
-            "Données d'une école : tant que l'école utilise Tasyir School. À la fin de l'abonnement, l'école peut demander une copie de ses données puis leur suppression.",
+            "Données d'une école : tant que l'école utilise Madar School. À la fin de l'abonnement, l'école peut demander une copie de ses données puis leur suppression.",
             "Demandes de démo : le temps nécessaire pour vous répondre et assurer le suivi de votre demande.",
             "École de démonstration : ses données sont fictives et entièrement remises à zéro chaque nuit."
           ]
@@ -2941,15 +2941,15 @@
       ]
     },
     "terms": {
-      "metaTitle": "Conditions d'utilisation · Tasyir School",
-      "metaDescription": "Les règles d'utilisation de Tasyir School pour les écoles, leur personnel et les parents.",
+      "metaTitle": "Conditions d'utilisation · Madar School",
+      "metaDescription": "Les règles d'utilisation de Madar School pour les écoles, leur personnel et les parents.",
       "title": "Conditions d'utilisation",
-      "intro": "Ces conditions s'appliquent à toute personne qui utilise Tasyir School : l'école cliente, son personnel, les parents et les visiteurs du site. En utilisant le service, vous les acceptez.",
+      "intro": "Ces conditions s'appliquent à toute personne qui utilise Madar School : l'école cliente, son personnel, les parents et les visiteurs du site. En utilisant le service, vous les acceptez.",
       "sections": [
         {
           "title": "1. Le service",
           "paragraphs": [
-            "Tasyir School, édité par {publisher}, est une plateforme en ligne de gestion scolaire : appel et absences, justificatifs, emploi du temps, annonces, remarques et notifications aux parents. Elle fonctionne dans le navigateur d'un téléphone, d'une tablette ou d'un ordinateur."
+            "Madar School, édité par {publisher}, est une plateforme en ligne de gestion scolaire : appel et absences, justificatifs, emploi du temps, annonces, remarques et notifications aux parents. Elle fonctionne dans le navigateur d'un téléphone, d'une tablette ou d'un ordinateur."
           ]
         },
         {
@@ -2964,7 +2964,7 @@
           "title": "3. Ce que l'école s'engage à faire",
           "items": [
             "Saisir des données exactes et seulement celles utiles à la vie scolaire.",
-            "Informer les parents et son personnel de l'utilisation de Tasyir School et de leurs droits.",
+            "Informer les parents et son personnel de l'utilisation de Madar School et de leurs droits.",
             "Respecter la loi n° 09-08 pour les données qu'elle enregistre, dont elle reste responsable.",
             "Ne pas publier de contenu illégal, injurieux ou sans rapport avec l'école dans les annonces et les remarques."
           ]
@@ -2999,7 +2999,7 @@
         {
           "title": "8. Responsabilité",
           "paragraphs": [
-            "Tasyir School est un outil : l'école reste responsable des décisions qu'elle prend et des informations qu'elle saisit. Notre responsabilité ne peut pas être engagée pour une mauvaise utilisation du service, pour des données inexactes saisies par un utilisateur ou pour une interruption due à une cause extérieure."
+            "Madar School est un outil : l'école reste responsable des décisions qu'elle prend et des informations qu'elle saisit. Notre responsabilité ne peut pas être engagée pour une mauvaise utilisation du service, pour des données inexactes saisies par un utilisateur ou pour une interruption due à une cause extérieure."
           ]
         },
         {
@@ -3021,7 +3021,7 @@
     "title": "Votre essai est terminé",
     "description": "Les 14 jours d'essai de votre école sont écoulés. Vos données sont gardées : choisissez une formule pour continuer là où vous vous êtes arrêté.",
     "contact": "Choisir une formule sur WhatsApp",
-    "whatsappMessage": "Bonjour, notre essai Tasyir School est terminé et nous souhaitons continuer."
+    "whatsappMessage": "Bonjour, notre essai Madar School est terminé et nous souhaitons continuer."
   },
   "offline": {
     "title": "Pas de connexion",
@@ -3043,11 +3043,11 @@
     },
     "denied": {
       "title": "Notifications bloquées",
-      "body": "Les notifications de Tasyir sont bloquées sur ce téléphone. Autorisez-les dans les réglages du navigateur pour ce site, puis revenez ici."
+      "body": "Les notifications de Madar sont bloquées sur ce téléphone. Autorisez-les dans les réglages du navigateur pour ce site, puis revenez ici."
     },
     "iosInstall": {
       "title": "Notifications sur iPhone",
-      "body": "Sur iPhone, ajoutez d'abord Tasyir à l'écran d'accueil (voir la page d'accueil), puis ouvrez l'application pour activer les notifications."
+      "body": "Sur iPhone, ajoutez d'abord Madar à l'écran d'accueil (voir la page d'accueil), puis ouvrez l'application pour activer les notifications."
     },
     "preferences": {
       "legend": "Recevoir sur mes téléphones",
@@ -3064,7 +3064,7 @@
     "test": {
       "button": "Tester",
       "title": "Notification de test",
-      "body": "Les notifications de Tasyir fonctionnent sur ce téléphone.",
+      "body": "Les notifications de Madar fonctionnent sur ce téléphone.",
       "sent": "Notification de test envoyée : elle doit arriver dans quelques secondes.",
       "gone": "Ce téléphone ne reçoit plus les notifications. Activez-les à nouveau.",
       "error": "La notification de test n'a pas pu être envoyée. Réessayez."

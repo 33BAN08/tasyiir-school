@@ -1,5 +1,5 @@
 /**
- * Tasyir's WhatsApp contact (wa.me link) for the public home page.
+ * Madar's WhatsApp contact (wa.me link) for the public home page.
  * NEXT_PUBLIC_WHATSAPP_NUMBER = international digits only, e.g. 2126XXXXXXXX.
  * Not set → no WhatsApp buttons are shown.
  */

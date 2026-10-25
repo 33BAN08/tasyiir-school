@@ -1,8 +1,8 @@
 /** Brand names: proper nouns, identical in every locale (docs/DESIGN.md). */
 export const BRAND = {
-  name: "Tasyir",
-  nameAr: "تسيير",
-  product: "Tasyir School",
+  name: "Madar",
+  nameAr: "مدار",
+  product: "Madar School",
 } as const;
 
 /** Public address of the site (link previews need absolute URLs). */
@@ -15,13 +15,16 @@ export const OG_IMAGE = {
   url: "/brand/og-image.png",
   width: 1200,
   height: 630,
-  alt: "Tasyir School — Chaque élève. Chaque cours. Un seul système.",
+  alt: "Madar School — Chaque élève. Chaque cours. Un seul système.",
 } as const;
 
-/** Logo files in public/brand (Amiri lettering is drawn as shapes inside the SVGs). */
+/**
+ * Logo files in public/brand (Amiri lettering is drawn as shapes inside the SVGs).
+ * The square book icon kept its old file names (tasyir-icon*): only the wordmark changed.
+ */
 export const BRAND_ASSETS = {
-  logo: "/brand/tasyir-logo.svg",
-  logoDark: "/brand/tasyir-logo-dark.svg",
+  logo: "/brand/madar-logo.svg",
+  logoDark: "/brand/madar-logo-dark.svg",
   icon: "/brand/tasyir-icon.svg",
 } as const;
 

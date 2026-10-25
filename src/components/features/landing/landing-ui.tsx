@@ -33,14 +33,14 @@ export const BUTTON = {
   link: cn("rounded-sm font-semibold text-lp-brand underline-offset-4 hover:underline focus-visible:outline-lp-brand", FOCUS),
 } as const;
 
-/** Full Tasyir logo; `onDark` = the white-lettered version for the green bands. */
+/** Full Madar logo; `onDark` = the white-lettered version for the green bands. */
 export function Logo({ className, onDark = false }: { className?: string; onDark?: boolean }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element -- static SVG, nothing to optimize
     <img
       src={onDark ? BRAND_ASSETS.logoDark : BRAND_ASSETS.logo}
       alt={BRAND.product}
-      width={635}
+      width={630}
       height={365}
       className={cn("h-12 w-auto", className)}
     />

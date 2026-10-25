@@ -13,7 +13,7 @@ export default function AuthLayout({ children }: LayoutProps<"/[locale]">) {
         {/* Logo files are fixed light art: the light one stays on a white tile in dark mode. */}
         <div className="rounded-2xl px-4 py-1 dark:bg-white">
           {/* eslint-disable-next-line @next/next/no-img-element -- static SVG */}
-          <img src={BRAND_ASSETS.logo} alt={BRAND.product} width={635} height={365} className="h-24 w-auto" />
+          <img src={BRAND_ASSETS.logo} alt={BRAND.product} width={630} height={365} className="h-24 w-auto" />
         </div>
         {children}
       </div>

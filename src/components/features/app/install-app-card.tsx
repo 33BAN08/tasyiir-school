@@ -12,7 +12,7 @@ import { dismissInstall, installState, promptInstall, subscribeInstall, type Ins
 const serverState = (): InstallState => "none";
 
 /**
- * Parent home: "install Tasyir on your phone". Android / Chrome → the browser's own
+ * Parent home: "install Madar on your phone". Android / Chrome → the browser's own
  * install dialog; iPhone → the three Safari steps (Apple has no install button).
  * Nothing once installed, on a computer without the prompt, or for 30 days after "Plus tard".
  */

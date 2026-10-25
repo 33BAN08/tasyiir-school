@@ -1,10 +1,11 @@
-// Tasyir service worker (Phase 10). Keeps NO school data: only the "no connection"
+// Madar service worker (Phase 10; internal names keep "tasyir"). Keeps NO school data: only the "no connection"
 // page of each language and the files it needs, so a parent who opens the app
 // without network sees a clear message instead of the browser's error.
 // Web push (Phase 10 step 4): the server sends the sentence already written in the
 // parent's language; a tap opens (or focuses) the page it is about.
 
-const CACHE = "tasyir-offline-v1";
+// v2: the offline page now says "Madar" (rebrand 2026-10-25). The prefix stays: old caches are found by it.
+const CACHE = "tasyir-offline-v2";
 const OFFLINE_PAGES = ["/ar/offline", "/fr/offline", "/en/offline"];
 const ASSET = /\/_next\/static\/[^"'\s)]+\.(?:css|woff2)/g;
 
@@ -66,7 +67,7 @@ self.addEventListener("push", (event) => {
   } catch {
     message = {};
   }
-  const title = message.title || "Tasyir";
+  const title = message.title || "Madar";
   event.waitUntil(
     self.registration.showNotification(title, {
       body: message.body || "",
