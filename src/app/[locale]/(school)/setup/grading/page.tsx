@@ -22,7 +22,7 @@ import { getPermissions, requireSchoolPermission } from "@/lib/auth/session";
 import { listAcademicYears } from "@/lib/structure/academic-years";
 import { listLevelsByCycle } from "@/lib/structure/levels";
 
-type Params = { year?: string; section: GradingSection; level?: string; track?: string };
+type Params = { year?: string; section: GradingSection; cycle?: string };
 
 const one = (v: string | string[] | undefined) => (typeof v === "string" ? v : undefined);
 
@@ -39,8 +39,7 @@ export default async function GradingSetupPage({ searchParams }: PageProps<"/[lo
     return {
       year: one(sp.year),
       section: GRADING_SECTIONS.find((s) => s === section) ?? "periods",
-      level: one(sp.level),
-      track: one(sp.track),
+      cycle: one(sp.cycle),
     };
   });
   // A surveillant only has this tab: the page is named after it.
@@ -143,9 +142,8 @@ async function GradingSetup({
         <CoefficientsSection
           schoolId={schoolId}
           yearId={year.id}
-          levels={levels}
-          levelId={p.level}
-          trackId={p.track}
+          groups={groups}
+          cycle={p.cycle}
           canManage={canManage}
           canEditStructure={canEditStructure}
         />

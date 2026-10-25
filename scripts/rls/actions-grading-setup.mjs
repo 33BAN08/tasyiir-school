@@ -14,11 +14,7 @@ const FILES = {
   setPeriodLocked: "src/lib/grading/period-actions.ts",
   saveLevelRules: "src/lib/grading/rules-actions.ts",
   resetLevelRules: "src/lib/grading/rules-actions.ts",
-  saveCoefficient: "src/lib/grading/coefficient-actions.ts",
-  removeCoefficient: "src/lib/grading/coefficient-actions.ts",
-  reorderCoefficients: "src/lib/grading/coefficient-actions.ts",
-  previewLevelCopy: "src/lib/grading/copy-actions.ts",
-  copyLevelCoefficients: "src/lib/grading/copy-actions.ts",
+  saveCoefficientGrid: "src/lib/grading/coefficient-actions.ts",
   previewYearCopy: "src/lib/grading/copy-actions.ts",
   copyGradingFromYear: "src/lib/grading/copy-actions.ts",
 };
@@ -135,76 +131,59 @@ export async function gradingSetupActions({ fx, baseUrl }) {
   await expect("director resets 1AC to the defaults", call("dirA", "resetLevelRules", cur, l1), "ok");
   check(label("…row gone (= defaults)"), (await rules()).length === 0);
 
-  // --- Coefficients -------------------------------------------------------------------------------------
-  const common = { yearId: cur, levelId: l1, trackId: null };
-  const filiere = { yearId: cur, levelId: l1, trackId: track };
+  // --- Coefficient grid: every changed cell in one call ---------------------------------------------------
   const coefs = async (y = cur) => (await admin.from("subject_coefficients")
     .select("level_id, track_id, subject_id, coefficient, controls_count, position").eq("academic_year_id", y)).data ?? [];
   const find = (list, level, subject, trk = null) => list.find((r) => r.level_id === level && r.subject_id === subject && r.track_id === trk);
+  const cell = (levelId, subjectId, coefficient, extra = {}) =>
+    ({ levelId, trackId: null, subjectId, coefficient, controlsCount: null, position: 1, ...extra });
+  const grid = (who, cells) => call(who, "saveCoefficientGrid", cur, cells);
 
-  await expect("surveillant cannot add a coefficient",
-    call("survA", "saveCoefficient", common, maths, { coefficient: "2", controlsCount: "" }), "forbidden");
-  await expect("director adds Maths, coefficient 2,5",
-    call("dirA", "saveCoefficient", common, maths, { coefficient: "2,5", controlsCount: "" }), "ok");
-  await expect("director adds PC, coefficient 2, 2 contrôles",
-    call("dirA", "saveCoefficient", common, pc, { coefficient: 2, controlsCount: "2" }), "ok");
+  await expect("surveillant cannot save the grid", grid("survA", [cell(l1, maths, 2)]), "forbidden");
+  await expect("teacher cannot save the grid", grid("tchA", [cell(l1, maths, 2)]), "forbidden");
+  const first = await expect("director saves 4 cells at once (\"2,5\" accepted)", grid("dirA", [
+    cell(l1, maths, "2,5", { position: 2 }),
+    cell(l1, pc, 2, { controlsCount: "2", position: 1 }),
+    cell(l2, maths, 3, { position: 2 }),
+    cell(l1, maths, 5, { trackId: track, position: 2 }),
+  ]), "ok");
   let list = await coefs();
-  check(label("…stored with the level's contrôles (null) / 2, in order 1, 2"),
-    Number(find(list, l1, maths)?.coefficient) === 2.5 && find(list, l1, maths)?.controls_count === null
-      && find(list, l1, maths)?.position === 1 && find(list, l1, pc)?.position === 2 && find(list, l1, pc)?.controls_count === 2,
-    JSON.stringify(list));
-  await expect("changing Maths keeps one row", call("dirA", "saveCoefficient", common, maths, { coefficient: "3", controlsCount: "4" }), "ok");
+  check(label("…4 rows: values, contrôles override, order, the filière row"),
+    first.data?.saved === 4 && Number(find(list, l1, maths)?.coefficient) === 2.5 && find(list, l1, pc)?.controls_count === 2
+      && find(list, l1, pc)?.position === 1 && Number(find(list, l2, maths)?.coefficient) === 3
+      && Number(find(list, l1, maths, track)?.coefficient) === 5 && list.length === 4, JSON.stringify(list));
+
+  const unchanged = JSON.stringify(await coefs());
+  const bad = async (name, cells, wanted) => {
+    const r = await expect(name, grid("dirA", cells), wanted);
+    return r;
+  };
+  const r0 = await bad("coefficient 0 → coefficientRange, nothing saved", [cell(l2, pc, 4), cell(l1, maths, 0)], "coefficientRange");
+  check(label("…the invalid cell is named"), r0.cell === `${l1}||${maths}`, String(r0.cell));
+  await bad("coefficient 1,234 → coefficientRange", [cell(l2, pc, 4), cell(l1, maths, "1,234")], "coefficientRange");
+  await bad("coefficient 21 → coefficientRange", [cell(l2, pc, 4), cell(l1, maths, 21)], "coefficientRange");
+  await bad("0 contrôles → controlsRange", [cell(l2, pc, 4), cell(l1, maths, 3, { controlsCount: "0" })], "controlsRange");
+  await bad("a filière of another level → the database refuses the whole save", [cell(l2, pc, 4), cell(l2, maths, 3, { trackId: track })], "inUse");
+  await bad("501 cells → tooManyCells", Array.from({ length: 501 }, () => cell(l1, maths, 1)), "tooManyCells");
+  check(label("…nothing saved by any refused grid"), JSON.stringify(await coefs()) === unchanged);
+  await expect("director B cannot save into A's year", grid("dirB", [cell(l1, maths, 9)]), "notFound");
+  const empty = await expect("an empty save does nothing", grid("dirA", []), "ok");
+  check(label("…0 saved"), empty.data?.saved === 0);
+
+  await expect("director clears PC in 1AC and the filière's Maths in one save",
+    grid("dirA", [cell(l1, pc, null), cell(l1, maths, null, { trackId: track }), cell(l1, maths, 2.5, { position: 1 })]), "ok");
   list = await coefs();
-  check(label("…coefficient 3, 4 contrôles, same place"),
-    list.filter((r) => r.subject_id === maths).length === 1 && Number(find(list, l1, maths)?.coefficient) === 3
-      && find(list, l1, maths)?.position === 1);
-  await expect("coefficient 0 → coefficientRange",
-    call("dirA", "saveCoefficient", common, maths, { coefficient: "0", controlsCount: "" }), "coefficientRange", "coefficient");
-  await expect("coefficient 1,234 → coefficientRange",
-    call("dirA", "saveCoefficient", common, maths, { coefficient: "1,234", controlsCount: "" }), "coefficientRange", "coefficient");
-  await expect("coefficient 21 → coefficientRange",
-    call("dirA", "saveCoefficient", common, maths, { coefficient: "21", controlsCount: "" }), "coefficientRange", "coefficient");
-  await expect("0 contrôles → controlsRange",
-    call("dirA", "saveCoefficient", common, maths, { coefficient: "3", controlsCount: "0" }), "controlsRange", "controlsCount");
-  await expect("director sets Maths for the filière", call("dirA", "saveCoefficient", filiere, maths, { coefficient: "5", controlsCount: "" }), "ok");
-  check(label("…a separate filière row"), Number(find(await coefs(), l1, maths, track)?.coefficient) === 5);
-  const { ok: crossCoef } = await call("dirB", "saveCoefficient", common, maths, { coefficient: "9", controlsCount: "" });
-  check(label("director B cannot change A's coefficients"), !crossCoef && Number(find(await coefs(), l1, maths)?.coefficient) === 3);
+  check(label("…PC no longer graded in 1AC, the filière back to the common core, Maths moved first"),
+    !find(list, l1, pc) && !find(list, l1, maths, track) && find(list, l1, maths)?.position === 1 && list.length === 2);
 
-  await expect("surveillant cannot reorder", call("survA", "reorderCoefficients", common, [pc, maths]), "forbidden");
-  await expect("director puts PC first", call("dirA", "reorderCoefficients", common, [pc, maths]), "ok");
-  list = await coefs();
-  check(label("…PC 1, Maths 2"), find(list, l1, pc)?.position === 1 && find(list, l1, maths)?.position === 2);
-  await expect("a subject not in the list → notFound", call("dirA", "reorderCoefficients", common, [pc, track]), "notFound");
-  await expect("the same subject twice → notFound", call("dirA", "reorderCoefficients", common, [pc, pc]), "notFound");
-
-  const coefPage = await page("survA", `?year=${cur}&section=coefficients&level=${l1}`);
-  check(label("surveillant reads the coefficients without inputs"),
-    coefPage.html.includes(`data-coefficient="${maths}"`) && !coefPage.html.includes(`id="coef-${maths}"`));
-  const dirCoef = await page("dirA", `?year=${cur}&section=coefficients&level=${l1}&track=${track}`);
-  check(label("director: filière view shows Maths' own row and PC inherited"),
-    dirCoef.html.includes(`id="coef-${maths}"`) && dirCoef.html.includes(`data-coefficient="${pc}" data-graded="false"`));
-
-  await expect("surveillant cannot remove", call("survA", "removeCoefficient", filiere, maths), "forbidden");
-  await expect("director sends the filière back to the common core", call("dirA", "removeCoefficient", filiere, maths), "ok");
-  check(label("…filière row gone, common row kept"),
-    !find(await coefs(), l1, maths, track) && !!find(await coefs(), l1, maths));
-  await expect("removing it again → notFound", call("dirA", "removeCoefficient", filiere, maths), "notFound");
-
-  // --- Copy to other levels -----------------------------------------------------------------------------
-  await expect("surveillant cannot preview a level copy", call("survA", "previewLevelCopy", common, [l2]), "forbidden");
-  await expect("no target level → pickLevels", call("dirA", "previewLevelCopy", common, []), "pickLevels", "levels");
-  const lp = await expect("director previews 1AC → 2AC", call("dirA", "previewLevelCopy", common, [l2]), "ok");
-  check(label("…two subjects to copy, nothing written"),
-    lp.data?.length === 2 && lp.data.every((l) => l.toLevelId === l2 && l.status === "copy")
-      && (await coefs()).filter((r) => r.level_id === l2).length === 0, JSON.stringify(lp.data));
-  await expect("director copies 1AC → 2AC", call("dirA", "copyLevelCoefficients", common, [l2]), "ok");
-  list = await coefs();
-  check(label("…2AC gets the same coefficients and order"),
-    Number(find(list, l2, maths)?.coefficient) === 3 && find(list, l2, maths)?.position === 2 && find(list, l2, pc)?.position === 1);
-  const again = await call("dirA", "previewLevelCopy", common, [l2]);
-  check(label("…a second preview: everything already set"), again.ok && again.data.every((l) => l.status === "exists"));
-  await expect("director B cannot copy A's level", call("dirB", "copyLevelCoefficients", common, [l2]), "notFound");
+  const survGrid = await page("survA", `?year=${cur}&section=coefficients&cycle=college`);
+  check(label("surveillant reads the grid without inputs"),
+    survGrid.html.includes(`data-cell="${l1}||${maths}"`) && !survGrid.html.includes("data-changed="));
+  const dirGrid = await page("dirA", `?year=${cur}&section=coefficients&cycle=college`);
+  check(label("director: a column per level + one for 1AC's filière, none for 2AC"),
+    dirGrid.html.includes(`data-column="${l1}|"`) && dirGrid.html.includes(`data-column="${l1}|${track}"`)
+      && dirGrid.html.includes(`data-column="${l2}|"`) && !new RegExp(`data-column="${l2}[|][0-9a-f]`).test(dirGrid.html)
+      && dirGrid.html.includes(`data-cell="${l1}|${track}|${maths}"`) && dirGrid.html.includes("data-changed="));
 
   // --- Copy from an earlier year ------------------------------------------------------------------------
   must(await admin.from("grade_level_settings").insert({ school_id: A.id, academic_year_id: prev, level_id: l2, scale: 10, controls_count: 3 }), "prev rules");

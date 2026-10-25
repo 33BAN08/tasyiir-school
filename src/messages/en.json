@@ -3146,46 +3146,36 @@
       "saved": "{level} saved"
     },
     "coefficients": {
-      "description": "The subjects graded at each level, their coefficient and the report card order. Leave \"Tests\" empty to keep the level's number.",
-      "level": "Level",
-      "track": "Track",
-      "commonRows": "Common core (whole level)",
-      "filiereNote": "Track {track}: a value set for the track replaces the common core's, subject by subject.",
-      "subject": "Subject (report card order)",
-      "coefficient": "Coefficient",
-      "controls": "Tests",
-      "none": "No subject is graded at this level yet. Add some below or copy last year's.",
-      "noneInFiliere": "No value of its own for this track: every subject follows the common core.",
-      "gradedLabel": "Graded subjects",
-      "others": "Other subjects",
-      "moveUp": "Move {subject} up",
-      "moveDown": "Move {subject} down",
-      "save": "Save",
-      "add": "Add",
-      "remove": "Remove",
-      "backToCommon": "Common core",
-      "cancel": "Cancel",
-      "customise": "Customise",
-      "inherited": "Common core: coefficient {coefficient}, {controls, plural, one {# test} other {# tests}}",
-      "notGraded": "Not graded at this level",
-      "saved": "{subject} saved",
-      "removed": "{subject} removed from the level",
-      "backToCommonDone": "{subject} follows the common core again",
+      "description": "One row per subject, one column per level of the cycle (and per track when a level has some). Empty cell: subject not graded at that level; in a track, empty = the common core's value (in grey).",
+      "cycleLabel": "Cycle",
       "noSubjectsTitle": "No subjects",
       "noSubjectsDescription": "Create the school's subjects first.",
       "noSubjectsAction": "Create the subjects"
     },
-    "copyLevels": {
-      "open": "Copy to other levels",
-      "title": "Copy the coefficients of {source}",
-      "description": "Subjects, coefficients and report card order are copied into the common core of the chosen levels. What is already set there is kept.",
-      "targets": "To the levels",
-      "summary": "{copy, plural, =0 {Nothing to copy} one {# subject copied} other {# subjects copied}} · {kept, plural, =0 {none already set} one {# already set, kept} other {# already set, kept}}",
-      "nothing": "Everything is already set in these levels: nothing will be copied.",
+    "grid": {
+      "viewLabel": "Value shown",
+      "views": {
+        "coefficients": "Coefficients",
+        "controls": "Tests"
+      },
+      "hintCoefficients": "From 0.01 to 20. Changes are saved together.",
+      "hintControls": "Number of tests per semester. Empty = the level's number (in grey).",
+      "subject": "Subject (report card order)",
+      "cellLabel": "{subject}, {column}",
+      "moveUp": "Move {subject} up",
+      "moveDown": "Move {subject} down",
+      "sameForAll": "Same value for all levels: {subject}",
+      "sameCoefficient": "Coefficient of {subject} in every level",
+      "sameControls": "Tests of {subject} in every level",
+      "sameHint": "Fills each level's column. Tracks keep the common core.",
+      "sameControlsHint": "Only where the subject is graded.",
+      "apply": "Apply",
+      "pending": "{count, plural, one {# unsaved change} other {# unsaved changes}}",
+      "invalidCells": "{count, plural, one {# invalid cell (in red)} other {# invalid cells (in red)}}",
       "cancel": "Cancel",
-      "preview": "See what will be copied",
-      "confirm": "{count, plural, =0 {Copy} one {Copy # coefficient} other {Copy # coefficients}}",
-      "done": "{count, plural, one {# coefficient copied} other {# coefficients copied}}"
+      "save": "Save",
+      "saving": "Saving…",
+      "saved": "{count, plural, one {# cell saved} other {# cells saved}}"
     },
     "copyYear": {
       "open": "Copy from another year",
@@ -3220,7 +3210,8 @@
       "coefficientRange": "The coefficient goes from 0.01 to 20 (2 decimals at most).",
       "coefficientExists": "This subject is already set here. Reload the page.",
       "pickLevels": "Choose at least one level.",
-      "sourceNotEarlier": "Choose a year earlier than this one."
+      "sourceNotEarlier": "Choose a year earlier than this one.",
+      "tooManyCells": "Too many changes at once (500 at most). Save in several steps."
     }
   }
 }

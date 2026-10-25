@@ -5,14 +5,13 @@ import { EmptyState } from "@/components/layout/empty-state";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
-import { listGradingPeriods, listLevelCoefficients, listLevelRules } from "@/lib/grading/setup";
+import { listCycleCoefficients, listGradingPeriods, listLevelRules } from "@/lib/grading/setup";
 import type { AcademicYear } from "@/lib/structure/academic-years";
-import type { CycleGroup, Level } from "@/lib/structure/levels";
+import type { CycleGroup } from "@/lib/structure/levels";
 import { listSubjects } from "@/lib/structure/subjects";
+import { cn } from "@/lib/utils";
 
-import { CoefficientScopePicker } from "./coefficient-scope-picker";
-import { CoefficientsList } from "./coefficients-list";
-import { CopyLevelsDialog } from "./copy-levels-dialog";
+import { CoefficientGrid } from "./coefficient-grid";
 import { LevelRulesList } from "./level-rules-list";
 import { PeriodsList } from "./periods-list";
 
@@ -102,55 +101,52 @@ export async function RulesSection({
 export async function CoefficientsSection({
   schoolId,
   yearId,
-  levels,
-  levelId,
-  trackId,
+  groups,
+  cycle,
   canManage,
   canEditStructure,
 }: {
   schoolId: string;
   yearId: string;
-  levels: Level[];
-  levelId: string | undefined;
-  trackId: string | undefined;
+  groups: CycleGroup[];
+  cycle: string | undefined;
   canManage: boolean;
   canEditStructure: boolean;
 }) {
-  if (levels.length === 0) return <NoLevels canEditStructure={canEditStructure} />;
-  const level = levels.find((l) => l.id === levelId) ?? levels[0];
-  const track = level.tracks.find((tr) => tr.id === trackId) ?? null;
+  const cycles = groups.filter((g) => g.levels.length > 0);
+  if (cycles.length === 0) return <NoLevels canEditStructure={canEditStructure} />;
+  const group = cycles.find((g) => g.cycle === cycle) ?? cycles[0];
 
-  const [subjects, rows, rules, t] = await Promise.all([
+  const [subjects, rows, rules, t, tCycles] = await Promise.all([
     listSubjects(schoolId),
-    listLevelCoefficients(schoolId, yearId, level.id),
+    listCycleCoefficients(schoolId, yearId, group.levels.map((l) => l.id)),
     listLevelRules(yearId),
     getTranslations("grading.coefficients"),
+    getTranslations("setup.levels.cycles"),
   ]);
-  const scope = { yearId, levelId: level.id, trackId: track?.id ?? null };
-  const scopeRows = rows.filter((r) => r.trackId === scope.trackId);
-  const commonRows = track ? rows.filter((r) => r.trackId === null) : [];
-  const sourceName = track ? `${level.name} · ${track.name}` : level.name;
 
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-muted-foreground">{t("description")}</p>
-      <div className="flex flex-wrap items-end justify-between gap-4">
-        <CoefficientScopePicker
-          yearId={yearId}
-          levels={levels.map((l) => ({ id: l.id, name: l.name, tracks: l.tracks }))}
-          levelId={level.id}
-          trackId={scope.trackId}
-        />
-        {canManage && scopeRows.length > 0 && levels.length > 1 && (
-          <CopyLevelsDialog
-            scope={scope}
-            sourceName={sourceName}
-            levels={levels.filter((l) => l.id !== level.id).map((l) => ({ id: l.id, name: l.name }))}
-            subjectNames={Object.fromEntries(subjects.map((s) => [s.id, s.name]))}
-          />
-        )}
-      </div>
-      {track && <p className="text-sm text-muted-foreground">{t("filiereNote", { track: track.name })}</p>}
+      {cycles.length > 1 && (
+        <nav aria-label={t("cycleLabel")} className="flex flex-wrap gap-2">
+          {cycles.map((g) => (
+            <Link
+              key={g.cycle}
+              href={`/setup/grading?year=${yearId}&section=coefficients&cycle=${g.cycle}`}
+              aria-current={g.cycle === group.cycle ? "page" : undefined}
+              className={cn(
+                "rounded-full border px-3 py-1 text-sm transition-colors",
+                g.cycle === group.cycle
+                  ? "border-primary bg-primary text-primary-foreground"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {tCycles(g.cycle)}
+            </Link>
+          ))}
+        </nav>
+      )}
       {subjects.length === 0 ? (
         <Card className="py-0">
           <EmptyState
@@ -167,12 +163,18 @@ export async function CoefficientsSection({
           />
         </Card>
       ) : (
-        <CoefficientsList
-          scope={scope}
+        <CoefficientGrid
+          // A new grid (fresh drafts) whenever the saved values change.
+          key={`${group.cycle}:${rows.map((r) => `${r.id}:${r.coefficient}:${r.controlsCount}:${r.position}`).join(",")}`}
+          yearId={yearId}
+          levels={group.levels.map((l) => ({
+            id: l.id,
+            name: l.name,
+            tracks: l.tracks.map((tr) => ({ id: tr.id, name: tr.name })),
+            controlsCount: rules.get(l.id)?.controlsCount ?? 4,
+          }))}
           subjects={subjects.map((s) => ({ id: s.id, name: s.name, color: s.color }))}
-          rows={scopeRows}
-          commonRows={commonRows}
-          levelControls={rules.get(level.id)?.controlsCount ?? 4}
+          rows={rows}
           canManage={canManage}
         />
       )}

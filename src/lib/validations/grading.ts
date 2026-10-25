@@ -35,23 +35,20 @@ export const levelRulesSchema = z.object({
 });
 export type LevelRulesValues = z.input<typeof levelRulesSchema>;
 
-export const coefficientSchema = z.object({
-  coefficient: decimal("coefficientRange").refine((n) => n > 0 && n <= 20, { error: "coefficientRange" }),
-  /** "" / null = the level's number of contrôles. */
+/** One changed cell of the coefficient grid: coefficient null = no row (not graded / back to the common value). */
+export const gridCellSchema = z.object({
+  levelId: gradingIdSchema,
+  trackId: gradingIdSchema.nullable(),
+  subjectId: gradingIdSchema,
+  coefficient: decimal("coefficientRange")
+    .refine((n) => n > 0 && n <= 20, { error: "coefficientRange" })
+    .nullable(),
   controlsCount: z
     .union([z.string(), z.number(), z.null()], { error: "controlsRange" })
     .transform((v) => (v === null || (typeof v === "string" && v.trim() === "") ? null : Number(v)))
     .pipe(z.number({ error: "controlsRange" }).int({ error: "controlsRange" }).min(1, { error: "controlsRange" }).max(10, { error: "controlsRange" }).nullable()),
+  position: z.number({ error: "generic" }).int({ error: "generic" }).min(0, { error: "generic" }).max(100, { error: "generic" }),
 });
-export type CoefficientValues = z.input<typeof coefficientSchema>;
+export type GridCell = z.input<typeof gridCellSchema>;
 
-/** A coefficient row's place: year + level + optional filière. */
-export const coefficientScopeSchema = z.object({
-  yearId: gradingIdSchema,
-  levelId: gradingIdSchema,
-  trackId: gradingIdSchema.nullable(),
-});
-export type CoefficientScope = z.infer<typeof coefficientScopeSchema>;
-
-export const subjectOrderSchema = z.array(gradingIdSchema).min(1).max(100);
-export const levelIdsSchema = z.array(gradingIdSchema).min(1, { error: "pickLevels" }).max(100);
+export const gridCellsSchema = z.array(gridCellSchema).max(500, { error: "tooManyCells" });

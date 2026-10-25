@@ -3146,46 +3146,36 @@
       "saved": "{level} enregistré"
     },
     "coefficients": {
-      "description": "Les matières notées à chaque niveau, leur coefficient et l'ordre du bulletin. Laissez « Contrôles » vide pour garder le nombre du niveau.",
-      "level": "Niveau",
-      "track": "Filière",
-      "commonRows": "Tronc commun (tout le niveau)",
-      "filiereNote": "Filière {track} : une valeur propre à la filière remplace celle du tronc commun, matière par matière.",
-      "subject": "Matière (ordre du bulletin)",
-      "coefficient": "Coefficient",
-      "controls": "Contrôles",
-      "none": "Aucune matière notée à ce niveau pour l'instant. Ajoutez-en ci-dessous ou copiez l'année précédente.",
-      "noneInFiliere": "Aucune valeur propre à cette filière : toutes les matières suivent le tronc commun.",
-      "gradedLabel": "Matières notées",
-      "others": "Autres matières",
-      "moveUp": "Monter {subject}",
-      "moveDown": "Descendre {subject}",
-      "save": "Enregistrer",
-      "add": "Ajouter",
-      "remove": "Retirer",
-      "backToCommon": "Tronc commun",
-      "cancel": "Annuler",
-      "customise": "Personnaliser",
-      "inherited": "Tronc commun : coefficient {coefficient}, {controls, plural, one {# contrôle} other {# contrôles}}",
-      "notGraded": "Non notée à ce niveau",
-      "saved": "{subject} enregistrée",
-      "removed": "{subject} retirée du niveau",
-      "backToCommonDone": "{subject} suit de nouveau le tronc commun",
+      "description": "Une ligne par matière, une colonne par niveau du cycle (et par filière quand un niveau en a). Case vide : matière non notée à ce niveau ; dans une filière, case vide = valeur du tronc commun (en gris).",
+      "cycleLabel": "Cycle",
       "noSubjectsTitle": "Aucune matière",
       "noSubjectsDescription": "Créez d'abord les matières de l'établissement.",
       "noSubjectsAction": "Créer les matières"
     },
-    "copyLevels": {
-      "open": "Copier vers d'autres niveaux",
-      "title": "Copier les coefficients de {source}",
-      "description": "Les matières, coefficients et l'ordre du bulletin sont copiés dans le tronc commun des niveaux choisis. Ce qui y est déjà réglé est gardé.",
-      "targets": "Vers les niveaux",
-      "summary": "{copy, plural, =0 {Rien à copier} one {# matière copiée} other {# matières copiées}} · {kept, plural, =0 {aucune déjà réglée} one {# déjà réglée, gardée} other {# déjà réglées, gardées}}",
-      "nothing": "Tout est déjà réglé dans ces niveaux : rien ne sera copié.",
+    "grid": {
+      "viewLabel": "Valeur affichée",
+      "views": {
+        "coefficients": "Coefficients",
+        "controls": "Contrôles"
+      },
+      "hintCoefficients": "De 0,01 à 20. Les changements sont enregistrés ensemble.",
+      "hintControls": "Nombre de contrôles par semestre. Case vide = nombre du niveau (en gris).",
+      "subject": "Matière (ordre du bulletin)",
+      "cellLabel": "{subject}, {column}",
+      "moveUp": "Monter {subject}",
+      "moveDown": "Descendre {subject}",
+      "sameForAll": "Même valeur pour tous les niveaux : {subject}",
+      "sameCoefficient": "Coefficient de {subject} dans tous les niveaux",
+      "sameControls": "Contrôles de {subject} dans tous les niveaux",
+      "sameHint": "Remplit la colonne de chaque niveau. Les filières gardent le tronc commun.",
+      "sameControlsHint": "Seulement là où la matière est notée.",
+      "apply": "Appliquer",
+      "pending": "{count, plural, one {# modification non enregistrée} other {# modifications non enregistrées}}",
+      "invalidCells": "{count, plural, one {# case invalide (en rouge)} other {# cases invalides (en rouge)}}",
       "cancel": "Annuler",
-      "preview": "Voir ce qui sera copié",
-      "confirm": "{count, plural, =0 {Copier} one {Copier # coefficient} other {Copier # coefficients}}",
-      "done": "{count, plural, one {# coefficient copié} other {# coefficients copiés}}"
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "saved": "{count, plural, one {# case enregistrée} other {# cases enregistrées}}"
     },
     "copyYear": {
       "open": "Copier depuis une autre année",
@@ -3220,7 +3210,8 @@
       "coefficientRange": "Le coefficient va de 0,01 à 20 (2 décimales au plus).",
       "coefficientExists": "Cette matière est déjà réglée ici. Rechargez la page.",
       "pickLevels": "Choisissez au moins un niveau.",
-      "sourceNotEarlier": "Choisissez une année plus ancienne que celle-ci."
+      "sourceNotEarlier": "Choisissez une année plus ancienne que celle-ci.",
+      "tooManyCells": "Trop de changements à la fois (500 au plus). Enregistrez en plusieurs fois."
     }
   }
 }

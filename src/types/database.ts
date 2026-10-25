@@ -2541,6 +2541,10 @@ export type Database = {
         }
         Returns: string
       }
+      save_subject_coefficients: {
+        Args: { p_cells: Json; p_year: string }
+        Returns: number
+      }
       school_clock: {
         Args: { p_at?: string }
         Returns: {

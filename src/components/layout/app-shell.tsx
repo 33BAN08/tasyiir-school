@@ -18,7 +18,8 @@ export async function AppShell({ area, children }: Props) {
   return (
     <SidebarProvider>
       <AppSidebar area={area} side={side} />
-      <SidebarInset>
+      {/* min-w-0: a wide table (coefficient grid) scrolls inside its card instead of widening the page. */}
+      <SidebarInset className="min-w-0">
         <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b bg-background/95 px-4 backdrop-blur">
           <SidebarTrigger label={t("toggleSidebar")} className="-ms-1" />
           <div className="flex-1" />

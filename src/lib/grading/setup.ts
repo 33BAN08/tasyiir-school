@@ -63,6 +63,7 @@ export async function listLevelRules(yearId: string): Promise<Map<string, LevelR
 
 export type CoefficientRow = {
   id: string;
+  levelId: string;
   trackId: string | null;
   subjectId: string;
   coefficient: number;
@@ -70,22 +71,23 @@ export type CoefficientRow = {
   position: number;
 };
 
-/** Every coefficient row of a level for the year (common + its filières), report card order. */
-export async function listLevelCoefficients(
+/** Every coefficient row of the given levels (one cycle) for the year: common + filières, report card order. */
+export async function listCycleCoefficients(
   schoolId: string,
   yearId: string,
-  levelId: string,
+  levelIds: string[],
 ): Promise<CoefficientRow[]> {
   const { data, error } = await (await createClient())
     .from("subject_coefficients")
-    .select("id, track_id, subject_id, coefficient, controls_count, position")
+    .select("id, level_id, track_id, subject_id, coefficient, controls_count, position")
     .eq("school_id", schoolId)
     .eq("academic_year_id", yearId)
-    .eq("level_id", levelId)
+    .in("level_id", levelIds)
     .order("position");
-  if (error) throw new Error("listLevelCoefficients failed");
+  if (error) throw new Error("listCycleCoefficients failed");
   return data.map((c) => ({
     id: c.id,
+    levelId: c.level_id,
     trackId: c.track_id,
     subjectId: c.subject_id,
     coefficient: Number(c.coefficient),
