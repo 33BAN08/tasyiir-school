@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense, type ReactNode } from "react";
 
+import { TeacherBottomNavLoader } from "@/components/features/teacher-home/teacher-bottom-nav-loader";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { getDirection, type Locale } from "@/i18n/routing";
 
@@ -21,7 +22,7 @@ export async function AppShell({ area, children }: Props) {
       {/* min-w-0: a wide table (coefficient grid) scrolls inside its card instead of widening the page. */}
       <SidebarInset className="min-w-0">
         <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b bg-background/95 px-4 backdrop-blur">
-          <SidebarTrigger label={t("toggleSidebar")} className="-ms-1" />
+          <SidebarTrigger label={t("toggleSidebar")} className="-ms-1 size-11" />
           <div className="flex-1" />
           <HeaderActions />
         </header>
@@ -30,6 +31,10 @@ export async function AppShell({ area, children }: Props) {
               check cannot stop a page from rendering. Each page calls requireArea(). */}
           <Suspense fallback={<PageSkeleton />}>{children}</Suspense>
         </main>
+        {/* Teachers on a phone: a bottom bar (Madar app refresh, 2026-10-25); nothing for other roles. */}
+        <Suspense fallback={null}>
+          <TeacherBottomNavLoader />
+        </Suspense>
       </SidebarInset>
     </SidebarProvider>
   );

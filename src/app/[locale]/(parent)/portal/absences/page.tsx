@@ -63,7 +63,9 @@ export default async function PortalAbsencesPage({ searchParams }: PageProps<"/[
   const unjustified = absences.filter((m) => m.state !== "justified").length;
   const lates = marks.length - absences.length;
 
-  const justify = (date?: string, small = false) => (
+  // ?justify=<day> (the parent home's card): the dialog opens at once on that day, within the year.
+  const askedDay = typeof sp.justify === "string" && /^\d{4}-\d{2}-\d{2}$/.test(sp.justify) && sp.justify >= from && sp.justify <= clock.date ? sp.justify : undefined;
+  const justify = (date?: string, small = false, open = false) => (
     <JustifyDialog
       schoolId={user.schoolId!}
       studentId={child.id}
@@ -73,6 +75,7 @@ export default async function PortalAbsencesPage({ searchParams }: PageProps<"/[
       variant={small ? "ghost" : "default"}
       size={small ? "sm" : "default"}
       label={small ? t("justifyThis") : undefined}
+      defaultOpen={open}
     />
   );
 
@@ -117,7 +120,7 @@ export default async function PortalAbsencesPage({ searchParams }: PageProps<"/[
         </div>
       </dl>
 
-      <div>{justify()}</div>
+      <div>{justify(askedDay, false, !!askedDay)}</div>
 
       <Card>
         <CardHeader>

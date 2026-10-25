@@ -5,19 +5,23 @@ import { homeFor } from "@/lib/auth/roles";
 import { getCurrentSchool, getCurrentUser } from "@/lib/auth/session";
 import { BRAND, BRAND_ASSETS } from "@/lib/brand";
 
+const SPACES = ["parent", "teacher"] as const;
+
 /**
  * School logo + name (white-label), or the Madar brand for the platform
  * owner. Links to the signed-in user's home (portal, dashboard, platform).
+ * `space`: the second line names the user's space ("Espace parent") instead of the product.
  */
-export async function SchoolBrand() {
+export async function SchoolBrand({ space = false }: { space?: boolean }) {
   const [school, user, t] = await Promise.all([getCurrentSchool(), getCurrentUser(), getTranslations("shell")]);
   const title = school?.name ?? BRAND.product;
-  const subtitle = school ? BRAND.product : t("platform");
+  const role = SPACES.find((r) => r === user?.roleKey);
+  const subtitle = !school ? t("platform") : space && role ? t(`space.${role}`) : BRAND.product;
 
   return (
     <Link
       href={user ? homeFor(user) : "/"}
-      className="flex min-w-0 items-center gap-2 rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
+      className="flex min-h-11 min-w-0 items-center gap-2 rounded-md outline-none focus-visible:ring-3 focus-visible:ring-ring/50"
     >
       {school?.logoUrl ? (
         // eslint-disable-next-line @next/next/no-img-element -- logos come from Supabase Storage

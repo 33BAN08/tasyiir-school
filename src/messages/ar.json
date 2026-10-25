@@ -20,7 +20,9 @@
       "password": "كلمة المرور",
       "submit": "دخول",
       "submitting": "جارٍ تسجيل الدخول…",
-      "login": "البريد الإلكتروني أو الهاتف"
+      "login": "البريد الإلكتروني أو الهاتف",
+      "loginHint": "الآباء: رقم الهاتف. الأطر والأساتذة: البريد الإلكتروني.",
+      "forgot": "نسيت كلمة السر؟ اتصل بالمدرسة."
     },
     "changePassword": {
       "title": "اختر كلمة مرور جديدة",
@@ -58,7 +60,9 @@
       "loginRequired": "أدخل بريدك الإلكتروني أو رقم هاتفك.",
       "invalidLogin": "أدخل بريدًا إلكترونيًا أو رقم هاتف محمول مغربي (06 أو 07).",
       "demoLocked": "حساب تجريبي: لا يمكن تغيير كلمة المرور."
-    }
+    },
+    "tagline": "المدرسة والأسرة، في مدار واحد",
+    "languages": "اللغة"
   },
   "localeSwitcher": {
     "label": "تغيير اللغة"
@@ -96,7 +100,11 @@
     "navigationDescription": "روابط التنقل في التطبيق",
     "platform": "إدارة المنصة",
     "poweredBy": "بدعم من {brand}",
-    "accountMenu": "قائمة الحساب"
+    "accountMenu": "قائمة الحساب",
+    "space": {
+      "parent": "فضاء وليّ الأمر",
+      "teacher": "فضاء الأستاذ"
+    }
   },
   "notifications": {
     "bell": "الإشعارات",
@@ -1210,6 +1218,45 @@
         "share": "المس زر المشاركة في المتصفح.",
         "addToHome": "اختر «إضافة إلى الشاشة الرئيسية».",
         "add": "المس «إضافة»."
+      }
+    },
+    "home": {
+      "greeting": "مرحبًا، {name}",
+      "children": "الأبناء",
+      "justify": {
+        "title": "غياب يحتاج تبريرًا",
+        "today": "اليوم",
+        "line": "{day} · {subject} {time}",
+        "cta": "إرسال التبرير بصورة"
+      },
+      "tiles": {
+        "absences": {
+          "title": "الغيابات",
+          "month": "{count, plural, one {غياب واحد هذا الشهر} two {غيابان هذا الشهر} few {# غيابات هذا الشهر} other {# غيابًا هذا الشهر}}",
+          "none": "لا غياب هذا الشهر"
+        },
+        "announcements": {
+          "title": "الإعلانات",
+          "new": "{count, plural, one {إعلان جديد} two {إعلانان جديدان} few {# إعلانات جديدة} other {# إعلانًا جديدًا}}",
+          "upToDate": "لا جديد",
+          "none": "لا توجد إعلانات"
+        },
+        "remarks": {
+          "title": "الملاحظات",
+          "unread": "{count, plural, one {ملاحظة غير مقروءة} two {ملاحظتان غير مقروءتين} few {# ملاحظات غير مقروءة} other {# ملاحظة غير مقروءة}}",
+          "latest": "آخر ملاحظة: {type}",
+          "none": "لا توجد ملاحظات"
+        },
+        "timetable": {
+          "title": "استعمال الزمن",
+          "now": "الآن: {subject}",
+          "today": "الحصة القادمة {time}",
+          "later": "الحصة القادمة: {day} {time}"
+        }
+      },
+      "announcement": {
+        "title": "آخر الإعلانات",
+        "new": "جديد"
       }
     }
   },
@@ -3253,6 +3300,43 @@
       "subjectNotGraded": "هذه المادة غير منقطة في هذا المستوى.",
       "notEnrolled": "تلميذ لم يعد مسجلا في هذا القسم. أعد تحميل الصفحة.",
       "invalidMark": "نقطة غير صالحة."
+    }
+  },
+  "teacherHome": {
+    "greeting": "مرحبًا، {name}",
+    "dayLine": "{day} {date} · {count, plural, =0 {لا حصص اليوم} one {حصة واحدة اليوم} two {حصتان اليوم} few {# حصص اليوم} other {# حصة اليوم}}",
+    "students": "{count, plural, one {تلميذ واحد} two {تلميذان} few {# تلاميذ} other {# تلميذًا}}",
+    "focus": {
+      "now": "الحصة الآن",
+      "next": "الحصة القادمة",
+      "missed": "النداء لم يُسجَّل بعد",
+      "toDo": "النداء لم يُسجَّل",
+      "rollCall": "تسجيل الغياب",
+      "open": "فتح النداء"
+    },
+    "dayDoneTitle": "انتهت حصص اليوم",
+    "dayDoneDescription": "سُجّل النداء في كل حصص اليوم.",
+    "noLessonsTitle": "لا حصص اليوم",
+    "noLessonsNext": "{count, plural, one {حصة واحدة} two {حصتان} few {# حصص} other {# حصة}} يوم {day}.",
+    "noLessonsDescription": "ستظهر هنا حصصك حسب استعمال الزمن.",
+    "todayTitle": "حصصي اليوم",
+    "status": {
+      "done": "سُجّل النداء",
+      "todo": "للتسجيل",
+      "later": "لاحقًا"
+    },
+    "shortcuts": {
+      "label": "اختصارات",
+      "grades": "إدخال النقط",
+      "remarks": "كتابة ملاحظة"
+    },
+    "nav": {
+      "label": "قائمة الأستاذ",
+      "home": "الرئيسية",
+      "attendance": "النداء",
+      "timetable": "استعمال الزمن",
+      "grades": "النقط",
+      "remarks": "الملاحظات"
     }
   }
 }

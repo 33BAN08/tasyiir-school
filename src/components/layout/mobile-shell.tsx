@@ -9,13 +9,16 @@ import { SchoolBrand } from "./school-brand";
 
 type Props = { children: ReactNode };
 
-/** Mobile-first shell for parents, students and drivers; parents get a bottom bar on phones. */
+/**
+ * Mobile-first shell for parents, students and drivers; parents get a bottom bar on phones.
+ * The header is the green zellige band (Madar app refresh, 2026-10-25): `on-brand` turns the shared header pieces white.
+ */
 export function MobileShell({ children }: Props) {
   return (
     <div className="flex min-h-svh flex-col">
-      <header className="sticky top-0 z-10 flex h-14 shrink-0 items-center gap-2 border-b bg-background/95 px-4 backdrop-blur">
+      <header className="app-zellige on-brand sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 px-4">
         <Suspense fallback={<Skeleton className="h-8 w-40" />}>
-          <SchoolBrand />
+          <SchoolBrand space />
         </Suspense>
         <div className="flex-1" />
         <HeaderActions />

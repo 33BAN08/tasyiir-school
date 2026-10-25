@@ -47,7 +47,7 @@ export function PortalBottomNav({ userId, initialCount }: Props) {
       <nav
         aria-label={t("label")}
         data-portal-nav
-        className="fixed inset-x-0 bottom-0 z-20 border-t bg-background/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden"
+        className="fixed inset-x-0 bottom-0 z-20 border-t bg-card/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_16px_rgb(0_0_0/0.06)] backdrop-blur md:hidden"
       >
         <ul className="mx-auto grid h-16 max-w-md grid-cols-4">
           {items.map(({ href, label, icon: Icon, active, badge, ariaLabel }) => (
@@ -57,11 +57,11 @@ export function PortalBottomNav({ userId, initialCount }: Props) {
                 aria-current={active ? "page" : undefined}
                 aria-label={ariaLabel}
                 className={cn(
-                  "flex h-full flex-col items-center justify-center gap-1 text-xs outline-none focus-visible:bg-muted",
-                  active ? "font-semibold text-primary" : "text-muted-foreground",
+                  "flex h-full flex-col items-center justify-center gap-0.5 text-xs outline-none focus-visible:bg-muted",
+                  active ? "font-bold text-primary" : "text-muted-foreground",
                 )}
               >
-                <span className="relative">
+                <span className={cn("relative flex h-7 w-12 items-center justify-center rounded-full", active && "bg-primary/12")}>
                   <Icon className="size-5" aria-hidden />
                   {badge !== undefined && badge > 0 && (
                     <span

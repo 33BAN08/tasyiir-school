@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { signIn } from "@/lib/auth/actions";
 import { loginSchema, type LoginFormValues, type LoginInput } from "@/lib/validations/auth";
@@ -48,8 +48,10 @@ export function LoginForm() {
             spellCheck={false}
             dir="ltr"
             aria-invalid={!!errors.login}
+            aria-describedby="login-hint"
             {...form.register("login")}
           />
+          <FieldDescription id="login-hint">{t("login.loginHint")}</FieldDescription>
           {errors.login?.message && <FieldError>{t(`errors.${errors.login.message}`)}</FieldError>}
         </Field>
 
@@ -68,7 +70,7 @@ export function LoginForm() {
           )}
         </Field>
 
-        <Button type="submit" size="lg" className="w-full" disabled={isPending}>
+        <Button type="submit" size="lg" className="min-h-11 w-full" disabled={isPending}>
           {isPending ? t("login.submitting") : t("login.submit")}
         </Button>
       </FieldGroup>

@@ -19,6 +19,10 @@ export default function LoginPage() {
         <Suspense fallback={<Skeleton className="h-48 w-full" />}>
           <LoginForm />
         </Suspense>
+        {/* No password reset by e-mail: parents sign in with their phone, the school resets a password. */}
+        <p data-login-forgot className="mt-5 text-center text-sm text-muted-foreground">
+          {t("forgot")}
+        </p>
       </CardContent>
     </Card>
   );

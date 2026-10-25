@@ -10,7 +10,8 @@ import { UserMenuLoader } from "./user-menu-loader";
 /** Language, theme and account menu: shared by the desktop topbar and the mobile header. */
 export function HeaderActions() {
   return (
-    <div className="flex items-center gap-1">
+    // Touch targets ≥ 44 px (docs/DESIGN.md): every header button, whatever its own size.
+    <div className="flex items-center gap-0.5 [&_[data-slot=button]]:min-h-11 [&_[data-slot=button]]:min-w-11 [&_[data-slot=dropdown-menu-trigger]]:min-h-11 [&_[data-slot=dropdown-menu-trigger]]:min-w-11">
       <Suspense fallback={null}>
         <NotificationBellLoader />
       </Suspense>

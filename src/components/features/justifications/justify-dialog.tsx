@@ -42,6 +42,8 @@ type Props = {
   size?: "default" | "sm";
   /** Button text; "Justifier une absence" by default. */
   label?: string;
+  /** Open at once (the parent home's "send the justification" card links here). */
+  defaultOpen?: boolean;
 };
 
 /**
@@ -51,11 +53,11 @@ type Props = {
  * Server Action saves the justification as "pending" and removes the file
  * again if it fails.
  */
-export function JustifyDialog({ schoolId, studentId, childName, today, date, variant = "default", size = "default", label }: Props) {
+export function JustifyDialog({ schoolId, studentId, childName, today, date, variant = "default", size = "default", label, defaultOpen = false }: Props) {
   const t = useTranslations("portal.absences.form");
   const translateError = useJustificationError();
   const router = useRouter();
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
   const [file, setFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();

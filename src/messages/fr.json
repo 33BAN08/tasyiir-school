@@ -20,7 +20,9 @@
       "password": "Mot de passe",
       "submit": "Se connecter",
       "submitting": "Connexion en cours…",
-      "login": "E-mail ou téléphone"
+      "login": "E-mail ou téléphone",
+      "loginHint": "Parents : votre numéro de téléphone. Personnel : votre e-mail.",
+      "forgot": "Mot de passe oublié ? Contactez votre école."
     },
     "changePassword": {
       "title": "Choisissez un nouveau mot de passe",
@@ -58,7 +60,9 @@
       "loginRequired": "Veuillez saisir votre adresse e-mail ou votre numéro de téléphone.",
       "invalidLogin": "Saisissez une adresse e-mail ou un numéro de mobile marocain (06 ou 07).",
       "demoLocked": "Compte de démonstration : le mot de passe ne peut pas être changé."
-    }
+    },
+    "tagline": "L'école et la famille, sur la même orbite",
+    "languages": "Langue"
   },
   "localeSwitcher": {
     "label": "Changer de langue"
@@ -96,7 +100,11 @@
     "navigationDescription": "Liens de navigation de l'application",
     "platform": "Administration de la plateforme",
     "poweredBy": "Propulsé par {brand}",
-    "accountMenu": "Menu du compte"
+    "accountMenu": "Menu du compte",
+    "space": {
+      "parent": "Espace parent",
+      "teacher": "Espace enseignant"
+    }
   },
   "notifications": {
     "bell": "Notifications",
@@ -1210,6 +1218,45 @@
         "share": "Touchez le bouton Partager du navigateur.",
         "addToHome": "Choisissez « Sur l'écran d'accueil ».",
         "add": "Touchez « Ajouter »."
+      }
+    },
+    "home": {
+      "greeting": "Bonjour, {name}",
+      "children": "Enfants",
+      "justify": {
+        "title": "Absence à justifier",
+        "today": "Aujourd'hui",
+        "line": "{day} · {subject} {time}",
+        "cta": "Envoyer le justificatif en photo"
+      },
+      "tiles": {
+        "absences": {
+          "title": "Absences",
+          "month": "{count, plural, one {# absence ce mois-ci} other {# absences ce mois-ci}}",
+          "none": "Aucune ce mois-ci"
+        },
+        "announcements": {
+          "title": "Annonces",
+          "new": "{count, plural, one {# nouvelle annonce} other {# nouvelles annonces}}",
+          "upToDate": "Rien de nouveau",
+          "none": "Aucune annonce"
+        },
+        "remarks": {
+          "title": "Remarques",
+          "unread": "{count, plural, one {# remarque non lue} other {# remarques non lues}}",
+          "latest": "Dernière : {type}",
+          "none": "Aucune remarque"
+        },
+        "timetable": {
+          "title": "Emploi du temps",
+          "now": "En cours : {subject}",
+          "today": "Prochain cours {time}",
+          "later": "Prochain cours : {day} {time}"
+        }
+      },
+      "announcement": {
+        "title": "Dernière annonce",
+        "new": "Nouveau"
       }
     }
   },
@@ -3253,6 +3300,43 @@
       "subjectNotGraded": "Cette matière n'est pas notée à ce niveau.",
       "notEnrolled": "Un élève n'est plus inscrit dans cette classe. Rechargez la page.",
       "invalidMark": "Une note n'est pas valide."
+    }
+  },
+  "teacherHome": {
+    "greeting": "Bonjour, {name}",
+    "dayLine": "{day} {date} · {count, plural, =0 {aucun cours aujourd'hui} one {# cours aujourd'hui} other {# cours aujourd'hui}}",
+    "students": "{count, plural, one {# élève} other {# élèves}}",
+    "focus": {
+      "now": "Cours en ce moment",
+      "next": "Prochain cours",
+      "missed": "Appel pas encore fait",
+      "toDo": "Appel à faire",
+      "rollCall": "Faire l'appel",
+      "open": "Voir l'appel"
+    },
+    "dayDoneTitle": "Journée terminée",
+    "dayDoneDescription": "L'appel est fait pour tous vos cours d'aujourd'hui.",
+    "noLessonsTitle": "Pas de cours aujourd'hui",
+    "noLessonsNext": "{count, plural, one {# cours} other {# cours}} {day}.",
+    "noLessonsDescription": "Vos cours apparaîtront ici selon l'emploi du temps.",
+    "todayTitle": "Mes cours aujourd'hui",
+    "status": {
+      "done": "Appel fait",
+      "todo": "À faire",
+      "later": "Plus tard"
+    },
+    "shortcuts": {
+      "label": "Raccourcis",
+      "grades": "Saisie des notes",
+      "remarks": "Écrire une remarque"
+    },
+    "nav": {
+      "label": "Menu enseignant",
+      "home": "Accueil",
+      "attendance": "Appel",
+      "timetable": "Emploi",
+      "grades": "Notes",
+      "remarks": "Remarques"
     }
   }
 }

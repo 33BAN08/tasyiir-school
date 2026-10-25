@@ -39,6 +39,7 @@
   --color-brand-foreground: var(--brand-foreground);
   --color-mint: var(--mint);
   --color-sand: var(--sand);
+  --color-on-sand: var(--on-sand);
   --color-primary: var(--primary);
   --color-popover-foreground: var(--popover-foreground);
   --color-popover: var(--popover);
@@ -90,6 +91,8 @@
   --brand-foreground: #ffffff;
   --mint: #cdebdb;
   --sand: #e6c88f;
+  /* ink on the sand bar (12:1), the same in light and dark */
+  --on-sand: #0e2018;
   --primary: #0b7a49;
   --primary-foreground: #ffffff;
   --secondary: #e6f4ec;
@@ -153,6 +156,7 @@
   --brand-foreground: #ffffff;
   --mint: #cdebdb;
   --sand: #e6c88f;
+  --on-sand: #0e2018;
   --primary: #3fc48a;
   --primary-foreground: #06251a;
   --secondary: #1a3427;
@@ -275,6 +279,35 @@
   --ring: var(--lp-brand);
   --background: var(--lp-bg);
   --foreground: var(--lp-ink);
+}
+
+/*
+ * The app's zellige band (parent header, home greeting, sign-in pages): the
+ * brand green with the same quiet dot pattern as the home page, from the app
+ * tokens (identical in light and dark).
+ */
+.app-zellige {
+  background-color: var(--brand);
+  background-image:
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--sand) 18%, transparent) 0 6px, transparent 7px),
+    radial-gradient(circle at 0 0, color-mix(in srgb, var(--mint) 10%, transparent) 0 15px, transparent 16px),
+    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--mint) 10%, transparent) 0 15px, transparent 16px);
+  background-size: 32px 32px;
+}
+
+/*
+ * On the green band: the shared header pieces (bell, language, theme, account
+ * menu, school name) read their colours from these tokens, so they turn white
+ * here without a variant of each. Menus open in a portal, outside: unchanged.
+ */
+.on-brand {
+  --foreground: var(--brand-foreground);
+  --muted-foreground: var(--mint);
+  --accent: color-mix(in srgb, var(--brand-foreground) 14%, transparent);
+  --accent-foreground: var(--brand-foreground);
+  --ring: var(--mint);
+  --border: color-mix(in srgb, var(--brand-foreground) 30%, transparent);
+  color: var(--brand-foreground);
 }
 
 /*
