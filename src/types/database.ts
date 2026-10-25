@@ -2335,6 +2335,30 @@ export type Database = {
           target_slot_id: string
         }[]
       }
+      copy_grading_from_year: {
+        Args: { p_apply: boolean; p_from_year: string; p_to_year: string }
+        Returns: {
+          kind: string
+          level_id: string
+          status: string
+          subject_id: string
+          track_id: string
+        }[]
+      }
+      copy_level_coefficients: {
+        Args: {
+          p_apply: boolean
+          p_from_level: string
+          p_from_track: string
+          p_to_levels: string[]
+          p_year: string
+        }
+        Returns: {
+          status: string
+          subject_id: string
+          to_level_id: string
+        }[]
+      }
       copy_time_slots: {
         Args: { p_from_year: string; p_to_year: string }
         Returns: number
