@@ -282,16 +282,17 @@
 }
 
 /*
- * The app's zellige band (parent header, home greeting, sign-in pages): the
- * brand green with the same quiet dot pattern as the home page, from the app
- * tokens (identical in light and dark).
+ * The app's zellige band (parent / teacher header, home greeting, sign-in
+ * pages): the brand green with a very quiet dot pattern — half the contrast
+ * of the home page's (user, 2026-10-25: at full strength it read like a
+ * checkerboard on large areas). App tokens, identical in light and dark.
  */
 .app-zellige {
   background-color: var(--brand);
   background-image:
-    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--sand) 18%, transparent) 0 6px, transparent 7px),
-    radial-gradient(circle at 0 0, color-mix(in srgb, var(--mint) 10%, transparent) 0 15px, transparent 16px),
-    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--mint) 10%, transparent) 0 15px, transparent 16px);
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--sand) 9%, transparent) 0 6px, transparent 7px),
+    radial-gradient(circle at 0 0, color-mix(in srgb, var(--mint) 5%, transparent) 0 15px, transparent 16px),
+    radial-gradient(circle at 100% 100%, color-mix(in srgb, var(--mint) 5%, transparent) 0 15px, transparent 16px);
   background-size: 32px 32px;
 }
 

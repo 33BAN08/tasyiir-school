@@ -24,7 +24,7 @@ export const OG_IMAGE = {
  */
 export const BRAND_ASSETS = {
   logo: "/brand/madar-logo.svg",
-  logoDark: "/brand/madar-logo-dark.svg",
+  logoDark: "/brand/madar-logo-white.svg",
   icon: "/brand/tasyir-icon.svg",
 } as const;
 

@@ -54,7 +54,8 @@ function LocaleSwitcherMenu({ persist = false }: Props) {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" disabled={isPending} aria-label={t("label")}>
           <Languages aria-hidden />
-          {LOCALE_NAMES[current]}
+          {/* Phones: the icon only (the button keeps its aria-label), so the school's name fits the header. */}
+          <span className="hidden sm:inline">{LOCALE_NAMES[current]}</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

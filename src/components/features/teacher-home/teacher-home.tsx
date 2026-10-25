@@ -45,7 +45,8 @@ export async function TeacherHome({ user }: { user: CurrentUser & { schoolId: st
 
   return (
     <div className="mx-auto flex w-full max-w-xl flex-col gap-5">
-      <header className="flex flex-col gap-1">
+      {/* The green band, as on the parent home: full width on phones, a rounded block from md up. */}
+      <header className="app-zellige on-brand -mx-4 -mt-4 flex flex-col gap-1 px-4 pt-4 pb-6 md:mx-0 md:mt-0 md:rounded-3xl md:p-6">
         <h1 className="text-2xl font-extrabold" dir="auto">
           {t("greeting", { name: user.fullName })}
         </h1>
@@ -58,10 +59,10 @@ export async function TeacherHome({ user }: { user: CurrentUser & { schoolId: st
         <section
           data-focus-lesson={focus.kind}
           aria-labelledby="focus-title"
-          className="app-zellige on-brand flex flex-col gap-4 rounded-3xl p-5 shadow-lg"
+          className="flex flex-col gap-4 rounded-3xl border bg-card p-5 shadow-lg"
         >
           <div className="flex items-center justify-between gap-2 text-sm">
-            <span className="font-extrabold tracking-wide uppercase">{t(`focus.${focus.kind}`)}</span>
+            <span className="font-extrabold tracking-wide text-primary uppercase">{t(`focus.${focus.kind}`)}</span>
             {!focus.lesson.takenAt && (
               <span className="rounded-full bg-sand px-2.5 py-1 text-xs font-extrabold text-on-sand">{t("focus.toDo")}</span>
             )}
@@ -82,7 +83,7 @@ export async function TeacherHome({ user }: { user: CurrentUser & { schoolId: st
           </div>
           <Link
             href={`/attendance/${focus.lesson.id}`}
-            className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-brand-foreground px-5 text-lg font-extrabold text-brand outline-none hover:bg-mint focus-visible:ring-3 focus-visible:ring-sand"
+            className="inline-flex min-h-14 items-center justify-center gap-2 rounded-2xl bg-primary px-5 text-lg font-extrabold text-primary-foreground outline-none hover:bg-primary/90 focus-visible:ring-3 focus-visible:ring-ring/50"
           >
             <ClipboardCheck className="size-6" aria-hidden />
             {focus.lesson.takenAt ? t("focus.open") : t("focus.rollCall")}
