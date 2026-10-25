@@ -14,6 +14,8 @@ export type NavItem = {
   role?: string;
   /** Hidden unless this module is on for the school (plan or override). */
   module?: string;
+  /** Hidden when the user also has this permission (another item already leads there). */
+  hiddenWith?: string;
 };
 
 /** Sidebar entries per desktop area. Each phase adds its own items here. */
@@ -39,6 +41,8 @@ export const NAV_ITEMS: Record<"platform" | "school", NavItem[]> = {
     { key: "staff", href: "/staff", icon: "staff", permission: "users.view" },
     { key: "roles", href: "/staff/roles", icon: "roles", permission: "roles.manage" },
     { key: "setup", href: "/setup", icon: "structure", permission: "structure.manage" },
+    // Read-only grading setup for grades.view without structure.manage (surveillant).
+    { key: "grading", href: "/setup/grading", icon: "structure", permission: "grades.view", module: "grades", hiddenWith: "structure.manage" },
     { key: "alerts", href: "/settings/alerts", icon: "alerts", permission: "alerts.manage", module: "alerts" },
     { key: "schoolSettings", href: "/settings/school", icon: "school", permission: "settings.manage" },
   ],

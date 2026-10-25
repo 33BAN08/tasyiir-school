@@ -1,55 +1,31 @@
-"use client";
-
-import { useTranslations } from "next-intl";
 import { Suspense } from "react";
 
 import { Skeleton } from "@/components/ui/skeleton";
-import { Link, usePathname } from "@/i18n/navigation";
-import { cn } from "@/lib/utils";
+import { getModules } from "@/lib/auth/modules";
+import { getPermissions } from "@/lib/auth/session";
+import { SETUP_TABS, type SetupTabKey } from "@/lib/structure/setup-tabs";
 
-/** Sections of the school structure. Each Phase 4 step adds its tab here. */
-const TABS = [
-  { key: "years", href: "/setup/years" },
-  { key: "levels", href: "/setup/levels" },
-  { key: "classes", href: "/setup/classes" },
-  { key: "subjects", href: "/setup/subjects" },
-  { key: "rooms", href: "/setup/rooms" },
-  { key: "timeSlots", href: "/setup/time-slots" },
-] as const;
+import { SetupTabsNav } from "./setup-tabs-nav";
 
-/** usePathname() is request-time data, so the tabs bring their own Suspense boundary. */
+/**
+ * Sections of the school structure. The structure tabs need structure.manage;
+ * "Notes" (Phase 11) needs grades.view and the grades module (a surveillant
+ * sees only that one). Permissions are request-time data: own Suspense boundary.
+ */
 export function SetupTabs() {
   return (
     <Suspense fallback={<Skeleton className="h-9 w-64" />}>
-      <SetupTabsNav />
+      <VisibleTabs />
     </Suspense>
   );
 }
 
-function SetupTabsNav() {
-  const t = useTranslations("setup.tabs");
-  const pathname = usePathname();
-
-  return (
-    <nav aria-label={t("label")} className="flex gap-1 overflow-x-auto shadow-[inset_0_-1px_0_var(--color-border)]">
-      {TABS.map((tab) => {
-        const active = pathname === tab.href || pathname.startsWith(`${tab.href}/`);
-        return (
-          <Link
-            key={tab.key}
-            href={tab.href}
-            aria-current={active ? "page" : undefined}
-            className={cn(
-              "border-b-2 px-3 py-2 text-sm whitespace-nowrap transition-colors",
-              active
-                ? "border-primary font-medium text-foreground"
-                : "border-transparent text-muted-foreground hover:text-foreground",
-            )}
-          >
-            {t(tab.key)}
-          </Link>
-        );
-      })}
-    </nav>
-  );
+async function VisibleTabs() {
+  const [permissions, modules] = await Promise.all([getPermissions(), getModules()]);
+  const keys: SetupTabKey[] = SETUP_TABS.filter((tab) =>
+    tab.key === "grading"
+      ? permissions.has("grades.view") && modules.has("grades")
+      : permissions.has("structure.manage"),
+  ).map((tab) => tab.key);
+  return <SetupTabsNav keys={keys} />;
 }

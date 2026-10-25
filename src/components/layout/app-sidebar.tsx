@@ -65,6 +65,7 @@ async function AreaNav({ area }: Pick<Props, "area">) {
     .filter((item) => !item.permission || permissions.has(item.permission))
     .filter((item) => !item.role || item.role === user?.roleKey)
     .filter((item) => !item.module || modules.has(item.module))
+    .filter((item) => !item.hiddenWith || !permissions.has(item.hiddenWith))
     .map((item) => ({ href: item.href, icon: item.icon, label: t(item.key) }));
 
   return <NavMenu items={items} />;

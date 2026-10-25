@@ -72,6 +72,7 @@ import { trialActions } from "./actions-trial.mjs";
 import { phoneAppPages } from "./pages-phone-app.mjs";
 import { pushDeliverActions } from "./actions-push-deliver.mjs";
 import { pushPreferencesActions } from "./actions-push-preferences.mjs";
+import { gradingSetupActions } from "./actions-grading-setup.mjs";
 import { phase6Lessons } from "./phase6-lessons.mjs";
 import { lessonBlockActions } from "./actions-lesson-blocks.mjs";
 import { lessonCopyActions } from "./actions-lesson-copy.mjs";
@@ -184,6 +185,7 @@ try {
     await phoneAppPages({ baseUrl });
     await pushDeliverActions({ fx, baseUrl });
     await pushPreferencesActions({ fx, baseUrl });
+    await gradingSetupActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();
