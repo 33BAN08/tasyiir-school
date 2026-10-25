@@ -26,6 +26,11 @@ export const BUTTON = {
     "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-lp-band-muted px-5 text-base font-bold text-lp-on-brand hover:bg-lp-band-2 focus-visible:outline-lp-on-brand",
     FOCUS,
   ),
+  /** The main call to action on the green zellige bands: dark ink on sand (12:1). */
+  sand: cn(
+    "inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-lp-sand px-5 text-base font-extrabold text-lp-ink hover:brightness-95 focus-visible:outline-lp-on-brand",
+    FOCUS,
+  ),
   whatsapp: cn(
     "inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-lp-whatsapp px-5 text-base font-bold text-lp-ink hover:brightness-95 focus-visible:outline-lp-brand",
     FOCUS,

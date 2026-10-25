@@ -58,7 +58,17 @@ export async function demoRequestActions({ fx, baseUrl }) {
         `[home ${locale}] comparison table: what differs, then what every plan has`,
         plans.includes('data-compare="differences"') && plans.includes('data-compare="allPlans"'),
       );
-      check(`[home ${locale}] the product on 4 phones`, (page.match(/data-showcase="/g) ?? []).length === 4);
+      // Madar home (2026-10-25): the hero phone, 3 role cards, 3 steps, the features grid + a "Bientôt" card.
+      check(
+        `[home ${locale}] hero phone, 3 role cards, 3 steps`,
+        page.includes("data-hero-phone") && (page.match(/data-role-card="/g) ?? []).length === 3 && (page.match(/data-how-step="/g) ?? []).length === 3,
+      );
+      const features = page.slice(page.indexOf('<section id="features"'), page.indexOf('<section id="plans"'));
+      check(
+        `[home ${locale}] features grid, grades only as a dashed "Bientôt" card (no check mark)`,
+        (features.match(/data-feature="/g) ?? []).length === 6 && features.includes("data-feature-soon") && !features.includes("lucide-check"),
+      );
+      check(`[home ${locale}] closing band with the founding offer above the demo form`, page.includes("data-closing-cta") && page.indexOf("data-closing-cta") < page.indexOf('id="demo-phone"'));
       check(`[home ${locale}] no monthly / annual switch left`, !plans.includes("aria-pressed"));
     }
     check("[home] no 'Prix sur demande' left", !html.includes("Prix sur demande"));

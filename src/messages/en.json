@@ -2286,107 +2286,111 @@
       "label": "Site language",
       "switchTo": "Show the site in {language}"
     },
-    "hero": {
-      "eyebrow": "For private schools in Morocco",
-      "title": "Every student. Every lesson. One system.",
-      "subtitle": "Teachers take the roll call on their phone, parents are told, absence notes arrive as photos and the office sees the totals. In Arabic and French.",
-      "ctaDemo": "Request a demo",
-      "ctaHow": "See how it works",
-      "chips": {
-        "phone": "Roll call in 3 taps",
-        "parents": "Parents told",
-        "conflicts": "No double booking",
-        "languages": "Arabic and French"
+    "home": {
+      "hero": {
+        "tag": "School and family, in one orbit",
+        "titleA": "A student missing at 9 o'clock?",
+        "titleB": "Their parents know within 10 minutes.",
+        "subtitle": "Teachers take the roll call on their phone in a few taps, the family gets the alert and sends the justification as a photo, and the office finds absence totals ready, counted in hours as in Massar.",
+        "ctaDemo": "Request a demo",
+        "ctaHow": "See how it works",
+        "points": {
+          "noStore": "Nothing to install from an app store",
+          "languages": "In Arabic and French",
+          "noSetupFee": "No setup fee"
+        }
       },
-      "demoLabel": "Interactive example with demo data",
-      "demoNote": "Demo data",
-      "rollCall": {
-        "title": "Roll call",
-        "class": "3AC-B · Arabic",
-        "hint": "Tap a student to change their status.",
-        "listLabel": "Students in the class",
-        "save": "Save",
-        "saved": "Roll call saved (demo).",
-        "counts": "Present: {present} · Absent: {absent} · Late: {late}"
+      "phone": {
+        "school": "Al Amal School",
+        "student": "Youssef",
+        "absence": "Absence: {name}",
+        "lesson": "Maths {time} · class {class}",
+        "justifyTitle": "Justify the absence",
+        "photo": "Photo of the certificate",
+        "send": "Send the justification",
+        "announcement": "Announcement: parents' meeting on Friday at {time}",
+        "caption": "Example: fictional school and names."
       },
-      "students": {
-        "salma": "Salma Bennani",
-        "youssef": "Youssef Amrani",
-        "imane": "Imane Kettani",
-        "adam": "Adam Rami",
-        "hiba": "Hiba Mansouri"
-      },
-      "parent": {
-        "title": "Parent portal",
-        "absent": "Salma absent · Arabic 08:00",
-        "sent": "Sent 10 minutes after the roll call",
-        "nothing": "No absence for Salma today",
-        "nothingDetail": "No message is sent."
-      },
-      "timetable": {
-        "title": "Timetable · 1AC-A",
-        "dropping": "Place: Maths · Teacher B",
-        "refused": "Refused: Teacher B already busy",
-        "detail": "With 2AC-C, Monday 10:00–11:00",
-        "mon": "Mon",
-        "tue": "Tue",
-        "french": "French",
-        "arabic": "Arabic",
-        "maths": "Maths",
-        "pc": "Physics",
-        "free": "Free"
-      }
-    },
-    "how": {
-      "title": "How it works",
-      "subtitle": "One absence, from the first lesson to the end-of-month totals.",
-      "steps": {
+      "roles": {
+        "label": "A day at school",
+        "caption": "Examples with fictional names.",
         "teacher": {
-          "title": "The teacher takes the roll call",
-          "body": "On their phone, at the start of the lesson. Everyone is present by default: they only tap the absent and late students."
+          "who": "Teacher",
+          "title": "The roll call in a few taps",
+          "students": {
+            "a": "Amine B.",
+            "b": "Youssef A.",
+            "c": "Salma K."
+          },
+          "present": "Present",
+          "absent": "Absent",
+          "late": "Late"
         },
         "parent": {
-          "title": "The parent is told",
-          "body": "10 minutes after the roll call. If the teacher corrects it in the meantime, nothing is sent."
-        },
-        "photo": {
-          "title": "The note arrives as a photo",
-          "body": "The parent photographs the certificate or note with their phone. No more lost paper."
-        },
-        "review": {
-          "title": "The supervisor approves",
-          "body": "Approve or reject in one gesture, with a reply to the parent if needed."
+          "who": "Parent",
+          "title": "The alert on their phone",
+          "alert": "Absence: Youssef",
+          "lesson": "Maths {time}",
+          "send": "Send the justification as a photo"
         },
         "director": {
-          "title": "The director sees the totals",
-          "body": "By class or student, by week or month, as a number of absences and in hours."
+          "who": "Principal",
+          "title": "The day's summary",
+          "sessions": "Lessons with the roll call taken",
+          "toReview": "Justifications to review",
+          "alerts": "Automatic alerts for unjustified absences and repeated lateness."
         }
-      }
-    },
-    "showcase": {
-      "title": "Features",
-      "subtitle": "The app as teachers, parents and supervisors see it. Demo data, made-up names.",
-      "school": "Demo School",
-      "demo": {
-        "announcement": "Parents' meeting on Saturday at 10 am",
-        "reason": "Doctor's appointment"
       },
-      "items": {
-        "rollCall": {
-          "title": "Roll call in 3 taps",
-          "line": "The teacher taps the absent and late students, then saves."
+      "how": {
+        "eyebrow": "How it works",
+        "title": "Three steps, every lesson",
+        "steps": {
+          "teacher": {
+            "title": "The teacher takes the roll call",
+            "body": "On their phone, at the start of the lesson, in a few taps."
+          },
+          "family": {
+            "title": "The family is told",
+            "body": "Ten minutes later, free on their phone, and they send the justification as a photo."
+          },
+          "school": {
+            "title": "The office follows up",
+            "body": "It accepts the justification in one tap, and the totals in hours are ready, as in Massar."
+          }
+        }
+      },
+      "features": {
+        "eyebrow": "Features",
+        "title": "What a school needs every day",
+        "items": {
+          "timetable": {
+            "title": "Timetables",
+            "body": "No clashes between teachers and rooms, with A4 printing."
+          },
+          "justifications": {
+            "title": "Justifications by photo",
+            "body": "The family sends a photo of the certificate; the office accepts or refuses it in one tap."
+          },
+          "totals": {
+            "title": "Absence totals",
+            "body": "In hours, as in Massar, per student and per class."
+          },
+          "messages": {
+            "title": "Announcements and remarks",
+            "body": "For the school, a level or a class; parents confirm they have read remarks."
+          },
+          "phoneApp": {
+            "title": "An app on the phone",
+            "body": "Android and iPhone in two taps, free notifications."
+          },
+          "languages": {
+            "title": "In Arabic and French",
+            "body": "Interface in Arabic, French and English; parents sign in with their phone number."
+          }
         },
-        "alert": {
-          "title": "The parent is told",
-          "line": "10 minutes after the roll call, in the parent space."
-        },
-        "justify": {
-          "title": "Absence notes by photo",
-          "line": "The parent attaches a photo of the note, the school validates it."
-        },
-        "totals": {
-          "title": "Totals in hours",
-          "line": "Per student and per class, in hours like Massar."
+        "soon": {
+          "title": "Grades and report cards",
+          "body": "Grades, averages and report cards, then the export to Massar."
         }
       }
     },
@@ -2416,47 +2420,6 @@
           "title": "SMS and WhatsApp alerts",
           "body": "The same notifications, also by SMS or WhatsApp."
         }
-      }
-    },
-    "dives": {
-      "title": "In detail",
-      "timetable": {
-        "kicker": "Timetable",
-        "title": "A timetable without conflicts",
-        "body": "Before you even drop a lesson, every cell says whether it can take it. A teacher, room or class already busy: the lesson is refused, with the class name and the time.",
-        "points": {
-          "a": "Drag and drop to move or swap two lessons",
-          "b": "Views per class, teacher and room",
-          "c": "Copy last year's timetable, A4 printing"
-        }
-      }
-    },
-    "myths": {
-      "title": "What we often hear",
-      "myth": "They say",
-      "reality": "Actually",
-      "teachers": {
-        "myth": "“Our teachers aren't comfortable with technology.”",
-        "reality": "Roll call takes 3 taps: open the lesson, tap the absent students, save. Everyone is present by default."
-      },
-      "parents": {
-        "myth": "“Many parents don't have an email address.”",
-        "reality": "Parents sign in with their phone number and a password. No email needed."
-      }
-    },
-    "trust": {
-      "title": "Why schools can trust us",
-      "morocco": {
-        "title": "Designed in Morocco",
-        "body": "Built around how Moroccan private schools work: cycles, tracks, Massar."
-      },
-      "languages": {
-        "title": "Arabic and French",
-        "body": "The whole app in Arabic (right to left) and French. Everyone picks their language."
-      },
-      "separated": {
-        "title": "Each school's data kept apart",
-        "body": "A school can never see another school's data: the database itself enforces it."
       }
     },
     "pricing": {
@@ -2656,7 +2619,8 @@
       "successTrial": {
         "title": "Thank you, your trial request is sent.",
         "body": "We are preparing your school and will send your sign-in details on WhatsApp to {phone}."
-      }
+      },
+      "cta": "Request a demo"
     },
     "mobileBar": {
       "label": "Quick actions",

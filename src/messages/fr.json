@@ -2286,107 +2286,111 @@
       "label": "Langue du site",
       "switchTo": "Afficher le site en {language}"
     },
-    "hero": {
-      "eyebrow": "Pour les écoles privées au Maroc",
-      "title": "Chaque élève. Chaque cours. Un seul système.",
-      "subtitle": "L'appel se fait sur le téléphone du professeur, les parents sont prévenus, les justificatifs arrivent en photo et la direction voit les totaux. En arabe et en français.",
-      "ctaDemo": "Demander une démo",
-      "ctaHow": "Voir comment ça marche",
-      "chips": {
-        "phone": "Appel en 3 taps",
-        "parents": "Parents prévenus",
-        "conflicts": "Zéro double réservation",
-        "languages": "Arabe et français"
+    "home": {
+      "hero": {
+        "tag": "L'école et la famille, sur la même orbite",
+        "titleA": "Un élève absent au cours de 9 h ?",
+        "titleB": "Ses parents le savent en 10 minutes.",
+        "subtitle": "L'enseignant fait l'appel sur son téléphone en quelques gestes, la famille reçoit l'alerte et envoie la justification en photo, et la direction trouve les totaux d'absences prêts, comptés en heures comme dans Massar.",
+        "ctaDemo": "Demander une démo",
+        "ctaHow": "Voir comment ça marche",
+        "points": {
+          "noStore": "Rien à installer depuis un store",
+          "languages": "En arabe et en français",
+          "noSetupFee": "Sans frais d'installation"
+        }
       },
-      "demoLabel": "Exemple interactif avec des données de démonstration",
-      "demoNote": "Données de démonstration",
-      "rollCall": {
-        "title": "Appel",
-        "class": "3AC-B · Arabe",
-        "hint": "Touchez un élève pour changer son statut.",
-        "listLabel": "Élèves de la classe",
-        "save": "Enregistrer",
-        "saved": "Appel enregistré (démo).",
-        "counts": "Présents : {present} · Absents : {absent} · Retards : {late}"
+      "phone": {
+        "school": "École Al Amal",
+        "student": "Youssef",
+        "absence": "Absence : {name}",
+        "lesson": "Mathématiques {time} · classe {class}",
+        "justifyTitle": "Justifier l'absence",
+        "photo": "Photo du certificat",
+        "send": "Envoyer la justification",
+        "announcement": "Annonce : réunion des parents vendredi à {time}",
+        "caption": "Exemple : école et noms fictifs."
       },
-      "students": {
-        "salma": "Salma Bennani",
-        "youssef": "Youssef Amrani",
-        "imane": "Imane Kettani",
-        "adam": "Adam Rami",
-        "hiba": "Hiba Mansouri"
-      },
-      "parent": {
-        "title": "Portail parent",
-        "absent": "Salma absente · Arabe 08:00",
-        "sent": "Envoyé 10 minutes après l'appel",
-        "nothing": "Pas d'absence pour Salma aujourd'hui",
-        "nothingDetail": "Aucun message n'est envoyé."
-      },
-      "timetable": {
-        "title": "Emploi du temps · 1AC-A",
-        "dropping": "Placer : Maths · Prof. B",
-        "refused": "Refusé : Prof. B déjà occupé",
-        "detail": "Avec la 2AC-C, Lundi 10:00–11:00",
-        "mon": "Lun",
-        "tue": "Mar",
-        "french": "Français",
-        "arabic": "Arabe",
-        "maths": "Maths",
-        "pc": "PC",
-        "free": "Libre"
-      }
-    },
-    "how": {
-      "title": "Comment ça marche",
-      "subtitle": "Une absence, du premier cours jusqu'aux totaux de fin de mois.",
-      "steps": {
+      "roles": {
+        "label": "Une journée à l'école",
+        "caption": "Exemples avec des noms fictifs.",
         "teacher": {
-          "title": "Le professeur fait l'appel",
-          "body": "Sur son téléphone, au début du cours. Tout le monde est présent par défaut : il touche seulement les absents et les retards."
+          "who": "Enseignant",
+          "title": "L'appel en quelques gestes",
+          "students": {
+            "a": "Amine B.",
+            "b": "Youssef A.",
+            "c": "Salma K."
+          },
+          "present": "Présent",
+          "absent": "Absent",
+          "late": "En retard"
         },
         "parent": {
-          "title": "Le parent est prévenu",
-          "body": "10 minutes après l'appel. Si le professeur corrige entre-temps, rien n'est envoyé."
-        },
-        "photo": {
-          "title": "Le justificatif arrive en photo",
-          "body": "Le parent photographie le certificat ou le mot depuis son téléphone. Fini les papiers perdus."
-        },
-        "review": {
-          "title": "Le surveillant valide",
-          "body": "Il accepte ou refuse en un geste, avec une réponse au parent si besoin."
+          "who": "Parent",
+          "title": "L'alerte sur son téléphone",
+          "alert": "Absence : Youssef",
+          "lesson": "Mathématiques {time}",
+          "send": "Envoyer la justification en photo"
         },
         "director": {
-          "title": "Le directeur voit les totaux",
-          "body": "Par classe, par élève, par semaine ou par mois, en nombre d'absences et en heures."
+          "who": "Direction",
+          "title": "Le bilan du jour",
+          "sessions": "Séances où l'appel est fait",
+          "toReview": "Justifications à examiner",
+          "alerts": "Alertes automatiques pour les absences non justifiées et les retards répétés."
         }
-      }
-    },
-    "showcase": {
-      "title": "Fonctions",
-      "subtitle": "L'application telle que la voient le professeur, le parent et la surveillance. Données de démonstration, noms fictifs.",
-      "school": "École Démo",
-      "demo": {
-        "announcement": "Réunion des parents samedi à 10 h",
-        "reason": "Rendez-vous médical"
       },
-      "items": {
-        "rollCall": {
-          "title": "L'appel en 3 taps",
-          "line": "Le professeur touche les absents et les retards, puis enregistre."
+      "how": {
+        "eyebrow": "Comment ça marche",
+        "title": "Trois étapes, à chaque cours",
+        "steps": {
+          "teacher": {
+            "title": "L'enseignant fait l'appel",
+            "body": "Sur son téléphone, en début de cours, en quelques gestes."
+          },
+          "family": {
+            "title": "La famille est prévenue",
+            "body": "Dix minutes après, gratuitement sur son téléphone, et elle envoie la justification en photo."
+          },
+          "school": {
+            "title": "La direction suit",
+            "body": "Elle accepte la justification d'un geste, et les totaux en heures sont prêts, comme dans Massar."
+          }
+        }
+      },
+      "features": {
+        "eyebrow": "Fonctionnalités",
+        "title": "Ce dont l'école a besoin chaque jour",
+        "items": {
+          "timetable": {
+            "title": "Emploi du temps",
+            "body": "Sans conflit entre enseignants et salles, avec impression A4."
+          },
+          "justifications": {
+            "title": "Justifications en photo",
+            "body": "La famille envoie la photo du certificat, la direction l'accepte ou la refuse d'un geste."
+          },
+          "totals": {
+            "title": "Totaux d'absences",
+            "body": "En heures, comme dans Massar, par élève et par classe."
+          },
+          "messages": {
+            "title": "Annonces et remarques",
+            "body": "Pour l'école, un niveau ou une classe ; les parents confirment avoir lu les remarques."
+          },
+          "phoneApp": {
+            "title": "Application sur le téléphone",
+            "body": "Android et iPhone en deux gestes, notifications gratuites."
+          },
+          "languages": {
+            "title": "En arabe et en français",
+            "body": "Interface en arabe, français et anglais ; les parents se connectent avec leur numéro de téléphone."
+          }
         },
-        "alert": {
-          "title": "Le parent est prévenu",
-          "line": "10 minutes après l'appel, dans son espace parent."
-        },
-        "justify": {
-          "title": "Le justificatif en photo",
-          "line": "Le parent joint la photo du certificat, la surveillance valide."
-        },
-        "totals": {
-          "title": "Les totaux en heures",
-          "line": "Par élève et par classe, en heures comme Massar."
+        "soon": {
+          "title": "Notes et bulletins",
+          "body": "Notes, moyennes et bulletins, puis l'export vers Massar."
         }
       }
     },
@@ -2416,47 +2420,6 @@
           "title": "Alertes SMS et WhatsApp",
           "body": "Les mêmes notifications, aussi par SMS ou WhatsApp."
         }
-      }
-    },
-    "dives": {
-      "title": "Dans le détail",
-      "timetable": {
-        "kicker": "Emploi du temps",
-        "title": "Un emploi du temps sans conflit",
-        "body": "Avant même que vous déposiez un cours, chaque case dit si elle peut l'accueillir. Un professeur, une salle ou une classe déjà occupés : le cours est refusé, avec le nom de la classe et l'heure.",
-        "points": {
-          "a": "Glisser-déposer pour déplacer ou échanger deux cours",
-          "b": "Vues par classe, par professeur et par salle",
-          "c": "Copie de l'emploi du temps de l'an dernier, impression A4"
-        }
-      }
-    },
-    "myths": {
-      "title": "Ce qu'on entend souvent",
-      "myth": "On dit",
-      "reality": "En vrai",
-      "teachers": {
-        "myth": "« Nos professeurs ne sont pas à l'aise avec la technologie. »",
-        "reality": "L'appel se fait en 3 taps : ouvrir le cours, toucher les absents, enregistrer. Tout le monde est présent par défaut."
-      },
-      "parents": {
-        "myth": "« Beaucoup de parents n'ont pas d'email. »",
-        "reality": "Les parents se connectent avec leur numéro de téléphone et un mot de passe. Aucun email n'est nécessaire."
-      }
-    },
-    "trust": {
-      "title": "Pourquoi les écoles peuvent nous faire confiance",
-      "morocco": {
-        "title": "Conçu au Maroc",
-        "body": "Pour le fonctionnement des écoles privées marocaines : cycles, filières, Massar."
-      },
-      "languages": {
-        "title": "Arabe et français",
-        "body": "Toute l'application en arabe (de droite à gauche) et en français. Chacun choisit sa langue."
-      },
-      "separated": {
-        "title": "Les données de chaque école sont séparées",
-        "body": "Une école ne peut jamais voir les données d'une autre : la règle est appliquée par la base de données elle-même."
       }
     },
     "pricing": {
@@ -2656,7 +2619,8 @@
       "successTrial": {
         "title": "Merci, votre demande d'essai est envoyée.",
         "body": "Nous préparons votre école et vous envoyons vos accès sur WhatsApp au {phone}."
-      }
+      },
+      "cta": "Demander une démo"
     },
     "mobileBar": {
       "label": "Actions rapides",

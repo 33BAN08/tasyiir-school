@@ -4,19 +4,23 @@ import { latinThenArabic } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
 
 import { ComingSoon } from "./coming-soon";
-import { DeepDives } from "./deep-dives";
 import { DemoSection } from "./demo-section";
 import { Faq } from "./faq";
 import { Features } from "./features";
 import { Hero } from "./hero";
 import { HowItWorks } from "./how-it-works";
 import { MobileCtaBar } from "./mobile-cta-bar";
-import { Myths, Trust } from "./myths-trust";
 import { Pricing } from "./pricing";
+import { RoleCards } from "./role-cards";
 import { SiteFooter } from "./site-footer";
 import { SiteHeader } from "./site-header";
 
-/** The public home page (/[locale]): always light, its own palette (.landing in globals.css). */
+/**
+ * The public home page (/[locale]), Madar "A + C" design (2026-10-25, mock-up
+ * docs/design/home-madar-fusion.html): the zellige header + hero board, the
+ * three role cards, how it works, features, plans (+ Bientôt), FAQ, the
+ * closing band with the demo form. Always light, its own palette (.landing).
+ */
 export function LandingPage() {
   const t = useTranslations("landing");
 
@@ -31,14 +35,12 @@ export function LandingPage() {
       >
         {t("skip")}
       </a>
-      <SiteHeader />
+      <SiteHeader tone="green" />
       <main id="main" tabIndex={-1} className="flex-1 outline-none">
         <Hero />
+        <RoleCards />
         <HowItWorks />
         <Features />
-        <DeepDives />
-        <Myths />
-        <Trust />
         <Pricing />
         <ComingSoon />
         <Faq />

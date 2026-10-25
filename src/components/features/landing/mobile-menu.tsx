@@ -16,10 +16,12 @@ type Props = {
   labels: { menu: string; close: string; nav: string; login: string; demo: string };
   /** The language links (server-rendered). */
   children: ReactNode;
+  /** The header is the green zellige band (home page): a white menu button. */
+  onDark?: boolean;
 };
 
 /** Phones and tablets: the header's links in a panel under the header. */
-export function MobileMenu({ className, links, demoHref = "#demo", labels, children }: Props) {
+export function MobileMenu({ className, links, demoHref = "#demo", labels, children, onDark = false }: Props) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -46,7 +48,12 @@ export function MobileMenu({ className, links, demoHref = "#demo", labels, child
         aria-controls={panelId}
         aria-label={open ? labels.close : labels.menu}
         onClick={() => setOpen((v) => !v)}
-        className="flex size-11 items-center justify-center rounded-lg text-lp-ink outline-none hover:bg-lp-tint focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-lp-brand"
+        className={cn(
+          "flex size-11 items-center justify-center rounded-lg outline-none focus-visible:outline-2 focus-visible:outline-offset-2",
+          onDark
+            ? "text-lp-on-brand hover:bg-lp-band-2 focus-visible:outline-lp-on-brand"
+            : "text-lp-ink hover:bg-lp-tint focus-visible:outline-lp-brand",
+        )}
       >
         {open ? <X className="size-6" aria-hidden /> : <Menu className="size-6" aria-hidden />}
       </button>

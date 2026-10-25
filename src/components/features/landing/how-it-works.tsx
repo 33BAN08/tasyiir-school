@@ -1,37 +1,43 @@
-import { BarChart3, BellRing, Camera, ShieldCheck, Smartphone } from "lucide-react";
 import { useTranslations } from "next-intl";
 
-import { IconBadge, Section } from "./landing-ui";
+import { cn } from "@/lib/utils";
 
-const STEPS = [
-  { key: "teacher", icon: Smartphone },
-  { key: "parent", icon: BellRing },
-  { key: "photo", icon: Camera },
-  { key: "review", icon: ShieldCheck },
-  { key: "director", icon: BarChart3 },
-] as const;
+import { WRAP } from "./landing-ui";
 
+const STEPS = ["teacher", "family", "school"] as const;
+
+/** Three steps, each on a lined notebook page. */
 export function HowItWorks() {
-  const t = useTranslations("landing.how");
+  const t = useTranslations("landing.home.how");
 
   return (
-    <Section id="how" title={t("title")} subtitle={t("subtitle")}>
-      <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-        {STEPS.map(({ key, icon: Icon }, index) => (
-          <li key={key} className="relative flex flex-col gap-3 rounded-xl border border-lp-line bg-lp-surface p-5">
-            <div className="flex items-center justify-between gap-2">
-              <IconBadge>
-                <Icon className="size-5" aria-hidden />
-              </IconBadge>
-              <span aria-hidden className="text-3xl font-extrabold text-lp-deco tabular-nums">
+    <section id="how" aria-labelledby="how-title" className="py-16 sm:py-24">
+      <div className={WRAP}>
+        <div className="mx-auto mb-10 flex max-w-2xl flex-col items-center gap-2 text-center">
+          <p className="font-extrabold text-lp-brand">{t("eyebrow")}</p>
+          <h2 id="how-title" className="text-3xl font-extrabold sm:text-4xl">
+            {t("title")}
+          </h2>
+        </div>
+        <ol className="grid gap-5 md:grid-cols-3 md:gap-6">
+          {STEPS.map((key, index) => (
+            <li
+              key={key}
+              data-how-step={key}
+              className={cn("lp-notebook flex flex-col gap-3.5 rounded-[1.4rem] border border-lp-line bg-lp-surface p-6 sm:p-7")}
+            >
+              <span
+                aria-hidden
+                className="flex size-12 items-center justify-center rounded-2xl bg-lp-band font-numeric text-xl font-bold text-lp-on-brand"
+              >
                 {index + 1}
               </span>
-            </div>
-            <h3 className="text-lg font-bold">{t(`steps.${key}.title`)}</h3>
-            <p className="text-sm text-lp-muted">{t(`steps.${key}.body`)}</p>
-          </li>
-        ))}
-      </ol>
-    </Section>
+              <h3 className="text-xl font-extrabold">{t(`steps.${key}.title`)}</h3>
+              <p className="text-lg leading-8 text-lp-muted">{t(`steps.${key}.body`)}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
   );
 }

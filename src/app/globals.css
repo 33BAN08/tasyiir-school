@@ -229,6 +229,7 @@
   --color-lp-app-danger: var(--lp-app-danger);
   --color-lp-app-warning: var(--lp-app-warning);
   --color-lp-whatsapp: var(--lp-whatsapp);
+  --color-lp-board: var(--lp-board);
 }
 
 .landing {
@@ -264,11 +265,41 @@
   --lp-app-warning: #d97706;
   /* WhatsApp's own green, with dark text (8.1:1) */
   --lp-whatsapp: #25d366;
+  /* Madar home (2026-10-25): the hero "board" (white text 11.6:1), notebook lines, zellige dots (decoration only) */
+  --lp-board: #0e3b28;
+  --lp-notebook-line: #e3efe8;
+  --lp-zellige-dot: rgb(230 200 143 / 0.18);
+  --lp-zellige-ring: rgb(205 235 219 / 0.1);
   /* app tokens used by base styles (borders, outlines) */
   --border: var(--lp-line);
   --ring: var(--lp-brand);
   --background: var(--lp-bg);
   --foreground: var(--lp-ink);
+}
+
+/*
+ * Zellige: the brand green with a quiet dot pattern (CSS only, no image). The
+ * tile is 32 px so the header (64 px) and the hero under it line up seamlessly.
+ */
+.landing .lp-zellige {
+  background-color: var(--lp-band);
+  background-image:
+    radial-gradient(circle at 50% 50%, var(--lp-zellige-dot) 0 6px, transparent 7px),
+    radial-gradient(circle at 0 0, var(--lp-zellige-ring) 0 15px, transparent 16px),
+    radial-gradient(circle at 100% 100%, var(--lp-zellige-ring) 0 15px, transparent 16px);
+  background-size: 32px 32px;
+}
+
+/* Lined notebook paper (the "how it works" cards): lines start under the card's heading. */
+.landing .lp-notebook {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 31px,
+    var(--lp-notebook-line) 31px,
+    var(--lp-notebook-line) 32px
+  );
+  background-position: 0 5.5rem;
 }
 
 /* Keep anchors and focused fields clear of the sticky header and the phone bar. */
