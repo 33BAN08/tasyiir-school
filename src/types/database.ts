@@ -723,6 +723,107 @@ export type Database = {
           },
         ]
       }
+      grades: {
+        Row: {
+          absent: boolean
+          academic_year_id: string
+          entered_at: string
+          entered_by: string | null
+          id: string
+          kind: string
+          number: number
+          period_id: string
+          school_id: string
+          score: number | null
+          student_id: string
+          subject_id: string
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          absent?: boolean
+          academic_year_id: string
+          entered_at?: string
+          entered_by?: string | null
+          id?: string
+          kind?: string
+          number?: number
+          period_id: string
+          school_id: string
+          score?: number | null
+          student_id: string
+          subject_id: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          absent?: boolean
+          academic_year_id?: string
+          entered_at?: string
+          entered_by?: string | null
+          id?: string
+          kind?: string
+          number?: number
+          period_id?: string
+          school_id?: string
+          score?: number | null
+          student_id?: string
+          subject_id?: string
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "grades_entered_by_fkey"
+            columns: ["entered_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grades_period_fkey"
+            columns: ["period_id", "academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "grading_periods"
+            referencedColumns: ["id", "academic_year_id", "school_id"]
+          },
+          {
+            foreignKeyName: "grades_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grades_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "grades_subject_fkey"
+            columns: ["subject_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "grades_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grades_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       grading_periods: {
         Row: {
           academic_year_id: string
