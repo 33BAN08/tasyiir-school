@@ -661,6 +661,142 @@ export type Database = {
           },
         ]
       }
+      grade_level_settings: {
+        Row: {
+          academic_year_id: string
+          activities: boolean
+          controls_count: number
+          level_id: string
+          scale: number
+          school_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          academic_year_id: string
+          activities?: boolean
+          controls_count?: number
+          level_id: string
+          scale: number
+          school_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          academic_year_id?: string
+          activities?: boolean
+          controls_count?: number
+          level_id?: string
+          scale?: number
+          school_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "grade_level_settings_level_fkey"
+            columns: ["level_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "levels"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "grade_level_settings_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grade_level_settings_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grade_level_settings_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
+      grading_periods: {
+        Row: {
+          academic_year_id: string
+          created_at: string
+          end_date: string
+          id: string
+          locked_at: string | null
+          locked_by: string | null
+          number: number
+          school_id: string
+          start_date: string
+          updated_at: string | null
+          updated_by: string | null
+          weight: number
+        }
+        Insert: {
+          academic_year_id: string
+          created_at?: string
+          end_date: string
+          id?: string
+          locked_at?: string | null
+          locked_by?: string | null
+          number: number
+          school_id: string
+          start_date: string
+          updated_at?: string | null
+          updated_by?: string | null
+          weight?: number
+        }
+        Update: {
+          academic_year_id?: string
+          created_at?: string
+          end_date?: string
+          id?: string
+          locked_at?: string | null
+          locked_by?: string | null
+          number?: number
+          school_id?: string
+          start_date?: string
+          updated_at?: string | null
+          updated_by?: string | null
+          weight?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "grading_periods_locked_by_fkey"
+            columns: ["locked_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grading_periods_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grading_periods_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grading_periods_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       guardians: {
         Row: {
           created_at: string
@@ -1879,6 +2015,91 @@ export type Database = {
           },
         ]
       }
+      subject_coefficients: {
+        Row: {
+          academic_year_id: string
+          coefficient: number
+          controls_count: number | null
+          id: string
+          level_id: string
+          position: number
+          school_id: string
+          subject_id: string
+          track_id: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          academic_year_id: string
+          coefficient: number
+          controls_count?: number | null
+          id?: string
+          level_id: string
+          position?: number
+          school_id: string
+          subject_id: string
+          track_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          academic_year_id?: string
+          coefficient?: number
+          controls_count?: number | null
+          id?: string
+          level_id?: string
+          position?: number
+          school_id?: string
+          subject_id?: string
+          track_id?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subject_coefficients_level_fkey"
+            columns: ["level_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "levels"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "subject_coefficients_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subject_coefficients_subject_fkey"
+            columns: ["subject_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "subjects"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "subject_coefficients_track_fkey"
+            columns: ["track_id", "level_id"]
+            isOneToOne: false
+            referencedRelation: "tracks"
+            referencedColumns: ["id", "level_id"]
+          },
+          {
+            foreignKeyName: "subject_coefficients_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subject_coefficients_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       subjects: {
         Row: {
           code: string | null
@@ -2129,6 +2350,16 @@ export type Database = {
         }
         Returns: string
       }
+      grade_level_rules: {
+        Args: { p_year: string }
+        Returns: {
+          activities: boolean
+          controls_count: number
+          customised: boolean
+          level_id: string
+          scale: number
+        }[]
+      }
       import_students: { Args: { p_rows: Json }; Returns: number }
       my_school_suspension: { Args: never; Returns: string }
       push_claim: {
@@ -2145,7 +2376,12 @@ export type Database = {
         }[]
       }
       push_done: {
-        Args: { p_failed?: string[]; p_gone?: string[]; p_ok?: string[]; p_outbox: number[] }
+        Args: {
+          p_failed?: string[]
+          p_gone?: string[]
+          p_ok?: string[]
+          p_outbox: number[]
+        }
         Returns: undefined
       }
       run_absence_notifications: { Args: { p_now?: string }; Returns: number }
@@ -2155,17 +2391,29 @@ export type Database = {
         Args: { p_schools: string[]; p_today: string }
         Returns: number
       }
-      run_trial_expiry: { Args: { p_now: string; p_schools: string[] }; Returns: number }
-      save_push_preferences: {
-        Args: { p_absences: boolean; p_announcements: boolean; p_remarks: boolean }
-        Returns: undefined
-      }
-      save_push_subscription: {
-        Args: { p_auth: string; p_endpoint: string; p_p256dh: string; p_user_agent?: string }
-        Returns: string
+      run_trial_expiry: {
+        Args: { p_now: string; p_schools: string[] }
+        Returns: number
       }
       save_attendance: {
         Args: { p_date: string; p_lesson: string; p_marks?: Json }
+        Returns: string
+      }
+      save_push_preferences: {
+        Args: {
+          p_absences: boolean
+          p_announcements: boolean
+          p_remarks: boolean
+        }
+        Returns: undefined
+      }
+      save_push_subscription: {
+        Args: {
+          p_auth: string
+          p_endpoint: string
+          p_p256dh: string
+          p_user_agent?: string
+        }
         Returns: string
       }
       school_clock: {

@@ -59,6 +59,7 @@ import { phase10Push } from "./phase10-push.mjs";
 import { phase10PushSend } from "./phase10-push-send.mjs";
 import { phase10PushPreferences } from "./phase10-push-preferences.mjs";
 import { phase10CrossSchool } from "./phase10-cross-school.mjs";
+import { phase11GradingSetup } from "./phase11-grading-setup.mjs";
 import { demoActions } from "./actions-demo.mjs";
 import { phase9CrossSchool } from "./phase9-cross-school.mjs";
 import { schoolContactActions } from "./actions-school-contact.mjs";
@@ -135,6 +136,7 @@ try {
   await phase10PushPreferences({ fx, as });
   await phase10CrossSchool({ fx, as });
   await phase9CrossSchool({ fx, as });
+  await phase11GradingSetup({ fx, as });
   await notificationTypes({ fx, as });
   await publicDemoRequests({ fx, as });
   await import("./rules.mjs");

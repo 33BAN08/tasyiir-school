@@ -33,7 +33,7 @@ const KEPT = ["schools", "profiles", "roles", "role_permissions", "school_module
 const FILLED = [
   "academic_years", "school_days", "time_slots", "levels", "rooms", "classes", "subjects", "teacher_subjects", "lessons",
   "students", "student_enrollments", "guardians", "student_guardians", "student_remarks", "announcements",
-  "announcement_targets", "notifications",
+  "announcement_targets", "notifications", "grading_periods",
 ];
 /** Filled from the roll calls of the last weeks: none in the first days of a school year. */
 const FILLED_FROM_HISTORY = ["attendance_sessions", "attendance_marks", "absence_notices", "justifications"];
@@ -266,7 +266,7 @@ export async function phaseLaunchDemo({ fx, as }) {
   // empty; a second reset the same day gives the same counts everywhere. A table added later and
   // forgotten in private.reset_demo_school fails here (it doubles, or keeps a visitor's rows).
   const tables = await tablesWithSchoolId();
-  check(label("OpenAPI lists the school tables"), tables.length >= 32 && tables.includes("students"), `${tables.length} table(s)`);
+  check(label("OpenAPI lists the school tables"), tables.length >= 35 && tables.includes("students"), `${tables.length} table(s)`);
   const countAll = async () => {
     const out = {};
     for (const table of tables) {

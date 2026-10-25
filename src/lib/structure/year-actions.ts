@@ -16,9 +16,18 @@ const YEAR_CONSTRAINTS = {
   academic_years_label_key: "labelTaken",
   academic_years_no_overlap: "yearOverlap",
   academic_years_dates_check: "yearTooLong",
+  // The year's semesters (phase11_grading_setup) follow its dates or refuse them.
+  grading_period_outside_year: "yearCutsSemesters",
+  grading_periods_dates_check: "yearCutsSemesters",
+  grading_period_locked: "yearCutsSemesters",
 };
 
-const FIELD_OF: Record<string, YearField> = { labelTaken: "label", yearOverlap: "startDate", yearTooLong: "endDate" };
+const FIELD_OF: Record<string, YearField> = {
+  labelTaken: "label",
+  yearOverlap: "startDate",
+  yearTooLong: "endDate",
+  yearCutsSemesters: "endDate",
+};
 
 function failure(key: string): { ok: false; error: string; field?: YearField } {
   return { ok: false, error: key, field: FIELD_OF[key] };

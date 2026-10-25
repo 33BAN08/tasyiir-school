@@ -1280,6 +1280,7 @@
       "invalidDate": "Invalid date.",
       "endBeforeStart": "The last day must be after the first day.",
       "yearTooLong": "A school year lasts less than a year.",
+      "yearCutsSemesters": "These dates would cut a semester (or a semester is locked). Change this year's semesters first.",
       "labelTaken": "A year with this name already exists.",
       "yearOverlap": "These dates overlap another academic year.",
       "deleteCurrent": "The current year cannot be deleted. Make another year current first.",

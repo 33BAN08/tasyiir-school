@@ -1280,6 +1280,7 @@
       "invalidDate": "Date invalide.",
       "endBeforeStart": "Le dernier jour doit être après le premier.",
       "yearTooLong": "Une année scolaire dure moins d'un an.",
+      "yearCutsSemesters": "Ces dates couperaient un semestre (ou un semestre est verrouillé). Modifiez d'abord les semestres de cette année.",
       "labelTaken": "Une année porte déjà ce nom.",
       "yearOverlap": "Ces dates chevauchent une autre année scolaire.",
       "deleteCurrent": "L'année en cours ne peut pas être supprimée. Définissez d'abord une autre année en cours.",
