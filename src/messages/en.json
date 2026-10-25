@@ -87,7 +87,8 @@
     "announcements": "Announcements",
     "remarks": "Remarks",
     "schoolSettings": "School",
-    "grading": "Grades"
+    "grading": "Grade settings",
+    "gradeEntry": "Grade entry"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -3212,6 +3213,82 @@
       "pickLevels": "Choose at least one level.",
       "sourceNotEarlier": "Choose a year earlier than this one.",
       "tooManyCells": "Too many changes at once (500 at most). Save in several steps."
+    }
+  },
+  "grades": {
+    "title": "Grade entry",
+    "description": "Each class's grades, subject by subject and semester by semester.",
+    "notInPlanTitle": "Grades are not in your plan",
+    "notInPlanDescription": "Grades and report cards come with the Medium school and Large school plans. Contact us to change plans.",
+    "noPairsTitle": "No class to grade",
+    "noPairsDescription": "The classes and subjects you teach this year (timetable) will appear here.",
+    "noYearTitle": "No school year",
+    "noYearDescription": "Create the school year first (Structure).",
+    "noClassesTitle": "No classes",
+    "noClassesDescription": "No classes in {year}.",
+    "noSubjectsTitle": "No graded subject",
+    "noSubjectsDescription": "No subject is graded in {class}: set the level's coefficients.",
+    "noSubjectsAction": "Set the coefficients",
+    "noPeriodsTitle": "No semesters",
+    "noPeriodsDescription": "This year has no semesters (Grade settings).",
+    "rules": "Scale {scale} · {controls, plural, one {# test} other {# tests}}",
+    "withActivities": "integrated activities",
+    "lockedBanner": "Semester locked: grades can no longer be changed.",
+    "readOnly": "Read only.",
+    "notGraded": "This subject is not graded in {class} (Grade settings): no grade can be entered.",
+    "pickers": {
+      "pair": "Class",
+      "year": "Year",
+      "currentYear": "{label} (current)",
+      "class": "Class",
+      "subject": "Subject"
+    },
+    "periods": {
+      "label": "Semester",
+      "semester": "Semester {number}",
+      "trimester": "Term {number}",
+      "period": "Period {number}",
+      "locked": "locked"
+    },
+    "sheet": {
+      "pickControl": "Test to enter",
+      "extraColumn": "(old)",
+      "cellLabel": "{student}, {column}",
+      "absentFor": "Absent: {student}",
+      "absentShort": "abs",
+      "absent": "Absent",
+      "student": "Student",
+      "restored": "Unsaved grades found on this phone.",
+      "discard": "Discard",
+      "lockedCopy": "Unsaved grades remain on this phone, but the semester is locked: they can no longer be saved.",
+      "noStudents": "No students in this class.",
+      "pending": "{count, plural, one {# grade to save} other {# grades to save}}",
+      "invalid": "{count, plural, one {# invalid grade} other {# invalid grades}} (in red): 0 to {scale}, 2 decimals, or \"abs\".",
+      "notSaved": "Not saved yet: the grades stay on this phone.",
+      "cancel": "Cancel",
+      "save": "Save",
+      "saving": "Saving…",
+      "retry": "Try again",
+      "saved": "{count, plural, one {# grade saved} other {# grades saved}}",
+      "control": "Test {number}",
+      "controlShort": "T{number}",
+      "activities": "Integrated activities",
+      "activitiesShort": "Act."
+    },
+    "errors": {
+      "generic": "Something went wrong. Try again.",
+      "network": "No connection: nothing is lost, the grades stay on this phone. Try again.",
+      "forbidden": "You cannot grade this class in this subject.",
+      "notFound": "Class, subject or semester not found. Reload the page.",
+      "inUse": "Item not found. Reload the page.",
+      "tooMany": "Too many grades at once.",
+      "periodLocked": "Semester locked: grades can no longer be changed.",
+      "aboveScale": "A grade is above the scale.",
+      "numberTooHigh": "This test no longer exists for this subject.",
+      "noActivities": "This level has no integrated activities.",
+      "subjectNotGraded": "This subject is not graded at this level.",
+      "notEnrolled": "A student is no longer in this class. Reload the page.",
+      "invalidMark": "A grade is not valid."
     }
   }
 }

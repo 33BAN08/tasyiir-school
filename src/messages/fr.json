@@ -87,7 +87,8 @@
     "announcements": "Annonces",
     "remarks": "Remarques",
     "schoolSettings": "Établissement",
-    "grading": "Notes"
+    "grading": "Réglages des notes",
+    "gradeEntry": "Saisie des notes"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -3212,6 +3213,82 @@
       "pickLevels": "Choisissez au moins un niveau.",
       "sourceNotEarlier": "Choisissez une année plus ancienne que celle-ci.",
       "tooManyCells": "Trop de changements à la fois (500 au plus). Enregistrez en plusieurs fois."
+    }
+  },
+  "grades": {
+    "title": "Saisie des notes",
+    "description": "Les notes de chaque classe, matière par matière et semestre par semestre.",
+    "notInPlanTitle": "Les notes ne sont pas dans votre formule",
+    "notInPlanDescription": "Les notes et bulletins font partie des formules École moyenne et Grande école. Contactez-nous pour changer de formule.",
+    "noPairsTitle": "Aucune classe à noter",
+    "noPairsDescription": "Les classes et matières que vous enseignez cette année (emploi du temps) apparaîtront ici.",
+    "noYearTitle": "Aucune année scolaire",
+    "noYearDescription": "Créez d'abord l'année scolaire (Structure).",
+    "noClassesTitle": "Aucune classe",
+    "noClassesDescription": "Aucune classe en {year}.",
+    "noSubjectsTitle": "Aucune matière notée",
+    "noSubjectsDescription": "Aucune matière n'est notée en {class} : réglez les coefficients du niveau.",
+    "noSubjectsAction": "Régler les coefficients",
+    "noPeriodsTitle": "Aucun semestre",
+    "noPeriodsDescription": "Cette année n'a pas de semestre (Réglages des notes).",
+    "rules": "Barème {scale} · {controls, plural, one {# contrôle} other {# contrôles}}",
+    "withActivities": "activités intégrées",
+    "lockedBanner": "Semestre verrouillé : les notes ne peuvent plus être modifiées.",
+    "readOnly": "Lecture seule.",
+    "notGraded": "Cette matière n'est pas notée en {class} (Réglages des notes) : aucune note ne peut être saisie.",
+    "pickers": {
+      "pair": "Classe",
+      "year": "Année",
+      "currentYear": "{label} (en cours)",
+      "class": "Classe",
+      "subject": "Matière"
+    },
+    "periods": {
+      "label": "Semestre",
+      "semester": "Semestre {number}",
+      "trimester": "Trimestre {number}",
+      "period": "Période {number}",
+      "locked": "verrouillé"
+    },
+    "sheet": {
+      "pickControl": "Contrôle à saisir",
+      "extraColumn": "(ancien)",
+      "cellLabel": "{student}, {column}",
+      "absentFor": "Absent : {student}",
+      "absentShort": "abs",
+      "absent": "Absent",
+      "student": "Élève",
+      "restored": "Notes non enregistrées retrouvées sur ce téléphone.",
+      "discard": "Abandonner",
+      "lockedCopy": "Des notes non enregistrées restent sur ce téléphone, mais le semestre est verrouillé : elles ne peuvent plus être enregistrées.",
+      "noStudents": "Aucun élève dans cette classe.",
+      "pending": "{count, plural, one {# note à enregistrer} other {# notes à enregistrer}}",
+      "invalid": "{count, plural, one {# note invalide} other {# notes invalides}} (en rouge) : de 0 à {scale}, 2 décimales, ou « abs ».",
+      "notSaved": "Pas encore enregistré : les notes restent sur ce téléphone.",
+      "cancel": "Annuler",
+      "save": "Enregistrer",
+      "saving": "Enregistrement…",
+      "retry": "Réessayer",
+      "saved": "{count, plural, one {# note enregistrée} other {# notes enregistrées}}",
+      "control": "Contrôle {number}",
+      "controlShort": "C{number}",
+      "activities": "Activités intégrées",
+      "activitiesShort": "Act."
+    },
+    "errors": {
+      "generic": "Une erreur est survenue. Réessayez.",
+      "network": "Pas de connexion : rien n'est perdu, les notes restent sur ce téléphone. Réessayez.",
+      "forbidden": "Vous ne pouvez pas noter cette classe dans cette matière.",
+      "notFound": "Classe, matière ou semestre introuvable. Rechargez la page.",
+      "inUse": "Élément introuvable. Rechargez la page.",
+      "tooMany": "Trop de notes à la fois.",
+      "periodLocked": "Semestre verrouillé : les notes ne peuvent plus être modifiées.",
+      "aboveScale": "Une note dépasse le barème.",
+      "numberTooHigh": "Ce contrôle n'existe plus pour cette matière.",
+      "noActivities": "Ce niveau n'a pas d'activités intégrées.",
+      "subjectNotGraded": "Cette matière n'est pas notée à ce niveau.",
+      "notEnrolled": "Un élève n'est plus inscrit dans cette classe. Rechargez la page.",
+      "invalidMark": "Une note n'est pas valide."
     }
   }
 }

@@ -63,6 +63,7 @@ import { phase11GradingSetup } from "./phase11-grading-setup.mjs";
 import { phase11CopyGrading } from "./phase11-copy-grading.mjs";
 import { phase11Grades } from "./phase11-grades.mjs";
 import { phase11SaveCoefficients } from "./phase11-save-coefficients.mjs";
+import { phase11SaveGrades } from "./phase11-save-grades.mjs";
 import { demoActions } from "./actions-demo.mjs";
 import { phase9CrossSchool } from "./phase9-cross-school.mjs";
 import { schoolContactActions } from "./actions-school-contact.mjs";
@@ -75,6 +76,7 @@ import { phoneAppPages } from "./pages-phone-app.mjs";
 import { pushDeliverActions } from "./actions-push-deliver.mjs";
 import { pushPreferencesActions } from "./actions-push-preferences.mjs";
 import { gradingSetupActions } from "./actions-grading-setup.mjs";
+import { gradesActions } from "./actions-grades.mjs";
 import { phase6Lessons } from "./phase6-lessons.mjs";
 import { lessonBlockActions } from "./actions-lesson-blocks.mjs";
 import { lessonCopyActions } from "./actions-lesson-copy.mjs";
@@ -144,6 +146,7 @@ try {
   await phase11CopyGrading({ fx, as });
   await phase11Grades({ fx, as });
   await phase11SaveCoefficients({ fx, as });
+  await phase11SaveGrades({ fx, as });
   await notificationTypes({ fx, as });
   await publicDemoRequests({ fx, as });
   await import("./rules.mjs");
@@ -190,6 +193,7 @@ try {
     await pushDeliverActions({ fx, baseUrl });
     await pushPreferencesActions({ fx, baseUrl });
     await gradingSetupActions({ fx, baseUrl });
+    await gradesActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

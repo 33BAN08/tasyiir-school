@@ -2524,6 +2524,10 @@ export type Database = {
         Args: { p_date: string; p_lesson: string; p_marks?: Json }
         Returns: string
       }
+      save_grades: {
+        Args: { p_cells: Json; p_period: string; p_subject: string }
+        Returns: number
+      }
       save_push_preferences: {
         Args: {
           p_absences: boolean

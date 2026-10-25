@@ -87,7 +87,8 @@
     "announcements": "الإعلانات",
     "remarks": "الملاحظات",
     "schoolSettings": "المؤسسة",
-    "grading": "النقط"
+    "grading": "إعدادات النقط",
+    "gradeEntry": "إدخال النقط"
   },
   "shell": {
     "toggleSidebar": "إظهار القائمة الجانبية أو إخفاؤها",
@@ -3212,6 +3213,82 @@
       "pickLevels": "اختر مستوى واحدا على الأقل.",
       "sourceNotEarlier": "اختر سنة أقدم من هذه السنة.",
       "tooManyCells": "تغييرات كثيرة دفعة واحدة (500 على الأكثر). احفظ على مراحل."
+    }
+  },
+  "grades": {
+    "title": "إدخال النقط",
+    "description": "نقط كل قسم، مادة بمادة ودورة بدورة.",
+    "notInPlanTitle": "النقط غير متوفرة في عرضكم",
+    "notInPlanDescription": "النقط وبيانات النتائج متوفرة في عرضي المؤسسة المتوسطة والمؤسسة الكبيرة. تواصلوا معنا لتغيير العرض.",
+    "noPairsTitle": "لا يوجد قسم للتنقيط",
+    "noPairsDescription": "ستظهر هنا الأقسام والمواد التي تدرسها هذه السنة (استعمال الزمن).",
+    "noYearTitle": "لا توجد سنة دراسية",
+    "noYearDescription": "أنشئ السنة الدراسية أولا (الهيكلة).",
+    "noClassesTitle": "لا توجد أقسام",
+    "noClassesDescription": "لا توجد أقسام في {year}.",
+    "noSubjectsTitle": "لا توجد مادة منقطة",
+    "noSubjectsDescription": "لا توجد مادة منقطة في {class}: اضبط معاملات المستوى.",
+    "noSubjectsAction": "ضبط المعاملات",
+    "noPeriodsTitle": "لا توجد دورات",
+    "noPeriodsDescription": "لا توجد دورات لهذه السنة (إعدادات النقط).",
+    "rules": "السلم {scale} · {controls, plural, one {فرض واحد} two {فرضان} few {# فروض} other {# فرضا}}",
+    "withActivities": "الأنشطة المندمجة",
+    "lockedBanner": "الدورة مقفلة: لم يعد ممكنا تعديل النقط.",
+    "readOnly": "للاطلاع فقط.",
+    "notGraded": "هذه المادة غير منقطة في {class} (إعدادات النقط): لا يمكن إدخال أي نقطة.",
+    "pickers": {
+      "pair": "القسم",
+      "year": "السنة",
+      "currentYear": "{label} (الجارية)",
+      "class": "القسم",
+      "subject": "المادة"
+    },
+    "periods": {
+      "label": "الدورة",
+      "semester": "الدورة {number}",
+      "trimester": "الفصل {number}",
+      "period": "الفترة {number}",
+      "locked": "مقفلة"
+    },
+    "sheet": {
+      "pickControl": "الفرض المراد إدخاله",
+      "extraColumn": "(قديم)",
+      "cellLabel": "{student}، {column}",
+      "absentFor": "غائب: {student}",
+      "absentShort": "غ",
+      "absent": "غائب",
+      "student": "التلميذ",
+      "restored": "نقط غير محفوظة وُجدت على هذا الهاتف.",
+      "discard": "تجاهل",
+      "lockedCopy": "بقيت نقط غير محفوظة على هذا الهاتف، لكن الدورة مقفلة: لم يعد ممكنا حفظها.",
+      "noStudents": "لا يوجد تلاميذ في هذا القسم.",
+      "pending": "{count, plural, one {نقطة واحدة للحفظ} two {نقطتان للحفظ} few {# نقط للحفظ} other {# نقطة للحفظ}}",
+      "invalid": "{count, plural, one {نقطة واحدة غير صالحة} two {نقطتان غير صالحتين} few {# نقط غير صالحة} other {# نقطة غير صالحة}} (بالأحمر): من 0 إلى {scale}، رقمان بعد الفاصلة، أو «غ».",
+      "notSaved": "لم تُحفظ بعد: تبقى النقط على هذا الهاتف.",
+      "cancel": "إلغاء",
+      "save": "حفظ",
+      "saving": "جارٍ الحفظ…",
+      "retry": "إعادة المحاولة",
+      "saved": "{count, plural, one {تم حفظ نقطة واحدة} two {تم حفظ نقطتين} few {تم حفظ # نقط} other {تم حفظ # نقطة}}",
+      "control": "الفرض {number}",
+      "controlShort": "ف{number}",
+      "activities": "الأنشطة المندمجة",
+      "activitiesShort": "أنشطة"
+    },
+    "errors": {
+      "generic": "حدث خطأ. حاول مرة أخرى.",
+      "network": "لا يوجد اتصال: لم يضع شيء، تبقى النقط على هذا الهاتف. حاول مرة أخرى.",
+      "forbidden": "لا يمكنك تنقيط هذا القسم في هذه المادة.",
+      "notFound": "القسم أو المادة أو الدورة غير موجودة. أعد تحميل الصفحة.",
+      "inUse": "العنصر غير موجود. أعد تحميل الصفحة.",
+      "tooMany": "نقط كثيرة دفعة واحدة.",
+      "periodLocked": "الدورة مقفلة: لم يعد ممكنا تعديل النقط.",
+      "aboveScale": "نقطة تتجاوز السلم.",
+      "numberTooHigh": "هذا الفرض لم يعد موجودا لهذه المادة.",
+      "noActivities": "لا توجد أنشطة مندمجة في هذا المستوى.",
+      "subjectNotGraded": "هذه المادة غير منقطة في هذا المستوى.",
+      "notEnrolled": "تلميذ لم يعد مسجلا في هذا القسم. أعد تحميل الصفحة.",
+      "invalidMark": "نقطة غير صالحة."
     }
   }
 }

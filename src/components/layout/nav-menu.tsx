@@ -11,6 +11,7 @@ import {
   LayoutDashboard,
   Megaphone,
   MessageSquareText,
+  NotebookPen,
   Package,
   Presentation,
   School,
@@ -46,6 +47,7 @@ const ICONS: Record<NavIcon, typeof LayoutDashboard> = {
   announcements: Megaphone,
   remarks: MessageSquareText,
   school: Building2,
+  grades: NotebookPen,
 };
 
 export type NavMenuItem = { href: string; label: string; icon: NavIcon };

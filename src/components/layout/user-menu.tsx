@@ -15,6 +15,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { clearAllDrafts } from "@/lib/attendance/drafts";
+import { clearAllGradeDrafts } from "@/lib/grades/drafts";
 import { signOut } from "@/lib/auth/actions";
 
 type Props = { name: string; email: string | null; roleLabel: string };
@@ -60,6 +61,7 @@ export function UserMenu({ name, email, roleLabel }: Props) {
           disabled={isPending}
           onSelect={() => {
             clearAllDrafts(); // roll calls kept on this phone (Phase 7)
+            clearAllGradeDrafts(); // grade sheets kept on this phone (Phase 11)
             startTransition(() => signOut(locale));
           }}
         >
