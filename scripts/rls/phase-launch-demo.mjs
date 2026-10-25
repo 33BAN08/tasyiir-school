@@ -84,10 +84,12 @@ export async function phaseLaunchDemo({ fx, as }) {
   // mail domain: a random, unused Gmail address. Nothing is delivered from DEV even if the lock
   // failed (the default Supabase mailer only sends to the team's own addresses).
   const em = await dir.auth.updateUser({ email: `tasyir-rls-${fx.run}-${randomBytes(4).toString("hex")}@gmail.com` });
-  // Auth's email rate limit (429) answers before the database: then the lock was not reached, so the
-  // check is skipped (the secret-key email change below always reaches it).
-  if (em.error?.code === "over_email_send_rate_limit") {
-    skip(label("updateUser({ email }) with the demo session is refused by the lock"), "Auth email rate limit (429) answered first");
+  // Auth's email rate limit (429) or its own address check (400 email_address_invalid: since
+  // 2026-10-25 it also refuses these random Gmail addresses) answers before the database: then the
+  // lock was not reached, so the check is skipped (the secret-key email change below always reaches
+  // it, and "email unchanged" is checked either way).
+  if (em.error?.code === "over_email_send_rate_limit" || em.error?.code === "email_address_invalid") {
+    skip(label("updateUser({ email }) with the demo session is refused by the lock"), `Auth answered first (${em.error.code})`);
   } else {
     check(label("updateUser({ email }) with the demo session is refused by the lock"),
       Boolean(em.error) && em.error.code !== "email_address_invalid",
