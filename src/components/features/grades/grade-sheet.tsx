@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "@/i18n/navigation";
 import { saveGrades } from "@/lib/grades/actions";
 import { deleteGradeDraft, purgeGradeDrafts, readGradeDraft, writeGradeDraft, type GradeDraft } from "@/lib/grades/drafts";
-import { markKey, parseMark, pendingMarks, sameMark, type SheetColumn } from "@/lib/grades/marks";
+import { formatAverage, markKey, parseMark, pendingMarks, sameMark, type SheetColumn } from "@/lib/grades/marks";
 
 import { GridSheet } from "./grid-sheet";
 import { PhoneSheet } from "./phone-sheet";
@@ -29,6 +29,8 @@ type Props = {
   students: SheetRowStudent[];
   /** Saved grades: cell key → text. */
   marks: Record<string, string>;
+  /** Saved subject averages of the semester, by student (class_averages()); null = not shown. */
+  averages: Record<string, number | null> | null;
 };
 
 /** Same marks as typed in both copies? ("14,5" = "14.5".) */
@@ -42,7 +44,7 @@ function sameDraft(a: GradeDraft, b: GradeDraft, scale: number): boolean {
  * phone until saved; "Enregistrer" sends every changed mark in one transaction.
  * A dropped connection keeps everything on screen and on the phone ("Réessayer").
  */
-export function GradeSheet({ userId, classId, subjectId, periodId, canEdit, locked, scale, columns, students, marks }: Props) {
+export function GradeSheet({ userId, classId, subjectId, periodId, canEdit, locked, scale, columns, students, marks, averages }: Props) {
   const t = useTranslations("grades.sheet");
   const tErrors = useTranslations("grades.errors");
   const router = useRouter();
@@ -136,7 +138,11 @@ export function GradeSheet({ userId, classId, subjectId, periodId, canEdit, lock
   };
   const columnLabel = (c: SheetColumn, short: boolean) =>
     c.kind === "activities" ? t(short ? "activitiesShort" : "activities") : t(short ? "controlShort" : "control", { number: c.number });
-  const view = { students, columns, canEdit, cell, setCell, columnLabel };
+  const average = averages && ((studentId: string) => {
+    const v = averages[studentId];
+    return v === null || v === undefined ? "—" : formatAverage(v);
+  });
+  const view = { students, columns, canEdit, cell, setCell, columnLabel, average };
 
   return (
     <div className="flex flex-col gap-3">
@@ -167,6 +173,8 @@ export function GradeSheet({ userId, classId, subjectId, periodId, canEdit, lock
           </div>
         </>
       )}
+
+      {average && dirty && <p className="text-xs text-muted-foreground">{t("averageAfterSave")}</p>}
 
       {canEdit && dirty && (
         <div data-grade-savebar className="sticky bottom-0 z-20 flex flex-wrap items-center justify-between gap-3 rounded-lg border bg-card p-3 shadow-md">

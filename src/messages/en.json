@@ -92,7 +92,8 @@
     "remarks": "Remarks",
     "schoolSettings": "School",
     "grading": "Grade settings",
-    "gradeEntry": "Grade entry"
+    "gradeEntry": "Grade entry",
+    "averages": "Averages"
   },
   "shell": {
     "toggleSidebar": "Show or hide the sidebar",
@@ -3143,7 +3144,7 @@
     },
     "rules": {
       "description": "The grading scale and the number of tests per subject and semester, for each level.",
-      "defaultsNote": "Defaults: primary out of 10, otherwise out of 20; 4 tests; no integrated activities. \"Reset\" goes back to these values.",
+      "defaultsNote": "Defaults: primary out of 10, otherwise out of 20; 4 tests; no integrated activities; a missed test is left out; averages rounded to 2 decimals; ties share the rank. \"Reset\" goes back to these values.",
       "level": "Level",
       "scale": "Scale",
       "controls": "Tests",
@@ -3155,7 +3156,23 @@
       "resetDone": "{level}: defaults restored",
       "save": "Save",
       "saving": "Saving…",
-      "saved": "{level} saved"
+      "saved": "{level} saved",
+      "calc": {
+        "title": "How averages are computed",
+        "summaryLabel": "Averages:",
+        "activitiesWeight": "Integrated activities",
+        "activitiesWeightUnit": "test(s)",
+        "absent": "Missed test",
+        "absentSkip": "Missed test left out",
+        "absentZero": "Missed test counts as 0",
+        "rounding": "Rounding",
+        "round": "Rounded to 2 decimals",
+        "truncate": "Cut at 2 decimals",
+        "ranking": "Ties",
+        "shared": "Shared rank (1, 1, 3)",
+        "dense": "Next rank (1, 1, 2)",
+        "summaryActivities": "activities = {weight} test(s)"
+      }
     },
     "coefficients": {
       "description": "One row per subject, one column per level of the cycle (and per track when a level has some). Empty cell: subject not graded at that level; in a track, empty = the common core's value (in grey).",
@@ -3223,7 +3240,8 @@
       "coefficientExists": "This subject is already set here. Reload the page.",
       "pickLevels": "Choose at least one level.",
       "sourceNotEarlier": "Choose a year earlier than this one.",
-      "tooManyCells": "Too many changes at once (500 at most). Save in several steps."
+      "tooManyCells": "Too many changes at once (500 at most). Save in several steps.",
+      "activitiesWeightRange": "Between 0.5 and 5, one decimal at most."
     }
   },
   "grades": {
@@ -3259,7 +3277,8 @@
       "semester": "Semester {number}",
       "trimester": "Term {number}",
       "period": "Period {number}",
-      "locked": "locked"
+      "locked": "locked",
+      "year": "Year"
     },
     "sheet": {
       "pickControl": "Test to enter",
@@ -3284,7 +3303,10 @@
       "control": "Test {number}",
       "controlShort": "T{number}",
       "activities": "Integrated activities",
-      "activitiesShort": "Act."
+      "activitiesShort": "Act.",
+      "average": "Avg.",
+      "averageShort": "Avg.",
+      "averageAfterSave": "The average updates once saved."
     },
     "errors": {
       "generic": "Something went wrong. Try again.",
@@ -3300,6 +3322,28 @@
       "subjectNotGraded": "This subject is not graded at this level.",
       "notEnrolled": "A student is no longer in this class. Reload the page.",
       "invalidMark": "A grade is not valid."
+    },
+    "averagesLink": "Class averages",
+    "averages": {
+      "title": "Averages and ranks",
+      "description": "Each class's averages, subject by subject, semester by semester and for the year.",
+      "scale": "Averages out of {scale}",
+      "rank": "Rank",
+      "student": "Student",
+      "general": "Overall average",
+      "coefficient": "coef. {value}",
+      "tie": "tied",
+      "classAverage": "Class average",
+      "classMin": "Lowest",
+      "classMax": "Highest",
+      "noStudents": "No students in this class.",
+      "missingSubjects": "{count, plural, one {# subject without a grade} other {# subjects without a grade}}",
+      "missingSemesters": "{count, plural, one {# semester without an average} other {# semesters without an average}}",
+      "summary": "{ranked} of {total} students ranked",
+      "summaryMissing": "{count, plural, one {# student has a subject without a grade: it is left out of their overall average} other {# students have a subject without a grade: it is left out of their overall average}}",
+      "summaryMissingYear": "{count, plural, one {# student has no average for a semester: the year uses the others} other {# students have no average for a semester: the year uses the others}}",
+      "howSemester": "Subject average = average of its tests (and integrated activities), following the level's rules. Overall average = sum (average × coefficient) ÷ sum of the graded subjects' coefficients.",
+      "howYear": "Year average = average of the semesters, by each one's weight."
     }
   },
   "teacherHome": {

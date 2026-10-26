@@ -13,7 +13,7 @@ import type { SheetViewProps } from "./sheet-types";
  * Tablets and computers: the whole sheet, students in rows, contrôles in
  * columns. Enter = the same contrôle for the next student; "a" / "abs" = absent.
  */
-export function GridSheet({ students, columns, canEdit, cell, setCell, columnLabel }: SheetViewProps) {
+export function GridSheet({ students, columns, canEdit, cell, setCell, columnLabel, average }: SheetViewProps) {
   const t = useTranslations("grades.sheet");
   return (
     <Card className="gap-0 overflow-hidden py-0" data-grid-sheet>
@@ -30,6 +30,9 @@ export function GridSheet({ students, columns, canEdit, cell, setCell, columnLab
                   {c.extra && <span className="block font-normal">{t("extraColumn")}</span>}
                 </th>
               ))}
+              {average && (
+                <th scope="col" className="bg-muted/50 px-3 py-2 text-center text-xs font-semibold">{t("average")}</th>
+              )}
             </tr>
           </thead>
           <tbody className="divide-y">
@@ -66,6 +69,11 @@ export function GridSheet({ students, columns, canEdit, cell, setCell, columnLab
                     </td>
                   );
                 })}
+                {average && (
+                  <td data-sheet-average={s.id} className="bg-muted/50 px-3 py-1.5 text-center font-numeric font-semibold tabular-nums">
+                    {average(s.id)}
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>

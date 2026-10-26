@@ -65,8 +65,8 @@ export function TeacherPairPicker({ pairs, value, periodId }: {
   );
 }
 
-/** Staff (grades.manage / grades.view): year, class, subject. */
-export function StaffSheetPickers({ years, yearId, classes, classId, subjects, subjectId, periodId }: {
+/** Staff (grades.manage / grades.view): year, class, subject (the averages page: no subject). */
+export function StaffSheetPickers({ years, yearId, classes, classId, subjects, subjectId, periodId, basePath = "/grades" }: {
   years: { id: string; label: string; isCurrent: boolean }[];
   yearId: string;
   classes: Option[];
@@ -74,11 +74,12 @@ export function StaffSheetPickers({ years, yearId, classes, classId, subjects, s
   subjects: Option[];
   subjectId: string;
   periodId: string;
+  basePath?: string;
 }) {
   const t = useTranslations("grades.pickers");
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const go = (query: string) => startTransition(() => router.replace(`/grades?${query}`));
+  const go = (query: string) => startTransition(() => router.replace(`${basePath}?${query}`));
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
       <Picker

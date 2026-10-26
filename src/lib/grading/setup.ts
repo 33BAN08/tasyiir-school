@@ -39,6 +39,12 @@ export type LevelRules = {
   scale: 10 | 20;
   controlsCount: number;
   activities: boolean;
+  /** Activités intégrées count as that many contrôles. */
+  activitiesWeight: number;
+  /** An absent contrôle counts as 0 (else it is left out). */
+  absentAsZero: boolean;
+  rounding: "round" | "truncate";
+  ranking: "shared" | "dense";
   /** False = the defaults (no row for this level and year). */
   customised: boolean;
 };
@@ -55,6 +61,10 @@ export async function listLevelRules(yearId: string): Promise<Map<string, LevelR
         scale: r.scale === 10 ? 10 : 20,
         controlsCount: r.controls_count,
         activities: r.activities,
+        activitiesWeight: Number(r.activities_weight),
+        absentAsZero: r.absent_as_zero,
+        rounding: r.rounding === "truncate" ? "truncate" : "round",
+        ranking: r.ranking === "dense" ? "dense" : "shared",
         customised: r.customised,
       },
     ]),

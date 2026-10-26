@@ -1,4 +1,4 @@
-import { BookOpen, CircleAlert, GraduationCap, Lock, School } from "lucide-react";
+import { BookOpen, ChartNoAxesColumn, CircleAlert, GraduationCap, Lock, School } from "lucide-react";
 import { getLocale, getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 
@@ -12,6 +12,7 @@ import { homeFor } from "@/lib/auth/roles";
 import type { CurrentUser } from "@/lib/auth/session";
 import { ltr } from "@/lib/format";
 import { getGradeAccess } from "@/lib/grades/access";
+import { getClassAverages } from "@/lib/grades/averages";
 import { getGradeSheet, getSheetClass, listClassSubjects, listTeacherPairs, listYearPeriods, type SheetClass } from "@/lib/grades/sheet";
 import { listAcademicYears } from "@/lib/structure/academic-years";
 import { listClasses } from "@/lib/structure/classes";
@@ -94,7 +95,14 @@ export async function GradesContent({ user, params }: { user: CurrentUser; param
     ?? periods.find((x) => x.startDate <= clock.date && clock.date <= x.endDate)
     ?? periods[0];
 
-  const sheet = await getGradeSheet(schoolId, klass, subjectId, period.id);
+  const [sheet, averageRows] = await Promise.all([
+    getGradeSheet(schoolId, klass, subjectId, period.id),
+    // The sheet still opens if the averages cannot be read.
+    getClassAverages(klass.id).catch(() => null),
+  ]);
+  const averages = averageRows && Object.fromEntries(
+    averageRows.filter((r) => r.periodId === period.id && r.subjectId === subjectId).map((r) => [r.studentId, r.average]),
+  );
   const canEdit = access !== "view" && !period.locked && sheet.graded;
   const query = access === "teacher" ? `class=${klass.id}&subject=${subjectId}` : `year=${klass.yearId}&class=${klass.id}&subject=${subjectId}`;
   const controls = sheet.columns.filter((c) => c.kind === "control" && !c.extra).length;
@@ -106,6 +114,14 @@ export async function GradesContent({ user, params }: { user: CurrentUser; param
       {pickers}
       <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
         <PeriodSwitch periods={periods} active={period.id} query={query} />
+        {access !== "teacher" && (
+          <Button asChild variant="outline" size="sm">
+            <Link href={`/grades/averages?year=${klass.yearId}&class=${klass.id}&period=${period.id}`} data-averages-link>
+              <ChartNoAxesColumn aria-hidden />
+              {t("averagesLink")}
+            </Link>
+          </Button>
+        )}
         <p className="text-sm text-muted-foreground" data-sheet-rules>
           {t("rules", { scale: ltr(`/${sheet.scale}`), controls })}
           {hasActivities && ` · ${t("withActivities")}`}
@@ -136,6 +152,7 @@ export async function GradesContent({ user, params }: { user: CurrentUser; param
         columns={sheet.columns}
         students={sheet.students.map((s) => ({ id: s.id, name: studentName(s, locale), otherName: studentOtherName(s, locale) }))}
         marks={sheet.marks}
+        averages={sheet.graded ? averages : null}
       />
     </div>
   );

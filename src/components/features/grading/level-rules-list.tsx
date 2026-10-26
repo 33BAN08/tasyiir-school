@@ -17,6 +17,7 @@ import type { LevelRules } from "@/lib/grading/setup";
 import { resetLevelRules, saveLevelRules } from "@/lib/grading/rules-actions";
 import { ltr } from "@/lib/format";
 
+import { calcValuesOf, LevelCalcFields, LevelCalcSummary, sameCalc, type CalcValues } from "./level-calc-fields";
 import { useGradingError } from "./use-grading-error";
 
 export type RulesGroup = { cycle: string; cycleLabel: string; levels: { id: string; name: string; rules: LevelRules }[] };
@@ -70,14 +71,25 @@ function LevelRuleRow({
   const [scale, setScale] = useState<10 | 20>(initial.scale);
   const [controls, setControls] = useState(String(initial.controlsCount));
   const [activities, setActivities] = useState(initial.activities);
+  const [calc, setCalc] = useState<CalcValues>(calcValuesOf(initial));
   const [error, setError] = useState<string | null>(null);
-  const dirty = scale !== initial.scale || controls.trim() !== String(initial.controlsCount) || activities !== initial.activities;
+  const dirty = scale !== initial.scale || controls.trim() !== String(initial.controlsCount) || activities !== initial.activities
+    || !sameCalc(calc, calcValuesOf(initial));
   const ids = { scale: `scale-${level.id}`, controls: `controls-${level.id}`, activities: `activities-${level.id}` };
 
   function save() {
     setError(null);
     startTransition(async () => {
-      const result = await saveLevelRules(yearId, level.id, { scale, controlsCount: controls, activities });
+      const result = await saveLevelRules(yearId, level.id, {
+        scale,
+        controlsCount: controls,
+        activities,
+        // Without activités their weight is not shown: keep the saved one.
+        activitiesWeight: activities ? calc.activitiesWeight : initial.activitiesWeight,
+        absentAsZero: calc.absentAsZero,
+        rounding: calc.rounding,
+        ranking: calc.ranking,
+      });
       if (!result.ok) {
         if (result.field) setError(translateError(result.error));
         else toast.error(translateError(result.error));
@@ -161,6 +173,7 @@ function LevelRuleRow({
               {isPending ? t("saving") : t("save")}
             </Button>
           </div>
+          <LevelCalcFields levelId={level.id} values={calc} onChange={setCalc} activities={activities} disabled={isPending} />
           {error && <p className="text-sm text-destructive md:col-span-5">{error}</p>}
         </>
       ) : (
@@ -171,6 +184,7 @@ function LevelRuleRow({
           </ReadOnlyValue>
           <ReadOnlyValue label={t("activities")}>{initial.activities ? t("yes") : t("no")}</ReadOnlyValue>
           <span />
+          <LevelCalcSummary rules={initial} />
         </>
       )}
     </li>

@@ -14,7 +14,7 @@ import type { SheetViewProps } from "./sheet-types";
  * (with how many marks it has), then one big row per student: the mark (number
  * keyboard, "Suivant" = next student) and an "Abs" toggle.
  */
-export function PhoneSheet({ students, columns, canEdit, cell, setCell, columnLabel }: SheetViewProps) {
+export function PhoneSheet({ students, columns, canEdit, cell, setCell, columnLabel, average }: SheetViewProps) {
   const t = useTranslations("grades.sheet");
   const [active, setActive] = useState(0);
   const column = columns[Math.min(active, columns.length - 1)];
@@ -58,6 +58,11 @@ export function PhoneSheet({ students, columns, canEdit, cell, setCell, columnLa
               <div className="flex min-w-0 flex-1 flex-col">
                 <span className="truncate font-medium" dir="auto">{s.name}</span>
                 {s.otherName && <span className="truncate text-xs text-muted-foreground" dir="auto">{s.otherName}</span>}
+                {average && (
+                  <span data-sheet-average={s.id} className="text-xs text-muted-foreground">
+                    {t("averageShort")} <span className="font-numeric tabular-nums">{average(s.id)}</span>
+                  </span>
+                )}
               </div>
               {editable ? (
                 <>

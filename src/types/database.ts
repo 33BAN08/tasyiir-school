@@ -663,30 +663,42 @@ export type Database = {
       }
       grade_level_settings: {
         Row: {
+          absent_as_zero: boolean
           academic_year_id: string
           activities: boolean
+          activities_weight: number
           controls_count: number
           level_id: string
+          ranking: string
+          rounding: string
           scale: number
           school_id: string
           updated_at: string
           updated_by: string | null
         }
         Insert: {
+          absent_as_zero?: boolean
           academic_year_id: string
           activities?: boolean
+          activities_weight?: number
           controls_count?: number
           level_id: string
+          ranking?: string
+          rounding?: string
           scale: number
           school_id: string
           updated_at?: string
           updated_by?: string | null
         }
         Update: {
+          absent_as_zero?: boolean
           academic_year_id?: string
           activities?: boolean
+          activities_weight?: number
           controls_count?: number
           level_id?: string
+          ranking?: string
+          rounding?: string
           scale?: number
           school_id?: string
           updated_at?: string
@@ -2428,6 +2440,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      class_averages: {
+        Args: { p_class: string }
+        Returns: {
+          absences: number
+          average: number
+          class_average: number
+          class_max: number
+          class_min: number
+          coefficient: number
+          marks: number
+          missing: number
+          period_id: string
+          rank: number
+          ranked: number
+          student_id: string
+          subject_id: string
+        }[]
+      }
       copy_class_lessons: {
         Args: { p_apply?: boolean; p_from_class: string; p_to_class: string }
         Returns: {
@@ -2478,10 +2508,14 @@ export type Database = {
       grade_level_rules: {
         Args: { p_year: string }
         Returns: {
+          absent_as_zero: boolean
           activities: boolean
+          activities_weight: number
           controls_count: number
           customised: boolean
           level_id: string
+          ranking: string
+          rounding: string
           scale: number
         }[]
       }

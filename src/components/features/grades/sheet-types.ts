@@ -19,4 +19,6 @@ export type SheetViewProps = {
   cell: (studentId: string, column: SheetColumn) => CellView;
   setCell: (studentId: string, column: SheetColumn, text: string) => void;
   columnLabel: (column: SheetColumn, short: boolean) => string;
+  /** The SAVED subject average of the semester (class_averages()), "—" when none; null = no column. */
+  average: ((studentId: string) => string) | null;
 };

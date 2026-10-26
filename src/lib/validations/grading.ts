@@ -28,10 +28,27 @@ export const periodSchema = z
   });
 export type PeriodFormValues = z.input<typeof periodSchema>;
 
+export const ROUNDING_MODES = ["round", "truncate"] as const;
+export const RANKING_MODES = ["shared", "dense"] as const;
+
+/** Activités intégrées worth that many contrôles in the subject average (0.5, 1, 1,5 … 5). */
+const activitiesWeight = z
+  .union([z.string(), z.number()], { error: "activitiesWeightRange" })
+  .transform((v) => (typeof v === "string" ? Number(v.trim().replace(",", ".")) : v))
+  .pipe(z.number({ error: "activitiesWeightRange" }).refine(
+    (n) => Number.isFinite(n) && n > 0 && n <= 5 && Math.abs(Math.round(n * 10) - n * 10) < 1e-6,
+    { error: "activitiesWeightRange" },
+  ));
+
+/** The calculation fields are optional: left out = unchanged (a new row takes the defaults). */
 export const levelRulesSchema = z.object({
   scale: z.union([z.literal(10), z.literal(20)], { error: "scaleInvalid" }),
   controlsCount: whole(1, 10, "controlsRange"),
   activities: z.boolean(),
+  activitiesWeight: activitiesWeight.optional(),
+  absentAsZero: z.boolean().optional(),
+  rounding: z.enum(ROUNDING_MODES, { error: "generic" }).optional(),
+  ranking: z.enum(RANKING_MODES, { error: "generic" }).optional(),
 });
 export type LevelRulesValues = z.input<typeof levelRulesSchema>;
 

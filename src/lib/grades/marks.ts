@@ -29,6 +29,10 @@ export function parseMark(text: string, scale: number): Mark {
 /** 14.5 → "14,5" (same digits and comma in every language, like the rest of the app). */
 export const formatMark = (value: number) => value.toLocaleString("fr-FR", { maximumFractionDigits: 2 });
 
+/** An average, always with 2 decimals: 15.5 → "15,50" (same digits in every language). */
+export const formatAverage = (value: number) =>
+  value.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
 /** The text a saved grade shows in its cell. */
 export const gradeText = (g: { score: number | null; absent: boolean }) =>
   g.absent ? ABSENT_TEXT : g.score === null ? "" : formatMark(g.score);

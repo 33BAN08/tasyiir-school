@@ -92,7 +92,8 @@
     "remarks": "Remarques",
     "schoolSettings": "Établissement",
     "grading": "Réglages des notes",
-    "gradeEntry": "Saisie des notes"
+    "gradeEntry": "Saisie des notes",
+    "averages": "Moyennes"
   },
   "shell": {
     "toggleSidebar": "Afficher ou masquer le menu latéral",
@@ -3143,7 +3144,7 @@
     },
     "rules": {
       "description": "Le barème et le nombre de contrôles par matière et par semestre, pour chaque niveau.",
-      "defaultsNote": "Par défaut : primaire sur 10, sinon sur 20 ; 4 contrôles ; sans activités intégrées. « Rétablir » revient à ces valeurs.",
+      "defaultsNote": "Par défaut : primaire sur 10, sinon sur 20 ; 4 contrôles ; sans activités intégrées ; un contrôle absent n'est pas compté ; moyennes arrondies à 2 décimales ; les ex æquo partagent le rang. « Rétablir » revient à ces valeurs.",
       "level": "Niveau",
       "scale": "Barème",
       "controls": "Contrôles",
@@ -3155,7 +3156,23 @@
       "resetDone": "{level} : valeurs par défaut rétablies",
       "save": "Enregistrer",
       "saving": "Enregistrement…",
-      "saved": "{level} enregistré"
+      "saved": "{level} enregistré",
+      "calc": {
+        "title": "Calcul des moyennes",
+        "summaryLabel": "Calcul des moyennes :",
+        "activitiesWeight": "Activités intégrées",
+        "activitiesWeightUnit": "contrôle(s)",
+        "absent": "Contrôle absent",
+        "absentSkip": "Absent non compté",
+        "absentZero": "Absent compté 0",
+        "rounding": "Arrondi",
+        "round": "Arrondi à 2 décimales",
+        "truncate": "Tronqué à 2 décimales",
+        "ranking": "Ex æquo",
+        "shared": "Rang partagé (1, 1, 3)",
+        "dense": "Rang suivant (1, 1, 2)",
+        "summaryActivities": "activités = {weight} contrôle(s)"
+      }
     },
     "coefficients": {
       "description": "Une ligne par matière, une colonne par niveau du cycle (et par filière quand un niveau en a). Case vide : matière non notée à ce niveau ; dans une filière, case vide = valeur du tronc commun (en gris).",
@@ -3223,7 +3240,8 @@
       "coefficientExists": "Cette matière est déjà réglée ici. Rechargez la page.",
       "pickLevels": "Choisissez au moins un niveau.",
       "sourceNotEarlier": "Choisissez une année plus ancienne que celle-ci.",
-      "tooManyCells": "Trop de changements à la fois (500 au plus). Enregistrez en plusieurs fois."
+      "tooManyCells": "Trop de changements à la fois (500 au plus). Enregistrez en plusieurs fois.",
+      "activitiesWeightRange": "Entre 0,5 et 5, une décimale au plus."
     }
   },
   "grades": {
@@ -3259,7 +3277,8 @@
       "semester": "Semestre {number}",
       "trimester": "Trimestre {number}",
       "period": "Période {number}",
-      "locked": "verrouillé"
+      "locked": "verrouillé",
+      "year": "Année"
     },
     "sheet": {
       "pickControl": "Contrôle à saisir",
@@ -3284,7 +3303,10 @@
       "control": "Contrôle {number}",
       "controlShort": "C{number}",
       "activities": "Activités intégrées",
-      "activitiesShort": "Act."
+      "activitiesShort": "Act.",
+      "average": "Moy.",
+      "averageShort": "Moy.",
+      "averageAfterSave": "La moyenne se met à jour après l'enregistrement."
     },
     "errors": {
       "generic": "Une erreur est survenue. Réessayez.",
@@ -3300,6 +3322,28 @@
       "subjectNotGraded": "Cette matière n'est pas notée à ce niveau.",
       "notEnrolled": "Un élève n'est plus inscrit dans cette classe. Rechargez la page.",
       "invalidMark": "Une note n'est pas valide."
+    },
+    "averagesLink": "Moyennes de la classe",
+    "averages": {
+      "title": "Moyennes et rangs",
+      "description": "Les moyennes de chaque classe, matière par matière, semestre par semestre et pour l'année.",
+      "scale": "Moyennes sur {scale}",
+      "rank": "Rang",
+      "student": "Élève",
+      "general": "Moyenne générale",
+      "coefficient": "coef. {value}",
+      "tie": "ex æquo",
+      "classAverage": "Moyenne de la classe",
+      "classMin": "Plus basse",
+      "classMax": "Plus haute",
+      "noStudents": "Aucun élève dans cette classe.",
+      "missingSubjects": "{count, plural, one {# matière sans note} other {# matières sans note}}",
+      "missingSemesters": "{count, plural, one {# semestre sans moyenne} other {# semestres sans moyenne}}",
+      "summary": "{ranked} élèves classés sur {total}",
+      "summaryMissing": "{count, plural, one {# élève a une matière sans note : elle est laissée hors de sa moyenne générale} other {# élèves ont une matière sans note : elle est laissée hors de leur moyenne générale}}",
+      "summaryMissingYear": "{count, plural, one {# élève n'a pas de moyenne pour un semestre : l'année se calcule sur les autres} other {# élèves n'ont pas de moyenne pour un semestre : l'année se calcule sur les autres}}",
+      "howSemester": "Moyenne d'une matière = moyenne de ses contrôles (et des activités intégrées), selon les règles du niveau. Moyenne générale = somme (moyenne × coefficient) ÷ somme des coefficients des matières notées.",
+      "howYear": "Moyenne de l'année = moyenne des semestres, selon le poids de chacun."
     }
   },
   "teacherHome": {

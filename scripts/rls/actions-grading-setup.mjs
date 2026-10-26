@@ -116,6 +116,25 @@ export async function gradingSetupActions({ fx, baseUrl }) {
     call("dirA", "saveLevelRules", cur, l1, { scale: 10, controlsCount: 2, activities: false }), "ok");
   const after = await rules();
   check(label("…still one row, new values"), after.length === 1 && after[0].scale === 10 && after[0].controls_count === 2);
+  await expect("director sets how averages are computed (activités 1,5, absent = 0, truncated, dense)",
+    call("dirA", "saveLevelRules", cur, l1, { scale: 20, controlsCount: 3, activities: true, activitiesWeight: "1,5", absentAsZero: true, rounding: "truncate", ranking: "dense" }), "ok");
+  row = (await admin.from("grade_level_settings").select("activities_weight, absent_as_zero, rounding, ranking").eq("academic_year_id", cur).eq("level_id", l1).single()).data;
+  check(label("…stored"), Number(row?.activities_weight) === 1.5 && row?.absent_as_zero === true && row?.rounding === "truncate" && row?.ranking === "dense", JSON.stringify(row));
+  await expect("saving without the calculation fields keeps them",
+    call("dirA", "saveLevelRules", cur, l1, { scale: 20, controlsCount: 3, activities: true }), "ok");
+  row = (await admin.from("grade_level_settings").select("activities_weight, rounding").eq("academic_year_id", cur).eq("level_id", l1).single()).data;
+  check(label("…still 1,5 and truncated"), Number(row?.activities_weight) === 1.5 && row?.rounding === "truncate", JSON.stringify(row));
+  await expect("activités weight 0 → activitiesWeightRange",
+    call("dirA", "saveLevelRules", cur, l1, { scale: 20, controlsCount: 3, activities: true, activitiesWeight: "0" }), "activitiesWeightRange", "activitiesWeight");
+  await expect("activités weight 1,25 (2 decimals) → activitiesWeightRange",
+    call("dirA", "saveLevelRules", cur, l1, { scale: 20, controlsCount: 3, activities: true, activitiesWeight: "1,25" }), "activitiesWeightRange", "activitiesWeight");
+  const { ok: badRounding } = await call("dirA", "saveLevelRules", cur, l1, { scale: 20, controlsCount: 3, activities: true, rounding: "ceil" });
+  check(label("an unknown rounding is refused"), !badRounding);
+  const calcPage = await page("dirA", `?year=${cur}&section=rules`);
+  check(label("director gets the calculation fields"), calcPage.html.includes(`data-level-calc="${l1}"`) && calcPage.html.includes(`id="rounding-${l1}"`));
+  const calcRead = await page("survA", `?year=${cur}&section=rules`);
+  check(label("surveillant reads them as one line, no field"), calcRead.html.includes("data-level-calc-summary") && !calcRead.html.includes(`id="rounding-${l1}"`));
+  await expect("back to /10, 2 contrôles", call("dirA", "saveLevelRules", cur, l1, { scale: 10, controlsCount: 2, activities: false }), "ok");
   await expect("11 contrôles → controlsRange",
     call("dirA", "saveLevelRules", cur, l1, { scale: 20, controlsCount: "11", activities: false }), "controlsRange", "controlsCount");
   await expect("scale 15 → scaleInvalid",
