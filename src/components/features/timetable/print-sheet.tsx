@@ -92,7 +92,7 @@ export function PrintSheet({ school, view, name, yearLabel, days, slots, lessons
                 }
                 const lesson = lessonBySlot.get(slot.id);
                 return (
-                  <td key={day} className="border px-2 py-1 align-middle">
+                  <td key={day} className="border px-2 py-1 align-middle" data-print-lesson={lesson?.id}>
                     {lesson && <LessonCard lesson={lesson} details={details} />}
                   </td>
                 );

@@ -1,5 +1,6 @@
 import "server-only";
 
+import { readAll } from "@/lib/supabase/read-all";
 import { createClient } from "@/lib/supabase/server";
 import type { Database } from "@/types/database";
 
@@ -30,18 +31,15 @@ export type AverageRow = {
 
 const num = (v: number | string | null) => (v === null ? null : Number(v));
 
-/** The API returns at most this many rows per call: read in pages, in a fixed order. */
-const PAGE = 1000;
-
 /**
  * `periodId`: undefined = every row; a semester id = only that semester's rows;
  * null = only the year's rows. A big class has more rows than one API call
- * returns (40 students × 3 × 13 = 1560), so this reads page by page.
+ * returns (40 students × 3 × 13 = 1560): read page by page (readAll), sorted
+ * on (student, period, subject), unique per row.
  */
 export async function getClassAverages(classId: string, periodId?: string | null): Promise<AverageRow[]> {
   const supabase = await createClient();
-  const data: ClassAveragesRow[] = [];
-  function readPage(from: number) {
+  const data = await readAll<ClassAveragesRow>((from, to) => {
     let query = supabase.rpc("class_averages", { p_class: classId });
     if (periodId === null) query = query.is("period_id", null);
     else if (periodId) query = query.eq("period_id", periodId);
@@ -49,14 +47,8 @@ export async function getClassAverages(classId: string, periodId?: string | null
       .order("student_id")
       .order("period_id", { nullsFirst: true })
       .order("subject_id", { nullsFirst: true })
-      .range(from, from + PAGE - 1);
-  }
-  for (let from = 0; ; from += PAGE) {
-    const page = await readPage(from);
-    if (page.error) throw new Error("getClassAverages failed");
-    data.push(...page.data);
-    if (page.data.length < PAGE) break;
-  }
+      .range(from, to);
+  }, "getClassAverages");
   // The generated types call every column non-null; NULL means "the year" / "general" / "no average".
   return data.map((r) => ({
     studentId: r.student_id,

@@ -84,6 +84,7 @@ import { averagesActions } from "./actions-averages.mjs";
 import { publishActions } from "./actions-publish.mjs";
 import { reportPrintActions } from "./actions-report-print.mjs";
 import { gradeGapsActions } from "./actions-grade-gaps.mjs";
+import { pagedReadsActions } from "./actions-paged-reads.mjs";
 import { phase6Lessons } from "./phase6-lessons.mjs";
 import { lessonBlockActions } from "./actions-lesson-blocks.mjs";
 import { lessonCopyActions } from "./actions-lesson-copy.mjs";
@@ -165,6 +166,7 @@ try {
   await import("./rules-timetable-now.mjs");
   await import("./rules-test-guard.mjs");
   await import("./rules-seed-demo.mjs");
+  await import("./rules-paged-reads.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });
     await roleActions({ fx, baseUrl });
@@ -208,6 +210,7 @@ try {
     await publishActions({ fx, baseUrl });
     await reportPrintActions({ fx, baseUrl });
     await gradeGapsActions({ fx, baseUrl });
+    await pagedReadsActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

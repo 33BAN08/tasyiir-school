@@ -107,7 +107,7 @@ export default async function PortalAbsencesPage({ searchParams }: PageProps<"/[
       <dl className="grid grid-cols-2 gap-3">
         <div className="rounded-lg border p-3">
           <dt className="text-sm text-muted-foreground">{t("absences")}</dt>
-          <dd className={cn("text-lg font-semibold tabular-nums", absences.length > 0 && "text-danger")}>
+          <dd className={cn("text-lg font-semibold tabular-nums", absences.length > 0 && "text-danger")} data-child-absences={absences.length}>
             {absences.length > 0 ? t("absenceCount", { count: absences.length }) : t("none")}
           </dd>
           {unjustified > 0 && <dd className="text-sm text-muted-foreground">{t("unjustified", { count: unjustified })}</dd>}

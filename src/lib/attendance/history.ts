@@ -3,6 +3,7 @@ import "server-only";
 import type { SubjectColor } from "@/lib/structure/subject-template";
 import { shortTime } from "@/lib/structure/time-slot-template";
 import type { StudentNames } from "@/lib/students/names";
+import { readAll } from "@/lib/supabase/read-all";
 import { createClient } from "@/lib/supabase/server";
 import { slotMinutes } from "@/lib/timetable/hours";
 
@@ -71,15 +72,21 @@ export async function getStudentAttendance(
   to: string,
 ): Promise<{ totals: AttendanceTotals; marks: HistoryMark[] }> {
   const supabase = await createClient();
-  const { data, error } = await supabase
-    .from("attendance_marks")
-    .select(MARK_FIELDS)
-    .eq("school_id", schoolId)
-    .eq("student_id", studentId)
-    .gte("session.session_date", from)
-    .lte("session.session_date", to)
-    .overrideTypes<MarkRow[], { merge: false }>();
-  if (error) throw new Error("getStudentAttendance failed");
+  const data = await readAll(
+    (rangeFrom, rangeTo) =>
+      supabase
+        .from("attendance_marks")
+        .select(MARK_FIELDS)
+        .eq("school_id", schoolId)
+        .eq("student_id", studentId)
+        .gte("session.session_date", from)
+        .lte("session.session_date", to)
+        .order("session_id")
+        .order("student_id")
+        .range(rangeFrom, rangeTo)
+        .overrideTypes<MarkRow[], { merge: false }>(),
+    "getStudentAttendance",
+  );
 
   const totals = emptyTotals();
   for (const row of data) add(totals, row);
@@ -118,16 +125,24 @@ export async function getClassTotals(
       .eq("school_id", schoolId)
       .eq("class_id", classId)
       .eq("academic_year_id", yearId),
-    supabase
-      .from("attendance_marks")
-      .select(MARK_FIELDS)
-      .eq("school_id", schoolId)
-      .eq("session.class_id", classId)
-      .gte("session.session_date", from)
-      .lte("session.session_date", to)
-      .overrideTypes<MarkRow[], { merge: false }>(),
+    // A class's year is ~2000 marks by spring: paged, in the marks' key order (session, student).
+    readAll(
+      (rangeFrom, rangeTo) =>
+        supabase
+          .from("attendance_marks")
+          .select(MARK_FIELDS)
+          .eq("school_id", schoolId)
+          .eq("session.class_id", classId)
+          .gte("session.session_date", from)
+          .lte("session.session_date", to)
+          .order("session_id")
+          .order("student_id")
+          .range(rangeFrom, rangeTo)
+          .overrideTypes<MarkRow[], { merge: false }>(),
+      "getClassTotals",
+    ),
   ]);
-  if (enrolled.error || marks.error) throw new Error("getClassTotals failed");
+  if (enrolled.error) throw new Error("getClassTotals failed");
 
   const rows = new Map<string, ClassTotalsRow>();
   for (const e of enrolled.data) {
@@ -142,7 +157,7 @@ export async function getClassTotals(
       totals: emptyTotals(),
     });
   }
-  for (const m of marks.data) {
+  for (const m of marks) {
     const row = rows.get(m.student_id);
     if (row) add(row.totals, m);
   }

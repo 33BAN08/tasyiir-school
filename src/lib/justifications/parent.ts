@@ -3,6 +3,7 @@ import "server-only";
 import type { MarkStatus } from "@/lib/attendance/types";
 import type { SubjectColor } from "@/lib/structure/subject-template";
 import { shortTime } from "@/lib/structure/time-slot-template";
+import { readAll } from "@/lib/supabase/read-all";
 import { createClient } from "@/lib/supabase/server";
 
 import { absenceState, type CoverageJustification, type JustificationState } from "./coverage";
@@ -65,16 +66,24 @@ export async function getChildAbsences(
 ): Promise<{ marks: ChildMark[]; justifications: ChildJustification[] }> {
   const supabase = await createClient();
   const [marks, justifications] = await Promise.all([
-    supabase
-      .from("attendance_marks")
-      .select(
-        "session_id, status, minutes_late, session:attendance_sessions!inner(session_date, start_time, end_time, subject:subjects(name, color))",
-      )
-      .eq("school_id", schoolId)
-      .eq("student_id", studentId)
-      .gte("session.session_date", from)
-      .lte("session.session_date", to)
-      .overrideTypes<MarkRow[], { merge: false }>(),
+    // Paged in the marks' key order (session, student) like every attendance read.
+    readAll(
+      (rangeFrom, rangeTo) =>
+        supabase
+          .from("attendance_marks")
+          .select(
+            "session_id, status, minutes_late, session:attendance_sessions!inner(session_date, start_time, end_time, subject:subjects(name, color))",
+          )
+          .eq("school_id", schoolId)
+          .eq("student_id", studentId)
+          .gte("session.session_date", from)
+          .lte("session.session_date", to)
+          .order("session_id")
+          .order("student_id")
+          .range(rangeFrom, rangeTo)
+          .overrideTypes<MarkRow[], { merge: false }>(),
+      "getChildAbsences",
+    ),
     supabase
       .from("justifications")
       .select("id, kind, status, from_date, to_date, session_id, reason, file_path, review_note, submitted_at")
@@ -83,7 +92,7 @@ export async function getChildAbsences(
       .order("submitted_at", { ascending: false })
       .overrideTypes<JustificationRow[], { merge: false }>(),
   ]);
-  if (marks.error || justifications.error) throw new Error("getChildAbsences failed");
+  if (justifications.error) throw new Error("getChildAbsences failed");
 
   const list: ChildJustification[] = justifications.data.map((j) => ({
     id: j.id,
@@ -98,7 +107,7 @@ export async function getChildAbsences(
     submittedAt: j.submitted_at,
   }));
 
-  const rows = marks.data
+  const rows = marks
     .flatMap((m) => (m.session ? [{ m, s: m.session }] : []))
     .map(({ m, s }): ChildMark => {
       const date = s.session_date;

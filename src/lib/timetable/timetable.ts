@@ -3,6 +3,7 @@ import "server-only";
 import { listClasses } from "@/lib/structure/classes";
 import { listRooms } from "@/lib/structure/rooms";
 import { listSubjects } from "@/lib/structure/subjects";
+import { readAll } from "@/lib/supabase/read-all";
 import { createClient } from "@/lib/supabase/server";
 
 import type { TimetableLesson, TimetableOption, TimetableSubject, TimetableTeacher } from "./types";
@@ -24,11 +25,18 @@ export type YearTimetable = {
 export async function getYearTimetable(schoolId: string, academicYearId: string): Promise<YearTimetable> {
   const supabase = await createClient();
   const [lessons, teachers, teacherSubjects, classes, subjects, rooms] = await Promise.all([
-    supabase
-      .from("lessons")
-      .select("id, time_slot_id, class_id, subject_id, teacher_id, room_id")
-      .eq("school_id", schoolId)
-      .eq("academic_year_id", academicYearId),
+    // A large school has more lessons than one API call returns (40 classes × 30): paged, by id.
+    readAll(
+      (from, to) =>
+        supabase
+          .from("lessons")
+          .select("id, time_slot_id, class_id, subject_id, teacher_id, room_id")
+          .eq("school_id", schoolId)
+          .eq("academic_year_id", academicYearId)
+          .order("id")
+          .range(from, to),
+      "getYearTimetable",
+    ),
     supabase.rpc("timetable_teachers", { p_year: academicYearId }),
     // Readable with timetable.manage; empty otherwise (only needed to add lessons).
     supabase.from("teacher_subjects").select("teacher_id, subject_id").eq("school_id", schoolId),
@@ -36,7 +44,7 @@ export async function getYearTimetable(schoolId: string, academicYearId: string)
     listSubjects(schoolId),
     listRooms(schoolId),
   ]);
-  if (lessons.error || teachers.error || teacherSubjects.error) throw new Error("getYearTimetable failed");
+  if (teachers.error || teacherSubjects.error) throw new Error("getYearTimetable failed");
 
   const subjectsOf = new Map<string, string[]>();
   for (const row of teacherSubjects.data) {
@@ -56,7 +64,7 @@ export async function getYearTimetable(schoolId: string, academicYearId: string)
   const teacherById = byId(teacherList);
 
   return {
-    lessons: lessons.data.map((row) => {
+    lessons: lessons.map((row) => {
       const subject = subjectById.get(row.subject_id);
       return {
         id: row.id,

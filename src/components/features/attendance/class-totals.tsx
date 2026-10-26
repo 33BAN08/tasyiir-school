@@ -66,7 +66,7 @@ export async function ClassTotals({ rows, classId, period, from, to }: Props) {
                   const { absences, absentMinutes, lates, lateMinutes } = row.totals;
                   const none = absences === 0 && lates === 0;
                   return (
-                    <tr key={row.studentId} className={cn("border-b last:border-0", none && "text-muted-foreground")}>
+                    <tr key={row.studentId} className={cn("border-b last:border-0", none && "text-muted-foreground")} data-totals-student={row.studentId} data-absences={absences} data-lates={lates}>
                       <td className="px-4 py-2">
                         <Link href={`/students/${row.studentId}`} className="font-medium underline-offset-4 hover:underline">
                           <bdi>{studentName(row, locale)}</bdi>

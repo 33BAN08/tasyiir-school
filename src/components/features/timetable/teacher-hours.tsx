@@ -45,7 +45,7 @@ export function TeacherHours({ yearId, teachers, lessons, slots, currentId }: Pr
         </TableHeader>
         <TableBody>
           {rows.map(({ teacher, minutes, classes }) => (
-            <TableRow key={teacher.id} className={cn(teacher.id === currentId && "bg-muted/50")}>
+            <TableRow key={teacher.id} className={cn(teacher.id === currentId && "bg-muted/50")} data-teacher-hours={teacher.id} data-minutes={minutes}>
               <TableCell>
                 <Link
                   href={{ pathname: "/timetable", query: { year: yearId, view: "teacher", teacher: teacher.id } }}

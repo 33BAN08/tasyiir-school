@@ -47,7 +47,7 @@ export async function StudentAttendanceCard({ schoolId, studentId }: Props) {
         <dl className="grid grid-cols-2 gap-3">
           <div className="rounded-lg border p-3">
             <dt className="text-sm text-muted-foreground">{t("absences")}</dt>
-            <dd className={cn("text-lg font-semibold tabular-nums", totals.absences > 0 && "text-danger")}>
+            <dd className={cn("text-lg font-semibold tabular-nums", totals.absences > 0 && "text-danger")} data-student-absences={totals.absences}>
               {totals.absences > 0
                 ? t("absenceValue", { count: totals.absences, duration: tTimetable("duration", durationParts(totals.absentMinutes)) })
                 : t("none")}
