@@ -180,7 +180,53 @@
     "portalTitle": "Accueil",
     "driverTitle": "Accueil",
     "welcome": "Bonjour, {name}",
-    "comingSoon": "Les statistiques et les modules apparaîtront ici au fil des prochaines phases."
+    "comingSoon": "Les statistiques et les modules apparaîtront ici au fil des prochaines phases.",
+    "subtitle": "Aujourd'hui, {date}",
+    "asOf": "Données du {date} à {time} (heure de l'établissement).",
+    "tiles": {
+      "absent": "Absents aujourd'hui",
+      "absentSessions": "{count, plural, =0 {aucune séance manquée} one {# séance manquée} other {# séances manquées}}",
+      "late": "Retards aujourd'hui",
+      "rollCalls": "Appels en retard",
+      "rollCallsOf": "{count, plural, =0 {aucune séance aujourd'hui} one {sur # séance aujourd'hui} other {sur # séances aujourd'hui}}",
+      "justifications": "Justificatifs à traiter"
+    },
+    "waiting": {
+      "title": "Appels en attente",
+      "none": "Tous les appels commencés depuis 15 minutes sont faits.",
+      "noLessons": "Aucune séance aujourd'hui.",
+      "more": "{count, plural, one {et # autre séance} other {et # autres séances}}"
+    },
+    "week": {
+      "title": "Cette semaine",
+      "absences": "Absences",
+      "lates": "Retards",
+      "note": "Du lundi à aujourd'hui, comparé aux mêmes jours de la semaine dernière.",
+      "change": "{change} % (semaine dernière : {before})",
+      "noBase": "semaine dernière : {before}"
+    },
+    "top": {
+      "title": "Classes les plus absentes · 30 jours",
+      "none": "Aucune absence ces 30 derniers jours."
+    },
+    "progress": {
+      "title": "Saisie des notes · {period}",
+      "all": "Moyennes",
+      "none": "Aucune classe notée pour l'instant (coefficients à régler)."
+    },
+    "publications": {
+      "title": "Publication aux parents",
+      "notLocked": "Semestre en cours, pas encore verrouillé : rien à publier pour l'instant.",
+      "allPublished": "Toutes les classes sont publiées.",
+      "lockedNotPublished": "verrouillé, non publié",
+      "published": "{count, plural, =0 {Aucune classe publiée} one {# classe publiée} other {# classes publiées}}"
+    },
+    "counts": {
+      "title": "L'établissement",
+      "students": "élèves",
+      "classes": "classes",
+      "teachers": "enseignants"
+    }
   },
   "pagination": {
     "label": "Pagination",

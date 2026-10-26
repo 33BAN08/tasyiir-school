@@ -2662,6 +2662,15 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      attendance_summary: {
+        Args: { p_from: string; p_to: string }
+        Returns: {
+          absent_marks: number
+          absent_students: number
+          class_id: string
+          late_marks: number
+        }[]
+      }
       class_averages: {
         Args: { p_class: string }
         Returns: {
@@ -2726,6 +2735,15 @@ export type Database = {
           p_title: string
         }
         Returns: string
+      }
+      grade_entry_progress: {
+        Args: { p_period: string }
+        Returns: {
+          class_id: string
+          entered: number
+          expected: number
+          students: number
+        }[]
       }
       grade_level_rules: {
         Args: { p_year: string }

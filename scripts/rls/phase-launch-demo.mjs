@@ -34,6 +34,8 @@ const FILLED = [
   "academic_years", "school_days", "time_slots", "levels", "rooms", "classes", "subjects", "teacher_subjects", "lessons",
   "students", "student_enrollments", "guardians", "student_guardians", "student_remarks", "announcements",
   "announcement_targets", "notifications", "grading_periods",
+  // demo_grades (2026-10-26): rules, coefficients, 1AC-A's marks.
+  "grade_level_settings", "subject_coefficients", "grades",
 ];
 /** Filled from the roll calls of the last weeks: none in the first days of a school year. */
 const FILLED_FROM_HISTORY = ["attendance_sessions", "attendance_marks", "absence_notices", "justifications"];
@@ -261,6 +263,39 @@ export async function phaseLaunchDemo({ fx, as }) {
   } else {
     skip(label("one justification approved, one pending"), "fewer than 8 school days in this school year");
   }
+
+  // --- Grades (private.demo_fill_grades): 1AC-A's fictional marks, gaps on purpose ---------------------
+  const { data: c1a } = await admin.from("classes").select("id").eq("school_id", demo.id).eq("name", "1AC-A").single();
+  const { data: pupils } = await admin.from("student_enrollments").select("student:students(id, code_massar)").eq("class_id", c1a.id);
+  const order = (pupils ?? []).map((e) => e.student).sort((a, b) => a.code_massar.localeCompare(b.code_massar)).map((s) => s.id);
+  const { data: marks } = await admin.from("grades")
+    .select("student_id, number, absent, score, entered_by, period_id, subject:subjects(name)").eq("school_id", demo.id);
+  const all = marks ?? [];
+  const at = (n, subject, number) => all.find((m) => m.student_id === order[n - 1] && m.subject?.name === subject && m.number === number);
+  check(label("1AC-A: 24 students × 16 planned marks − 3 left empty = 381, all in 1AC-A"),
+    order.length === 24 && all.length === 381 && all.every((m) => order.includes(m.student_id)), `${order.length} students, ${all.length} marks`);
+  check(label("… the 3 empty cells on purpose (SVT c2, HG c2, Maths c3) and the 2 abs (PC c1, Arabe c2)"),
+    !at(3, "SVT", 2) && !at(11, "Histoire-Géographie", 2) && !at(19, "Mathématiques", 3)
+      && at(7, "Physique-Chimie", 1)?.absent === true && at(15, "Arabe", 2)?.absent === true && all.filter((m) => m.absent).length === 2);
+  check(label("… Anglais left empty (not graded yet); scores between 6 and 19"),
+    !all.some((m) => m.subject?.name === "Anglais") && all.every((m) => m.absent || (Number(m.score) >= 6 && Number(m.score) <= 19)));
+  check(label("… Maths entered by the demo teacher, the rest by the director"),
+    all.every((m) => m.entered_by === (m.subject?.name === "Mathématiques" ? demoProf.id : demoDir.id)));
+  // The demo teacher can really save a 1AC-A Maths mark through save_grades (RLS: their lesson, current year).
+  const prof = await signIn(demoProf);
+  const maths = (await admin.from("subjects").select("id").eq("school_id", demo.id).eq("name", "Mathématiques").single()).data;
+  const period = all[0]?.period_id;
+  const cell = { student_id: order[18], kind: "control", number: 3, score: 11.5, absent: false, clear: false };
+  const saved = await prof.rpc("save_grades", { p_period: period, p_subject: maths.id, p_cells: [cell] });
+  const cleared = await prof.rpc("save_grades", { p_period: period, p_subject: maths.id, p_cells: [{ ...cell, score: null, clear: true }] });
+  check(label("… the demo Maths teacher fills (then empties) a 1AC-A Maths cell with save_grades"),
+    !saved.error && saved.data === 1 && !cleared.error && cleared.data === 1, saved.error?.message ?? cleared.error?.message ?? "");
+  const { data: dash } = await dir.rpc("grade_entry_progress", { p_period: period });
+  const c1aProgress = (dash ?? []).find((r) => r.class_id === c1a.id);
+  check(label("… the dashboard's grade progress for 1AC-A: 24 × 24 expected (8 subjects × 3), 381 entered"),
+    c1aProgress?.expected === 576 && c1aProgress?.entered === 381, JSON.stringify(c1aProgress));
+  const privateCall = await admin.rpc("demo_fill_grades", { p_school: demo.id });
+  check(label("demo_fill_grades is not callable through the API (private schema)"), !!privateCall.error);
 
   // Generic: every table with a school_id. Filled tables have rows; every other one (not kept) is
   // empty; a second reset the same day gives the same counts everywhere. A table added later and

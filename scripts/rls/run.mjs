@@ -67,6 +67,7 @@ import { phase11SaveGrades } from "./phase11-save-grades.mjs";
 import { phase11Averages } from "./phase11-averages.mjs";
 import { phase11Publish } from "./phase11-publish.mjs";
 import { phase11Council } from "./phase11-council.mjs";
+import { dashboardAggregates } from "./dashboard-aggregates.mjs";
 import { demoActions } from "./actions-demo.mjs";
 import { phase9CrossSchool } from "./phase9-cross-school.mjs";
 import { schoolContactActions } from "./actions-school-contact.mjs";
@@ -85,6 +86,7 @@ import { publishActions } from "./actions-publish.mjs";
 import { reportPrintActions } from "./actions-report-print.mjs";
 import { gradeGapsActions } from "./actions-grade-gaps.mjs";
 import { pagedReadsActions } from "./actions-paged-reads.mjs";
+import { dashboardActions } from "./actions-dashboard.mjs";
 import { phase6Lessons } from "./phase6-lessons.mjs";
 import { lessonBlockActions } from "./actions-lesson-blocks.mjs";
 import { lessonCopyActions } from "./actions-lesson-copy.mjs";
@@ -158,6 +160,7 @@ try {
   await phase11Averages({ fx, as });
   await phase11Publish({ fx, as });
   await phase11Council({ fx, as });
+  await dashboardAggregates({ fx, as });
   await notificationTypes({ fx, as });
   await publicDemoRequests({ fx, as });
   await import("./rules.mjs");
@@ -167,6 +170,7 @@ try {
   await import("./rules-test-guard.mjs");
   await import("./rules-seed-demo.mjs");
   await import("./rules-paged-reads.mjs");
+  await import("./rules-dashboard-ranges.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });
     await roleActions({ fx, baseUrl });
@@ -211,6 +215,7 @@ try {
     await reportPrintActions({ fx, baseUrl });
     await gradeGapsActions({ fx, baseUrl });
     await pagedReadsActions({ fx, baseUrl });
+    await dashboardActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

@@ -180,7 +180,53 @@
     "portalTitle": "Home",
     "driverTitle": "Home",
     "welcome": "Hello, {name}",
-    "comingSoon": "Statistics and modules will appear here in the coming phases."
+    "comingSoon": "Statistics and modules will appear here in the coming phases.",
+    "subtitle": "Today, {date}",
+    "asOf": "Data as of {date} at {time} (school time).",
+    "tiles": {
+      "absent": "Absent today",
+      "absentSessions": "{count, plural, =0 {no lesson missed} one {# lesson missed} other {# lessons missed}}",
+      "late": "Late today",
+      "rollCalls": "Overdue roll calls",
+      "rollCallsOf": "{count, plural, =0 {no lessons today} one {of # lesson today} other {of # lessons today}}",
+      "justifications": "Justifications to review"
+    },
+    "waiting": {
+      "title": "Roll calls waiting",
+      "none": "Every roll call started 15 minutes ago is done.",
+      "noLessons": "No lessons today.",
+      "more": "{count, plural, one {and # more lesson} other {and # more lessons}}"
+    },
+    "week": {
+      "title": "This week",
+      "absences": "Absences",
+      "lates": "Late arrivals",
+      "note": "Monday to today, compared with the same days last week.",
+      "change": "{change} % (last week: {before})",
+      "noBase": "last week: {before}"
+    },
+    "top": {
+      "title": "Most absent classes · 30 days",
+      "none": "No absences in the last 30 days."
+    },
+    "progress": {
+      "title": "Grade entry · {period}",
+      "all": "Averages",
+      "none": "No graded class yet (set the coefficients)."
+    },
+    "publications": {
+      "title": "Published to parents",
+      "notLocked": "Semester in progress, not locked yet: nothing to publish for now.",
+      "allPublished": "Every class is published.",
+      "lockedNotPublished": "locked, not published",
+      "published": "{count, plural, =0 {No class published} one {# class published} other {# classes published}}"
+    },
+    "counts": {
+      "title": "The school",
+      "students": "students",
+      "classes": "classes",
+      "teachers": "teachers"
+    }
   },
   "pagination": {
     "label": "Pagination",
