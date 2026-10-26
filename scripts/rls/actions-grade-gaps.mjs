@@ -13,7 +13,7 @@ export async function gradeGapsActions({ fx, baseUrl }) {
   const f = await createGradesFixture(fx, "p11gp");
   const A = f.A;
   const { maths, hist } = f.subjects;
-  const { a1, a2 } = f.students;
+  const { a1, a2, a3 } = f.students;
   const { cA } = f.classes;
   const [S1] = f.periods;
   const previewId = actionId("src/lib/grades/gaps-actions.ts", "previewLockGaps");
@@ -43,20 +43,33 @@ export async function gradeGapsActions({ fx, baseUrl }) {
     // --- Moyennes: "average · entered/expected" + incomplet ---------------------------------------------
     const avg = await page("dirA", `/fr/grades/averages?year=${f.year}&class=${cA}&period=${S1.id}`);
     const a1m = cellOf(avg.html, a1, maths);
-    check(label("a1 Maths complete: 3/3, no incomplet marker"), a1m.includes('data-average-count="3/3"') && !a1m.includes("data-incomplete"), a1m.slice(0, 200));
+    check(label("a1 Maths complete: the average alone (no count, no incomplet)"),
+      a1m.includes(">13,67<") && !a1m.includes("data-average-count") && !a1m.includes("data-incomplete"), a1m.slice(0, 200));
     const a2m = cellOf(avg.html, a2, maths);
     check(label("a2 Maths: a mark + abs = 2 entered of 3 (abs is entered), incomplet"), a2m.includes('data-average-count="2/3"') && a2m.includes("data-incomplete"));
     const a1h = cellOf(avg.html, a1, hist);
     check(label("a1 HG: one 0 = 1/4, incomplet; the 0 counts (average 0,00)"), a1h.includes('data-average-count="1/4"') && a1h.includes("data-incomplete") && a1h.includes(">0,00<"));
     // (The last rows of a table can be streamed later in the document: look anywhere for a3's only count.)
-    check(label("a3 nothing yet: 0/3 shown, incomplet"), avg.html.includes('data-average-count="0/3"'));
+    // (The last rows of a table can be streamed later in the document: check a3's cell where it lands, and that no 0/N is shown anywhere.)
+    const a3m = cellOf(avg.html, a3, maths);
+    check(label("a3 nothing yet: a muted — alone (no 0/3, no incomplet)"),
+      !avg.html.includes('data-average-count="0/') && (a3m === "" || (a3m.includes("text-muted-foreground") && a3m.includes(">—<") && !a3m.includes("data-incomplete"))),
+      a3m.slice(0, 200));
+    // An "abs" alone is a mark entered with no average yet: — · 1/3, incomplet.
+    const { error: absErr } = await admin.from("grades").insert(grade(a3, hist, 1, null, "control", true));
+    if (absErr) throw new Error(absErr.message);
+    const absOnly = await page("dirA", `/fr/grades/averages?year=${f.year}&class=${cA}&period=${S1.id}`);
+    // Two 1/4 cells: a1's HG (one 0) and a3's HG (one abs).
+    check(label("an abs alone: no average yet, but 1/4 and incomplet"), absOnly.html.includes('data-average-count="1/4"') && (absOnly.html.match(/data-average-count="1\/4"/g) ?? []).length === 2);
+    await admin.from("grades").delete().eq("student_id", a3).eq("subject_id", hist);
     const yearView = await page("dirA", `/fr/grades/averages?year=${f.year}&class=${cA}&period=year`);
     check(label("the year tab shows no counts"), yearView.status === 200 && !yearView.html.includes("data-average-count="));
 
     // --- Grade sheet --------------------------------------------------------------------------------
     const sheet = await page("tchA", `/fr/grades?class=${cA}&subject=${maths}&period=${S1.id}`);
-    check(label("teacher's sheet: count next to the saved average + incomplet for a2"),
-      sheet.html.includes('data-sheet-count="· 3/3"') && sheet.html.includes('data-sheet-count="· 2/3"') && sheet.html.includes("data-incomplete"));
+    check(label("teacher's sheet: a2 partly entered → · 2/3 + incomplet; a1 complete and a3 empty → no count"),
+      sheet.html.includes('data-sheet-count="· 2/3"') && sheet.html.includes("data-incomplete")
+        && !sheet.html.includes('data-sheet-count="· 3/3"') && !sheet.html.includes('data-sheet-count="· 0/3"'));
     check(label("…the empty / abs / 0 hint (absent left out at this level)"),
       sheet.html.includes("data-sheet-hint") && sheet.html.includes("abs = absent (hors moyenne)"));
     await admin.from("grade_level_settings").update({ absent_as_zero: true }).eq("academic_year_id", f.year).eq("level_id", f.college);

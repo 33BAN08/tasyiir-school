@@ -83,14 +83,18 @@ export function GridSheet({ students, columns, canEdit, cell, setCell, columnLab
   );
 }
 
-/** "12,25 · 3/4" and, when contrôles are still empty, a muted "incomplet" (shared with the phone view). */
+/** "12,25 · 2/3" + a muted "incomplet" while partly entered; the average alone when complete; a muted "—" before any mark (shared with the phone view). */
 export function AverageText({ average: a }: { average: SheetAverage }) {
   const t = useTranslations("grades.sheet");
   return (
     <>
-      <span data-sheet-average-value className="font-semibold">{a.value}</span>
-      <span data-sheet-count={a.count} className="ms-1 text-xs text-muted-foreground">{a.count}</span>
-      {a.incomplete && <span data-incomplete className="block text-[10px] text-muted-foreground">{t("incomplete")}</span>}
+      <span data-sheet-average-value className={a.value === null ? "text-muted-foreground" : "font-semibold"}>{a.value ?? "—"}</span>
+      {a.count && (
+        <>
+          <span data-sheet-count={a.count} className="ms-1 text-xs text-muted-foreground">{a.count}</span>
+          <span data-incomplete className="block text-[10px] text-muted-foreground">{t("incomplete")}</span>
+        </>
+      )}
     </>
   );
 }

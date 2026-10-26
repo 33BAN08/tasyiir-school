@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 import { Card } from "@/components/ui/card";
 import { Link } from "@/i18n/navigation";
 import { averageKey, indexAverages, type AverageRow } from "@/lib/grades/averages";
-import { formatAverage, formatMark } from "@/lib/grades/marks";
+import { formatAverage, formatMark, partlyEntered } from "@/lib/grades/marks";
 import { SUBJECT_SWATCH, type SubjectColor } from "@/lib/structure/subject-template";
 import { cn } from "@/lib/utils";
 
@@ -106,13 +106,13 @@ export function AveragesTable({ periodId, year, subjects, students, rows, printH
                       return (
                         <td key={subject.id} data-average={subject.id} className="px-2 py-1.5 text-center font-numeric tabular-nums">
                           <span data-average-value className={cn(v === null && "text-muted-foreground")}>{shown(v)}</span>
-                          {c && (
-                            <span data-average-count={`${c.entered}/${c.expected}`} className="ms-1 text-xs text-muted-foreground">
-                              {t("count", { entered: c.entered, expected: c.expected })}
-                            </span>
-                          )}
-                          {c && c.entered < c.expected && (
-                            <span data-incomplete className="block text-[10px] text-muted-foreground">{t("incomplete")}</span>
+                          {c && partlyEntered(c.entered, c.expected) && (
+                            <>
+                              <span data-average-count={`${c.entered}/${c.expected}`} className="ms-1 text-xs text-muted-foreground">
+                                {t("count", { entered: c.entered, expected: c.expected })}
+                              </span>
+                              <span data-incomplete className="block text-[10px] text-muted-foreground">{t("incomplete")}</span>
+                            </>
                           )}
                         </td>
                       );

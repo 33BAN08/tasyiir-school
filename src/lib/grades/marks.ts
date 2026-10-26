@@ -33,6 +33,13 @@ export const formatMark = (value: number) => value.toLocaleString("fr-FR", { max
 export const formatAverage = (value: number) =>
   value.toLocaleString("fr-FR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
+/**
+ * Show "· 2/3" + "incomplet" next to an average? Only when SOME marks are in
+ * but not all: nothing entered = a muted "—" alone; all entered = the average
+ * alone (Moyennes and the sheet's "Moy." column; display only).
+ */
+export const partlyEntered = (entered: number, expected: number) => entered > 0 && entered < expected;
+
 /** The text a saved grade shows in its cell. */
 export const gradeText = (g: { score: number | null; absent: boolean }) =>
   g.absent ? ABSENT_TEXT : g.score === null ? "" : formatMark(g.score);

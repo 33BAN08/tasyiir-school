@@ -3,8 +3,11 @@ import type { SheetColumn } from "@/lib/grades/marks";
 /** A student row as the sheet shows it (names already in the page language). */
 export type SheetRowStudent = { id: string; name: string; otherName: string | null };
 
-/** "12,25", "3/4", and whether contrôles are still empty (saved marks only). */
-export type SheetAverage = { value: string; count: string; incomplete: boolean };
+/**
+ * "12,25" (null = no average yet: a muted "—"), and "· 2/3" only while SOME
+ * marks are in but not all (then "incomplet" too). Saved marks only.
+ */
+export type SheetAverage = { value: string | null; count: string | null };
 
 /** What both views need to draw a cell. */
 export type CellView = {

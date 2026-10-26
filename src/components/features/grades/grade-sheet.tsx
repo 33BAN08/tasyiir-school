@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "@/i18n/navigation";
 import { saveGrades } from "@/lib/grades/actions";
 import { deleteGradeDraft, purgeGradeDrafts, readGradeDraft, writeGradeDraft, type GradeDraft } from "@/lib/grades/drafts";
-import { formatAverage, markKey, parseMark, pendingMarks, sameMark, type SheetColumn } from "@/lib/grades/marks";
+import { formatAverage, markKey, parseMark, partlyEntered, pendingMarks, sameMark, type SheetColumn } from "@/lib/grades/marks";
 
 import { GridSheet } from "./grid-sheet";
 import { PhoneSheet } from "./phone-sheet";
@@ -145,9 +145,8 @@ export function GradeSheet({ userId, classId, subjectId, periodId, canEdit, lock
     const v = averages[studentId];
     const entered = columns.filter((c) => (marks[markKey(studentId, c.kind, c.number)] ?? "") !== "").length;
     return {
-      value: v === null || v === undefined ? "—" : formatAverage(v),
-      count: t("count", { entered, expected: expectedMarks }),
-      incomplete: entered < expectedMarks,
+      value: v === null || v === undefined ? null : formatAverage(v),
+      count: partlyEntered(entered, expectedMarks) ? t("count", { entered, expected: expectedMarks }) : null,
     };
   });
   const view = { students, columns, canEdit, cell, setCell, columnLabel, average };
