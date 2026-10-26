@@ -9,7 +9,8 @@ export type NotificationType =
   | "subscription_expiring"
   | "demo_request"
   | "announcement"
-  | "remark";
+  | "remark"
+  | "grades_published";
 
 /** What a notification needs to write its sentence (see the Phase 8 migrations). */
 export type NotificationData = {
@@ -34,6 +35,10 @@ export type NotificationData = {
   /** remark: the remark and its type (behavior | homework | material | praise). */
   remark_id?: string;
   remark_type?: "behavior" | "homework" | "material" | "praise";
+  /** grades_published: the publication (semester or year: period_number null) and whether it replaced an earlier one. */
+  publication_id?: string;
+  period_number?: number | null;
+  republished?: boolean;
   /** demo_request: the request (home page form), for the platform owner; kind demo | trial (absent before launch step 2b = demo). */
   request_id?: string;
   kind?: "demo" | "trial";

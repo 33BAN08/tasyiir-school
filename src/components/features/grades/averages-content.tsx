@@ -13,6 +13,7 @@ import type { CurrentUser } from "@/lib/auth/session";
 import { ltr } from "@/lib/format";
 import { getGradeAccess } from "@/lib/grades/access";
 import { getClassAverages } from "@/lib/grades/averages";
+import { getPublication } from "@/lib/grades/publications";
 import { getGradeSheet, listClassSubjects, listYearPeriods } from "@/lib/grades/sheet";
 import { listAcademicYears } from "@/lib/structure/academic-years";
 import { listClasses } from "@/lib/structure/classes";
@@ -20,6 +21,7 @@ import { studentName, studentOtherName } from "@/lib/students/names";
 
 import { AveragesTable } from "./averages-table";
 import { PeriodSwitch, YEAR_TAB } from "./period-switch";
+import { PublishBar } from "./publish-bar";
 import { StaffSheetPickers } from "./sheet-pickers";
 
 export type AveragesParams = { year?: string; class?: string; period?: string };
@@ -79,10 +81,15 @@ export async function AveragesContent({ user, params }: { user: CurrentUser; par
       ?? periods[0];
 
   // The class's students (names) and scale come from the sheet reader; the numbers only from SQL.
-  const [rows, sheet] = await Promise.all([
+  const [rows, sheet, publication, tp] = await Promise.all([
     getClassAverages(klass.id),
     getGradeSheet(schoolId, klass, subjects[0].id, period?.id ?? periods[0].id),
+    getPublication(klass.id, period?.id ?? null),
+    getTranslations("grades.periods"),
   ]);
+  const periodName = periods.length === 2 ? "semester" : periods.length === 3 ? "trimester" : "period";
+  const periodLabel = period ? tp(periodName, { number: period.number }) : tp("year");
+  const locked = period ? period.locked : periods.every((x) => x.locked);
   const periodRows = rows.filter((r) => r.periodId === (period?.id ?? null));
   const coefficients = new Map(periodRows.filter((r) => r.subjectId && r.coefficient !== null).map((r) => [r.subjectId as string, r.coefficient as number]));
 
@@ -101,6 +108,17 @@ export async function AveragesContent({ user, params }: { user: CurrentUser; par
           {t("averages.scale", { scale: ltr(`/${sheet.scale}`) })}
         </p>
       </div>
+      <PublishBar
+        classId={klass.id}
+        className={klass.name}
+        periodId={period?.id ?? null}
+        periodLabel={periodLabel}
+        publication={publication}
+        locked={locked}
+        canManage={access === "manage"}
+        students={sheet.students.length}
+        lockHref={`/setup/grading?year=${year.id}&section=periods`}
+      />
       <AveragesTable
         periodId={period?.id ?? null}
         subjects={subjects.map((s) => ({ ...s, coefficient: coefficients.get(s.id) ?? null }))}

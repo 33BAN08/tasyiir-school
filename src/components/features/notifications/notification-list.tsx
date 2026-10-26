@@ -1,6 +1,6 @@
 "use client";
 
-import { BellRing, CalendarClock, CalendarX2, Check, CheckCheck, Clock, Inbox, Megaphone, MessageSquareText, Undo2 } from "lucide-react";
+import { BellRing, CalendarClock, CalendarX2, Check, CheckCheck, Clock, GraduationCap, Inbox, Megaphone, MessageSquareText, Undo2 } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState, useSyncExternalStore, useTransition } from "react";
 
@@ -23,6 +23,7 @@ const ICONS: Record<NotificationType, typeof CalendarX2> = {
   demo_request: Inbox,
   announcement: Megaphone,
   remark: MessageSquareText,
+  grades_published: GraduationCap,
 };
 
 /** True in the browser only: times are shown there, because the server's time-zone data for Morocco is outdated. */

@@ -1,4 +1,4 @@
-import { CalendarCheck, CalendarDays, Megaphone, MessageSquareText, type LucideIcon } from "lucide-react";
+import { CalendarCheck, CalendarDays, GraduationCap, Megaphone, MessageSquareText, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
@@ -7,10 +7,17 @@ import type { ParentHome } from "@/lib/parents/home";
 import { DAY_KEYS, type SchoolDay } from "@/lib/structure/time-slot-template";
 import { cn } from "@/lib/utils";
 
-type Props = { childId: string; hasClass: boolean; home: ParentHome; todayWeekday: number };
+type Props = {
+  childId: string;
+  hasClass: boolean;
+  home: ParentHome;
+  todayWeekday: number;
+  /** Grades module on: the latest published card's name ("Semestre 1 · 2026-2027"), "" when none yet; null = no tile. */
+  gradesLine: string | null;
+};
 
 /** Absences · announcements · remarks · timetable: each line is real data, each tile opens its page. */
-export function HomeTiles({ childId, hasClass, home, todayWeekday }: Props) {
+export function HomeTiles({ childId, hasClass, home, todayWeekday, gradesLine }: Props) {
   const t = useTranslations("portal.home.tiles");
   const tTypes = useTranslations("remarks.types");
   const tDays = useTranslations("setup.timeSlots.days");
@@ -72,6 +79,16 @@ export function HomeTiles({ childId, hasClass, home, todayWeekday }: Props) {
           title={t("timetable.title")}
           line={lessonLine}
           name="timetable"
+        />
+      )}
+      {gradesLine !== null && (
+        <Tile
+          icon={GraduationCap}
+          tone="brand"
+          href={`/portal/grades?child=${childId}`}
+          title={t("grades.title")}
+          line={gradesLine ? t("grades.latest", { card: gradesLine }) : t("grades.none")}
+          name="grades"
         />
       )}
     </ul>

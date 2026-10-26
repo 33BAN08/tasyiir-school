@@ -52,6 +52,10 @@ export function describeNotification(
   } else if (item.type === "remark") {
     title = t("remark.title", { name });
     body = t(`remark.types.${data.remark_type ?? "behavior"}`);
+  } else if (item.type === "grades_published") {
+    const period = data.period_number ?? null;
+    title = t(data.republished ? "grades.titleUpdated" : "grades.title", { name });
+    body = period === null ? t("grades.year") : t("grades.period", { number: period });
   } else if (item.type === "announcement") {
     title = t("announcement.title");
     body = isolate(data.title ?? "");
@@ -89,6 +93,9 @@ export function notificationHref(item: Pick<NotificationItem, "type" | "studentI
     return data.announcement_id ? `${area === "portal" ? "/portal" : ""}/announcements/${data.announcement_id}` : null;
   }
   if (item.type === "remark") return `/portal/remarks?child=${item.studentId}`;
+  if (item.type === "grades_published") {
+    return data.publication_id ? `/portal/grades/${data.publication_id}?child=${item.studentId}` : `/portal/grades?child=${item.studentId}`;
+  }
   if (area === "platform") {
     if (item.type === "demo_request") return "/platform/demo-requests";
     return data.school_id ? `/platform/schools/${data.school_id}` : null;

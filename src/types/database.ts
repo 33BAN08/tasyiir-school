@@ -735,6 +735,71 @@ export type Database = {
           },
         ]
       }
+      grade_publications: {
+        Row: {
+          academic_year_id: string
+          class_id: string
+          first_published_at: string
+          id: string
+          period_id: string | null
+          published_at: string
+          published_by: string | null
+          school_id: string
+          show_rank: boolean
+        }
+        Insert: {
+          academic_year_id: string
+          class_id: string
+          first_published_at?: string
+          id?: string
+          period_id?: string | null
+          published_at?: string
+          published_by?: string | null
+          school_id: string
+          show_rank?: boolean
+        }
+        Update: {
+          academic_year_id?: string
+          class_id?: string
+          first_published_at?: string
+          id?: string
+          period_id?: string | null
+          published_at?: string
+          published_by?: string | null
+          school_id?: string
+          show_rank?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "grade_publications_class_fkey"
+            columns: ["class_id", "academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id", "academic_year_id", "school_id"]
+          },
+          {
+            foreignKeyName: "grade_publications_period_fkey"
+            columns: ["period_id", "academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "grading_periods"
+            referencedColumns: ["id", "academic_year_id", "school_id"]
+          },
+          {
+            foreignKeyName: "grade_publications_published_by_fkey"
+            columns: ["published_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "grade_publications_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       grades: {
         Row: {
           absent: boolean
@@ -1483,6 +1548,7 @@ export type Database = {
         Row: {
           absences: boolean
           announcements: boolean
+          grades: boolean
           profile_id: string
           remarks: boolean
           school_id: string
@@ -1491,6 +1557,7 @@ export type Database = {
         Insert: {
           absences?: boolean
           announcements?: boolean
+          grades?: boolean
           profile_id: string
           remarks?: boolean
           school_id: string
@@ -1499,6 +1566,7 @@ export type Database = {
         Update: {
           absences?: boolean
           announcements?: boolean
+          grades?: boolean
           profile_id?: string
           remarks?: boolean
           school_id?: string
@@ -1572,6 +1640,82 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "schools"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      report_cards: {
+        Row: {
+          average: number | null
+          class_average: number | null
+          class_max: number | null
+          class_min: number | null
+          created_at: string
+          id: string
+          missing: number
+          periods: Json
+          publication_id: string
+          rank: number | null
+          ranked: number | null
+          scale: number
+          school_id: string
+          student_id: string
+          subjects: Json
+        }
+        Insert: {
+          average?: number | null
+          class_average?: number | null
+          class_max?: number | null
+          class_min?: number | null
+          created_at?: string
+          id?: string
+          missing?: number
+          periods?: Json
+          publication_id: string
+          rank?: number | null
+          ranked?: number | null
+          scale: number
+          school_id: string
+          student_id: string
+          subjects?: Json
+        }
+        Update: {
+          average?: number | null
+          class_average?: number | null
+          class_max?: number | null
+          class_min?: number | null
+          created_at?: string
+          id?: string
+          missing?: number
+          periods?: Json
+          publication_id?: string
+          rank?: number | null
+          ranked?: number | null
+          scale?: number
+          school_id?: string
+          student_id?: string
+          subjects?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "report_cards_publication_fkey"
+            columns: ["publication_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "grade_publications"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "report_cards_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "report_cards_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
           },
         ]
       }
@@ -2521,6 +2665,10 @@ export type Database = {
       }
       import_students: { Args: { p_rows: Json }; Returns: number }
       my_school_suspension: { Args: never; Returns: string }
+      publish_grades: {
+        Args: { p_class: string; p_period: string; p_show_rank?: boolean }
+        Returns: number
+      }
       push_claim: {
         Args: { p_limit?: number }
         Returns: {
@@ -2566,6 +2714,7 @@ export type Database = {
         Args: {
           p_absences: boolean
           p_announcements: boolean
+          p_grades?: boolean
           p_remarks: boolean
         }
         Returns: undefined
@@ -2609,6 +2758,7 @@ export type Database = {
           id: string
         }[]
       }
+      unpublish_grades: { Args: { p_publication: string }; Returns: undefined }
     }
     Enums: {
       [_ in never]: never

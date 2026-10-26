@@ -55,7 +55,8 @@ export async function removePushSubscription(endpoint: unknown): Promise<Result>
   return error ? { ok: false, error: "failed" } : { ok: true };
 }
 
-const preferencesSchema = z.object({ absences: z.boolean(), remarks: z.boolean(), announcements: z.boolean() });
+// grades (step 7 of Phase 11) optional: left out = unchanged.
+const preferencesSchema = z.object({ absences: z.boolean(), remarks: z.boolean(), announcements: z.boolean(), grades: z.boolean().optional() });
 
 /** Which kinds of notification reach this parent's phones (all of them on by default). */
 export async function savePushPreferences(input: unknown): Promise<Result> {
@@ -68,6 +69,7 @@ export async function savePushPreferences(input: unknown): Promise<Result> {
     p_absences: parsed.data.absences,
     p_remarks: parsed.data.remarks,
     p_announcements: parsed.data.announcements,
+    ...(parsed.data.grades !== undefined && { p_grades: parsed.data.grades }),
   });
   if (error) return { ok: false, error: error.code === "42501" ? "forbidden" : "failed" };
   return { ok: true };

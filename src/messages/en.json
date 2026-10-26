@@ -161,6 +161,12 @@
         "material": "Forgot materials",
         "praise": "Praise"
       }
+    },
+    "grades": {
+      "title": "{name}'s report published",
+      "titleUpdated": "{name}'s report updated",
+      "period": "Semester {number} grades are available.",
+      "year": "The year's results are available."
     }
   },
   "theme": {
@@ -1253,6 +1259,11 @@
           "now": "Now: {subject}",
           "today": "Next lesson {time}",
           "later": "Next lesson: {day} {time}"
+        },
+        "grades": {
+          "title": "Grades",
+          "latest": "Latest report: {card}",
+          "none": "No report published"
         }
       },
       "announcement": {
@@ -3071,7 +3082,9 @@
       "announcements": "Announcements",
       "announcementsHint": "The school's announcements.",
       "saved": "Choice saved.",
-      "error": "This choice could not be saved. Try again."
+      "error": "This choice could not be saved. Try again.",
+      "grades": "Grades and reports",
+      "gradesHint": "When the school publishes your child's report."
     },
     "test": {
       "button": "Test",
@@ -3344,6 +3357,36 @@
       "summaryMissingYear": "{count, plural, one {# student has no average for a semester: the year uses the others} other {# students have no average for a semester: the year uses the others}}",
       "howSemester": "Subject average = average of its tests (and integrated activities), following the level's rules. Overall average = sum (average × coefficient) ÷ sum of the graded subjects' coefficients.",
       "howYear": "Year average = average of the semesters, by each one's weight."
+    },
+    "publish": {
+      "notPublished": "Not published to parents yet",
+      "publishedOn": "Published to parents on",
+      "by": "by {name}",
+      "rankHidden": "Rank not shown to parents",
+      "needsLock": "Lock the semester to publish it.",
+      "needsLockYear": "Lock every semester to publish the year.",
+      "lockLink": "Lock",
+      "publish": "Publish to parents",
+      "republish": "Publish again",
+      "publishing": "Publishing…",
+      "unpublish": "Withdraw",
+      "unpublishTitle": "Withdraw {period} of {class}?",
+      "unpublishDescription": "Parents will no longer see this report and its notification goes. The grades stay in the school.",
+      "unpublishConfirm": "Withdraw the report",
+      "cancel": "Cancel",
+      "dialogTitle": "Publish {period} of {class}",
+      "dialogDescription": "{count, plural, one {# student's report will be visible to their parents, who will be notified.} other {# students' reports will be visible to their parents, who will be notified.}} They will see the averages as they are now.",
+      "dialogRepublish": "{count, plural, one {# student's report will be replaced} other {# students' reports will be replaced}} with the current averages, and parents notified of the update.",
+      "showRank": "Show the rank to parents",
+      "published": "{count, plural, one {# report published} other {# reports published}}",
+      "unpublished": "Report withdrawn",
+      "errors": {
+        "forbidden": "You are not allowed to publish grades.",
+        "notFound": "Class or semester not found.",
+        "periodNotLocked": "The semester must be locked before it is published.",
+        "periodsNotLocked": "Every semester must be locked to publish the year.",
+        "generic": "Publishing failed. Try again."
+      }
     }
   },
   "teacherHome": {
@@ -3382,5 +3425,35 @@
       "grades": "Grades",
       "remarks": "Remarks"
     }
+  },
+  "reportCards": {
+    "title": "Grades and reports",
+    "cardTitle": "Report",
+    "backHome": "Home",
+    "backList": "All reports",
+    "children": "Your children",
+    "of": "For {name}",
+    "notInPlanTitle": "Grades are not available",
+    "notInPlanDescription": "The school does not publish grades in the app yet.",
+    "noChildTitle": "No child linked to your account",
+    "noChildDescription": "Ask the school to link your account to your child.",
+    "emptyTitle": "No report published",
+    "emptyDescription": "You will be notified as soon as the school publishes grades.",
+    "publishedOn": "Published on",
+    "general": "Overall average",
+    "rankLabel": "Rank",
+    "rank": "{rank, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} of {ranked}",
+    "rankShort": "rank {rank}",
+    "classFigures": "Class: average {average} · lowest {min} · highest {max}",
+    "missing": "{count, plural, one {# subject has no grade yet: it is left out of the average.} other {# subjects have no grade yet: they are left out of the average.}}",
+    "missingYear": "{count, plural, one {A semester has no average: the year uses the others.} other {# semesters have no average: the year uses the others.}}",
+    "subjects": "Subjects",
+    "coefficient": "Coefficient {value}",
+    "marks": "Grades",
+    "activities": "Activities",
+    "control": "Test {number}",
+    "absent": "absent",
+    "subjectClass": "Class: {average} ({min} – {max})",
+    "periodAverage": "{period}: {average}"
   }
 }

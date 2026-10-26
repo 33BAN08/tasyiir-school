@@ -11,7 +11,7 @@ import { Field, FieldDescription, FieldLabel, FieldLegend, FieldSet } from "@/co
 import { savePushPreferences, sendTestPush } from "@/lib/push/actions";
 import type { PushPreferences as Preferences } from "@/lib/push/preferences";
 
-const KINDS = ["absences", "remarks", "announcements"] as const;
+const KINDS = ["absences", "remarks", "announcements", "grades"] as const;
 
 type Props = {
   initial: Preferences;

@@ -15,6 +15,7 @@ const TYPES = [
   "demo_request",
   "announcement",
   "remark",
+  "grades_published",
 ];
 // Types whose feature is not in the database yet: required once their table exists.
 const PENDING = [];

@@ -161,6 +161,12 @@
         "material": "Oubli de matériel",
         "praise": "Félicitations"
       }
+    },
+    "grades": {
+      "title": "Bulletin de {name} publié",
+      "titleUpdated": "Bulletin de {name} mis à jour",
+      "period": "Les notes du semestre {number} sont disponibles.",
+      "year": "Les résultats de l'année sont disponibles."
     }
   },
   "theme": {
@@ -1253,6 +1259,11 @@
           "now": "En cours : {subject}",
           "today": "Prochain cours {time}",
           "later": "Prochain cours : {day} {time}"
+        },
+        "grades": {
+          "title": "Notes",
+          "latest": "Dernier bulletin : {card}",
+          "none": "Aucun bulletin publié"
         }
       },
       "announcement": {
@@ -3071,7 +3082,9 @@
       "announcements": "Annonces",
       "announcementsHint": "Les annonces de l'établissement.",
       "saved": "Choix enregistré.",
-      "error": "Impossible d'enregistrer ce choix. Réessayez."
+      "error": "Impossible d'enregistrer ce choix. Réessayez.",
+      "grades": "Notes et bulletins",
+      "gradesHint": "Quand l'établissement publie le bulletin de votre enfant."
     },
     "test": {
       "button": "Tester",
@@ -3344,6 +3357,36 @@
       "summaryMissingYear": "{count, plural, one {# élève n'a pas de moyenne pour un semestre : l'année se calcule sur les autres} other {# élèves n'ont pas de moyenne pour un semestre : l'année se calcule sur les autres}}",
       "howSemester": "Moyenne d'une matière = moyenne de ses contrôles (et des activités intégrées), selon les règles du niveau. Moyenne générale = somme (moyenne × coefficient) ÷ somme des coefficients des matières notées.",
       "howYear": "Moyenne de l'année = moyenne des semestres, selon le poids de chacun."
+    },
+    "publish": {
+      "notPublished": "Pas encore publié aux parents",
+      "publishedOn": "Publié aux parents le",
+      "by": "par {name}",
+      "rankHidden": "Rang non affiché aux parents",
+      "needsLock": "Verrouillez le semestre pour le publier.",
+      "needsLockYear": "Verrouillez tous les semestres pour publier l'année.",
+      "lockLink": "Verrouiller",
+      "publish": "Publier aux parents",
+      "republish": "Republier",
+      "publishing": "Publication…",
+      "unpublish": "Retirer",
+      "unpublishTitle": "Retirer {period} de {class} ?",
+      "unpublishDescription": "Les parents ne verront plus ce bulletin, et sa notification disparaît. Les notes restent dans l'établissement.",
+      "unpublishConfirm": "Retirer le bulletin",
+      "cancel": "Annuler",
+      "dialogTitle": "Publier {period} de {class}",
+      "dialogDescription": "{count, plural, one {Le bulletin de # élève sera visible par ses parents, qui seront prévenus.} other {Les bulletins de # élèves seront visibles par leurs parents, qui seront prévenus.}} Ils verront les moyennes telles qu'elles sont maintenant.",
+      "dialogRepublish": "{count, plural, one {Le bulletin de # élève sera remplacé} other {Les bulletins de # élèves seront remplacés}} par les moyennes actuelles, et les parents prévenus de la mise à jour.",
+      "showRank": "Afficher le rang aux parents",
+      "published": "{count, plural, one {# bulletin publié} other {# bulletins publiés}}",
+      "unpublished": "Bulletin retiré",
+      "errors": {
+        "forbidden": "Vous n'avez pas le droit de publier les notes.",
+        "notFound": "Classe ou semestre introuvable.",
+        "periodNotLocked": "Le semestre doit être verrouillé avant d'être publié.",
+        "periodsNotLocked": "Tous les semestres doivent être verrouillés pour publier l'année.",
+        "generic": "La publication a échoué. Réessayez."
+      }
     }
   },
   "teacherHome": {
@@ -3382,5 +3425,35 @@
       "grades": "Notes",
       "remarks": "Remarques"
     }
+  },
+  "reportCards": {
+    "title": "Notes et bulletins",
+    "cardTitle": "Bulletin",
+    "backHome": "Accueil",
+    "backList": "Tous les bulletins",
+    "children": "Vos enfants",
+    "of": "De {name}",
+    "notInPlanTitle": "Les notes ne sont pas disponibles",
+    "notInPlanDescription": "L'établissement ne publie pas encore les notes dans l'application.",
+    "noChildTitle": "Aucun enfant lié à votre compte",
+    "noChildDescription": "Demandez à l'établissement de lier votre compte à votre enfant.",
+    "emptyTitle": "Aucun bulletin publié",
+    "emptyDescription": "Vous serez prévenu dès que l'établissement publiera les notes.",
+    "publishedOn": "Publié le",
+    "general": "Moyenne générale",
+    "rankLabel": "Rang",
+    "rank": "{rank, selectordinal, one {#er} other {#e}} sur {ranked}",
+    "rankShort": "rang {rank}",
+    "classFigures": "Classe : moyenne {average} · plus basse {min} · plus haute {max}",
+    "missing": "{count, plural, one {# matière n'a pas encore de note : elle n'entre pas dans la moyenne.} other {# matières n'ont pas encore de note : elles n'entrent pas dans la moyenne.}}",
+    "missingYear": "{count, plural, one {Un semestre n'a pas de moyenne : l'année se calcule sur les autres.} other {# semestres n'ont pas de moyenne : l'année se calcule sur les autres.}}",
+    "subjects": "Matières",
+    "coefficient": "Coefficient {value}",
+    "marks": "Notes",
+    "activities": "Activités",
+    "control": "Contrôle {number}",
+    "absent": "absent",
+    "subjectClass": "Classe : {average} ({min} – {max})",
+    "periodAverage": "{period} : {average}"
   }
 }
