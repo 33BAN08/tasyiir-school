@@ -103,6 +103,8 @@ export type GradeSheet = {
   marks: Record<string, string>;
   /** The subject is graded at this class's level / filière (else nothing can be entered). */
   graded: boolean;
+  /** The level counts an absent contrôle as 0 (else it is left out). */
+  absentAsZero: boolean;
 };
 
 /** One sheet: the class's students, the level's rules for the subject, the saved grades of the semester. */
@@ -111,7 +113,7 @@ export async function getGradeSheet(schoolId: string, klass: SheetClass, subject
   const [rules, coefs, cycle, enrolments, grades] = await Promise.all([
     supabase
       .from("grade_level_settings")
-      .select("scale, controls_count, activities")
+      .select("scale, controls_count, activities, absent_as_zero")
       .eq("academic_year_id", klass.yearId)
       .eq("level_id", klass.levelId)
       .maybeSingle(),
@@ -164,5 +166,5 @@ export async function getGradeSheet(schoolId: string, klass: SheetClass, subject
     // Marks of contrôles beyond the current count stay visible, read-only.
     ...Array.from({ length: Math.max(0, highest - count) }, (_, i) => ({ kind: "control" as const, number: count + i + 1, extra: true })),
   ];
-  return { scale, columns, students, marks, graded: !!coef };
+  return { scale, columns, students, marks, graded: !!coef, absentAsZero: rules.data?.absent_as_zero ?? false };
 }

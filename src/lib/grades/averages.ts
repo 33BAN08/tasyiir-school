@@ -1,6 +1,9 @@
 import "server-only";
 
 import { createClient } from "@/lib/supabase/server";
+import type { Database } from "@/types/database";
+
+type ClassAveragesRow = Database["public"]["Functions"]["class_averages"]["Returns"][number];
 
 // Averages and ranks of one class, ONLY from public.class_averages() (the same
 // numbers as the report card and the tests): staff get every row, a teacher
@@ -27,9 +30,33 @@ export type AverageRow = {
 
 const num = (v: number | string | null) => (v === null ? null : Number(v));
 
-export async function getClassAverages(classId: string): Promise<AverageRow[]> {
-  const { data, error } = await (await createClient()).rpc("class_averages", { p_class: classId });
-  if (error) throw new Error("getClassAverages failed");
+/** The API returns at most this many rows per call: read in pages, in a fixed order. */
+const PAGE = 1000;
+
+/**
+ * `periodId`: undefined = every row; a semester id = only that semester's rows;
+ * null = only the year's rows. A big class has more rows than one API call
+ * returns (40 students × 3 × 13 = 1560), so this reads page by page.
+ */
+export async function getClassAverages(classId: string, periodId?: string | null): Promise<AverageRow[]> {
+  const supabase = await createClient();
+  const data: ClassAveragesRow[] = [];
+  function readPage(from: number) {
+    let query = supabase.rpc("class_averages", { p_class: classId });
+    if (periodId === null) query = query.is("period_id", null);
+    else if (periodId) query = query.eq("period_id", periodId);
+    return query
+      .order("student_id")
+      .order("period_id", { nullsFirst: true })
+      .order("subject_id", { nullsFirst: true })
+      .range(from, from + PAGE - 1);
+  }
+  for (let from = 0; ; from += PAGE) {
+    const page = await readPage(from);
+    if (page.error) throw new Error("getClassAverages failed");
+    data.push(...page.data);
+    if (page.data.length < PAGE) break;
+  }
   // The generated types call every column non-null; NULL means "the year" / "general" / "no average".
   return data.map((r) => ({
     studentId: r.student_id,

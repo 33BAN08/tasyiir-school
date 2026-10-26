@@ -1,8 +1,8 @@
 "use client";
 
 import { Lock, LockOpen, Pencil } from "lucide-react";
-import { useTranslations } from "next-intl";
-import { useState, useTransition } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useEffect, useState, useTransition } from "react";
 import { toast } from "sonner";
 
 import { StatusBadge } from "@/components/layout/status-badge";
@@ -19,6 +19,8 @@ import {
 } from "@/components/ui/dialog";
 import { useRouter } from "@/i18n/navigation";
 import { formatDate, ltr } from "@/lib/format";
+import { GapsList, type GapStudent } from "@/components/features/grades/gaps-list";
+import { previewLockGaps } from "@/lib/grades/gaps-actions";
 import { setPeriodLocked } from "@/lib/grading/period-actions";
 import type { GradingPeriod } from "@/lib/grading/setup";
 
@@ -137,8 +139,26 @@ function LockDialog({
   const t = useTranslations("grading.periods.lockDialog");
   const translateError = useGradingError();
   const router = useRouter();
+  const locale = useLocale();
   const [isPending, startTransition] = useTransition();
   const mode = period.locked ? "unlock" : "lock";
+  // Locking: who still has empty cells (loaded when the dialog opens).
+  const [gaps, setGaps] = useState<{ gaps: GapStudent[]; more: number } | "loading" | null>(null);
+  useEffect(() => {
+    if (!open || mode !== "lock") return;
+    let alive = true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reset while the preview loads
+    setGaps("loading");
+    previewLockGaps(period.id, locale).then(
+      (r) => alive && setGaps(r.ok ? r.data : null),
+      () => alive && setGaps(null),
+    );
+    return () => {
+      alive = false;
+    };
+  }, [open, mode, period.id, locale]);
+  const preview = mode === "lock" ? gaps : null;
+  const hasGaps = preview !== null && preview !== "loading" && preview.gaps.length > 0;
 
   function confirm() {
     startTransition(async () => {
@@ -160,14 +180,16 @@ function LockDialog({
           <DialogTitle>{t(`${mode}Title`, { name })}</DialogTitle>
           <DialogDescription>{t(`${mode}Description`)}</DialogDescription>
         </DialogHeader>
+        {preview === "loading" && <p className="text-sm text-muted-foreground" data-gaps-loading>{t("checking")}</p>}
+        {preview !== null && preview !== "loading" && <GapsList gaps={preview.gaps} more={preview.more} />}
         <DialogFooter>
           <DialogClose asChild>
             <Button variant="outline" disabled={isPending}>
               {t("cancel")}
             </Button>
           </DialogClose>
-          <Button disabled={isPending} onClick={confirm}>
-            {t(`${mode}Confirm`)}
+          <Button disabled={isPending || preview === "loading"} onClick={confirm} data-lock-confirm>
+            {hasGaps ? t("lockAnyway") : t(`${mode}Confirm`)}
           </Button>
         </DialogFooter>
       </DialogContent>

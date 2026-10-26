@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ABSENT_TEXT, columnKey, markKey } from "@/lib/grades/marks";
 import { cn } from "@/lib/utils";
 
+import { AverageText } from "./grid-sheet";
 import { MarkInput } from "./mark-input";
 import type { SheetViewProps } from "./sheet-types";
 
@@ -60,7 +61,7 @@ export function PhoneSheet({ students, columns, canEdit, cell, setCell, columnLa
                 {s.otherName && <span className="truncate text-xs text-muted-foreground" dir="auto">{s.otherName}</span>}
                 {average && (
                   <span data-sheet-average={s.id} className="text-xs text-muted-foreground">
-                    {t("averageShort")} <span className="font-numeric tabular-nums">{average(s.id)}</span>
+                    {t("averageShort")} <span className="font-numeric tabular-nums"><AverageText average={average(s.id)} /></span>
                   </span>
                 )}
               </div>

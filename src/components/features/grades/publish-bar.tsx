@@ -23,6 +23,8 @@ import { Link, useRouter } from "@/i18n/navigation";
 import type { Publication } from "@/lib/grades/publications";
 import { publishGrades, unpublishGrades } from "@/lib/grades/publish-actions";
 
+import { GapsList, type GapStudent } from "./gaps-list";
+
 type Props = {
   classId: string;
   className: string;
@@ -43,6 +45,8 @@ type Props = {
   printHref: string | null;
   /** Council remarks changed after the last publication (not on the cards until Republier). */
   councilChanged: number;
+  /** Students with empty cells for this semester (the year: any semester); shown before publishing. */
+  gaps: GapStudent[];
 };
 
 /**
@@ -51,7 +55,7 @@ type Props = {
  * The parents see a snapshot taken at that moment (report cards).
  */
 export function PublishBar({
-  classId, className, periodId, periodLabel, publication, locked, canManage, students, lockHref, councilHref, printHref, councilChanged,
+  classId, className, periodId, periodLabel, publication, locked, canManage, students, lockHref, councilHref, printHref, councilChanged, gaps,
 }: Props) {
   const t = useTranslations("grades.publish");
   const router = useRouter();
@@ -169,6 +173,7 @@ export function PublishBar({
                   {t(publication ? "dialogRepublish" : "dialogDescription", { count: students })}
                 </DialogDescription>
               </DialogHeader>
+              <GapsList gaps={gaps} />
               <div className="flex items-center gap-2">
                 <Checkbox id="publish-rank" checked={showRank} onCheckedChange={(v) => setShowRank(v === true)} />
                 <Label htmlFor="publish-rank">{t("showRank")}</Label>
@@ -178,7 +183,7 @@ export function PublishBar({
                   <Button variant="outline">{t("cancel")}</Button>
                 </DialogClose>
                 <Button onClick={publish} disabled={isPending} data-publish-confirm>
-                  {isPending ? t("publishing") : publication ? t("republish") : t("publish")}
+                  {isPending ? t("publishing") : gaps.length > 0 ? t("publishAnyway") : publication ? t("republish") : t("publish")}
                 </Button>
               </DialogFooter>
             </DialogContent>

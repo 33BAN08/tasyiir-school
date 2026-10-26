@@ -13,7 +13,7 @@ import { formatAverage, markKey, parseMark, pendingMarks, sameMark, type SheetCo
 
 import { GridSheet } from "./grid-sheet";
 import { PhoneSheet } from "./phone-sheet";
-import type { CellView, SheetRowStudent } from "./sheet-types";
+import type { CellView, SheetAverage, SheetRowStudent } from "./sheet-types";
 
 type Props = {
   userId: string;
@@ -31,6 +31,8 @@ type Props = {
   marks: Record<string, string>;
   /** Saved subject averages of the semester, by student (class_averages()); null = not shown. */
   averages: Record<string, number | null> | null;
+  /** Marks expected per student for this subject (the sheet's own columns: contrôles + activités). */
+  expectedMarks: number;
 };
 
 /** Same marks as typed in both copies? ("14,5" = "14.5".) */
@@ -44,7 +46,7 @@ function sameDraft(a: GradeDraft, b: GradeDraft, scale: number): boolean {
  * phone until saved; "Enregistrer" sends every changed mark in one transaction.
  * A dropped connection keeps everything on screen and on the phone ("Réessayer").
  */
-export function GradeSheet({ userId, classId, subjectId, periodId, canEdit, locked, scale, columns, students, marks, averages }: Props) {
+export function GradeSheet({ userId, classId, subjectId, periodId, canEdit, locked, scale, columns, students, marks, averages, expectedMarks }: Props) {
   const t = useTranslations("grades.sheet");
   const tErrors = useTranslations("grades.errors");
   const router = useRouter();
@@ -138,9 +140,15 @@ export function GradeSheet({ userId, classId, subjectId, periodId, canEdit, lock
   };
   const columnLabel = (c: SheetColumn, short: boolean) =>
     c.kind === "activities" ? t(short ? "activitiesShort" : "activities") : t(short ? "controlShort" : "control", { number: c.number });
-  const average = averages && ((studentId: string) => {
+  // Saved marks only (like the average): a typed but unsaved mark changes nothing until saved.
+  const average = averages && ((studentId: string): SheetAverage => {
     const v = averages[studentId];
-    return v === null || v === undefined ? "—" : formatAverage(v);
+    const entered = columns.filter((c) => (marks[markKey(studentId, c.kind, c.number)] ?? "") !== "").length;
+    return {
+      value: v === null || v === undefined ? "—" : formatAverage(v),
+      count: t("count", { entered, expected: expectedMarks }),
+      incomplete: entered < expectedMarks,
+    };
   });
   const view = { students, columns, canEdit, cell, setCell, columnLabel, average };
 

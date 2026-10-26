@@ -98,7 +98,7 @@ export async function GradesContent({ user, params }: { user: CurrentUser; param
   const [sheet, averageRows] = await Promise.all([
     getGradeSheet(schoolId, klass, subjectId, period.id),
     // The sheet still opens if the averages cannot be read.
-    getClassAverages(klass.id).catch(() => null),
+    getClassAverages(klass.id, period.id).catch(() => null),
   ]);
   const averages = averageRows && Object.fromEntries(
     averageRows.filter((r) => r.periodId === period.id && r.subjectId === subjectId).map((r) => [r.studentId, r.average]),
@@ -127,6 +127,7 @@ export async function GradesContent({ user, params }: { user: CurrentUser; param
           {hasActivities && ` · ${t("withActivities")}`}
         </p>
       </div>
+      <p className="text-xs text-muted-foreground" data-sheet-hint>{t(sheet.absentAsZero ? "emptyHintZero" : "emptyHint")}</p>
       {period.locked && (
         <p className="flex items-center gap-2 rounded-lg border border-warning/50 bg-warning/10 px-3 py-2 text-sm" data-sheet-locked>
           <Lock className="size-4 shrink-0 text-warning" aria-hidden />
@@ -153,6 +154,7 @@ export async function GradesContent({ user, params }: { user: CurrentUser; param
         students={sheet.students.map((s) => ({ id: s.id, name: studentName(s, locale), otherName: studentOtherName(s, locale) }))}
         marks={sheet.marks}
         averages={sheet.graded ? averages : null}
+        expectedMarks={sheet.columns.filter((c) => !c.extra).length}
       />
     </div>
   );

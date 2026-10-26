@@ -3152,7 +3152,9 @@
         "unlockDescription": "Ses dates, son poids et ses notes pourront de nouveau être modifiés.",
         "unlockConfirm": "Déverrouiller",
         "unlockDone": "{name} déverrouillé",
-        "cancel": "Annuler"
+        "cancel": "Annuler",
+        "checking": "Vérification des notes manquantes…",
+        "lockAnyway": "Verrouiller quand même"
       }
     },
     "rules": {
@@ -3319,7 +3321,9 @@
       "activitiesShort": "Act.",
       "average": "Moy.",
       "averageShort": "Moy.",
-      "averageAfterSave": "La moyenne se met à jour après l'enregistrement."
+      "averageAfterSave": "La moyenne se met à jour après l'enregistrement.",
+      "count": "· {entered}/{expected}",
+      "incomplete": "incomplet"
     },
     "errors": {
       "generic": "Une erreur est survenue. Réessayez.",
@@ -3358,7 +3362,9 @@
       "howSemester": "Moyenne d'une matière = moyenne de ses contrôles (et des activités intégrées), selon les règles du niveau. Moyenne générale = somme (moyenne × coefficient) ÷ somme des coefficients des matières notées.",
       "howYear": "Moyenne de l'année = moyenne des semestres, selon le poids de chacun.",
       "print": "Bulletin",
-      "printFor": "Imprimer le bulletin de {name}"
+      "printFor": "Imprimer le bulletin de {name}",
+      "count": "· {entered}/{expected}",
+      "incomplete": "incomplet"
     },
     "publish": {
       "notPublished": "Pas encore publié aux parents",
@@ -3391,7 +3397,17 @@
       },
       "council": "Remarques du conseil",
       "print": "Bulletins (PDF)",
-      "councilChanged": "{count, plural, one {# remarque du conseil modifiée depuis la publication : Republier pour l'inclure.} other {# remarques du conseil modifiées depuis la publication : Republier pour les inclure.}}"
+      "councilChanged": "{count, plural, one {# remarque du conseil modifiée depuis la publication : Republier pour l'inclure.} other {# remarques du conseil modifiées depuis la publication : Republier pour les inclure.}}",
+      "publishAnyway": "Publier quand même"
+    },
+    "emptyHint": "Case vide = pas encore noté (hors moyenne) · abs = absent (hors moyenne) · 0 = note zéro (compte dans la moyenne).",
+    "emptyHintZero": "Case vide = pas encore noté (hors moyenne) · abs = absent (compte 0 à ce niveau) · 0 = note zéro (compte dans la moyenne).",
+    "gaps": {
+      "title": "{count, plural, one {# élève a des notes manquantes} other {# élèves ont des notes manquantes}}",
+      "hint": "Une case vide n'est pas encore notée : elle ne compte pas dans la moyenne. Vous pouvez continuer quand même.",
+      "item": "{subject} {entered}/{expected}",
+      "itemPeriod": "{subject} ({period}) {entered}/{expected}",
+      "more": "{count, plural, one {et # autre élève} other {et # autres élèves}}"
     }
   },
   "teacherHome": {

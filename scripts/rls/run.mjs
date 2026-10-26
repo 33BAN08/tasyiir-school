@@ -83,6 +83,7 @@ import { gradesActions } from "./actions-grades.mjs";
 import { averagesActions } from "./actions-averages.mjs";
 import { publishActions } from "./actions-publish.mjs";
 import { reportPrintActions } from "./actions-report-print.mjs";
+import { gradeGapsActions } from "./actions-grade-gaps.mjs";
 import { phase6Lessons } from "./phase6-lessons.mjs";
 import { lessonBlockActions } from "./actions-lesson-blocks.mjs";
 import { lessonCopyActions } from "./actions-lesson-copy.mjs";
@@ -206,6 +207,7 @@ try {
     await averagesActions({ fx, baseUrl });
     await publishActions({ fx, baseUrl });
     await reportPrintActions({ fx, baseUrl });
+    await gradeGapsActions({ fx, baseUrl });
     await staffActions({ fx, baseUrl }); // last: it deactivates mgrA
   }
   failed = report();

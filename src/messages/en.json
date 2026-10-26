@@ -3152,7 +3152,9 @@
         "unlockDescription": "Its dates, weight and grades can be changed again.",
         "unlockConfirm": "Unlock",
         "unlockDone": "{name} unlocked",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "checking": "Checking for missing grades…",
+        "lockAnyway": "Lock anyway"
       }
     },
     "rules": {
@@ -3319,7 +3321,9 @@
       "activitiesShort": "Act.",
       "average": "Avg.",
       "averageShort": "Avg.",
-      "averageAfterSave": "The average updates once saved."
+      "averageAfterSave": "The average updates once saved.",
+      "count": "· {entered}/{expected}",
+      "incomplete": "incomplete"
     },
     "errors": {
       "generic": "Something went wrong. Try again.",
@@ -3358,7 +3362,9 @@
       "howSemester": "Subject average = average of its tests (and integrated activities), following the level's rules. Overall average = sum (average × coefficient) ÷ sum of the graded subjects' coefficients.",
       "howYear": "Year average = average of the semesters, by each one's weight.",
       "print": "Report",
-      "printFor": "Print {name}'s report card"
+      "printFor": "Print {name}'s report card",
+      "count": "· {entered}/{expected}",
+      "incomplete": "incomplete"
     },
     "publish": {
       "notPublished": "Not published to parents yet",
@@ -3391,7 +3397,17 @@
       },
       "council": "Council remarks",
       "print": "Report cards (PDF)",
-      "councilChanged": "{count, plural, one {# council remark changed since publishing: publish again to include it.} other {# council remarks changed since publishing: publish again to include them.}}"
+      "councilChanged": "{count, plural, one {# council remark changed since publishing: publish again to include it.} other {# council remarks changed since publishing: publish again to include them.}}",
+      "publishAnyway": "Publish anyway"
+    },
+    "emptyHint": "Empty cell = not graded yet (left out of the average) · abs = absent (left out) · 0 = a zero (counts in the average).",
+    "emptyHintZero": "Empty cell = not graded yet (left out of the average) · abs = absent (counts as 0 at this level) · 0 = a zero (counts in the average).",
+    "gaps": {
+      "title": "{count, plural, one {# student has missing grades} other {# students have missing grades}}",
+      "hint": "An empty cell is not graded yet: it does not count in the average. You can continue anyway.",
+      "item": "{subject} {entered}/{expected}",
+      "itemPeriod": "{subject} ({period}) {entered}/{expected}",
+      "more": "{count, plural, one {and # more student} other {and # more students}}"
     }
   },
   "teacherHome": {

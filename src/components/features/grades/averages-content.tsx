@@ -13,6 +13,7 @@ import type { CurrentUser } from "@/lib/auth/session";
 import { ltr } from "@/lib/format";
 import { getGradeAccess } from "@/lib/grades/access";
 import { getClassAverages } from "@/lib/grades/averages";
+import { enteredMarks, findGaps, getClassCompleteness, getClassGaps } from "@/lib/grades/completeness";
 import { listCouncilRemarks } from "@/lib/grades/council";
 import { getPublication } from "@/lib/grades/publications";
 import { getGradeSheet, listClassSubjects, listYearPeriods } from "@/lib/grades/sheet";
@@ -82,19 +83,43 @@ export async function AveragesContent({ user, params }: { user: CurrentUser; par
       ?? periods[0];
 
   // The class's students (names) and scale come from the sheet reader; the numbers only from SQL.
-  const [rows, sheet, publication, tp, council] = await Promise.all([
-    getClassAverages(klass.id),
+  const [rows, sheet, publication, tp, council, completeness] = await Promise.all([
+    getClassAverages(klass.id, period?.id ?? null),
     getGradeSheet(schoolId, klass, subjects[0].id, period?.id ?? periods[0].id),
     getPublication(klass.id, period?.id ?? null),
     getTranslations("grades.periods"),
     listCouncilRemarks(klass.id, period?.id ?? null),
+    getClassCompleteness(klass),
   ]);
   const canPrint = access === "manage" && !!publication;
   const councilChanged = publication ? [...council.values()].filter((r) => r.updatedAt > publication.publishedAt).length : 0;
   const periodName = periods.length === 2 ? "semester" : periods.length === 3 ? "trimester" : "period";
   const periodLabel = period ? tp(periodName, { number: period.number }) : tp("year");
   const locked = period ? period.locked : periods.every((x) => x.locked);
-  const periodRows = rows.filter((r) => r.periodId === (period?.id ?? null));
+  const periodRows = rows;
+  // Marks entered / expected per student + subject (a semester; the year's rows hold no counts).
+  const count = (studentId: string, subjectId: string) => {
+    const expected = completeness.expected.get(subjectId);
+    const row = period && periodRows.find((r) => r.studentId === studentId && r.subjectId === subjectId);
+    return row && expected !== undefined ? { entered: enteredMarks(row, completeness.absentAsZero), expected } : null;
+  };
+  // Before publishing: who still has empty cells (the year: in any semester).
+  const gaps = access !== "manage" ? [] : period ? findGaps(rows, completeness) : await getClassGaps(klass, null);
+  const names = new Map(sheet.students.map((s) => [s.id, studentName(s, locale)]));
+  const subjectNames = new Map(subjects.map((s) => [s.id, s.name]));
+  const periodNumbers = new Map(periods.map((x) => [x.id, x.number]));
+  const gapList = [...new Set(gaps.map((g) => g.studentId))]
+    .filter((id) => names.has(id))
+    .map((id) => ({
+      student: names.get(id) as string,
+      items: gaps.filter((g) => g.studentId === id).map((g) => ({
+        subject: subjectNames.get(g.subjectId) ?? "",
+        period: period ? null : tp(periodName, { number: periodNumbers.get(g.periodId) ?? 0 }),
+        entered: g.entered,
+        expected: g.expected,
+      })),
+    }))
+    .sort((a, b) => a.student.localeCompare(b.student));
   const coefficients = new Map(periodRows.filter((r) => r.subjectId && r.coefficient !== null).map((r) => [r.subjectId as string, r.coefficient as number]));
 
   return (
@@ -125,6 +150,7 @@ export async function AveragesContent({ user, params }: { user: CurrentUser; par
         councilHref={`/grades/council?year=${year.id}&class=${klass.id}&period=${period?.id ?? YEAR_TAB}`}
         printHref={canPrint ? `/print/report-cards?publication=${publication.id}` : null}
         councilChanged={councilChanged}
+        gaps={gapList}
       />
       <AveragesTable
         periodId={period?.id ?? null}
@@ -132,6 +158,7 @@ export async function AveragesContent({ user, params }: { user: CurrentUser; par
         students={sheet.students.map((s) => ({ id: s.id, name: studentName(s, locale), otherName: studentOtherName(s, locale) }))}
         rows={periodRows}
         year={period === null}
+        count={count}
         printHref={canPrint ? (studentId) => `/print/report-cards?publication=${publication.id}&student=${studentId}` : null}
       />
     </div>

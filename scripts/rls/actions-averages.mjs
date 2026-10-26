@@ -27,9 +27,12 @@ export async function averagesActions({ fx, baseUrl }) {
   const grade = (student, subject, number, score, kind = "control") =>
     ({ school_id: A.id, period_id: S1.id, student_id: student, subject_id: subject, kind, number, score, absent: false });
   // The table cell of one student + column (subject id or "general").
+  // A subject cell also holds "· 2/3" (and "incomplet"): read its value span only.
   const cell = (html, student, column) => {
     const row = html.split(`data-student="${student}"`)[1]?.split("</tr>")[0] ?? "";
-    return text(row.split(`data-average="${column}"`)[1]);
+    const after = row.split(`data-average="${column}"`)[1];
+    if (column === "general" || after === undefined) return text(after);
+    return after.split("data-average-value")[1]?.match(/>([^<]*)</)?.[1] ?? null;
   };
   // What a cell shows: up to its </td>, tags and React's <!-- --> left out.
   const text = (after) => (after === undefined ? null
@@ -66,9 +69,12 @@ export async function averagesActions({ fx, baseUrl }) {
     const tch = await page("tchA", path);
     check(label("teacher: sent to their sheets"), tch.redirect.includes("/grades") && !tch.html.includes("data-averages-table"), tch.redirect);
     const sheet = await page("tchA", `/fr/grades?class=${cA}&subject=${maths}&period=${S1.id}`);
-    const avg = text(sheet.html.split(`<td data-sheet-average="${a1}"`)[1]);
+    const sheetCell = sheet.html.split(`<td data-sheet-average="${a1}"`)[1]?.split("</td>")[0] ?? "";
+    const avg = sheetCell.split("data-sheet-average-value")[1]?.match(/>([^<]*)</)?.[1] ?? null;
     check(label("…their sheet shows the saved Maths average 15,50 (no link to the class page)"),
       avg === "15,50" && !sheet.html.includes("data-averages-link"), String(avg));
+    check(label("…with its count: contrôle 1 + activités = 2 of 3, incomplet"),
+      sheetCell.includes('data-sheet-count="· 2/3"') && sheetCell.includes("data-incomplete"), sheetCell.slice(0, 200));
     for (const who of ["mgrA", "parent"]) {
       const r = await page(who, path);
       check(label(`${who}: sent away, no averages`), r.redirect !== "" && !r.html.includes("data-averages-table"), r.redirect);

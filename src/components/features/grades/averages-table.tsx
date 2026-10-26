@@ -22,6 +22,8 @@ type Props = {
   rows: AverageRow[];
   /** Published + grades.manage: one student's report card to print. */
   printHref: ((studentId: string) => string) | null;
+  /** Marks entered / expected for a student + subject (semester view; null on the year). */
+  count: (studentId: string, subjectId: string) => { entered: number; expected: number } | null;
 };
 
 const shown = (v: number | null) => (v === null ? "—" : formatAverage(v));
@@ -31,7 +33,7 @@ const shown = (v: number | null) => (v === null ? "—" : formatAverage(v));
  * average, the general average; then the class average, lowest and highest.
  * Every number comes from class_averages(), nothing is computed here.
  */
-export function AveragesTable({ periodId, year, subjects, students, rows, printHref }: Props) {
+export function AveragesTable({ periodId, year, subjects, students, rows, printHref, count }: Props) {
   const t = useTranslations("grades.averages");
   const index = indexAverages(rows);
   const get = (studentId: string, subjectId: string | null) => index.get(averageKey(studentId, periodId, subjectId));
@@ -100,9 +102,18 @@ export function AveragesTable({ periodId, year, subjects, students, rows, printH
                     </th>
                     {subjects.map((subject) => {
                       const v = get(s.id, subject.id)?.average ?? null;
+                      const c = count(s.id, subject.id);
                       return (
-                        <td key={subject.id} data-average={subject.id} className={cn("px-2 py-1.5 text-center font-numeric tabular-nums", v === null && "text-muted-foreground")}>
-                          {shown(v)}
+                        <td key={subject.id} data-average={subject.id} className="px-2 py-1.5 text-center font-numeric tabular-nums">
+                          <span data-average-value className={cn(v === null && "text-muted-foreground")}>{shown(v)}</span>
+                          {c && (
+                            <span data-average-count={`${c.entered}/${c.expected}`} className="ms-1 text-xs text-muted-foreground">
+                              {t("count", { entered: c.entered, expected: c.expected })}
+                            </span>
+                          )}
+                          {c && c.entered < c.expected && (
+                            <span data-incomplete className="block text-[10px] text-muted-foreground">{t("incomplete")}</span>
+                          )}
                         </td>
                       );
                     })}

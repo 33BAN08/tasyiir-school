@@ -7,7 +7,7 @@ import { columnKey, markKey } from "@/lib/grades/marks";
 import { cn } from "@/lib/utils";
 
 import { MarkInput } from "./mark-input";
-import type { SheetViewProps } from "./sheet-types";
+import type { SheetAverage, SheetViewProps } from "./sheet-types";
 
 /**
  * Tablets and computers: the whole sheet, students in rows, contrôles in
@@ -70,8 +70,8 @@ export function GridSheet({ students, columns, canEdit, cell, setCell, columnLab
                   );
                 })}
                 {average && (
-                  <td data-sheet-average={s.id} className="bg-muted/50 px-3 py-1.5 text-center font-numeric font-semibold tabular-nums">
-                    {average(s.id)}
+                  <td data-sheet-average={s.id} className="bg-muted/50 px-3 py-1.5 text-center font-numeric tabular-nums">
+                    <AverageText average={average(s.id)} />
                   </td>
                 )}
               </tr>
@@ -80,5 +80,17 @@ export function GridSheet({ students, columns, canEdit, cell, setCell, columnLab
         </table>
       </div>
     </Card>
+  );
+}
+
+/** "12,25 · 3/4" and, when contrôles are still empty, a muted "incomplet" (shared with the phone view). */
+export function AverageText({ average: a }: { average: SheetAverage }) {
+  const t = useTranslations("grades.sheet");
+  return (
+    <>
+      <span data-sheet-average-value className="font-semibold">{a.value}</span>
+      <span data-sheet-count={a.count} className="ms-1 text-xs text-muted-foreground">{a.count}</span>
+      {a.incomplete && <span data-incomplete className="block text-[10px] text-muted-foreground">{t("incomplete")}</span>}
+    </>
   );
 }
