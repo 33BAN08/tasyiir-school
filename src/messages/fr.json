@@ -3356,7 +3356,9 @@
       "summaryMissing": "{count, plural, one {# élève a une matière sans note : elle est laissée hors de sa moyenne générale} other {# élèves ont une matière sans note : elle est laissée hors de leur moyenne générale}}",
       "summaryMissingYear": "{count, plural, one {# élève n'a pas de moyenne pour un semestre : l'année se calcule sur les autres} other {# élèves n'ont pas de moyenne pour un semestre : l'année se calcule sur les autres}}",
       "howSemester": "Moyenne d'une matière = moyenne de ses contrôles (et des activités intégrées), selon les règles du niveau. Moyenne générale = somme (moyenne × coefficient) ÷ somme des coefficients des matières notées.",
-      "howYear": "Moyenne de l'année = moyenne des semestres, selon le poids de chacun."
+      "howYear": "Moyenne de l'année = moyenne des semestres, selon le poids de chacun.",
+      "print": "Bulletin",
+      "printFor": "Imprimer le bulletin de {name}"
     },
     "publish": {
       "notPublished": "Pas encore publié aux parents",
@@ -3386,7 +3388,10 @@
         "periodNotLocked": "Le semestre doit être verrouillé avant d'être publié.",
         "periodsNotLocked": "Tous les semestres doivent être verrouillés pour publier l'année.",
         "generic": "La publication a échoué. Réessayez."
-      }
+      },
+      "council": "Remarques du conseil",
+      "print": "Bulletins (PDF)",
+      "councilChanged": "{count, plural, one {# remarque du conseil modifiée depuis la publication : Republier pour l'inclure.} other {# remarques du conseil modifiées depuis la publication : Republier pour les inclure.}}"
     }
   },
   "teacherHome": {
@@ -3454,6 +3459,83 @@
     "control": "Contrôle {number}",
     "absent": "absent",
     "subjectClass": "Classe : {average} ({min} – {max})",
-    "periodAverage": "{period} : {average}"
+    "periodAverage": "{period} : {average}",
+    "download": "Télécharger le bulletin (PDF)",
+    "council": "Avis du conseil de classe",
+    "remarks": "Remarques du semestre",
+    "remarksYear": "Remarques de l'année",
+    "print": {
+      "pageTitle": "Bulletins — impression",
+      "back": "Retour",
+      "print": "Imprimer ou enregistrer en PDF",
+      "pages": "{count, plural, =0 {Aucune page} one {# page} other {# pages}} A4",
+      "hint": "Pour un PDF, choisissez « Enregistrer au format PDF » comme imprimante.",
+      "nothing": "Aucun bulletin publié à imprimer.",
+      "sheetLabel": "Bulletin de {name}",
+      "title": "Bulletin de notes",
+      "year": "Année scolaire {year}",
+      "student": "Élève",
+      "class": "Classe",
+      "massar": "Code Massar",
+      "scale": "Barème",
+      "subject": "Matière",
+      "coefficient": "Coef.",
+      "marks": "Notes",
+      "average": "Moyenne",
+      "classAverage": "Moy. classe",
+      "min": "Min",
+      "max": "Max",
+      "rank": "Rang",
+      "general": "Moyenne générale",
+      "mentionLine": "Mention : {mention}",
+      "mentions": {
+        "passable": "Passable",
+        "assezBien": "Assez bien",
+        "bien": "Bien",
+        "tresBien": "Très bien"
+      },
+      "rankOf": "Rang : {rank, selectordinal, one {#er} other {#e}} sur {ranked}",
+      "classFigures": "La classe",
+      "classAverageLine": "Moyenne de la classe : {value}",
+      "minMaxLine": "Plus basse : {min} · plus haute : {max}",
+      "periodLine": "{period} : {value}",
+      "missing": "{count, plural, one {# matière sans note, hors moyenne.} other {# matières sans note, hors moyenne.}}",
+      "missingYear": "{count, plural, one {Un semestre sans moyenne.} other {# semestres sans moyenne.}}",
+      "remarks": "Remarques du semestre",
+      "remarksYear": "Remarques de l'année",
+      "noRemarks": "Aucune remarque.",
+      "remarkLine": "{date} · {type} : {body}",
+      "moreRemarks": "{count, plural, one {et # autre remarque} other {et # autres remarques}}",
+      "council": "Avis du conseil de classe",
+      "signDirector": "Le directeur",
+      "signParents": "Signature des parents",
+      "publishedOn": "Bulletin publié le {date}",
+      "activitiesShort": "Act.",
+      "absentShort": "abs"
+    }
+  },
+  "councilRemarks": {
+    "title": "Remarques du conseil de classe",
+    "description": "Une appréciation par élève, imprimée sur son bulletin.",
+    "placeholder": "Appréciation du conseil de classe…",
+    "saved": "{count, plural, one {# remarque enregistrée} other {# remarques enregistrées}}",
+    "pending": "{count, plural, one {# remarque non enregistrée} other {# remarques non enregistrées}}",
+    "tooLong": "{max} caractères au plus par remarque.",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "saving": "Enregistrement…",
+    "noStudents": "Aucun élève dans cette classe.",
+    "notPublished": "Pas encore publié : les remarques entreront dans le bulletin à la publication.",
+    "published": "Publié : les remarques sont dans le bulletin.",
+    "changedSincePublished": "{count, plural, one {# remarque modifiée depuis la publication : Republiez pour l'inclure au bulletin.} other {# remarques modifiées depuis la publication : Republiez pour les inclure au bulletin.}}",
+    "readOnly": "Lecture seule : seul le directeur écrit les remarques du conseil.",
+    "errors": {
+      "forbidden": "Vous n'avez pas le droit d'écrire ces remarques.",
+      "tooMany": "Trop de remarques en une fois.",
+      "notInClass": "Un élève ne fait pas partie de cette classe.",
+      "notFound": "Classe introuvable.",
+      "tooLong": "500 caractères au plus par remarque.",
+      "generic": "L'enregistrement a échoué. Réessayez."
+    }
   }
 }

@@ -6,11 +6,16 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import { Link } from "@/i18n/navigation";
 
-type Props = { backHref: string; sheets: number };
+type Props = {
+  backHref: string;
+  sheets: number;
+  /** Texts: back, print, pages (count), hint. The report cards reuse this toolbar. */
+  namespace?: "timetable.print" | "reportCards.print";
+};
 
 /** Above the sheets on screen, never printed: back, print / save as PDF, how. */
-export function PrintToolbar({ backHref, sheets }: Props) {
-  const t = useTranslations("timetable.print");
+export function PrintToolbar({ backHref, sheets, namespace = "timetable.print" }: Props) {
+  const t = useTranslations(namespace);
   return (
     <div className="sticky top-0 z-10 flex flex-wrap items-center gap-3 border-b bg-background/95 px-4 py-3 backdrop-blur print:hidden">
       <Button asChild variant="ghost" size="sm">

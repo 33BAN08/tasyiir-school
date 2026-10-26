@@ -13,6 +13,7 @@ import type { CurrentUser } from "@/lib/auth/session";
 import { ltr } from "@/lib/format";
 import { getGradeAccess } from "@/lib/grades/access";
 import { getClassAverages } from "@/lib/grades/averages";
+import { listCouncilRemarks } from "@/lib/grades/council";
 import { getPublication } from "@/lib/grades/publications";
 import { getGradeSheet, listClassSubjects, listYearPeriods } from "@/lib/grades/sheet";
 import { listAcademicYears } from "@/lib/structure/academic-years";
@@ -81,12 +82,15 @@ export async function AveragesContent({ user, params }: { user: CurrentUser; par
       ?? periods[0];
 
   // The class's students (names) and scale come from the sheet reader; the numbers only from SQL.
-  const [rows, sheet, publication, tp] = await Promise.all([
+  const [rows, sheet, publication, tp, council] = await Promise.all([
     getClassAverages(klass.id),
     getGradeSheet(schoolId, klass, subjects[0].id, period?.id ?? periods[0].id),
     getPublication(klass.id, period?.id ?? null),
     getTranslations("grades.periods"),
+    listCouncilRemarks(klass.id, period?.id ?? null),
   ]);
+  const canPrint = access === "manage" && !!publication;
+  const councilChanged = publication ? [...council.values()].filter((r) => r.updatedAt > publication.publishedAt).length : 0;
   const periodName = periods.length === 2 ? "semester" : periods.length === 3 ? "trimester" : "period";
   const periodLabel = period ? tp(periodName, { number: period.number }) : tp("year");
   const locked = period ? period.locked : periods.every((x) => x.locked);
@@ -118,6 +122,9 @@ export async function AveragesContent({ user, params }: { user: CurrentUser; par
         canManage={access === "manage"}
         students={sheet.students.length}
         lockHref={`/setup/grading?year=${year.id}&section=periods`}
+        councilHref={`/grades/council?year=${year.id}&class=${klass.id}&period=${period?.id ?? YEAR_TAB}`}
+        printHref={canPrint ? `/print/report-cards?publication=${publication.id}` : null}
+        councilChanged={councilChanged}
       />
       <AveragesTable
         periodId={period?.id ?? null}
@@ -125,6 +132,7 @@ export async function AveragesContent({ user, params }: { user: CurrentUser; par
         students={sheet.students.map((s) => ({ id: s.id, name: studentName(s, locale), otherName: studentOtherName(s, locale) }))}
         rows={periodRows}
         year={period === null}
+        printHref={canPrint ? (studentId) => `/print/report-cards?publication=${publication.id}&student=${studentId}` : null}
       />
     </div>
   );

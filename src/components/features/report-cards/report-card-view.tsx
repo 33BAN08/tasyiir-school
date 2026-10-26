@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl";
 
 import { PostedAt } from "@/components/features/announcements/posted-at";
 import { Card, CardContent } from "@/components/ui/card";
-import { ltr } from "@/lib/format";
+import { formatDate, ltr } from "@/lib/format";
 import { cardPeriodName, cardTitle } from "@/lib/grades/card-title";
 import { formatAverage, formatMark } from "@/lib/grades/marks";
 import type { CardMark, CardSubject, ReportCard } from "@/lib/grades/publications";
@@ -21,6 +21,7 @@ const avg = (v: number | null) => (v === null ? "—" : formatAverage(v));
 export function ReportCardView({ card }: { card: ReportCard }) {
   const t = useTranslations("reportCards");
   const tp = useTranslations("grades.periods");
+  const tTypes = useTranslations("remarks.types");
   const periodOf = (number: number) => cardPeriodName({ periodNumber: number, periodCount: card.periodCount }, tp);
 
   return (
@@ -79,6 +80,30 @@ export function ReportCardView({ card }: { card: ReportCard }) {
           <SubjectRow key={s.subjectId} subject={s} periodOf={periodOf} />
         ))}
       </ul>
+
+      {card.councilRemark && (
+        <Card className="gap-2" data-card-council>
+          <CardContent className="flex flex-col gap-1">
+            <h2 className="text-base font-semibold">{t("council")}</h2>
+            <p className="whitespace-pre-line text-sm" dir="auto">{card.councilRemark}</p>
+          </CardContent>
+        </Card>
+      )}
+      {card.remarks.length > 0 && (
+        <Card className="gap-2" data-card-remarks={card.remarks.length}>
+          <CardContent className="flex flex-col gap-2">
+            <h2 className="text-base font-semibold">{t(card.periodNumber === null ? "remarksYear" : "remarks")}</h2>
+            <ul className="flex flex-col gap-2">
+              {[...card.remarks].reverse().map((r, i) => (
+                <li key={i} className="flex flex-col text-sm">
+                  <span className="text-xs text-muted-foreground">{ltr(formatDate(r.date))} · {tTypes(r.type)}</span>
+                  <span dir="auto">{r.body}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { EyeOff, Lock, Send, Undo2 } from "lucide-react";
+import { EyeOff, Lock, MessageSquareText, Printer, Send, Undo2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -37,6 +37,12 @@ type Props = {
   students: number;
   /** Where the semesters are locked (grading setup). */
   lockHref: string;
+  /** The class-council remarks of this class + semester. */
+  councilHref: string;
+  /** The whole class's report cards to print (published only). */
+  printHref: string | null;
+  /** Council remarks changed after the last publication (not on the cards until Republier). */
+  councilChanged: number;
 };
 
 /**
@@ -44,7 +50,9 @@ type Props = {
  * grades.manage Publier / Republier (rank shown or not) and Retirer.
  * The parents see a snapshot taken at that moment (report cards).
  */
-export function PublishBar({ classId, className, periodId, periodLabel, publication, locked, canManage, students, lockHref }: Props) {
+export function PublishBar({
+  classId, className, periodId, periodLabel, publication, locked, canManage, students, lockHref, councilHref, printHref, councilChanged,
+}: Props) {
   const t = useTranslations("grades.publish");
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
@@ -94,6 +102,12 @@ export function PublishBar({ classId, className, periodId, periodLabel, publicat
             {t("rankHidden")}
           </span>
         )}
+        {canManage && publication && councilChanged > 0 && (
+          <span className="flex items-center gap-1 text-xs text-warning" data-council-changed={councilChanged}>
+            <MessageSquareText className="size-3.5" aria-hidden />
+            {t("councilChanged", { count: councilChanged })}
+          </span>
+        )}
         {canManage && !locked && (
           <span className="flex items-center gap-1 text-xs text-muted-foreground" data-publish-needs-lock>
             <Lock className="size-3.5" aria-hidden />
@@ -105,6 +119,20 @@ export function PublishBar({ classId, className, periodId, periodLabel, publicat
 
       {canManage && (
         <div className="flex flex-wrap gap-2">
+          <Button asChild variant="ghost" size="sm">
+            <Link href={councilHref} data-council-link>
+              <MessageSquareText aria-hidden />
+              {t("council")}
+            </Link>
+          </Button>
+          {printHref && (
+            <Button asChild variant="outline" size="sm">
+              <Link href={printHref} target="_blank" data-print-class>
+                <Printer aria-hidden />
+                {t("print")}
+              </Link>
+            </Button>
+          )}
           {publication && (
             <Dialog open={confirmUndo} onOpenChange={setConfirmUndo}>
               <DialogTrigger asChild>

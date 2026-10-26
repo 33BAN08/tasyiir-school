@@ -1,7 +1,8 @@
-import { CircleAlert } from "lucide-react";
+import { CircleAlert, Printer } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Card } from "@/components/ui/card";
+import { Link } from "@/i18n/navigation";
 import { averageKey, indexAverages, type AverageRow } from "@/lib/grades/averages";
 import { formatAverage, formatMark } from "@/lib/grades/marks";
 import { SUBJECT_SWATCH, type SubjectColor } from "@/lib/structure/subject-template";
@@ -19,6 +20,8 @@ type Props = {
   students: SheetRowStudent[];
   /** class_averages() rows of this semester (or of the year). */
   rows: AverageRow[];
+  /** Published + grades.manage: one student's report card to print. */
+  printHref: ((studentId: string) => string) | null;
 };
 
 const shown = (v: number | null) => (v === null ? "—" : formatAverage(v));
@@ -28,7 +31,7 @@ const shown = (v: number | null) => (v === null ? "—" : formatAverage(v));
  * average, the general average; then the class average, lowest and highest.
  * Every number comes from class_averages(), nothing is computed here.
  */
-export function AveragesTable({ periodId, year, subjects, students, rows }: Props) {
+export function AveragesTable({ periodId, year, subjects, students, rows, printHref }: Props) {
   const t = useTranslations("grades.averages");
   const index = indexAverages(rows);
   const get = (studentId: string, subjectId: string | null) => index.get(averageKey(studentId, periodId, subjectId));
@@ -72,6 +75,7 @@ export function AveragesTable({ periodId, year, subjects, students, rows }: Prop
                   </th>
                 ))}
                 <th scope="col" className="bg-muted/50 px-3 py-2 text-center text-xs font-semibold">{t("general")}</th>
+                {printHref && <th scope="col" className="px-2 py-2 text-center text-xs font-medium text-muted-foreground">{t("print")}</th>}
               </tr>
             </thead>
             <tbody className="divide-y">
@@ -113,6 +117,19 @@ export function AveragesTable({ periodId, year, subjects, students, rows }: Prop
                         )}
                       </span>
                     </td>
+                    {printHref && (
+                      <td className="px-2 py-1.5 text-center">
+                        <Link
+                          href={printHref(s.id)}
+                          target="_blank"
+                          data-print-student={s.id}
+                          aria-label={t("printFor", { name: s.name })}
+                          className="inline-flex size-9 items-center justify-center rounded-md text-muted-foreground hover:bg-muted hover:text-foreground"
+                        >
+                          <Printer className="size-4" aria-hidden />
+                        </Link>
+                      </td>
+                    )}
                   </tr>
                 );
               })}
@@ -127,6 +144,7 @@ export function AveragesTable({ periodId, year, subjects, students, rows }: Prop
                       {shown(figure(c, k))}
                     </td>
                   ))}
+                  {printHref && <td />}
                 </tr>
               ))}
             </tfoot>

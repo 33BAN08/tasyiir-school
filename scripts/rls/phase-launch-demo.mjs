@@ -266,7 +266,7 @@ export async function phaseLaunchDemo({ fx, as }) {
   // empty; a second reset the same day gives the same counts everywhere. A table added later and
   // forgotten in private.reset_demo_school fails here (it doubles, or keeps a visitor's rows).
   const tables = await tablesWithSchoolId();
-  check(label("OpenAPI lists the school tables"), tables.length >= 38 && tables.includes("grades") && tables.includes("report_cards"), `${tables.length} table(s)`);
+  check(label("OpenAPI lists the school tables"), tables.length >= 39 && tables.includes("grades") && tables.includes("council_remarks"), `${tables.length} table(s)`);
   const countAll = async () => {
     const out = {};
     for (const table of tables) {

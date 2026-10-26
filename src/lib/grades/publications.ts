@@ -71,7 +71,13 @@ export type ReportCard = {
   subjects: CardSubject[];
   /** Year card: each semester's general average + rank. */
   periods: { number: number; average: number | null; rank: number | null }[];
+  classId: string;
+  /** Class-council remark copied at publishing (null = none). */
+  councilRemark: string | null;
+  /** The term's student remarks copied at publishing (oldest first). */
+  remarks: CardRemark[];
 };
+export type CardRemark = { type: "behavior" | "homework" | "material" | "praise"; body: string; date: string };
 
 const num = (v: unknown) => (v === null || v === undefined ? null : Number(v));
 
@@ -84,7 +90,8 @@ type RawSubject = {
 
 const CARD_SELECT =
   "id, publication_id, student_id, scale, average, rank, ranked, missing, class_average, class_min, class_max, subjects, periods, "
-  + "publication:grade_publications(published_at, academic_year_id, period:grading_periods(number))";
+  + "council_remark, remarks, "
+  + "publication:grade_publications(published_at, academic_year_id, class_id, period:grading_periods(number))";
 
 type YearInfo = { label: string; periods: number };
 
@@ -107,8 +114,8 @@ async function yearInfo(yearIds: string[]): Promise<Map<string, YearInfo>> {
 type Row = {
   id: string; publication_id: string; student_id: string; scale: number; average: unknown; rank: number | null;
   ranked: number | null; missing: number; class_average: unknown; class_min: unknown; class_max: unknown;
-  subjects: unknown; periods: unknown;
-  publication: { published_at: string; academic_year_id: string; period: { number: number } | null } | null;
+  subjects: unknown; periods: unknown; council_remark: string | null; remarks: unknown;
+  publication: { published_at: string; academic_year_id: string; class_id: string; period: { number: number } | null } | null;
 };
 
 function toCard(r: Row, years: Map<string, YearInfo>): ReportCard {
@@ -146,6 +153,9 @@ function toCard(r: Row, years: Map<string, YearInfo>): ReportCard {
     periods: (r.periods as { number: number; average: unknown; rank: number | null }[]).map((p) => ({
       number: p.number, average: num(p.average), rank: p.rank ?? null,
     })),
+    classId: r.publication?.class_id ?? "",
+    councilRemark: r.council_remark,
+    remarks: r.remarks as CardRemark[],
   };
 }
 
@@ -171,4 +181,15 @@ export async function getChildCard(studentId: string, publicationId: string): Pr
   if (error || !data) return null;
   const row = data as unknown as Row;
   return toCard(row, await yearInfo(row.publication ? [row.publication.academic_year_id] : []));
+}
+
+/** Every card of a publication (staff, the class's print), or one student's. RLS decides who sees what. */
+export async function listPublicationCards(publicationId: string, studentId?: string): Promise<ReportCard[]> {
+  let query = (await createClient()).from("report_cards").select(CARD_SELECT).eq("publication_id", publicationId);
+  if (studentId) query = query.eq("student_id", studentId);
+  const { data, error } = await query;
+  if (error) throw new Error("listPublicationCards failed");
+  const rows = data as unknown as Row[];
+  const years = await yearInfo(rows[0]?.publication ? [rows[0].publication.academic_year_id] : []);
+  return rows.map((r) => toCard(r, years));
 }

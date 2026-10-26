@@ -3356,7 +3356,9 @@
       "summaryMissing": "{count, plural, one {# student has a subject without a grade: it is left out of their overall average} other {# students have a subject without a grade: it is left out of their overall average}}",
       "summaryMissingYear": "{count, plural, one {# student has no average for a semester: the year uses the others} other {# students have no average for a semester: the year uses the others}}",
       "howSemester": "Subject average = average of its tests (and integrated activities), following the level's rules. Overall average = sum (average × coefficient) ÷ sum of the graded subjects' coefficients.",
-      "howYear": "Year average = average of the semesters, by each one's weight."
+      "howYear": "Year average = average of the semesters, by each one's weight.",
+      "print": "Report",
+      "printFor": "Print {name}'s report card"
     },
     "publish": {
       "notPublished": "Not published to parents yet",
@@ -3386,7 +3388,10 @@
         "periodNotLocked": "The semester must be locked before it is published.",
         "periodsNotLocked": "Every semester must be locked to publish the year.",
         "generic": "Publishing failed. Try again."
-      }
+      },
+      "council": "Council remarks",
+      "print": "Report cards (PDF)",
+      "councilChanged": "{count, plural, one {# council remark changed since publishing: publish again to include it.} other {# council remarks changed since publishing: publish again to include them.}}"
     }
   },
   "teacherHome": {
@@ -3454,6 +3459,83 @@
     "control": "Test {number}",
     "absent": "absent",
     "subjectClass": "Class: {average} ({min} – {max})",
-    "periodAverage": "{period}: {average}"
+    "periodAverage": "{period}: {average}",
+    "download": "Download the report card (PDF)",
+    "council": "Class council",
+    "remarks": "Remarks of the semester",
+    "remarksYear": "Remarks of the year",
+    "print": {
+      "pageTitle": "Report cards — print",
+      "back": "Back",
+      "print": "Print or save as PDF",
+      "pages": "{count, plural, =0 {No page} one {# page} other {# pages}} A4",
+      "hint": "For a PDF, choose \"Save as PDF\" as the printer.",
+      "nothing": "No published report card to print.",
+      "sheetLabel": "{name}'s report card",
+      "title": "Report card",
+      "year": "School year {year}",
+      "student": "Student",
+      "class": "Class",
+      "massar": "Massar code",
+      "scale": "Scale",
+      "subject": "Subject",
+      "coefficient": "Coef.",
+      "marks": "Grades",
+      "average": "Average",
+      "classAverage": "Class avg.",
+      "min": "Min",
+      "max": "Max",
+      "rank": "Rank",
+      "general": "Overall average",
+      "mentionLine": "Mention: {mention}",
+      "mentions": {
+        "passable": "Pass",
+        "assezBien": "Fairly good",
+        "bien": "Good",
+        "tresBien": "Very good"
+      },
+      "rankOf": "Rank: {rank, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} of {ranked}",
+      "classFigures": "The class",
+      "classAverageLine": "Class average: {value}",
+      "minMaxLine": "Lowest: {min} · highest: {max}",
+      "periodLine": "{period}: {value}",
+      "missing": "{count, plural, one {# subject without a grade, left out.} other {# subjects without a grade, left out.}}",
+      "missingYear": "{count, plural, one {A semester without an average.} other {# semesters without an average.}}",
+      "remarks": "Remarks of the semester",
+      "remarksYear": "Remarks of the year",
+      "noRemarks": "No remarks.",
+      "remarkLine": "{date} · {type}: {body}",
+      "moreRemarks": "{count, plural, one {and # more remark} other {and # more remarks}}",
+      "council": "Class council",
+      "signDirector": "The director",
+      "signParents": "Parents' signature",
+      "publishedOn": "Report card published on {date}",
+      "activitiesShort": "Act.",
+      "absentShort": "abs"
+    }
+  },
+  "councilRemarks": {
+    "title": "Class council remarks",
+    "description": "One remark per student, printed on their report card.",
+    "placeholder": "Class council remark…",
+    "saved": "{count, plural, one {# remark saved} other {# remarks saved}}",
+    "pending": "{count, plural, one {# unsaved remark} other {# unsaved remarks}}",
+    "tooLong": "{max} characters at most per remark.",
+    "cancel": "Cancel",
+    "save": "Save",
+    "saving": "Saving…",
+    "noStudents": "No students in this class.",
+    "notPublished": "Not published yet: the remarks go on the report card when it is published.",
+    "published": "Published: the remarks are on the report card.",
+    "changedSincePublished": "{count, plural, one {# remark changed since publishing: publish again to put it on the report card.} other {# remarks changed since publishing: publish again to put them on the report card.}}",
+    "readOnly": "Read only: only the director writes council remarks.",
+    "errors": {
+      "forbidden": "You are not allowed to write these remarks.",
+      "tooMany": "Too many remarks at once.",
+      "notInClass": "A student is not in this class.",
+      "notFound": "Class not found.",
+      "tooLong": "500 characters at most per remark.",
+      "generic": "Saving failed. Try again."
+    }
   }
 }

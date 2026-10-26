@@ -595,6 +595,78 @@ export type Database = {
           },
         ]
       }
+      council_remarks: {
+        Row: {
+          academic_year_id: string
+          body: string
+          class_id: string
+          id: string
+          period_id: string | null
+          school_id: string
+          student_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          academic_year_id: string
+          body: string
+          class_id: string
+          id?: string
+          period_id?: string | null
+          school_id: string
+          student_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          academic_year_id?: string
+          body?: string
+          class_id?: string
+          id?: string
+          period_id?: string | null
+          school_id?: string
+          student_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "council_remarks_class_fkey"
+            columns: ["class_id", "academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id", "academic_year_id", "school_id"]
+          },
+          {
+            foreignKeyName: "council_remarks_period_fkey"
+            columns: ["period_id", "academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "grading_periods"
+            referencedColumns: ["id", "academic_year_id", "school_id"]
+          },
+          {
+            foreignKeyName: "council_remarks_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "council_remarks_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "council_remarks_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       demo_requests: {
         Row: {
           city: string
@@ -1649,6 +1721,7 @@ export type Database = {
           class_average: number | null
           class_max: number | null
           class_min: number | null
+          council_remark: string | null
           created_at: string
           id: string
           missing: number
@@ -1656,6 +1729,7 @@ export type Database = {
           publication_id: string
           rank: number | null
           ranked: number | null
+          remarks: Json
           scale: number
           school_id: string
           student_id: string
@@ -1666,6 +1740,7 @@ export type Database = {
           class_average?: number | null
           class_max?: number | null
           class_min?: number | null
+          council_remark?: string | null
           created_at?: string
           id?: string
           missing?: number
@@ -1673,6 +1748,7 @@ export type Database = {
           publication_id: string
           rank?: number | null
           ranked?: number | null
+          remarks?: Json
           scale: number
           school_id: string
           student_id: string
@@ -1683,6 +1759,7 @@ export type Database = {
           class_average?: number | null
           class_max?: number | null
           class_min?: number | null
+          council_remark?: string | null
           created_at?: string
           id?: string
           missing?: number
@@ -1690,6 +1767,7 @@ export type Database = {
           publication_id?: string
           rank?: number | null
           ranked?: number | null
+          remarks?: Json
           scale?: number
           school_id?: string
           student_id?: string
@@ -2705,6 +2783,10 @@ export type Database = {
       save_attendance: {
         Args: { p_date: string; p_lesson: string; p_marks?: Json }
         Returns: string
+      }
+      save_council_remarks: {
+        Args: { p_cells: Json; p_class: string; p_period: string }
+        Returns: number
       }
       save_grades: {
         Args: { p_cells: Json; p_period: string; p_subject: string }

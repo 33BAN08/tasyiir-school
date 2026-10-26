@@ -1,8 +1,11 @@
+import { Download } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 
 import { ReportCardView } from "@/components/features/report-cards/report-card-view";
 import { BackLink } from "@/components/layout/back-link";
+import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import { getModules } from "@/lib/auth/modules";
 import { requireArea } from "@/lib/auth/session";
 import { isolate } from "@/lib/format";
@@ -34,6 +37,12 @@ export default async function PortalReportCardPage({ params, searchParams }: Pag
         <h1 className="text-2xl font-semibold">{t("cardTitle")}</h1>
         <p className="text-muted-foreground">{t("of", { name: isolate(studentName(child, locale)) })}</p>
       </div>
+      <Button asChild variant="outline" className="min-h-11 w-full sm:w-fit">
+        <Link href={`/print/report-cards?publication=${card.publicationId}&student=${child.id}`} target="_blank" data-download-card>
+          <Download aria-hidden />
+          {t("download")}
+        </Link>
+      </Button>
       <ReportCardView card={card} />
     </div>
   );

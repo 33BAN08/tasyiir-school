@@ -149,7 +149,9 @@ export async function phase11Averages({ fx, as }) {
 
     // --- Who reads -------------------------------------------------------------------------------------
     const { data: sRows, error: sErr } = await run(as.survA);
-    check(label("the surveillant (grades.view) gets the same rows"), !sErr && JSON.stringify(sRows) === JSON.stringify(R), sErr?.message);
+    // class_averages() has no ORDER BY: compare the rows as a set.
+    const same = (x) => (x ?? []).map((r) => JSON.stringify(r)).sort().join("|");
+    check(label("the surveillant (grades.view) gets the same rows"), !sErr && same(sRows) === same(R), sErr?.message);
     const { data: tch, error: tErr } = await run(as.tchA);
     check(label("the teacher of Maths in A gets only the Maths rows, no general average"),
       !tErr && (tch ?? []).length === 12 && (tch ?? []).every((r) => r.subject_id === maths), tErr?.message ?? String(tch?.length));
