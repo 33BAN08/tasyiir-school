@@ -1,14 +1,10 @@
 import { TIME_ZONE } from "@/lib/dates";
+import { formatCentimes } from "@/lib/fees/money";
 
 /**
  * Display formats from docs/DESIGN.md, identical in every UI language:
  * amounts `1 250,00 DH`, dates `dd/MM/yyyy` in Africa/Casablanca.
  */
-
-const amountFormat = new Intl.NumberFormat("fr-MA", {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2,
-});
 
 const dateFormat = new Intl.DateTimeFormat("fr-FR", {
   timeZone: TIME_ZONE,
@@ -17,9 +13,13 @@ const dateFormat = new Intl.DateTimeFormat("fr-FR", {
   year: "numeric",
 });
 
-/** `1250` → `1 250,00 DH`. */
+/**
+ * Dirhams → `1 250,00 DH`, through the shared formatter of the fees module
+ * (fr-FR groups with no-break spaces: fr-MA uses dots in some ICU builds;
+ * wrapped in left-to-right isolates for Arabic pages).
+ */
 export function formatMoney(amount: number): string {
-  return `${amountFormat.format(amount)} DH`;
+  return formatCentimes(Math.round(amount * 100));
 }
 
 const wholeAmountFormat = new Intl.NumberFormat("fr-FR", { maximumFractionDigits: 0 });
