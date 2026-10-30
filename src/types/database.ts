@@ -861,6 +861,7 @@ export type Database = {
           academic_year_id: string
           billing_months: string[]
           due_day: number
+          receipt_prefix: string | null
           school_id: string
           updated_at: string
           updated_by: string | null
@@ -869,6 +870,7 @@ export type Database = {
           academic_year_id: string
           billing_months: string[]
           due_day?: number
+          receipt_prefix?: string | null
           school_id: string
           updated_at?: string
           updated_by?: string | null
@@ -877,6 +879,7 @@ export type Database = {
           academic_year_id?: string
           billing_months?: string[]
           due_day?: number
+          receipt_prefix?: string | null
           school_id?: string
           updated_at?: string
           updated_by?: string | null
@@ -1588,6 +1591,157 @@ export type Database = {
           },
         ]
       }
+      payment_allocations: {
+        Row: {
+          amount_centimes: number
+          charge_id: string
+          payment_id: string
+          school_id: string
+        }
+        Insert: {
+          amount_centimes: number
+          charge_id: string
+          payment_id: string
+          school_id: string
+        }
+        Update: {
+          amount_centimes?: number
+          charge_id?: string
+          payment_id?: string
+          school_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_allocations_charge_fkey"
+            columns: ["charge_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "student_charges"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "payment_allocations_payment_fkey"
+            columns: ["payment_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "payment_allocations_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payments: {
+        Row: {
+          academic_year_id: string
+          amount_centimes: number
+          bank: string | null
+          cancel_note: string | null
+          cancel_reason: string | null
+          cancelled_at: string | null
+          cancelled_by: string | null
+          cheque_date: string | null
+          created_at: string
+          id: string
+          idempotency_key: string
+          method: string
+          note: string | null
+          paid_on: string
+          payer_name: string | null
+          receipt_label: string
+          receipt_no: number
+          received_by: string | null
+          reference: string | null
+          school_id: string
+          student_id: string
+        }
+        Insert: {
+          academic_year_id: string
+          amount_centimes: number
+          bank?: string | null
+          cancel_note?: string | null
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          cancelled_by?: string | null
+          cheque_date?: string | null
+          created_at?: string
+          id?: string
+          idempotency_key: string
+          method: string
+          note?: string | null
+          paid_on: string
+          payer_name?: string | null
+          receipt_label: string
+          receipt_no: number
+          received_by?: string | null
+          reference?: string | null
+          school_id: string
+          student_id: string
+        }
+        Update: {
+          academic_year_id?: string
+          amount_centimes?: number
+          bank?: string | null
+          cancel_note?: string | null
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          cancelled_by?: string | null
+          cheque_date?: string | null
+          created_at?: string
+          id?: string
+          idempotency_key?: string
+          method?: string
+          note?: string | null
+          paid_on?: string
+          payer_name?: string | null
+          receipt_label?: string
+          receipt_no?: number
+          received_by?: string | null
+          reference?: string | null
+          school_id?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payments_cancelled_by_fkey"
+            columns: ["cancelled_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_received_by_fkey"
+            columns: ["received_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payments_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "payments_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       permissions: {
         Row: {
           created_at: string
@@ -1884,6 +2038,42 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "schools"
             referencedColumns: ["id"]
+          },
+        ]
+      }
+      receipt_counters: {
+        Row: {
+          academic_year_id: string
+          last_no: number
+          school_id: string
+          updated_at: string
+        }
+        Insert: {
+          academic_year_id: string
+          last_no?: number
+          school_id: string
+          updated_at?: string
+        }
+        Update: {
+          academic_year_id?: string
+          last_no?: number
+          school_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "receipt_counters_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "receipt_counters_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
           },
         ]
       }
@@ -3158,6 +3348,10 @@ export type Database = {
         Args: { p_charge: string; p_note?: string; p_reason: string }
         Returns: undefined
       }
+      cancel_payment: {
+        Args: { p_note?: string; p_payment: string; p_reason: string }
+        Returns: undefined
+      }
       class_averages: {
         Args: { p_class: string }
         Returns: {
@@ -3281,6 +3475,28 @@ export type Database = {
           p_outbox: number[]
         }
         Returns: undefined
+      }
+      record_payment: {
+        Args: {
+          p_allocations?: Json
+          p_amount: number
+          p_bank?: string
+          p_cheque_date?: string
+          p_idempotency_key: string
+          p_method: string
+          p_note?: string
+          p_paid_on: string
+          p_payer_name?: string
+          p_reference?: string
+          p_student: string
+          p_year: string
+        }
+        Returns: {
+          payment_id: string
+          receipt_label: string
+          receipt_no: number
+          replayed: boolean
+        }[]
       }
       refresh_student_charges: {
         Args: { p_student: string; p_year: string }

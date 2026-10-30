@@ -70,6 +70,7 @@ import { phase11Council } from "./phase11-council.mjs";
 import { phase11CrossSchool } from "./phase11-cross-school.mjs";
 import { phase13FeeSetup } from "./phase13-fee-setup.mjs";
 import { phase13Charges } from "./phase13-charges.mjs";
+import { phase13Payments } from "./phase13-payments.mjs";
 import { dashboardAggregates } from "./dashboard-aggregates.mjs";
 import { demoActions } from "./actions-demo.mjs";
 import { phase9CrossSchool } from "./phase9-cross-school.mjs";
@@ -168,6 +169,7 @@ try {
   await phase11CrossSchool({ fx, as });
   await phase13FeeSetup({ fx, as });
   await phase13Charges({ fx, as });
+  await phase13Payments({ fx, as });
   await dashboardAggregates({ fx, as });
   await notificationTypes({ fx, as });
   await publicDemoRequests({ fx, as });
