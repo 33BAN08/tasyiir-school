@@ -71,8 +71,8 @@ export async function resetFeeMonths(yearId: unknown): Promise<StructureActionRe
 
 /**
  * The plans grid: one row per changed level. Both amounts empty = no fee (the
- * level's row is removed); otherwise empty counts as 0. Deletes, then new rows
- * (one statement), then changed rows. `level` points at the first bad row.
+ * level's row is removed); otherwise empty counts as 0. All levels or none.
+ * `level` points at the first row the form check refuses.
  */
 export async function saveFeePlans(
   yearId: unknown,
@@ -95,49 +95,23 @@ export async function saveFeePlans(
   }
   if (parsed.data.length === 0) return { ok: true, data: { saved: 0 } };
 
-  const supabase = await createClient();
-  const existing = await supabase
-    .from("fee_plans")
-    .select("id, level_id")
-    .eq("school_id", actor.schoolId)
-    .eq("academic_year_id", year.data);
-  if (existing.error) return { ok: false, error: feesErrorKey(existing.error) };
-  const idByLevel = new Map(existing.data.map((p) => [p.level_id, p.id]));
-
-  const removed = parsed.data.filter((r) => r.registration === null && r.monthly === null);
-  const kept = parsed.data.filter((r) => r.registration !== null || r.monthly !== null);
-  const amounts = (r: (typeof kept)[number]) => ({
-    registration_centimes: r.registration ?? 0,
-    monthly_centimes: r.monthly ?? 0,
+  // One transaction (public.save_fee_plans): every level or none, the charges
+  // refreshed inside it.
+  const { data, error } = await (await createClient()).rpc("save_fee_plans", {
+    p_year: year.data,
+    p_rows: parsed.data.map((r) => ({
+      level_id: r.levelId,
+      registration_centimes: r.registration,
+      monthly_centimes: r.monthly,
+    })),
   });
-
-  const removeIds = removed.flatMap((r) => idByLevel.get(r.levelId) ?? []);
-  if (removeIds.length > 0) {
-    const { error } = await supabase.from("fee_plans").delete().in("id", removeIds).eq("school_id", actor.schoolId);
-    if (error) return { ok: false, error: feesErrorKey(error) };
-  }
-  const added = kept.filter((r) => !idByLevel.has(r.levelId));
-  if (added.length > 0) {
-    const { error } = await supabase.from("fee_plans").insert(
-      added.map((r) => ({ school_id: actor.schoolId, academic_year_id: year.data, level_id: r.levelId, ...amounts(r) })),
-    );
-    if (error) return { ok: false, error: feesErrorKey(error) };
-  }
-  for (const r of kept.filter((r) => idByLevel.has(r.levelId))) {
-    const { error } = await supabase
-      .from("fee_plans")
-      .update(amounts(r))
-      .eq("id", idByLevel.get(r.levelId)!)
-      .eq("school_id", actor.schoolId);
-    if (error) return { ok: false, error: feesErrorKey(error), level: r.levelId };
-  }
+  if (error) return { ok: false, error: feesErrorKey(error) };
 
   await auditStructure(actor, "fees.plans.save", "academic_year", year.data, {
-    added: added.length,
-    changed: kept.length - added.length,
-    removed: removeIds.length,
+    levels: data,
+    removed: parsed.data.filter((r) => r.registration === null && r.monthly === null).length,
   });
-  return { ok: true, data: { saved: parsed.data.length } };
+  return { ok: true, data: { saved: data } };
 }
 
 export async function createFeeService(

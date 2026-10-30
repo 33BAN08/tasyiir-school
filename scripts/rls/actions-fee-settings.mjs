@@ -149,6 +149,12 @@ export async function feeSettingsActions({ fx, baseUrl }) {
     plans = await plansOf(cur);
     check(label("…1AC updated in place, 2AC removed"),
       plans.length === 1 && plans[0].id === p1.id && plans[0].monthly_centimes === 125000, JSON.stringify(plans));
+    await expect("a grid with a good row and B's level → notFound", call("dirA", "saveFeePlans", cur, [
+      { levelId: l1, registration: "1500", monthly: "9999" },
+      { levelId: levelB, registration: "", monthly: "100" },
+    ]), "notFound");
+    check(label("…all or nothing: 1AC still 1 250 DH"),
+      (await plansOf(cur)).find((p) => p.level_id === l1)?.monthly_centimes === 125000);
     await expect("B's level in A's grid → notFound",
       call("dirA", "saveFeePlans", cur, [{ levelId: levelB, registration: "", monthly: "100" }]), "notFound");
     await expect("director of B cannot write plans into A's year",

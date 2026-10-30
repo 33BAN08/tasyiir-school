@@ -15,6 +15,13 @@ export async function getFeesActor(permission: "fees.manage" | "fees.cancel"): P
 
 /** Errors raised by the fee tables (constraint names and trigger messages) → `fees.errors` keys. */
 const FEE_ERRORS: Record<string, string> = {
+  // Raised by the fees RPCs (private.fees_require and their own checks).
+  fees_forbidden: "forbidden",
+  fees_year_not_found: "notFound",
+  fees_student_not_found: "notFound",
+  fees_rows_invalid: "generic",
+  // A service whose charges still exist (cancelled ones included).
+  student_charges_service_fkey: "serviceInUse",
   fees_billing_months_invalid: "monthsInvalid",
   fees_month_outside_year: "monthOutsideYear",
   fees_student_not_enrolled: "notEnrolled",

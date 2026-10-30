@@ -2296,6 +2296,102 @@ export type Database = {
         }
         Relationships: []
       }
+      student_charges: {
+        Row: {
+          academic_year_id: string
+          cancel_note: string | null
+          cancel_reason: string | null
+          cancelled_at: string | null
+          cancelled_by: string | null
+          created_at: string
+          discount_centimes: number
+          due_on: string
+          gross_centimes: number
+          id: string
+          kind: string
+          month: string | null
+          net_centimes: number | null
+          school_id: string
+          service_id: string | null
+          student_id: string
+          updated_at: string
+        }
+        Insert: {
+          academic_year_id: string
+          cancel_note?: string | null
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          cancelled_by?: string | null
+          created_at?: string
+          discount_centimes?: number
+          due_on: string
+          gross_centimes: number
+          id?: string
+          kind: string
+          month?: string | null
+          net_centimes?: number | null
+          school_id: string
+          service_id?: string | null
+          student_id: string
+          updated_at?: string
+        }
+        Update: {
+          academic_year_id?: string
+          cancel_note?: string | null
+          cancel_reason?: string | null
+          cancelled_at?: string | null
+          cancelled_by?: string | null
+          created_at?: string
+          discount_centimes?: number
+          due_on?: string
+          gross_centimes?: number
+          id?: string
+          kind?: string
+          month?: string | null
+          net_centimes?: number | null
+          school_id?: string
+          service_id?: string | null
+          student_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_charges_cancelled_by_fkey"
+            columns: ["cancelled_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_charges_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_charges_service_fkey"
+            columns: ["service_id", "academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "fee_services"
+            referencedColumns: ["id", "academic_year_id", "school_id"]
+          },
+          {
+            foreignKeyName: "student_charges_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "student_charges_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       student_discounts: {
         Row: {
           academic_year_id: string
@@ -2425,6 +2521,65 @@ export type Database = {
             columns: ["student_id", "school_id"]
             isOneToOne: false
             referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
+      student_fee_ranges: {
+        Row: {
+          academic_year_id: string
+          from_month: string | null
+          school_id: string
+          student_id: string
+          to_month: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          academic_year_id: string
+          from_month?: string | null
+          school_id: string
+          student_id: string
+          to_month?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          academic_year_id?: string
+          from_month?: string | null
+          school_id?: string
+          student_id?: string
+          to_month?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_fee_ranges_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_fee_ranges_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "student_fee_ranges_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_fee_ranges_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
             referencedColumns: ["id", "school_id"]
           },
         ]
@@ -2999,6 +3154,10 @@ export type Database = {
           late_marks: number
         }[]
       }
+      cancel_charge: {
+        Args: { p_charge: string; p_note?: string; p_reason: string }
+        Returns: undefined
+      }
       class_averages: {
         Args: { p_class: string }
         Returns: {
@@ -3123,6 +3282,24 @@ export type Database = {
         }
         Returns: undefined
       }
+      refresh_student_charges: {
+        Args: { p_student: string; p_year: string }
+        Returns: {
+          inserted: number
+          kept: number
+          removed: number
+          updated: number
+        }[]
+      }
+      refresh_year_charges: {
+        Args: { p_year: string }
+        Returns: {
+          inserted: number
+          kept: number
+          removed: number
+          updated: number
+        }[]
+      }
       run_absence_notifications: { Args: { p_now?: string }; Returns: number }
       run_daily_alerts: { Args: { p_today: string }; Returns: number }
       run_demo_reset: { Args: { p_school: string }; Returns: string }
@@ -3140,6 +3317,10 @@ export type Database = {
       }
       save_council_remarks: {
         Args: { p_cells: Json; p_class: string; p_period: string }
+        Returns: number
+      }
+      save_fee_plans: {
+        Args: { p_rows: Json; p_year: string }
         Returns: number
       }
       save_grades: {
