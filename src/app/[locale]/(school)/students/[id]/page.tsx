@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { Suspense, type ReactNode } from "react";
 
 import { StudentAttendanceCard } from "@/components/features/attendance/student-attendance-card";
+import { StudentFeesCard } from "@/components/features/fees/student-fees-card";
 import { StudentRemarksCard } from "@/components/features/remarks/student-remarks-card";
 import { StudentGuardiansCard } from "@/components/features/parents/student-guardians-card";
 import { StudentAvatar } from "@/components/features/students/student-avatar";
@@ -13,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Link } from "@/i18n/navigation";
+import { getModules } from "@/lib/auth/modules";
 import { getPermissions, requireSchoolPermission } from "@/lib/auth/session";
 import { formatDate, ltr } from "@/lib/format";
 import { listStudentGuardians } from "@/lib/parents/guardians";
@@ -53,9 +55,10 @@ async function StudentDetail({ params }: { params: Params }) {
   const id = studentIdSchema.safeParse((await params).id);
   if (!id.success) notFound();
 
-  const [year, permissions, locale, t] = await Promise.all([
+  const [year, permissions, modules, locale, t] = await Promise.all([
     getCurrentYear(user.schoolId),
     getPermissions(),
+    getModules(),
     getLocale(),
     getTranslations("students"),
   ]);
@@ -153,6 +156,19 @@ async function StudentDetail({ params }: { params: Params }) {
             canManage={permissions.has("parents.manage")}
           />
         </div>
+        {year && modules.has("fees") && permissions.has("fees.view") && (
+          <div className="lg:col-span-3">
+            <Suspense fallback={<Skeleton className="h-48 w-full" />}>
+              <StudentFeesCard
+                schoolId={user.schoolId}
+                year={{ id: year.id, label: year.label }}
+                studentId={student.id}
+                canManage={permissions.has("fees.manage")}
+                canCancel={permissions.has("fees.cancel")}
+              />
+            </Suspense>
+          </div>
+        )}
         {permissions.has("attendance.view") && (
           <div className="lg:col-span-3">
             <Suspense fallback={<Skeleton className="h-48 w-full" />}>

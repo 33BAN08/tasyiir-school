@@ -82,6 +82,8 @@ import { phoneAppPages } from "./pages-phone-app.mjs";
 import { pushDeliverActions } from "./actions-push-deliver.mjs";
 import { pushPreferencesActions } from "./actions-push-preferences.mjs";
 import { gradingSetupActions } from "./actions-grading-setup.mjs";
+import { feeSettingsActions } from "./actions-fee-settings.mjs";
+import { studentFeesActions } from "./actions-student-fees.mjs";
 import { gradesActions } from "./actions-grades.mjs";
 import { averagesActions } from "./actions-averages.mjs";
 import { publishActions } from "./actions-publish.mjs";
@@ -213,6 +215,8 @@ try {
     await pushDeliverActions({ fx, baseUrl });
     await pushPreferencesActions({ fx, baseUrl });
     await gradingSetupActions({ fx, baseUrl });
+    await feeSettingsActions({ fx, baseUrl });
+    await studentFeesActions({ fx, baseUrl });
     await gradesActions({ fx, baseUrl });
     await averagesActions({ fx, baseUrl });
     await publishActions({ fx, baseUrl });

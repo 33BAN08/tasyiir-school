@@ -19,6 +19,7 @@ import {
   ShieldCheck,
   Users,
   UsersRound,
+  Wallet,
 } from "lucide-react";
 
 import {
@@ -50,6 +51,7 @@ const ICONS: Record<NavIcon, typeof LayoutDashboard> = {
   school: Building2,
   grades: NotebookPen,
   averages: ChartNoAxesColumn,
+  fees: Wallet,
 };
 
 export type NavMenuItem = { href: string; label: string; icon: NavIcon };
