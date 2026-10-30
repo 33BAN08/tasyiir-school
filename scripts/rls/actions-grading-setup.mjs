@@ -152,7 +152,17 @@ export async function gradingSetupActions({ fx, baseUrl }) {
 
   // --- Coefficient grid: every changed cell in one call ---------------------------------------------------
   const coefs = async (y = cur) => (await admin.from("subject_coefficients")
-    .select("level_id, track_id, subject_id, coefficient, controls_count, position").eq("academic_year_id", y)).data ?? [];
+    .select("level_id, track_id, subject_id, coefficient, controls_count, position").eq("academic_year_id", y)
+    .order("level_id").order("track_id", { nullsFirst: true }).order("subject_id")).data ?? [];
+  // First row that differs between two reads (for the check's detail), or "" when they match.
+  const firstDiff = (before, after) => {
+    for (let i = 0; i < Math.max(before.length, after.length); i++) {
+      if (JSON.stringify(before[i]) !== JSON.stringify(after[i])) {
+        return `row ${i}: before ${JSON.stringify(before[i] ?? null)} after ${JSON.stringify(after[i] ?? null)}`;
+      }
+    }
+    return "";
+  };
   const find = (list, level, subject, trk = null) => list.find((r) => r.level_id === level && r.subject_id === subject && r.track_id === trk);
   const cell = (levelId, subjectId, coefficient, extra = {}) =>
     ({ levelId, trackId: null, subjectId, coefficient, controlsCount: null, position: 1, ...extra });
@@ -172,7 +182,7 @@ export async function gradingSetupActions({ fx, baseUrl }) {
       && find(list, l1, pc)?.position === 1 && Number(find(list, l2, maths)?.coefficient) === 3
       && Number(find(list, l1, maths, track)?.coefficient) === 5 && list.length === 4, JSON.stringify(list));
 
-  const unchanged = JSON.stringify(await coefs());
+  const unchanged = await coefs();
   const bad = async (name, cells, wanted) => {
     const r = await expect(name, grid("dirA", cells), wanted);
     return r;
@@ -184,7 +194,8 @@ export async function gradingSetupActions({ fx, baseUrl }) {
   await bad("0 contrôles → controlsRange", [cell(l2, pc, 4), cell(l1, maths, 3, { controlsCount: "0" })], "controlsRange");
   await bad("a filière of another level → the database refuses the whole save", [cell(l2, pc, 4), cell(l2, maths, 3, { trackId: track })], "inUse");
   await bad("501 cells → tooManyCells", Array.from({ length: 501 }, () => cell(l1, maths, 1)), "tooManyCells");
-  check(label("…nothing saved by any refused grid"), JSON.stringify(await coefs()) === unchanged);
+  const diff = firstDiff(unchanged, await coefs());
+  check(label("…nothing saved by any refused grid"), diff === "", diff);
   await expect("director B cannot save into A's year", grid("dirB", [cell(l1, maths, 9)]), "notFound");
   const empty = await expect("an empty save does nothing", grid("dirA", []), "ok");
   check(label("…0 saved"), empty.data?.saved === 0);
