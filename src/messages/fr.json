@@ -1866,6 +1866,20 @@
         "label": "Gérer les alertes automatiques",
         "description": "Choisir quand les parents et la surveillance sont prévenus (absences non justifiées, retards répétés)."
       }
+    },
+    "fees": {
+      "view": {
+        "label": "Voir les frais",
+        "description": "Consulter les tarifs, les services, les remises, les soldes et les reçus."
+      },
+      "manage": {
+        "label": "Gérer les frais",
+        "description": "Tarifs par niveau, services, inscriptions des élèves aux services, encaissements."
+      },
+      "cancel": {
+        "label": "Remises et annulations",
+        "description": "Accorder ou modifier une remise ; annuler un reçu ou une échéance (avec motif)."
+      }
     }
   },
   "teachers": {

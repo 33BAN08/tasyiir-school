@@ -733,6 +733,178 @@ export type Database = {
           },
         ]
       }
+      fee_plans: {
+        Row: {
+          academic_year_id: string
+          id: string
+          level_id: string
+          monthly_centimes: number
+          registration_centimes: number
+          school_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          academic_year_id: string
+          id?: string
+          level_id: string
+          monthly_centimes?: number
+          registration_centimes?: number
+          school_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          academic_year_id?: string
+          id?: string
+          level_id?: string
+          monthly_centimes?: number
+          registration_centimes?: number
+          school_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fee_plans_level_fkey"
+            columns: ["level_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "levels"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "fee_plans_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fee_plans_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fee_plans_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
+      fee_services: {
+        Row: {
+          academic_year_id: string
+          active: boolean
+          id: string
+          monthly_centimes: number
+          name: string
+          name_ar: string | null
+          position: number
+          school_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          academic_year_id: string
+          active?: boolean
+          id?: string
+          monthly_centimes: number
+          name: string
+          name_ar?: string | null
+          position?: number
+          school_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          academic_year_id?: string
+          active?: boolean
+          id?: string
+          monthly_centimes?: number
+          name?: string
+          name_ar?: string | null
+          position?: number
+          school_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fee_services_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fee_services_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fee_services_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
+      fee_years: {
+        Row: {
+          academic_year_id: string
+          billing_months: string[]
+          due_day: number
+          school_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          academic_year_id: string
+          billing_months: string[]
+          due_day?: number
+          school_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          academic_year_id?: string
+          billing_months?: string[]
+          due_day?: number
+          school_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fee_years_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fee_years_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fee_years_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       grade_level_settings: {
         Row: {
           absent_as_zero: boolean
@@ -2124,6 +2296,90 @@ export type Database = {
         }
         Relationships: []
       }
+      student_discounts: {
+        Row: {
+          academic_year_id: string
+          amount_centimes: number | null
+          applies_to: string
+          created_at: string
+          created_by: string | null
+          id: string
+          kind: string
+          percent_bp: number | null
+          reason: string | null
+          school_id: string
+          student_id: string
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          academic_year_id: string
+          amount_centimes?: number | null
+          applies_to?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind: string
+          percent_bp?: number | null
+          reason?: string | null
+          school_id: string
+          student_id: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          academic_year_id?: string
+          amount_centimes?: number | null
+          applies_to?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          kind?: string
+          percent_bp?: number | null
+          reason?: string | null
+          school_id?: string
+          student_id?: string
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_discounts_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_discounts_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_discounts_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "student_discounts_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_discounts_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
       student_enrollments: {
         Row: {
           academic_year_id: string
@@ -2290,6 +2546,78 @@ export type Database = {
           },
           {
             foreignKeyName: "student_remarks_year_fkey"
+            columns: ["academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "academic_years"
+            referencedColumns: ["id", "school_id"]
+          },
+        ]
+      }
+      student_services: {
+        Row: {
+          academic_year_id: string
+          from_month: string
+          id: string
+          school_id: string
+          service_id: string
+          student_id: string
+          to_month: string | null
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          academic_year_id: string
+          from_month: string
+          id?: string
+          school_id: string
+          service_id: string
+          student_id: string
+          to_month?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          academic_year_id?: string
+          from_month?: string
+          id?: string
+          school_id?: string
+          service_id?: string
+          student_id?: string
+          to_month?: string | null
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_services_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_services_service_fkey"
+            columns: ["service_id", "academic_year_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "fee_services"
+            referencedColumns: ["id", "academic_year_id", "school_id"]
+          },
+          {
+            foreignKeyName: "student_services_student_fkey"
+            columns: ["student_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "students"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "student_services_updated_by_fkey"
+            columns: ["updated_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_services_year_fkey"
             columns: ["academic_year_id", "school_id"]
             isOneToOne: false
             referencedRelation: "academic_years"
@@ -2735,6 +3063,14 @@ export type Database = {
           p_title: string
         }
         Returns: string
+      }
+      fee_year_rules: {
+        Args: { p_year: string }
+        Returns: {
+          billing_months: string[]
+          customised: boolean
+          due_day: number
+        }[]
       }
       grade_entry_progress: {
         Args: { p_period: string }

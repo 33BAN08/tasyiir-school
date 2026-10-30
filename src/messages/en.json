@@ -1866,6 +1866,20 @@
         "label": "Manage automatic alerts",
         "description": "Choose when parents and supervision are told (unjustified absences, repeated lateness)."
       }
+    },
+    "fees": {
+      "view": {
+        "label": "View fees",
+        "description": "See fee plans, services, discounts, balances and receipts."
+      },
+      "manage": {
+        "label": "Manage fees",
+        "description": "Fee plans per level, services, student services, payments."
+      },
+      "cancel": {
+        "label": "Discounts and cancellations",
+        "description": "Give or change a discount; cancel a receipt or a charge (with a reason)."
+      }
     }
   },
   "teachers": {

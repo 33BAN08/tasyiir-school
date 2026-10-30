@@ -68,6 +68,7 @@ import { phase11Averages } from "./phase11-averages.mjs";
 import { phase11Publish } from "./phase11-publish.mjs";
 import { phase11Council } from "./phase11-council.mjs";
 import { phase11CrossSchool } from "./phase11-cross-school.mjs";
+import { phase13FeeSetup } from "./phase13-fee-setup.mjs";
 import { dashboardAggregates } from "./dashboard-aggregates.mjs";
 import { demoActions } from "./actions-demo.mjs";
 import { phase9CrossSchool } from "./phase9-cross-school.mjs";
@@ -162,6 +163,7 @@ try {
   await phase11Publish({ fx, as });
   await phase11Council({ fx, as });
   await phase11CrossSchool({ fx, as });
+  await phase13FeeSetup({ fx, as });
   await dashboardAggregates({ fx, as });
   await notificationTypes({ fx, as });
   await publicDemoRequests({ fx, as });
