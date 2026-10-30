@@ -178,6 +178,8 @@ export async function studentFeesActions({ fx, baseUrl }) {
       discPage.html.replace(/[⁦⁩]/g, "").includes("250,50 DH par mois") && discPage.html.includes(`data-student-discount="scholarship"`));
 
     const logs = (await admin.from("audit_logs").select("action, actor_id").eq("school_id", A.id).eq("entity", "student_discount")
+      // Only this suite's student: earlier suites log discounts in the same fixture school.
+      .eq("data->>student_id", amine)
       .order("id")).data ?? [];
     check(label("audit: 3 creates, 1 edit, 1 delete, all by the director (trigger, no duplicate from the action)"),
       logs.map((l) => l.action).join() === "fee_discount.insert,fee_discount.insert,fee_discount.insert,fee_discount.update,fee_discount.delete"
