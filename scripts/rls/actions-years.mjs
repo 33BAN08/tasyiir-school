@@ -33,6 +33,11 @@ export async function yearActions({ fx, baseUrl }) {
   // The DB-level checks (phase4.mjs) leave one current year "2026-2027" in A and B.
   const yearA = (await yearsOf(A.id)).find((y) => y.is_current);
   const yearB = (await yearsOf(B.id)).find((y) => y.is_current);
+  // The delete check uses a past year of its own: earlier suites (phase13-fee-reports.mjs)
+  // leave classes and payments in A's current year, and a year with payments never goes.
+  const { data: pastYear } = await admin.from("academic_years")
+    .insert({ school_id: A.id, label: "2020-2021", start_date: "2020-09-01", end_date: "2021-06-30", is_current: false })
+    .select("id").single();
 
   // --- Who may call ----------------------------------------------------------
   await expect("surveillant cannot create a year",
@@ -75,6 +80,6 @@ export async function yearActions({ fx, baseUrl }) {
   await expect("the current year cannot be deleted", call("dirA", "deleteAcademicYear", next), "deleteCurrent");
   await expect("director B cannot delete school A's year", call("dirB", "deleteAcademicYear", yearA?.id), "notFound");
   await expect("not a uuid → notFound", call("dirA", "deleteAcademicYear", "x"), "notFound");
-  await expect("director deletes a past, non-current year", call("dirA", "deleteAcademicYear", yearA?.id), "ok");
-  check("[P4 action] the deleted year is gone", !(await yearsOf(A.id)).some((y) => y.id === yearA?.id), "");
+  await expect("director deletes a past, non-current year", call("dirA", "deleteAcademicYear", pastYear?.id), "ok");
+  check("[P4 action] the deleted year is gone", !!pastYear && !(await yearsOf(A.id)).some((y) => y.id === pastYear.id), "");
 }
