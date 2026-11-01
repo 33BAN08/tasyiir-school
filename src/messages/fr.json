@@ -3796,7 +3796,115 @@
           "saved": "Remise enregistrée."
         }
       },
-      "siblings": "Frères et sœurs dans l'établissement : {names}"
+      "siblings": "Frères et sœurs dans l'établissement : {names}",
+      "ledger": {
+        "title": "Mois et paiements",
+        "empty": "Aucun montant dû cette année.",
+        "total": "Total de l'année",
+        "paid": "Payé",
+        "balance": "Reste à payer",
+        "dueNow": "Dû à ce jour",
+        "registration": "Inscription",
+        "tuition": "Scolarité",
+        "service": "Service",
+        "cellLabel": "{month} : {state}",
+        "states": {
+          "paid": "Payé",
+          "partial": "Partiel",
+          "unpaid": "Impayé",
+          "notDue": "Pas encore dû",
+          "free": "Offert",
+          "cancelled": "Annulé"
+        },
+        "left": "reste {amount}",
+        "paidOf": "payé {amount}",
+        "discounted": "remise {amount}",
+        "receipts": "Reçus : {labels}",
+        "chargeCancelled": "Annulé : {reason}",
+        "cancelCharge": "Annuler ce montant",
+        "cancelChargeTitle": "Annuler « {charge} » ?",
+        "cancelChargeDescription": "{amount} ne sera plus dû et ne reviendra pas, même si les tarifs changent.",
+        "cancelChargeConfirm": "Annuler ce montant",
+        "chargeCancelledToast": "Montant annulé.",
+        "chargeReasons": {
+          "left_school": "A quitté l'établissement",
+          "waived": "Offert",
+          "entry_error": "Erreur de saisie",
+          "other": "Autre"
+        }
+      },
+      "pay": {
+        "open": "Encaisser",
+        "title": "Encaisser un paiement",
+        "description": "Dû à ce jour : {due} · reste de l'année : {balance}",
+        "amount": "Montant (DH)",
+        "fillDue": "Montant dû",
+        "fillBalance": "Solde de l'année",
+        "pickMode": "Choisir les mois payés",
+        "pickedTotal": "Montant",
+        "pickAmount": "Montant pour {charge}",
+        "balanceOf": "reste {amount}",
+        "previewTitle": "Ce paiement règle",
+        "previewPart": "{amount} sur {of}",
+        "method": "Mode de paiement",
+        "methods": {
+          "cash": "Espèces",
+          "cheque": "Chèque",
+          "transfer": "Virement"
+        },
+        "bank": "Banque",
+        "chequeNumber": "N° du chèque",
+        "reference": "Référence",
+        "chequeDate": "Date du chèque",
+        "paidOn": "Date du paiement",
+        "paidOnHint": "Aujourd'hui ou les 7 derniers jours.",
+        "payerName": "Payé par",
+        "note": "Note",
+        "cancel": "Annuler",
+        "submit": "Encaisser",
+        "saving": "Enregistrement…",
+        "retry": "Réessayer",
+        "lostAnswer": "La réponse s'est perdue : le paiement est peut-être enregistré. « Réessayer » renvoie le même paiement, sans doublon.",
+        "conflict": "Ce paiement a peut-être déjà été enregistré. Fermez et vérifiez l'historique des reçus.",
+        "doneTitle": "Paiement enregistré",
+        "doneReplayedTitle": "Paiement déjà enregistré",
+        "doneDescription": "Numéro du reçu :",
+        "close": "Fermer"
+      },
+      "history": {
+        "title": "Reçus de l'année",
+        "empty": "Aucun paiement.",
+        "cancelled": "Annulé",
+        "cancelledBecause": "Annulé : {reason}",
+        "methods": {
+          "cash": "Espèces",
+          "cheque": "Chèque",
+          "transfer": "Virement"
+        },
+        "chequeNo": "chèque n° {value}",
+        "reference": "réf. {value}",
+        "receivedBy": "reçu par {name}",
+        "cancel": "Annuler",
+        "cancelTitle": "Annuler le reçu {receipt} ?",
+        "cancelDescription": "{amount} redevient dû : {charges}. Le reçu reste dans l'historique, marqué annulé.",
+        "cancelConfirm": "Annuler le reçu",
+        "cancelledToast": "Reçu annulé."
+      },
+      "cancel": {
+        "reason": "Motif",
+        "note": "Précision",
+        "back": "Fermer",
+        "continue": "Continuer",
+        "previous": "Retour",
+        "saving": "Annulation…",
+        "confirmText": "Motif : {reason}. Cette annulation est définitive et inscrite au journal d'activité.",
+        "paymentReasons": {
+          "bounced_cheque": "Chèque impayé",
+          "entry_error": "Erreur de saisie",
+          "refund": "Remboursement",
+          "other": "Autre"
+        }
+      }
     },
     "errors": {
       "generic": "Une erreur est survenue. Veuillez réessayer.",
@@ -3819,7 +3927,23 @@
       "discountKindTaken": "L'élève a déjà une remise de ce type cette année.",
       "percentRange": "Pourcentage entre 0,01 et 100.",
       "valueInvalid": "Valeur invalide.",
-      "sourceNotEarlier": "Choisissez une année précédente."
+      "sourceNotEarlier": "Choisissez une année précédente.",
+      "methodInvalid": "Choisissez un mode de paiement.",
+      "chequeDetailsRequired": "Saisissez la banque et le numéro du chèque.",
+      "bankRequired": "Saisissez la banque.",
+      "chequeNumberRequired": "Saisissez le numéro du chèque.",
+      "dateInvalid": "Date invalide.",
+      "paidOnInvalid": "La date doit être aujourd'hui ou dans les 7 derniers jours.",
+      "nothingDue": "Rien n'est dû pour cet élève.",
+      "amountAboveBalance": "Le montant dépasse le reste de l'année.",
+      "allocationInvalid": "Vérifiez les montants choisis : chacun entre 0,01 DH et le reste du mois.",
+      "allocationRequired": "Cochez au moins un mois.",
+      "idempotencyConflict": "Ce paiement a peut-être déjà été enregistré. Rechargez la page.",
+      "paymentCancelled": "Ce reçu est déjà annulé.",
+      "chargeCancelled": "Ce montant est déjà annulé.",
+      "chargePaid": "Ce montant a déjà reçu un paiement : annulez d'abord le reçu.",
+      "cancelReasonInvalid": "Choisissez un motif.",
+      "cancelNoteRequired": "Précisez le motif."
     }
   }
 }

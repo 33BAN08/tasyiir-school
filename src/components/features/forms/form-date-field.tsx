@@ -42,6 +42,8 @@ type Props<TValues extends FieldValues, TOutput> = {
   toYear?: number;
   /** Translates the zod error key; defaults to `platform.errors`. */
   translateError?: (key: string) => string;
+  /** "touch": 44 px high field and clear button (screens used on phones at the desk). */
+  size?: "default" | "touch";
 };
 
 /**
@@ -58,6 +60,7 @@ export function FormDateField<TValues extends FieldValues, TOutput>({
   fromYear,
   toYear,
   translateError,
+  size = "default",
 }: Props<TValues, TOutput>) {
   const t = useTranslations("common");
   const tErrors = useTranslations("platform.errors");
@@ -98,6 +101,7 @@ export function FormDateField<TValues extends FieldValues, TOutput>({
                     className={cn(
                       "flex-1 justify-between font-normal aria-invalid:border-destructive",
                       !selected && "text-muted-foreground",
+                      size === "touch" && "min-h-11",
                     )}
                   >
                     {/* Digits stay left-to-right in Arabic too. */}
@@ -131,6 +135,7 @@ export function FormDateField<TValues extends FieldValues, TOutput>({
                   type="button"
                   variant="ghost"
                   size="icon"
+                  className={cn(size === "touch" && "size-11")}
                   aria-label={t("clearDate", { label })}
                   onClick={() => change("")}
                 >

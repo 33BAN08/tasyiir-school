@@ -86,6 +86,7 @@ import { pushPreferencesActions } from "./actions-push-preferences.mjs";
 import { gradingSetupActions } from "./actions-grading-setup.mjs";
 import { feeSettingsActions } from "./actions-fee-settings.mjs";
 import { studentFeesActions } from "./actions-student-fees.mjs";
+import { studentPaymentActions } from "./actions-student-payments.mjs";
 import { gradesActions } from "./actions-grades.mjs";
 import { averagesActions } from "./actions-averages.mjs";
 import { publishActions } from "./actions-publish.mjs";
@@ -181,6 +182,7 @@ try {
   await import("./rules-seed-demo.mjs");
   await import("./rules-paged-reads.mjs");
   await import("./rules-dashboard-ranges.mjs");
+  await import("./rules-fee-ledger.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });
     await roleActions({ fx, baseUrl });
@@ -221,6 +223,7 @@ try {
     await gradingSetupActions({ fx, baseUrl });
     await feeSettingsActions({ fx, baseUrl });
     await studentFeesActions({ fx, baseUrl });
+    await studentPaymentActions({ fx, baseUrl });
     await gradesActions({ fx, baseUrl });
     await averagesActions({ fx, baseUrl });
     await publishActions({ fx, baseUrl });

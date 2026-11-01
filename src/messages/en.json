@@ -3796,7 +3796,115 @@
           "saved": "Discount saved."
         }
       },
-      "siblings": "Brothers and sisters at the school: {names}"
+      "siblings": "Brothers and sisters at the school: {names}",
+      "ledger": {
+        "title": "Months and payments",
+        "empty": "Nothing due this year.",
+        "total": "Year total",
+        "paid": "Paid",
+        "balance": "Left to pay",
+        "dueNow": "Due to date",
+        "registration": "Registration",
+        "tuition": "Tuition",
+        "service": "Service",
+        "cellLabel": "{month}: {state}",
+        "states": {
+          "paid": "Paid",
+          "partial": "Partly paid",
+          "unpaid": "Unpaid",
+          "notDue": "Not due yet",
+          "free": "Free",
+          "cancelled": "Cancelled"
+        },
+        "left": "{amount} left",
+        "paidOf": "paid {amount}",
+        "discounted": "discount {amount}",
+        "receipts": "Receipts: {labels}",
+        "chargeCancelled": "Cancelled: {reason}",
+        "cancelCharge": "Cancel this amount",
+        "cancelChargeTitle": "Cancel “{charge}”?",
+        "cancelChargeDescription": "{amount} will no longer be due and will not come back, even if prices change.",
+        "cancelChargeConfirm": "Cancel this amount",
+        "chargeCancelledToast": "Amount cancelled.",
+        "chargeReasons": {
+          "left_school": "Left the school",
+          "waived": "Waived",
+          "entry_error": "Entry error",
+          "other": "Other"
+        }
+      },
+      "pay": {
+        "open": "Take payment",
+        "title": "Take a payment",
+        "description": "Due to date: {due} · left this year: {balance}",
+        "amount": "Amount (DH)",
+        "fillDue": "Amount due",
+        "fillBalance": "Year balance",
+        "pickMode": "Choose the months paid",
+        "pickedTotal": "Amount",
+        "pickAmount": "Amount for {charge}",
+        "balanceOf": "{amount} left",
+        "previewTitle": "This payment covers",
+        "previewPart": "{amount} of {of}",
+        "method": "Payment method",
+        "methods": {
+          "cash": "Cash",
+          "cheque": "Cheque",
+          "transfer": "Transfer"
+        },
+        "bank": "Bank",
+        "chequeNumber": "Cheque number",
+        "reference": "Reference",
+        "chequeDate": "Cheque date",
+        "paidOn": "Payment date",
+        "paidOnHint": "Today or the last 7 days.",
+        "payerName": "Paid by",
+        "note": "Note",
+        "cancel": "Cancel",
+        "submit": "Take payment",
+        "saving": "Saving…",
+        "retry": "Try again",
+        "lostAnswer": "The answer was lost: the payment may be saved. “Try again” sends the same payment, never a duplicate.",
+        "conflict": "This payment may already be saved. Close and check the receipts.",
+        "doneTitle": "Payment saved",
+        "doneReplayedTitle": "Payment already saved",
+        "doneDescription": "Receipt number:",
+        "close": "Close"
+      },
+      "history": {
+        "title": "This year's receipts",
+        "empty": "No payments.",
+        "cancelled": "Cancelled",
+        "cancelledBecause": "Cancelled: {reason}",
+        "methods": {
+          "cash": "Cash",
+          "cheque": "Cheque",
+          "transfer": "Transfer"
+        },
+        "chequeNo": "cheque no. {value}",
+        "reference": "ref. {value}",
+        "receivedBy": "received by {name}",
+        "cancel": "Cancel",
+        "cancelTitle": "Cancel receipt {receipt}?",
+        "cancelDescription": "{amount} becomes due again: {charges}. The receipt stays in the history, marked cancelled.",
+        "cancelConfirm": "Cancel the receipt",
+        "cancelledToast": "Receipt cancelled."
+      },
+      "cancel": {
+        "reason": "Reason",
+        "note": "Details",
+        "back": "Close",
+        "continue": "Continue",
+        "previous": "Back",
+        "saving": "Cancelling…",
+        "confirmText": "Reason: {reason}. This cancellation is final and written to the activity log.",
+        "paymentReasons": {
+          "bounced_cheque": "Bounced cheque",
+          "entry_error": "Entry error",
+          "refund": "Refund",
+          "other": "Other"
+        }
+      }
     },
     "errors": {
       "generic": "Something went wrong. Please try again.",
@@ -3819,7 +3927,23 @@
       "discountKindTaken": "The student already has a discount of this type this year.",
       "percentRange": "Percentage from 0.01 to 100.",
       "valueInvalid": "Invalid value.",
-      "sourceNotEarlier": "Choose an earlier year."
+      "sourceNotEarlier": "Choose an earlier year.",
+      "methodInvalid": "Choose a payment method.",
+      "chequeDetailsRequired": "Enter the bank and the cheque number.",
+      "bankRequired": "Enter the bank.",
+      "chequeNumberRequired": "Enter the cheque number.",
+      "dateInvalid": "Invalid date.",
+      "paidOnInvalid": "The date must be today or within the last 7 days.",
+      "nothingDue": "Nothing is due for this student.",
+      "amountAboveBalance": "The amount is more than what is left this year.",
+      "allocationInvalid": "Check the chosen amounts: each between 0.01 DH and what is left for that month.",
+      "allocationRequired": "Tick at least one month.",
+      "idempotencyConflict": "This payment may already be saved. Reload the page.",
+      "paymentCancelled": "This receipt is already cancelled.",
+      "chargeCancelled": "This amount is already cancelled.",
+      "chargePaid": "This amount has received a payment: cancel the receipt first.",
+      "cancelReasonInvalid": "Choose a reason.",
+      "cancelNoteRequired": "Give the reason."
     }
   }
 }

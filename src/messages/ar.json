@@ -3796,7 +3796,115 @@
           "saved": "تم حفظ التخفيض."
         }
       },
-      "siblings": "الإخوة والأخوات في المؤسسة: {names}"
+      "siblings": "الإخوة والأخوات في المؤسسة: {names}",
+      "ledger": {
+        "title": "الأشهر والأداءات",
+        "empty": "لا مبالغ مستحقة هذه السنة.",
+        "total": "مجموع السنة",
+        "paid": "المؤدى",
+        "balance": "الباقي",
+        "dueNow": "المستحق إلى اليوم",
+        "registration": "التسجيل",
+        "tuition": "الدراسة",
+        "service": "خدمة",
+        "cellLabel": "{month}: {state}",
+        "states": {
+          "paid": "مؤدى",
+          "partial": "جزئي",
+          "unpaid": "غير مؤدى",
+          "notDue": "لم يحن أجله",
+          "free": "مجاني",
+          "cancelled": "ملغى"
+        },
+        "left": "الباقي {amount}",
+        "paidOf": "المؤدى {amount}",
+        "discounted": "تخفيض {amount}",
+        "receipts": "الوصولات: {labels}",
+        "chargeCancelled": "ملغى: {reason}",
+        "cancelCharge": "إلغاء هذا المبلغ",
+        "cancelChargeTitle": "إلغاء «{charge}»؟",
+        "cancelChargeDescription": "لن يبقى {amount} مستحقا ولن يعود، حتى لو تغيرت الأسعار.",
+        "cancelChargeConfirm": "إلغاء هذا المبلغ",
+        "chargeCancelledToast": "تم إلغاء المبلغ.",
+        "chargeReasons": {
+          "left_school": "غادر المؤسسة",
+          "waived": "مجاني",
+          "entry_error": "خطأ في الإدخال",
+          "other": "سبب آخر"
+        }
+      },
+      "pay": {
+        "open": "استخلاص",
+        "title": "استخلاص أداء",
+        "description": "المستحق إلى اليوم: {due} · باقي السنة: {balance}",
+        "amount": "المبلغ (درهم)",
+        "fillDue": "المبلغ المستحق",
+        "fillBalance": "باقي السنة",
+        "pickMode": "اختيار الأشهر المؤداة",
+        "pickedTotal": "المبلغ",
+        "pickAmount": "المبلغ لـ {charge}",
+        "balanceOf": "الباقي {amount}",
+        "previewTitle": "هذا الأداء يغطي",
+        "previewPart": "{amount} من {of}",
+        "method": "طريقة الأداء",
+        "methods": {
+          "cash": "نقدا",
+          "cheque": "شيك",
+          "transfer": "تحويل"
+        },
+        "bank": "البنك",
+        "chequeNumber": "رقم الشيك",
+        "reference": "المرجع",
+        "chequeDate": "تاريخ الشيك",
+        "paidOn": "تاريخ الأداء",
+        "paidOnHint": "اليوم أو خلال الأيام السبعة الأخيرة.",
+        "payerName": "أداه",
+        "note": "ملاحظة",
+        "cancel": "إلغاء",
+        "submit": "استخلاص",
+        "saving": "جار الحفظ…",
+        "retry": "إعادة المحاولة",
+        "lostAnswer": "ضاع الجواب: ربما سُجل الأداء. «إعادة المحاولة» ترسل نفس الأداء دون تكرار.",
+        "conflict": "ربما سُجل هذا الأداء من قبل. أغلق وتحقق من سجل الوصولات.",
+        "doneTitle": "تم تسجيل الأداء",
+        "doneReplayedTitle": "الأداء مسجل من قبل",
+        "doneDescription": "رقم الوصل:",
+        "close": "إغلاق"
+      },
+      "history": {
+        "title": "وصولات السنة",
+        "empty": "لا أداءات.",
+        "cancelled": "ملغى",
+        "cancelledBecause": "ملغى: {reason}",
+        "methods": {
+          "cash": "نقدا",
+          "cheque": "شيك",
+          "transfer": "تحويل"
+        },
+        "chequeNo": "شيك رقم {value}",
+        "reference": "مرجع {value}",
+        "receivedBy": "استلمه {name}",
+        "cancel": "إلغاء",
+        "cancelTitle": "إلغاء الوصل {receipt}؟",
+        "cancelDescription": "يعود {amount} مستحقا: {charges}. يبقى الوصل في السجل بصفة ملغى.",
+        "cancelConfirm": "إلغاء الوصل",
+        "cancelledToast": "تم إلغاء الوصل."
+      },
+      "cancel": {
+        "reason": "السبب",
+        "note": "توضيح",
+        "back": "إغلاق",
+        "continue": "متابعة",
+        "previous": "رجوع",
+        "saving": "جار الإلغاء…",
+        "confirmText": "السبب: {reason}. هذا الإلغاء نهائي ويُسجل في سجل النشاط.",
+        "paymentReasons": {
+          "bounced_cheque": "شيك بدون رصيد",
+          "entry_error": "خطأ في الإدخال",
+          "refund": "استرجاع",
+          "other": "سبب آخر"
+        }
+      }
     },
     "errors": {
       "generic": "حدث خطأ. يرجى المحاولة مرة أخرى.",
@@ -3819,7 +3927,23 @@
       "discountKindTaken": "للتلميذ تخفيض من هذا النوع هذه السنة.",
       "percentRange": "نسبة بين 0,01 و100.",
       "valueInvalid": "قيمة غير صالحة.",
-      "sourceNotEarlier": "اختاروا سنة سابقة."
+      "sourceNotEarlier": "اختاروا سنة سابقة.",
+      "methodInvalid": "اختر طريقة الأداء.",
+      "chequeDetailsRequired": "أدخل البنك ورقم الشيك.",
+      "bankRequired": "أدخل البنك.",
+      "chequeNumberRequired": "أدخل رقم الشيك.",
+      "dateInvalid": "تاريخ غير صالح.",
+      "paidOnInvalid": "يجب أن يكون التاريخ اليوم أو خلال الأيام السبعة الأخيرة.",
+      "nothingDue": "لا شيء مستحق على هذا التلميذ.",
+      "amountAboveBalance": "المبلغ يتجاوز باقي السنة.",
+      "allocationInvalid": "تحقق من المبالغ المختارة: كل مبلغ بين 0,01 درهم وباقي الشهر.",
+      "allocationRequired": "اختر شهرا واحدا على الأقل.",
+      "idempotencyConflict": "ربما سُجل هذا الأداء من قبل. أعد تحميل الصفحة.",
+      "paymentCancelled": "هذا الوصل ملغى من قبل.",
+      "chargeCancelled": "هذا المبلغ ملغى من قبل.",
+      "chargePaid": "هذا المبلغ تلقى أداء: ألغ الوصل أولا.",
+      "cancelReasonInvalid": "اختر سببا.",
+      "cancelNoteRequired": "وضح السبب."
     }
   }
 }
