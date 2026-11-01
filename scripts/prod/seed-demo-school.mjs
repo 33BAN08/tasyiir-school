@@ -1,9 +1,10 @@
-// The demo school "École Démo Tasyir" (launch prep step 2c). Run it in your own terminal:
+// The demo school "École Démo Madar" (launch prep step 2c). Run it in your own terminal:
 //   node --env-file=.env.local      scripts/prod/seed-demo-school.mjs --dev        [--dry-run] [--refresh | --remove]
 //   node --env-file=.env.prod.local scripts/prod/seed-demo-school.mjs --production [--dry-run] [--refresh | --remove]
-// Default: creates the school (flag OFF), its "pro" subscription and its 8 accounts, sets the
+// Default: creates the school (flag OFF), its "pro" subscription + the fees module (an override:
+// fees is a Premium module) and its 8 accounts, sets the
 // contact card, turns the demo flag ON, then fills it (public.run_demo_reset). --refresh: on the
-// existing demo school, flag OFF → shared password + names back, missing accounts created, contact
+// existing demo school, flag OFF → name + fees module, shared password + names back, missing accounts created, contact
 // card → flag ON (always, finally) → refill. --remove: flag OFF → school deleted → its 8 accounts.
 // --dry-run: reads only. The shared password is DEMO_PASSWORD from the env file: it is never asked,
 // never printed (not even in errors: only error codes are shown). The 5 extra teachers get random
@@ -18,6 +19,9 @@ const PRODUCTION_REF = "blycnuuomfqgvfczkbxc";
 const SLUG = "ecole-demo-tasyir";
 const DOMAIN = "demo.tasyir.ma";
 const PLAN = "pro";
+const SCHOOL_NAME = "École Démo Madar";
+// Modules the demo shows beyond its plan (school_modules overrides, kept by the nightly reset).
+const EXTRA_MODULES = ["fees"];
 // shared = signs in with DEMO_PASSWORD; private.demo_fill finds teachers by the END of the local part.
 const ACCOUNTS = [
   { local: "directeur", role: "director", fullName: "Nadia El Amrani", locale: "fr", shared: true },
@@ -154,6 +158,16 @@ async function roleIdsOf(schoolId) {
   return Object.fromEntries(data.map((r) => [r.key, r.id]));
 }
 
+/** The demo's name and its extra modules (both kept by the nightly reset). */
+async function saveSetup(schoolId) {
+  const { error } = await admin.from("schools").update({ name: SCHOOL_NAME }).eq("id", schoolId);
+  if (error) throw new Error(`name: not saved (${code(error)})`);
+  const { error: moduleError } = await admin
+    .from("school_modules")
+    .upsert(EXTRA_MODULES.map((m) => ({ school_id: schoolId, module_key: m, enabled: true })), { onConflict: "school_id,module_key" });
+  if (moduleError) throw new Error(`modules: not saved (${code(moduleError)})`);
+}
+
 async function saveContact(schoolId) {
   const { data: row } = await admin.from("schools").select("settings").eq("id", schoolId).single();
   const settings = { ...(row?.settings ?? {}), demo_contact: contact ? { phone: contact, whatsapp: contact } : {} };
@@ -188,13 +202,13 @@ if (mode === "create") {
     console.log(`Dry run OK: no school ${SLUG}, the 8 e-mails are free, plan "${PLAN}" is there. Nothing was written.`);
     process.exit(0);
   }
-  if (production) await confirm(`Create "École Démo Tasyir" and its 8 accounts on PRODUCTION? Type yes: `, "yes");
+  if (production) await confirm(`Create "${SCHOOL_NAME}" and its 8 accounts on PRODUCTION? Type yes: `, "yes");
   rl.close();
 
   try {
     const { data: row, error } = await admin
       .from("schools")
-      .insert({ name: "École Démo Tasyir", slug: SLUG, city: "Casablanca" })
+      .insert({ name: SCHOOL_NAME, slug: SLUG, city: "Casablanca" })
       .select("id")
       .single();
     if (error) throw new Error(`school: not created (${code(error)})`);
@@ -203,6 +217,7 @@ if (mode === "create") {
       .from("school_subscriptions")
       .insert({ school_id: row.id, plan_id: plan.id, status: "active" });
     if (subError) throw new Error(`subscription: not created (${code(subError)})`);
+    await saveSetup(row.id);
     const roleIds = await roleIdsOf(row.id);
     for (const account of ACCOUNTS) await createAccount(account, row.id, roleIds);
     await saveContact(row.id);
@@ -243,6 +258,7 @@ if (mode === "refresh") {
   if (offError) stop(`demo flag: not turned off (${code(offError)}); nothing changed`);
   let failure = null;
   try {
+    await saveSetup(school.id);
     const roleIds = await roleIdsOf(school.id);
     for (const account of ACCOUNTS) {
       const id = users.get(account.email);

@@ -226,10 +226,22 @@ export async function phaseLaunchDemo({ fx, as }) {
   await rows(label("... school B kept its data (audit row)"), admin.from("audit_logs").select("id").eq("school_id", B.id), (r) => r.length > 0);
 
   await admin.from("audit_logs").insert({ school_id: demo.id, action: "rls.test", entity: "school" });
+  // The fees module, as migration demo_fees_module and the seed script give it (Premium module, Pro plan).
+  const feesOn = await admin.from("school_modules")
+    .upsert({ school_id: demo.id, module_key: "fees", enabled: true }, { onConflict: "school_id,module_key" });
+  check(label("the demo school gets the fees module override"), !feesOn.error, feesOn.error?.code ?? "");
   const ran = await admin.rpc("run_demo_reset", { p_school: demo.id });
   check(label("run_demo_reset (secret key) resets the demo school"), !ran.error, ran.error?.message ?? "");
   check(label("... and auth.uid() is null once it returns (no demo impersonation left)"),
     !ran.error && ran.data === null, ran.error ? "" : `auth.uid() = ${ran.data}`);
+  await rows(label("... the fees module override is still there after the reset"),
+    admin.from("school_modules").select("enabled").eq("school_id", demo.id).eq("module_key", "fees").eq("enabled", true), 1);
+  const directorFees = (await admin.from("role_permissions").select("permission_key").eq("role_id", demo.roles.director)
+    .like("permission_key", "fees.%")).data?.map((r) => r.permission_key).sort().join() ?? "";
+  check(label("... the demo director still holds fees.view, fees.manage, fees.cancel"),
+    directorFees === "fees.cancel,fees.manage,fees.view", directorFees);
+  const feesCall = await dir.rpc("fee_staff_names", { p_ids: [] });
+  check(label("... and the demo director passes the fees module + permission check"), !feesCall.error, feesCall.error?.message ?? "");
   await rows(label("... the visitor's student is gone"),
     admin.from("students").select("id").eq("school_id", demo.id).eq("first_name", "Visiteur"), 0);
   await rows(label("... the demo audit log is emptied"), admin.from("audit_logs").select("id").eq("school_id", demo.id), 0);

@@ -1,7 +1,7 @@
 # Madar School — Product & Build Plan
 
 > **Product renamed to Madar School (مدار), interface only, 2026-10-25** (formerly Tasyir / تسيير). Internal names (repo, package, database objects, cron jobs, storage keys, the `@phone.tasyiir.invalid` sign-in domain, the Vercel URL) keep `tasyiir` / `tasyir`.
-> **Madar follow-ups:** demo account emails `@demo.tasyir.ma` → the new domain through the seed `--refresh` (user present), and the demo school's name "École Démo Tasyir" (seed + database); own `madarapp.ma` and set up the Vercel domain (not confirmed yet); OMPIC filing for "Madar"; Instagram profile; custom SMTP only after owning the new domain.
+> **Madar follow-ups:** demo account emails `@demo.tasyir.ma` → the new domain through the seed `--refresh` (user present) (the demo school's name is "École Démo Madar" since 2026-11-01: migration `demo_fees_module` + seed; slug `ecole-demo-tasyir` unchanged); own `madarapp.ma` and set up the Vercel domain (not confirmed yet); OMPIC filing for "Madar"; Instagram profile; custom SMTP only after owning the new domain.
 
 ## 1. Vision
 A multi-tenant SaaS sold to private schools in Morocco. The **platform owner** (Madar) manages client schools,
