@@ -1407,6 +1407,7 @@
       "countRange": "Choose between 1 and 12 classes.",
       "tooManyClasses": "Not enough free letters (A to Z) for this many classes. Use another prefix or fewer classes.",
       "yearHasClasses": "This year still has classes. Delete them first.",
+      "yearHasPayments": "This year has payments and cannot be deleted.",
       "levelHasClasses": "This level still has classes. Delete them first.",
       "trackHasClasses": "Some classes still use this track. Change or delete them first.",
       "subjectNameTaken": "A subject with this name already exists.",

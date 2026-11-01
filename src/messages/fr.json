@@ -1407,6 +1407,7 @@
       "countRange": "Choisissez entre 1 et 12 classes.",
       "tooManyClasses": "Pas assez de lettres libres (A à Z) pour autant de classes. Utilisez un autre préfixe ou moins de classes.",
       "yearHasClasses": "Cette année a encore des classes. Supprimez-les d'abord.",
+      "yearHasPayments": "Cette année contient des paiements et ne peut pas être supprimée.",
       "levelHasClasses": "Ce niveau a encore des classes. Supprimez-les d'abord.",
       "trackHasClasses": "Des classes utilisent encore cette filière. Modifiez-les ou supprimez-les d'abord.",
       "subjectNameTaken": "Une matière avec ce nom existe déjà.",

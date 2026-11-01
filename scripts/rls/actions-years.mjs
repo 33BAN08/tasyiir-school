@@ -1,8 +1,10 @@
 // Phase 4 step 1 Server Actions (academic years), called over HTTP as real
 // users. All four are registered on /setup/years.
+import { randomUUID } from "node:crypto";
+
 import { actionId, callAction, sessionCookies } from "./app.mjs";
 import { check } from "./checks.mjs";
-import { admin } from "./fixtures.mjs";
+import { admin, signIn } from "./fixtures.mjs";
 
 const FILE = "src/lib/structure/year-actions.ts";
 
@@ -82,4 +84,54 @@ export async function yearActions({ fx, baseUrl }) {
   await expect("not a uuid → notFound", call("dirA", "deleteAcademicYear", "x"), "notFound");
   await expect("director deletes a past, non-current year", call("dirA", "deleteAcademicYear", pastYear?.id), "ok");
   check("[P4 action] the deleted year is gone", !!pastYear && !(await yearsOf(A.id)).some((y) => y.id === pastYear.id), "");
+
+  // A year with a payment (no class) is kept: payments_year_fkey → yearHasPayments.
+  // Payments are written only by record_payment (the secret key cannot insert): pay through it
+  // as the director, then remove the enrollment and the class so only the payment holds the year.
+  const paid = await paidYearWithoutClasses(fx);
+  check("[P4 action] setup: a payment in a past year without classes", !paid.error, paid.error ?? "");
+  await expect("a year with payments → yearHasPayments", call("dirA", "deleteAcademicYear", paid.year), "yearHasPayments");
+  check("[P4 action] …the year with payments is still there", !!paid.year && (await yearsOf(A.id)).some((y) => y.id === paid.year), "");
+}
+
+async function paidYearWithoutClasses(fx) {
+  const A = fx.schools.a;
+  const step = async (what, promise) => {
+    const r = await promise;
+    if (r.error) throw new Error(`${what}: ${r.error.message}`);
+    return r.data;
+  };
+  let year = null;
+  try {
+    await step("fees module", admin.from("school_modules")
+      .upsert({ school_id: A.id, module_key: "fees", enabled: true }, { onConflict: "school_id,module_key" }));
+    year = (await step("year", admin.from("academic_years")
+      .insert({ school_id: A.id, label: "2019-2020", start_date: "2019-09-01", end_date: "2020-06-30", is_current: false })
+      .select("id").single())).id;
+    const level = (await step("level", admin.from("levels")
+      .insert({ school_id: A.id, cycle: "college", name: `PY ${fx.run}` }).select("id").single())).id;
+    const cls = (await step("class", admin.from("classes")
+      .insert({ school_id: A.id, academic_year_id: year, level_id: level, name: `PY ${fx.run}` }).select("id").single())).id;
+    const student = (await step("student", admin.from("students")
+      .insert({ school_id: A.id, first_name: "Paid", last_name: `Year ${fx.run}`, birth_date: "2010-01-01", gender: "female" })
+      .select("id").single())).id;
+    await step("enrollment", admin.from("student_enrollments")
+      .insert({ school_id: A.id, student_id: student, academic_year_id: year, class_id: cls }));
+    await step("fee year", admin.from("fee_years")
+      .upsert({ school_id: A.id, academic_year_id: year, billing_months: ["2019-10-01"], due_day: 5 }));
+    const dirA = await signIn(fx.users.dirA);
+    await step("plan", dirA.rpc("save_fee_plans",
+      { p_year: year, p_rows: [{ level_id: level, registration_centimes: 50000, monthly_centimes: 100000 }] }));
+    const today = (await step("clock", dirA.rpc("school_clock").single())).local_date;
+    await step("payment", dirA.rpc("record_payment", {
+      p_student: student, p_year: year, p_amount: 50000, p_method: "cash", p_paid_on: today, p_idempotency_key: randomUUID(),
+    }));
+    await step("enrollment removed", admin.from("student_enrollments").delete().eq("student_id", student).eq("academic_year_id", year));
+    await step("class removed", admin.from("classes").delete().eq("id", cls));
+    return { year };
+  } catch (error) {
+    return { year, error: error.message };
+  } finally {
+    await admin.from("school_modules").delete().eq("school_id", A.id).eq("module_key", "fees");
+  }
 }
