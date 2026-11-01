@@ -95,7 +95,9 @@ export async function phase8CrossSchool({ fx, as }) {
   const session = must(await as.dirB.rpc("save_attendance", { p_lesson: lesson, p_date: past, p_marks: [{ student_id: kidB, status: "absent" }] }), "B roll call");
   must(await admin.rpc("run_absence_notifications", { p_now: new Date(Date.now() + 11 * 60_000).toISOString() }), "absence run");
   must(await admin.from("alert_rules").update({ threshold: 1 }).eq("school_id", B.id).eq("type", "unjustified_absences"), "B threshold 1");
-  must(await admin.rpc("run_daily_alerts", { p_today: today }), "daily run");
+  // As of the roll-call day: the alert counts that day's month only, and on the 1st / 2nd of a month
+  // "yesterday" (Sunday skipped) is still last month — run with today, B's parent was sent no alert.
+  must(await admin.rpc("run_daily_alerts", { p_today: past }), "daily run");
   const subB = must(await admin.from("school_subscriptions").select("id").eq("school_id", B.id).neq("status", "expired").single(), "B sub").id;
   must(await admin.from("school_subscriptions").update({ status: "active", end_date: iso(now + 3 * DAY) }).eq("id", subB), "B ends soon");
   must(await admin.rpc("run_subscription_reminders", { p_today: today, p_schools: [B.id] }), "reminder run");
