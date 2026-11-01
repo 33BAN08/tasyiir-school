@@ -353,6 +353,13 @@ html:has(.landing) {
   font-variant-numeric: tabular-nums;
 }
 
+/* Codes such as receipt labels (2026-2027/000001): Inter with proportional
+   figures — tabular figures give the hyphen a digit's width. */
+@utility font-code {
+  font-family: var(--font-numeric);
+  font-variant-numeric: proportional-nums;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

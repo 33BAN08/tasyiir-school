@@ -59,7 +59,7 @@ export function PaymentHistory({ payments, charges, serviceNames, canCancel }: P
             >
               <div className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span dir="ltr" className="whitespace-nowrap font-numeric text-sm font-medium">
+                  <span dir="ltr" className="whitespace-nowrap font-code text-sm font-medium">
                     {p.receiptLabel}
                   </span>
                   {p.cancelled && (

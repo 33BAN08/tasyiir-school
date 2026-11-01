@@ -8,7 +8,7 @@
 // card → flag ON (always, finally) → refill. --remove: flag OFF → school deleted → its 8 accounts.
 // --dry-run: reads only. The shared password is DEMO_PASSWORD from the env file: it is never asked,
 // never printed (not even in errors: only error codes are shown). The 5 extra teachers get random
-// passwords nobody knows. The contact card is NEXT_PUBLIC_WHATSAPP_NUMBER (Call + WhatsApp).
+// passwords nobody knows. The contact card is the fictional +212 600 000 000 (Call + WhatsApp).
 import { randomBytes } from "node:crypto";
 import { createInterface } from "node:readline/promises";
 
@@ -79,14 +79,8 @@ if (mode !== "remove") {
   if (!/\p{L}/u.test(password) || !/\p{N}/u.test(password)) stop("DEMO_PASSWORD needs at least one letter and one digit");
 }
 
-/** NEXT_PUBLIC_WHATSAPP_NUMBER (digits, "2126…", "06…") → "+2126XXXXXXXX", or null. */
-function moroccanMobile(raw) {
-  const digits = (raw ?? "").replace(/\D/g, "");
-  const national = digits.startsWith("212") ? digits.slice(3) : digits.startsWith("0") ? digits.slice(1) : digits;
-  const e164 = `+212${national}`;
-  return /^\+212[67][0-9]{8}$/.test(e164) ? e164 : null;
-}
-const contact = moroccanMobile(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER);
+/** The demo's contact card (Call + WhatsApp): a fictional number, never a real one. */
+const contact = "+212600000000";
 
 const needsKeyboard = production || mode === "remove";
 if (!dryRun && needsKeyboard && (!process.stdin.isTTY || !process.stdout.isTTY)) {
@@ -170,7 +164,7 @@ async function saveSetup(schoolId) {
 
 async function saveContact(schoolId) {
   const { data: row } = await admin.from("schools").select("settings").eq("id", schoolId).single();
-  const settings = { ...(row?.settings ?? {}), demo_contact: contact ? { phone: contact, whatsapp: contact } : {} };
+  const settings = { ...(row?.settings ?? {}), demo_contact: { phone: contact, whatsapp: contact } };
   const { error } = await admin.from("schools").update({ settings }).eq("id", schoolId);
   if (error) throw new Error(`settings: not saved (${code(error)})`);
 }
@@ -188,7 +182,7 @@ async function summary(schoolId) {
     `Demo school ${schoolId}: ${await count("profiles")} accounts, ${await count("classes")} classes, ` +
       `${await count("students")} students, ${await count("lessons")} lessons, ${await count("attendance_sessions")} roll calls.`,
   );
-  console.log(contact ? "Contact card: Call + WhatsApp on NEXT_PUBLIC_WHATSAPP_NUMBER." : "Contact card: empty (no Moroccan mobile in NEXT_PUBLIC_WHATSAPP_NUMBER).");
+  console.log("Contact card: Call + WhatsApp on the fictional +212 600 000 000.");
 }
 
 // --- create ----------------------------------------------------------------------------------
@@ -197,7 +191,6 @@ if (mode === "create") {
   if (existing.length) stop(`these accounts already exist: ${existing.map((a) => a.email).join(", ")}`);
   const { data: plan, error: planError } = await admin.from("plans").select("id").eq("key", PLAN).maybeSingle();
   if (planError || !plan) stop(`plan "${PLAN}" not found (${planError ? code(planError) : "no row"})`);
-  if (!contact) console.log("Warning: NEXT_PUBLIC_WHATSAPP_NUMBER is not a Moroccan mobile: the contact card stays empty.");
   if (dryRun) {
     console.log(`Dry run OK: no school ${SLUG}, the 8 e-mails are free, plan "${PLAN}" is there. Nothing was written.`);
     process.exit(0);
@@ -245,7 +238,6 @@ if (!school) stop(`there is no school ${SLUG} yet: run without --refresh / --rem
 
 if (mode === "refresh") {
   const missing = ACCOUNTS.filter((a) => !users.has(a.email));
-  if (!contact) console.log("Warning: NEXT_PUBLIC_WHATSAPP_NUMBER is not a Moroccan mobile: the contact card will be empty.");
   if (dryRun) {
     console.log(`Dry run OK: school ${school.id} (demo flag ${school.is_demo ? "on" : "OFF"}), ` +
       `${ACCOUNTS.length - missing.length} of 8 accounts there${missing.length ? `, missing: ${missing.map((a) => a.email).join(", ")}` : ""}. Nothing was written.`);

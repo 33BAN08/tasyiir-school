@@ -138,7 +138,7 @@ function MonthButton({
                   </p>
                 )}
                 {(receipts[c.id] ?? []).length > 0 && (
-                  <p className="font-numeric text-xs text-muted-foreground">
+                  <p className="font-code text-xs text-muted-foreground">
                     {t("receipts", { labels: (receipts[c.id] ?? []).map((r) => `⁦${r}⁩`).join(", ") })}
                   </p>
                 )}

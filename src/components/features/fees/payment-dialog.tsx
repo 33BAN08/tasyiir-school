@@ -148,7 +148,7 @@ export function PaymentDialog({ studentId, yearId, today, charges, totals, servi
               <DialogTitle>{t(done.replayed ? "doneReplayedTitle" : "doneTitle")}</DialogTitle>
               <DialogDescription>{t("doneDescription")}</DialogDescription>
             </DialogHeader>
-            <p dir="ltr" className="font-numeric text-2xl font-semibold" data-receipt-label>
+            <p dir="ltr" className="font-code text-2xl font-semibold" data-receipt-label>
               {done.receiptLabel}
             </p>
             <DialogFooter className="w-full">

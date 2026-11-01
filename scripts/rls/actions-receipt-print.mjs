@@ -86,7 +86,17 @@ export async function receiptPrintPages({ fx, baseUrl }) {
       fr.includes("1 250,50 DH") && fr.includes("mille deux cent cinquante dirhams et cinquante centimes") && fr.includes("RP-RP-")
         && fr.includes("Karim") && fr.includes("RLS dirA"), "");
     check(label("…the switch link carries this print"), first.html.includes(`print=${pid}`));
+    // The number exactly as stored (no spaces around the hyphen: proportional figures), then the copy label.
+    const stored = (await admin.from("payments").select("receipt_label").eq("id", p1).single()).data?.receipt_label;
+    const number = (html) => /<span[^>]*class="([^"]*)"[^>]*data-receipt-no="[^"]*">([^<]*)<\/span><span[^>]*data-receipt-copy-label="[^"]*">([^<]*)</.exec(html);
+    const numberFr = number(first.html);
+    check(label("…the receipt number exactly as stored (no spaces), proportional figures, 'Original' next to it"),
+      !!stored && !/\s/.test(stored) && stored.endsWith("/000001") && numberFr?.[2] === stored && /\bfont-code\b/.test(numberFr[1])
+        && !/\bfont-numeric\b/.test(numberFr[1]) && numberFr[3] === "Original", JSON.stringify([stored, numberFr?.slice(1)]));
     const ar = await get(PAGE("ar", p1, pid), "accA");
+    const numberAr = number(ar.html);
+    check(label("…in Arabic too: the same stored number, 'أصل' next to it"),
+      numberAr?.[2] === stored && /\bfont-code\b/.test(numberAr[1]) && numberAr[3] === "أصل", JSON.stringify(numberAr?.slice(1)));
     check(label("LANGUAGE SWITCH to Arabic: still ORIGINAL, and still exactly one print"),
       copy(ar.html) === "original" && ar.html.includes(`data-receipt-language="ar"`) && printId(ar.html) === pid
         && (await prints(p1)).length === 1, `${copy(ar.html)} ${(await prints(p1)).length} print(s)`);
@@ -104,6 +114,7 @@ export async function receiptPrintPages({ fx, baseUrl }) {
     const reload = await get(PAGE("fr", p1), "accA");
     check(label("the accountant opens it again (no print id) → DUPLICATA, 3 prints"),
       copy(reload.html) === "duplicate" && (await prints(p1)).length === 3);
+    check(label("…'DUPLICATA' as the label next to the number"), number(reload.html)?.[3] === "DUPLICATA" && number(reload.html)?.[2] === stored);
     const garbage = await get(PAGE("fr", p1, "not-a-uuid"), "accA");
     check(label("a print id that is not a uuid → a new print"), copy(garbage.html) === "duplicate" && (await prints(p1)).length === 4);
     const wrongPayment = await get(PAGE("fr", p2, pid), "accA");

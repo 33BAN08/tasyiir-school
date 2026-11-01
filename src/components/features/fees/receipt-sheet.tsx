@@ -62,11 +62,19 @@ export function ReceiptSheet({ receipt: r, schoolName, language, printNo }: Prop
         </div>
         <div className="flex shrink-0 flex-col items-end gap-0.5 text-end">
           <p className="text-[13px] font-semibold">{t("title")}</p>
-          <p dir="ltr" className="whitespace-nowrap font-numeric font-semibold">{r.label}</p>
+          <div className="flex items-center gap-1.5">
+            <span dir="ltr" className="whitespace-nowrap font-code text-[12px] font-semibold" data-receipt-no>{r.label}</span>
+            <span
+              className={cn(
+                "whitespace-nowrap rounded-sm border px-1.5 py-px text-[9.5px] font-semibold leading-tight",
+                duplicate ? "border-2 border-foreground tracking-widest" : "border-foreground/70 tracking-wide",
+              )}
+              data-receipt-copy-label
+            >
+              {duplicate ? t("duplicate") : t("original")}
+            </span>
+          </div>
           <p className="text-muted-foreground">{t("date", { date: ltr(formatDate(r.paidOn)) })}</p>
-          <p className={duplicate ? "font-semibold tracking-widest" : "text-muted-foreground"}>
-            {duplicate ? t("duplicate") : t("original")}
-          </p>
         </div>
       </header>
 
