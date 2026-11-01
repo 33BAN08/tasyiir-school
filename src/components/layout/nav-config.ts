@@ -43,7 +43,7 @@ export const NAV_ITEMS: Record<"platform" | "school", NavItem[]> = {
     { key: "gradeEntry", href: "/grades", icon: "grades", permission: "grades.view", module: "grades" },
     { key: "averages", href: "/grades/averages", icon: "averages", permission: "grades.view", module: "grades" },
     // Fees (Phase 13): settings now; the unpaid list and payments journal come later.
-    { key: "fees", href: "/fees/settings", icon: "fees", permission: "fees.view", module: "fees" },
+    { key: "fees", href: "/fees", icon: "fees", permission: "fees.view", module: "fees" },
     { key: "staff", href: "/staff", icon: "staff", permission: "users.view" },
     { key: "roles", href: "/staff/roles", icon: "roles", permission: "roles.manage" },
     { key: "setup", href: "/setup", icon: "structure", permission: "structure.manage" },

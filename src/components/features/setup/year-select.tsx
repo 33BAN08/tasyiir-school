@@ -31,7 +31,7 @@ export function YearSelect({ years, value, keep }: Props) {
         disabled={isPending}
         onValueChange={(id) => startTransition(() => router.replace(`${pathname}?year=${id}${keep ? `&${keep}` : ""}`))}
       >
-        <SelectTrigger id="year-select" className="w-48">
+        <SelectTrigger id="year-select" className="min-h-11 w-48">
           <SelectValue />
         </SelectTrigger>
         <SelectContent>

@@ -3476,6 +3476,32 @@ export type Database = {
           id: string
         }[]
       }
+      fee_summary: {
+        Args: { p_year: string }
+        Returns: {
+          collected_month_centimes: number
+          receipts_month: number
+          today: string
+          unpaid_centimes: number
+          unpaid_students: number
+        }[]
+      }
+      fee_unpaid: {
+        Args: {
+          p_class?: string
+          p_month?: string
+          p_registration?: boolean
+          p_year: string
+        }
+        Returns: {
+          class_id: string
+          due_centimes: number
+          oldest_due_on: string
+          student_id: string
+          unpaid: Json
+          year_balance_centimes: number
+        }[]
+      }
       fee_year_rules: {
         Args: { p_year: string }
         Returns: {

@@ -3,6 +3,7 @@ import { getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 
 import { FeeCopyDialog } from "@/components/features/fees/fee-copy-dialog";
+import { FeesTabs } from "@/components/features/fees/fees-tabs";
 import { FEES_SECTIONS, FeesSectionNav, type FeesSection } from "@/components/features/fees/fees-section-nav";
 import { MonthsSection, PlansSection, ServicesSection } from "@/components/features/fees/fee-settings-sections";
 import { YearSelect } from "@/components/features/setup/year-select";
@@ -37,6 +38,7 @@ export default async function FeeSettingsPage({ searchParams }: PageProps<"/[loc
   return (
     <div className="flex flex-col gap-6">
       <PageHeader title={t("title")} description={t("description")} />
+      <FeesTabs active="settings" />
       <Suspense fallback={<FeeSettingsSkeleton />}>
         <FeeSettings
           schoolId={user.schoolId}

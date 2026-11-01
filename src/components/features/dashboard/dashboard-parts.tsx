@@ -12,7 +12,7 @@ const TONES = {
 } as const;
 
 /** One headline number (today's tiles): icon, label, value, a small second line; the whole tile opens its page. */
-export function StatTile({ icon: Icon, tone, label, value, sub, href, name }: {
+export function StatTile({ icon: Icon, tone, label, value, sub, href, name, money }: {
   icon: LucideIcon;
   tone: keyof typeof TONES;
   label: string;
@@ -20,6 +20,8 @@ export function StatTile({ icon: Icon, tone, label, value, sub, href, name }: {
   sub?: string | null;
   href: string;
   name: string;
+  /** An amount ("12 345,00 DH"): a smaller size that fits half a phone. */
+  money?: boolean;
 }) {
   const className = "flex min-h-28 flex-col gap-2 rounded-xl border bg-card p-4 outline-none hover:bg-muted/50 focus-visible:ring-3 focus-visible:ring-ring/50";
   const body = (
@@ -30,7 +32,7 @@ export function StatTile({ icon: Icon, tone, label, value, sub, href, name }: {
         </span>
         {label}
       </span>
-      <span className="font-numeric text-3xl font-bold tabular-nums">{value}</span>
+      <span className={cn("font-numeric font-bold tabular-nums", money ? "text-lg sm:text-2xl" : "text-3xl")}>{value}</span>
       {sub && <span className="text-xs text-muted-foreground">{sub}</span>}
     </>
   );

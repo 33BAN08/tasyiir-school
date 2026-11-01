@@ -11,7 +11,7 @@ import { check } from "./checks.mjs";
 const { readAll, PAGE_SIZE } = await import("../../src/lib/supabase/read-all.ts");
 
 // Tables / functions whose school-wide or year-wide reads pass 1000 rows.
-const BIG = ["lessons", "attendance_marks", "class_averages"];
+const BIG = ["lessons", "attendance_marks", "class_averages", "student_charges", "payment_allocations", "payments", "fee_unpaid"];
 
 // Unpaged reads that stay small, per file: how many, and why.
 const ALLOWED = {
@@ -23,6 +23,7 @@ const ALLOWED = {
   "src/lib/timetable/lesson-checks.ts": [1, "the lessons of ONE time slot (one per class at most)"],
   "src/lib/timetable/move-actions.ts": [1, "two lessons by id"],
   "src/lib/timetable/copy-actions.ts": [1, "one class's lessons"],
+  "src/lib/fees/payments.ts": [2, "one student's charges and payments of one year (a few dozen)"],
 };
 
 const files = [];
