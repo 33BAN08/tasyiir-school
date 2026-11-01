@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleCheck, HandCoins } from "lucide-react";
+import { CircleCheck, HandCoins, Printer } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import { useForm, useWatch } from "react-hook-form";
@@ -17,7 +17,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
-import { useRouter } from "@/i18n/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
 import { openCharges, type LedgerCharge, type LedgerTotals } from "@/lib/fees/ledger";
 import { amountInputText, formatCentimes, parseAmount } from "@/lib/fees/money";
 import { recordPayment, type RecordedPayment } from "@/lib/fees/payment-actions";
@@ -152,6 +152,12 @@ export function PaymentDialog({ studentId, yearId, today, charges, totals, servi
               {done.receiptLabel}
             </p>
             <DialogFooter className="w-full">
+              <Button asChild variant="outline" className="min-h-11">
+                <Link href={`/print/receipts/${done.paymentId}`} target="_blank" prefetch={false} data-receipt-print>
+                  <Printer aria-hidden />
+                  {t("print")}
+                </Link>
+              </Button>
               <Button className="min-h-11" onClick={() => change(false)}>
                 {t("close")}
               </Button>

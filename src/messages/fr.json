@@ -3869,7 +3869,8 @@
         "doneTitle": "Paiement enregistré",
         "doneReplayedTitle": "Paiement déjà enregistré",
         "doneDescription": "Numéro du reçu :",
-        "close": "Fermer"
+        "close": "Fermer",
+        "print": "Imprimer"
       },
       "history": {
         "title": "Reçus de l'année",
@@ -3888,7 +3889,8 @@
         "cancelTitle": "Annuler le reçu {receipt} ?",
         "cancelDescription": "{amount} redevient dû : {charges}. Le reçu reste dans l'historique, marqué annulé.",
         "cancelConfirm": "Annuler le reçu",
-        "cancelledToast": "Reçu annulé."
+        "cancelledToast": "Reçu annulé.",
+        "print": "Imprimer"
       },
       "cancel": {
         "reason": "Motif",
@@ -3944,6 +3946,43 @@
       "chargePaid": "Ce montant a déjà reçu un paiement : annulez d'abord le reçu.",
       "cancelReasonInvalid": "Choisissez un motif.",
       "cancelNoteRequired": "Précisez le motif."
+    },
+    "receipt": {
+      "pageTitle": "Reçu de paiement",
+      "sheetLabel": "Reçu {label}",
+      "back": "Retour à l'élève",
+      "print": "Imprimer",
+      "switchLanguage": "Version arabe",
+      "hint": "Format A5 portrait. Dans la fenêtre d'impression, choisissez « Enregistrer en PDF » pour un fichier.",
+      "title": "Reçu de paiement",
+      "phone": "Tél. {phone}",
+      "date": "Date : {date}",
+      "original": "Original",
+      "duplicate": "DUPLICATA",
+      "student": "Élève",
+      "otherName": "Nom en arabe",
+      "massar": "Code Massar",
+      "class": "Classe",
+      "covered": "Objet",
+      "amountColumn": "Montant",
+      "partial": "partiel",
+      "method": "Mode de paiement",
+      "methods": {
+        "cash": "Espèces",
+        "cheque": "Chèque",
+        "transfer": "Virement"
+      },
+      "chequeNo": "chèque n° {value}",
+      "reference": "réf. {value}",
+      "chequeDate": "du {date}",
+      "payer": "Payé par",
+      "receivedBy": "Reçu par",
+      "note": "Note",
+      "total": "Montant reçu",
+      "inWords": "Arrêté le présent reçu à la somme de :",
+      "cancelledBand": "ANNULÉ",
+      "cancelledInfo": "Reçu annulé : {reason}, le {date}",
+      "stamp": "Cachet et signature"
     }
   }
 }

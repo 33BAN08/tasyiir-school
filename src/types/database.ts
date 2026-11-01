@@ -2077,6 +2077,58 @@ export type Database = {
           },
         ]
       }
+      receipt_prints: {
+        Row: {
+          id: string
+          language: string
+          payment_id: string
+          print_no: number
+          printed_at: string
+          printed_by: string | null
+          school_id: string
+        }
+        Insert: {
+          id?: string
+          language: string
+          payment_id: string
+          print_no: number
+          printed_at?: string
+          printed_by?: string | null
+          school_id: string
+        }
+        Update: {
+          id?: string
+          language?: string
+          payment_id?: string
+          print_no?: number
+          printed_at?: string
+          printed_by?: string | null
+          school_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "receipt_prints_payment_fkey"
+            columns: ["payment_id", "school_id"]
+            isOneToOne: false
+            referencedRelation: "payments"
+            referencedColumns: ["id", "school_id"]
+          },
+          {
+            foreignKeyName: "receipt_prints_printed_by_fkey"
+            columns: ["printed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "receipt_prints_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       report_cards: {
         Row: {
           average: number | null
@@ -3417,6 +3469,13 @@ export type Database = {
         }
         Returns: string
       }
+      fee_staff_names: {
+        Args: { p_ids: string[] }
+        Returns: {
+          full_name: string
+          id: string
+        }[]
+      }
       fee_year_rules: {
         Args: { p_year: string }
         Returns: {
@@ -3496,6 +3555,13 @@ export type Database = {
           receipt_label: string
           receipt_no: number
           replayed: boolean
+        }[]
+      }
+      record_receipt_print: {
+        Args: { p_language: string; p_payment: string }
+        Returns: {
+          print_id: string
+          print_no: number
         }[]
       }
       refresh_student_charges: {

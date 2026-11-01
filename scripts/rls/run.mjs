@@ -71,6 +71,7 @@ import { phase11CrossSchool } from "./phase11-cross-school.mjs";
 import { phase13FeeSetup } from "./phase13-fee-setup.mjs";
 import { phase13Charges } from "./phase13-charges.mjs";
 import { phase13Payments } from "./phase13-payments.mjs";
+import { phase13ReceiptPrints } from "./phase13-receipt-prints.mjs";
 import { dashboardAggregates } from "./dashboard-aggregates.mjs";
 import { demoActions } from "./actions-demo.mjs";
 import { phase9CrossSchool } from "./phase9-cross-school.mjs";
@@ -87,6 +88,7 @@ import { gradingSetupActions } from "./actions-grading-setup.mjs";
 import { feeSettingsActions } from "./actions-fee-settings.mjs";
 import { studentFeesActions } from "./actions-student-fees.mjs";
 import { studentPaymentActions } from "./actions-student-payments.mjs";
+import { receiptPrintPages } from "./actions-receipt-print.mjs";
 import { gradesActions } from "./actions-grades.mjs";
 import { averagesActions } from "./actions-averages.mjs";
 import { publishActions } from "./actions-publish.mjs";
@@ -171,6 +173,7 @@ try {
   await phase13FeeSetup({ fx, as });
   await phase13Charges({ fx, as });
   await phase13Payments({ fx, as });
+  await phase13ReceiptPrints({ fx, as });
   await dashboardAggregates({ fx, as });
   await notificationTypes({ fx, as });
   await publicDemoRequests({ fx, as });
@@ -183,6 +186,7 @@ try {
   await import("./rules-paged-reads.mjs");
   await import("./rules-dashboard-ranges.mjs");
   await import("./rules-fee-ledger.mjs");
+  await import("./rules-receipt.mjs");
   if (withActions) {
     await staffMemberActions({ fx, baseUrl });
     await roleActions({ fx, baseUrl });
@@ -224,6 +228,7 @@ try {
     await feeSettingsActions({ fx, baseUrl });
     await studentFeesActions({ fx, baseUrl });
     await studentPaymentActions({ fx, baseUrl });
+    await receiptPrintPages({ fx, baseUrl });
     await gradesActions({ fx, baseUrl });
     await averagesActions({ fx, baseUrl });
     await publishActions({ fx, baseUrl });

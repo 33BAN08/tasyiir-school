@@ -1,11 +1,12 @@
 "use client";
 
-import { Ban } from "lucide-react";
+import { Ban, Printer } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Link } from "@/i18n/navigation";
 import type { LedgerCharge } from "@/lib/fees/ledger";
 import { formatCentimes } from "@/lib/fees/money";
 import { cancelPayment } from "@/lib/fees/payment-actions";
@@ -86,6 +87,12 @@ export function PaymentHistory({ payments, charges, serviceNames, canCancel }: P
               <span className={cn("font-numeric text-sm font-semibold tabular-nums", p.cancelled && "line-through text-muted-foreground")}>
                 {formatCentimes(p.amount)}
               </span>
+              <Button asChild variant="ghost" size="sm" className="min-h-11">
+                <Link href={`/print/receipts/${p.id}`} target="_blank" prefetch={false} data-payment-print>
+                  <Printer aria-hidden />
+                  {t("print")}
+                </Link>
+              </Button>
               {canCancel && !p.cancelled && (
                 <Button variant="ghost" size="sm" className="min-h-11 text-danger" onClick={() => setCancelling(p)} data-payment-cancel>
                   {t("cancel")}

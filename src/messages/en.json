@@ -3869,7 +3869,8 @@
         "doneTitle": "Payment saved",
         "doneReplayedTitle": "Payment already saved",
         "doneDescription": "Receipt number:",
-        "close": "Close"
+        "close": "Close",
+        "print": "Print"
       },
       "history": {
         "title": "This year's receipts",
@@ -3888,7 +3889,8 @@
         "cancelTitle": "Cancel receipt {receipt}?",
         "cancelDescription": "{amount} becomes due again: {charges}. The receipt stays in the history, marked cancelled.",
         "cancelConfirm": "Cancel the receipt",
-        "cancelledToast": "Receipt cancelled."
+        "cancelledToast": "Receipt cancelled.",
+        "print": "Print"
       },
       "cancel": {
         "reason": "Reason",
@@ -3944,6 +3946,43 @@
       "chargePaid": "This amount has received a payment: cancel the receipt first.",
       "cancelReasonInvalid": "Choose a reason.",
       "cancelNoteRequired": "Give the reason."
+    },
+    "receipt": {
+      "pageTitle": "Payment receipt",
+      "sheetLabel": "Receipt {label}",
+      "back": "Back to the student",
+      "print": "Print",
+      "switchLanguage": "Arabic version",
+      "hint": "A5 portrait. In the print window, choose “Save as PDF” for a file.",
+      "title": "Payment receipt",
+      "phone": "Tel. {phone}",
+      "date": "Date: {date}",
+      "original": "Original",
+      "duplicate": "DUPLICATE",
+      "student": "Student",
+      "otherName": "Name in Arabic",
+      "massar": "Massar code",
+      "class": "Class",
+      "covered": "For",
+      "amountColumn": "Amount",
+      "partial": "partial",
+      "method": "Payment method",
+      "methods": {
+        "cash": "Cash",
+        "cheque": "Cheque",
+        "transfer": "Transfer"
+      },
+      "chequeNo": "cheque no. {value}",
+      "reference": "ref. {value}",
+      "chequeDate": "dated {date}",
+      "payer": "Paid by",
+      "receivedBy": "Received by",
+      "note": "Note",
+      "total": "Amount received",
+      "inWords": "In words:",
+      "cancelledBand": "CANCELLED",
+      "cancelledInfo": "Receipt cancelled: {reason}, on {date}",
+      "stamp": "Stamp and signature"
     }
   }
 }

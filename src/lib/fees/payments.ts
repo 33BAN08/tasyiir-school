@@ -21,7 +21,6 @@ export type LedgerPayment = {
   payerName: string | null;
   note: string | null;
   paidOn: string;
-  /** Null when the reader may not see other staff members' names (no users.view). */
   receivedBy: string | null;
   allocations: { chargeId: string; amount: number }[];
   cancelled: { reason: string; note: string | null; at: string; by: string | null } | null;
@@ -41,7 +40,7 @@ export async function getStudentLedger(schoolId: string, yearId: string, student
     supabase
       .from("payments")
       .select(
-        "id, receipt_label, receipt_no, amount_centimes, method, bank, reference, cheque_date, payer_name, note, paid_on, cancelled_at, cancel_reason, cancel_note, received:profiles!payments_received_by_fkey(full_name), canceller:profiles!payments_cancelled_by_fkey(full_name), payment_allocations(charge_id, amount_centimes)",
+        "id, receipt_label, receipt_no, amount_centimes, method, bank, reference, cheque_date, payer_name, note, paid_on, received_by, cancelled_by, cancelled_at, cancel_reason, cancel_note, payment_allocations(charge_id, amount_centimes)",
       )
       .eq("school_id", schoolId)
       .eq("academic_year_id", yearId)
@@ -50,6 +49,11 @@ export async function getStudentLedger(schoolId: string, yearId: string, student
     schoolClock(),
   ]);
   if (charges.error || payments.error) throw new Error("getStudentLedger failed");
+  // Staff names through fee_staff_names: the accountant cannot read other profiles.
+  const staffIds = [...new Set(payments.data.flatMap((p) => [p.received_by, p.cancelled_by]).filter((x): x is string => !!x))];
+  const staff = staffIds.length ? await supabase.rpc("fee_staff_names", { p_ids: staffIds }) : { data: [], error: null };
+  if (staff.error) throw new Error("getStudentLedger failed");
+  const names = new Map((staff.data ?? []).map((s) => [s.id, s.full_name]));
 
   const paid = new Map<string, number>();
   for (const p of payments.data) {
@@ -81,10 +85,10 @@ export async function getStudentLedger(schoolId: string, yearId: string, student
       payerName: p.payer_name,
       note: p.note,
       paidOn: p.paid_on,
-      receivedBy: p.received?.full_name ?? null,
+      receivedBy: p.received_by ? names.get(p.received_by) ?? null : null,
       allocations: p.payment_allocations.map((a) => ({ chargeId: a.charge_id, amount: a.amount_centimes })),
       cancelled: p.cancelled_at
-        ? { reason: p.cancel_reason ?? "other", note: p.cancel_note, at: p.cancelled_at, by: p.canceller?.full_name ?? null }
+        ? { reason: p.cancel_reason ?? "other", note: p.cancel_note, at: p.cancelled_at, by: p.cancelled_by ? names.get(p.cancelled_by) ?? null : null }
         : null,
     })),
   };

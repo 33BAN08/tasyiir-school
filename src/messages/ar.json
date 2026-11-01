@@ -3869,7 +3869,8 @@
         "doneTitle": "تم تسجيل الأداء",
         "doneReplayedTitle": "الأداء مسجل من قبل",
         "doneDescription": "رقم الوصل:",
-        "close": "إغلاق"
+        "close": "إغلاق",
+        "print": "طباعة"
       },
       "history": {
         "title": "وصولات السنة",
@@ -3888,7 +3889,8 @@
         "cancelTitle": "إلغاء الوصل {receipt}؟",
         "cancelDescription": "يعود {amount} مستحقا: {charges}. يبقى الوصل في السجل بصفة ملغى.",
         "cancelConfirm": "إلغاء الوصل",
-        "cancelledToast": "تم إلغاء الوصل."
+        "cancelledToast": "تم إلغاء الوصل.",
+        "print": "طباعة"
       },
       "cancel": {
         "reason": "السبب",
@@ -3944,6 +3946,43 @@
       "chargePaid": "هذا المبلغ تلقى أداء: ألغ الوصل أولا.",
       "cancelReasonInvalid": "اختر سببا.",
       "cancelNoteRequired": "وضح السبب."
+    },
+    "receipt": {
+      "pageTitle": "وصل أداء",
+      "sheetLabel": "وصل {label}",
+      "back": "الرجوع إلى التلميذ",
+      "print": "طباعة",
+      "switchLanguage": "النسخة الفرنسية",
+      "hint": "حجم A5 عمودي. في نافذة الطباعة اختر «حفظ بصيغة PDF» للحصول على ملف.",
+      "title": "وصل أداء",
+      "phone": "الهاتف: {phone}",
+      "date": "التاريخ: {date}",
+      "original": "أصل",
+      "duplicate": "نسخة",
+      "student": "التلميذ",
+      "otherName": "الاسم بالفرنسية",
+      "massar": "رمز مسار",
+      "class": "القسم",
+      "covered": "البيان",
+      "amountColumn": "المبلغ",
+      "partial": "جزئي",
+      "method": "طريقة الأداء",
+      "methods": {
+        "cash": "نقدا",
+        "cheque": "شيك",
+        "transfer": "تحويل"
+      },
+      "chequeNo": "شيك رقم {value}",
+      "reference": "مرجع {value}",
+      "chequeDate": "بتاريخ {date}",
+      "payer": "أداه",
+      "receivedBy": "استلمه",
+      "note": "ملاحظة",
+      "total": "المبلغ المستلم",
+      "inWords": "حُصر هذا الوصل في مبلغ:",
+      "cancelledBand": "ملغى",
+      "cancelledInfo": "وصل ملغى: {reason}، بتاريخ {date}",
+      "stamp": "الخاتم والتوقيع"
     }
   }
 }
