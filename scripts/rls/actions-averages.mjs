@@ -6,6 +6,7 @@ import { sessionCookies } from "./app.mjs";
 import { check } from "./checks.mjs";
 import { admin } from "./fixtures.mjs";
 import { createGradesFixture } from "./grades-fixture.mjs";
+import { resolveStreamed } from "./streamed-html.mjs";
 
 export async function averagesActions({ fx, baseUrl }) {
   const label = (s) => `[P11 averages page] ${s}`;
@@ -20,7 +21,8 @@ export async function averagesActions({ fx, baseUrl }) {
   cookies.parent = await sessionCookies(f.parent);
   const page = async (who, path) => {
     const res = await fetch(new URL(path, baseUrl), { headers: { cookie: cookies[who] }, redirect: "manual" });
-    const html = res.status === 200 ? await res.text() : "";
+    // Rows and cells are sliced out below: put the streamed pieces back first.
+    const html = res.status === 200 ? resolveStreamed(await res.text()) : "";
     const streamed = html.match(/NEXT_REDIRECT;\w+;([^;]+);/)?.[1];
     return { status: res.status, redirect: streamed ?? res.headers.get("location") ?? "", html: streamed ? "" : html };
   };

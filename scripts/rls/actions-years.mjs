@@ -92,6 +92,14 @@ export async function yearActions({ fx, baseUrl }) {
   check("[P4 action] setup: a payment in a past year without classes", !paid.error, paid.error ?? "");
   await expect("a year with payments → yearHasPayments", call("dirA", "deleteAcademicYear", paid.year), "yearHasPayments");
   check("[P4 action] …the year with payments is still there", !!paid.year && (await yearsOf(A.id)).some((y) => y.id === paid.year), "");
+
+  // Leave A as the next suites expect it: its original year current again (the trigger
+  // academic_years_single_current takes the flag off 2027-2028).
+  if (yearA) {
+    const { error } = await admin.from("academic_years").update({ is_current: true }).eq("id", yearA.id);
+    check("[P4 action] cleanup: A's original current year is current again",
+      !error && (await yearsOf(A.id)).find((y) => y.is_current)?.id === yearA.id, error?.message ?? "");
+  }
 }
 
 async function paidYearWithoutClasses(fx) {

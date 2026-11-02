@@ -117,7 +117,7 @@ export async function feeReportActions({ fx, baseUrl }) {
     check(label("…the tabs, Impayés active, and the CSV link"),
       page.body.includes("data-fees-tabs") && /aria-current="page"[^>]*>Impayés/.test(page.body) && page.body.includes("data-unpaid-export"));
     const monthPage = await get(`/fr/fees?year=${year}&month=${past1.slice(0, 7)}`, "dirA");
-    check(label("month filter: k1 owes 1000 DH for last month"), dueOf(monthPage.body, k1) === 100000, String(dueOf(monthPage.body, k1)));
+    check(label("month filter: k1 owes 1000 DH for last month"), monthPage.status === 200 && dueOf(monthPage.body, k1) === 100000, `${monthPage.status} ${dueOf(monthPage.body, k1)}`);
     const regPage = await get(`/fr/fees?year=${year}&month=registration&class=${cls}`, "dirA");
     check(label("registration filter (no registration fee in this plan) → nobody of the class, 'Aucun impayé pour ce choix'"),
       !regPage.body.includes(`data-unpaid-row="${k1}"`) && regPage.body.includes("Aucun impayé pour ce choix"));

@@ -7,6 +7,7 @@ import { actionId, callAction, sessionCookies } from "./app.mjs";
 import { check } from "./checks.mjs";
 import { admin } from "./fixtures.mjs";
 import { createGradesFixture } from "./grades-fixture.mjs";
+import { resolveStreamed } from "./streamed-html.mjs";
 
 export async function gradeGapsActions({ fx, baseUrl }) {
   const label = (s) => `[P11 gaps] ${s}`;
@@ -22,7 +23,8 @@ export async function gradeGapsActions({ fx, baseUrl }) {
   const preview = (who, ...args) => callAction(baseUrl, { id: previewId, path: "/fr/setup/grading", args, cookies: cookies[who] });
   const page = async (who, path) => {
     const res = await fetch(new URL(path, baseUrl), { headers: { cookie: cookies[who] }, redirect: "manual" });
-    return { status: res.status, html: res.status === 200 ? await res.text() : "" };
+    // Rows and cells are sliced out below: put the streamed pieces back first.
+    return { status: res.status, html: res.status === 200 ? resolveStreamed(await res.text()) : "" };
   };
   const grade = (student, subject, number, score, kind = "control", absent = false) =>
     ({ school_id: A.id, period_id: S1.id, student_id: student, subject_id: subject, kind, number, score: absent ? null : score, absent });
@@ -49,11 +51,9 @@ export async function gradeGapsActions({ fx, baseUrl }) {
     check(label("a2 Maths: a mark + abs = 2 entered of 3 (abs is entered), incomplet"), a2m.includes('data-average-count="2/3"') && a2m.includes("data-incomplete"));
     const a1h = cellOf(avg.html, a1, hist);
     check(label("a1 HG: one 0 = 1/4, incomplet; the 0 counts (average 0,00)"), a1h.includes('data-average-count="1/4"') && a1h.includes("data-incomplete") && a1h.includes(">0,00<"));
-    // (The last rows of a table can be streamed later in the document: look anywhere for a3's only count.)
-    // (The last rows of a table can be streamed later in the document: check a3's cell where it lands, and that no 0/N is shown anywhere.)
     const a3m = cellOf(avg.html, a3, maths);
     check(label("a3 nothing yet: a muted — alone (no 0/3, no incomplet)"),
-      !avg.html.includes('data-average-count="0/') && (a3m === "" || (a3m.includes("text-muted-foreground") && a3m.includes(">—<") && !a3m.includes("data-incomplete"))),
+      !avg.html.includes('data-average-count="0/') && a3m.includes("text-muted-foreground") && a3m.includes(">—<") && !a3m.includes("data-incomplete"),
       a3m.slice(0, 200));
     // An "abs" alone is a mark entered with no average yet: — · 1/3, incomplet.
     const { error: absErr } = await admin.from("grades").insert(grade(a3, hist, 1, null, "control", true));
