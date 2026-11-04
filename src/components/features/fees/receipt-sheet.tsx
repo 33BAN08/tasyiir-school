@@ -7,12 +7,20 @@ import { formatDate, formatMonth, isolate, ltr } from "@/lib/format";
 import { studentName, studentOtherName } from "@/lib/students/names";
 import { cn } from "@/lib/utils";
 
+/** A5 portrait, 8 mm margins: the sheet is 132 × 194 mm. */
+export const RECEIPT_PRINT_CSS =
+  "@page { size: A5 portrait; margin: 8mm; }" +
+  "@media print { html, body { height: auto !important; min-height: 0 !important; background: none !important; }" +
+  " body > :not(main) { display: none !important; } }";
+
 type Props = {
   receipt: Receipt;
   schoolName: string;
   language: "fr" | "ar";
   /** 1 = the original; more = DUPLICATA. */
   printNo: number;
+  /** A parent's copy from the portal: never stamped, so it says so instead of the stamp box. */
+  parentCopy?: boolean;
 };
 
 /**
@@ -21,7 +29,7 @@ type Props = {
  * in words, stamp box. "DUPLICATA" from the second print on; a cancelled
  * receipt carries the "ANNULÉ / ملغى" band.
  */
-export function ReceiptSheet({ receipt: r, schoolName, language, printNo }: Props) {
+export function ReceiptSheet({ receipt: r, schoolName, language, printNo, parentCopy = false }: Props) {
   const t = useTranslations("fees.receipt");
   const tLedger = useTranslations("fees.student.ledger");
   const tReason = useTranslations("fees.student.cancel.paymentReasons");
@@ -147,11 +155,17 @@ export function ReceiptSheet({ receipt: r, schoolName, language, printNo }: Prop
         </p>
       )}
 
-      <div className="mt-auto flex shrink-0 justify-end">
-        <div className="h-[24mm] w-[52mm] rounded border border-dashed border-foreground/50 p-1 text-center text-muted-foreground">
-          {t("stamp")}
+      {parentCopy ? (
+        <p className="mt-auto shrink-0 text-center font-medium text-muted-foreground" data-receipt-parent-copy>
+          {t("parentCopyNote")}
+        </p>
+      ) : (
+        <div className="mt-auto flex shrink-0 justify-end" data-receipt-stamp>
+          <div className="h-[24mm] w-[52mm] rounded border border-dashed border-foreground/50 p-1 text-center text-muted-foreground">
+            {t("stamp")}
+          </div>
         </div>
-      </div>
+      )}
 
       {(r.cancelled || duplicate) && (
         <div aria-hidden className="pointer-events-none absolute inset-0 flex items-center justify-center">

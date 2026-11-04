@@ -1315,12 +1315,39 @@
           "title": "Notes",
           "latest": "Dernier bulletin : {card}",
           "none": "Aucun bulletin publié"
+        },
+        "fees": {
+          "title": "Frais",
+          "due": "Montant à régler",
+          "upToDate": "À jour"
         }
       },
       "announcement": {
         "title": "Dernière annonce",
         "new": "Nouveau"
       }
+    },
+    "fees": {
+      "title": "Frais scolaires",
+      "backHome": "Accueil",
+      "backToFees": "Retour aux frais",
+      "children": "Vos enfants",
+      "of": "De {name}",
+      "years": "Années scolaires",
+      "notInPlanTitle": "Les frais ne sont pas disponibles",
+      "notInPlanDescription": "L'établissement ne propose pas encore le suivi des frais dans l'application.",
+      "noChildTitle": "Aucun enfant lié à votre compte",
+      "noChildDescription": "Demandez à l'établissement de lier votre compte à votre enfant.",
+      "emptyTitle": "Aucun frais pour le moment",
+      "emptyDescription": "Les montants apparaîtront ici dès que l'établissement les aura enregistrés.",
+      "payAtSchool": "Les paiements se font auprès de l'établissement.",
+      "monthsTitle": "Mois",
+      "discount": "Remise {amount}",
+      "receiptsTitle": "Reçus",
+      "receiptsEmpty": "Aucun reçu pour cette année.",
+      "print": "Imprimer",
+      "printLabel": "Imprimer le reçu {label}",
+      "receiptCancelled": "Annulé le {date}"
     }
   },
   "setup": {
@@ -3987,7 +4014,8 @@
       "inWords": "Arrêté le présent reçu à la somme de :",
       "cancelledBand": "ANNULÉ",
       "cancelledInfo": "Reçu annulé : {reason}, le {date}",
-      "stamp": "Cachet et signature"
+      "stamp": "Cachet et signature",
+      "parentCopyNote": "Copie depuis l'espace parent, sans cachet"
     },
     "tabs": {
       "label": "Parties des frais",

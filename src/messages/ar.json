@@ -1315,12 +1315,39 @@
           "title": "النقط",
           "latest": "آخر نشرة: {card}",
           "none": "لا توجد نشرة منشورة"
+        },
+        "fees": {
+          "title": "الرسوم",
+          "due": "مبلغ للأداء",
+          "upToDate": "لا يوجد مبلغ مستحق"
         }
       },
       "announcement": {
         "title": "آخر الإعلانات",
         "new": "جديد"
       }
+    },
+    "fees": {
+      "title": "الرسوم الدراسية",
+      "backHome": "الرئيسية",
+      "backToFees": "الرجوع إلى الرسوم",
+      "children": "أطفالك",
+      "of": "الخاصة بـ {name}",
+      "years": "السنوات الدراسية",
+      "notInPlanTitle": "الرسوم غير متوفرة",
+      "notInPlanDescription": "لا توفر المؤسسة بعد تتبع الرسوم في التطبيق.",
+      "noChildTitle": "لا يوجد أي طفل مرتبط بحسابك",
+      "noChildDescription": "اطلب من المؤسسة ربط حسابك بطفلك.",
+      "emptyTitle": "لا توجد رسوم حاليا",
+      "emptyDescription": "ستظهر المبالغ هنا بمجرد تسجيلها من طرف المؤسسة.",
+      "payAtSchool": "يتم الأداء لدى المؤسسة.",
+      "monthsTitle": "الأشهر",
+      "discount": "تخفيض {amount}",
+      "receiptsTitle": "الوصولات",
+      "receiptsEmpty": "لا يوجد أي وصل لهذه السنة.",
+      "print": "طباعة",
+      "printLabel": "طباعة الوصل {label}",
+      "receiptCancelled": "ملغى بتاريخ {date}"
     }
   },
   "setup": {
@@ -3987,7 +4014,8 @@
       "inWords": "حُصر هذا الوصل في مبلغ:",
       "cancelledBand": "ملغى",
       "cancelledInfo": "وصل ملغى: {reason}، بتاريخ {date}",
-      "stamp": "الخاتم والتوقيع"
+      "stamp": "الخاتم والتوقيع",
+      "parentCopyNote": "نسخة من فضاء الأولياء، بدون خاتم"
     },
     "tabs": {
       "label": "أقسام الرسوم",

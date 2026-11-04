@@ -1,27 +1,18 @@
 "use client";
 
-import { Ban, CircleCheck, CircleDashed, CircleMinus, CircleX, Clock3, type LucideIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { balanceOf, type LedgerCharge, type LedgerTotals, type MonthCell, type MonthState } from "@/lib/fees/ledger";
+import { balanceOf, type LedgerCharge, type LedgerTotals, type MonthCell } from "@/lib/fees/ledger";
 import { formatCentimes } from "@/lib/fees/money";
 import { shortMonth } from "@/lib/fees/months";
 import { cn } from "@/lib/utils";
 
 import { CancelChargeDialog } from "./cancel-charge-dialog";
+import { MONTH_STATE_STYLE } from "./month-state-style";
 import { useChargeLabel } from "./use-charge-label";
-
-const STATE_STYLE: Record<MonthState, { icon: LucideIcon; className: string }> = {
-  paid: { icon: CircleCheck, className: "border-success/40 text-success" },
-  partial: { icon: CircleMinus, className: "border-warning/50 text-warning" },
-  unpaid: { icon: CircleX, className: "border-danger/40 text-danger" },
-  notDue: { icon: Clock3, className: "text-muted-foreground" },
-  free: { icon: CircleDashed, className: "text-muted-foreground" },
-  cancelled: { icon: Ban, className: "text-muted-foreground line-through" },
-};
 
 type Props = {
   cells: MonthCell[];
@@ -93,7 +84,7 @@ function MonthButton({
   const label = useChargeLabel(serviceNames);
   const [open, setOpen] = useState(false);
   const [cancelling, setCancelling] = useState<LedgerCharge | null>(null);
-  const style = STATE_STYLE[cell.state];
+  const style = MONTH_STATE_STYLE[cell.state];
   const Icon = style.icon;
   const left = cell.net - cell.paid;
 

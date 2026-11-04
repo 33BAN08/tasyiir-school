@@ -1315,12 +1315,39 @@
           "title": "Grades",
           "latest": "Latest report: {card}",
           "none": "No report published"
+        },
+        "fees": {
+          "title": "Fees",
+          "due": "Amount to pay",
+          "upToDate": "Up to date"
         }
       },
       "announcement": {
         "title": "Latest announcement",
         "new": "New"
       }
+    },
+    "fees": {
+      "title": "School fees",
+      "backHome": "Home",
+      "backToFees": "Back to fees",
+      "children": "Your children",
+      "of": "For {name}",
+      "years": "School years",
+      "notInPlanTitle": "Fees are not available",
+      "notInPlanDescription": "The school does not offer fee tracking in the app yet.",
+      "noChildTitle": "No child linked to your account",
+      "noChildDescription": "Ask the school to link your account to your child.",
+      "emptyTitle": "No fees for now",
+      "emptyDescription": "Amounts will appear here once the school has recorded them.",
+      "payAtSchool": "Payments are made at the school.",
+      "monthsTitle": "Months",
+      "discount": "Discount {amount}",
+      "receiptsTitle": "Receipts",
+      "receiptsEmpty": "No receipts for this year.",
+      "print": "Print",
+      "printLabel": "Print receipt {label}",
+      "receiptCancelled": "Cancelled on {date}"
     }
   },
   "setup": {
@@ -3987,7 +4014,8 @@
       "inWords": "In words:",
       "cancelledBand": "CANCELLED",
       "cancelledInfo": "Receipt cancelled: {reason}, on {date}",
-      "stamp": "Stamp and signature"
+      "stamp": "Stamp and signature",
+      "parentCopyNote": "Copy from the parent area, not stamped"
     },
     "tabs": {
       "label": "Fees sections",

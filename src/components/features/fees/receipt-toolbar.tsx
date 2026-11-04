@@ -8,20 +8,22 @@ import { Link } from "@/i18n/navigation";
 
 type Props = {
   backHref: string;
+  /** Defaults to "back to the student" (staff). */
+  backLabel?: string;
   /** The same receipt in the other language, carrying this print (re-used, nothing recorded). */
   switchHref: string;
   switchLocale: "fr" | "ar";
 };
 
 /** Above the receipt on screen, never printed: back, print / save as PDF, FR ⇄ AR. */
-export function ReceiptToolbar({ backHref, switchHref, switchLocale }: Props) {
+export function ReceiptToolbar({ backHref, backLabel, switchHref, switchLocale }: Props) {
   const t = useTranslations("fees.receipt");
   return (
     <div className="sticky top-0 z-10 flex flex-wrap items-center gap-3 border-b bg-background/95 px-4 py-3 backdrop-blur print:hidden">
       <Button asChild variant="ghost" className="min-h-11">
         <Link href={backHref}>
           <ArrowLeft className="rtl:-scale-x-100" aria-hidden />
-          {t("back")}
+          {backLabel ?? t("back")}
         </Link>
       </Button>
       <Button type="button" className="min-h-11" onClick={() => window.print()}>

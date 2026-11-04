@@ -1,4 +1,4 @@
-import { CalendarCheck, CalendarDays, GraduationCap, Megaphone, MessageSquareText, type LucideIcon } from "lucide-react";
+import { CalendarCheck, CalendarDays, GraduationCap, Megaphone, MessageSquareText, Wallet, type LucideIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Link } from "@/i18n/navigation";
@@ -14,10 +14,12 @@ type Props = {
   todayWeekday: number;
   /** Grades module on: the latest published card's name ("Semestre 1 · 2026-2027"), "" when none yet; null = no tile. */
   gradesLine: string | null;
+  /** Fees module on and the child has fee data: is anything due? Never an amount on the home screen. null = no tile. */
+  feesDue: boolean | null;
 };
 
 /** Absences · announcements · remarks · timetable: each line is real data, each tile opens its page. */
-export function HomeTiles({ childId, hasClass, home, todayWeekday, gradesLine }: Props) {
+export function HomeTiles({ childId, hasClass, home, todayWeekday, gradesLine, feesDue }: Props) {
   const t = useTranslations("portal.home.tiles");
   const tTypes = useTranslations("remarks.types");
   const tDays = useTranslations("setup.timeSlots.days");
@@ -89,6 +91,16 @@ export function HomeTiles({ childId, hasClass, home, todayWeekday, gradesLine }:
           title={t("grades.title")}
           line={gradesLine ? t("grades.latest", { card: gradesLine }) : t("grades.none")}
           name="grades"
+        />
+      )}
+      {feesDue !== null && (
+        <Tile
+          icon={Wallet}
+          tone={feesDue ? "warning" : "brand"}
+          href={`/portal/fees?child=${childId}`}
+          title={t("fees.title")}
+          line={t(feesDue ? "fees.due" : "fees.upToDate")}
+          name="fees"
         />
       )}
     </ul>

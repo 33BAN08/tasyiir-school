@@ -12,6 +12,7 @@ import { Card } from "@/components/ui/card";
 import { schoolClock } from "@/lib/attendance/clock";
 import { getModules } from "@/lib/auth/modules";
 import { requireArea } from "@/lib/auth/session";
+import { childHasFeesDue, listMyChildrenFees } from "@/lib/fees/parent";
 import { cardTitle } from "@/lib/grades/card-title";
 import { listChildCards } from "@/lib/grades/publications";
 import { getParentFirstName, getParentHome } from "@/lib/parents/home";
@@ -21,7 +22,7 @@ import { listMyChildren } from "@/lib/parents/portal";
  * Parent home (mobile-first, Madar app refresh 2026-10-25): the greeting and a
  * chip per child on the green band; for the selected child, the absence to
  * justify (only when there is one), the tiles (absences, announcements,
- * remarks, timetable, grades with the grades module), the latest announcement; the install bar; the school's
+ * remarks, timetable, grades and fees with their modules), the latest announcement; the install bar; the school's
  * contact card. Everything comes from the parent's own reads (RLS).
  */
 export default async function PortalHomePage({ searchParams }: PageProps<"/[locale]/portal">) {
@@ -48,6 +49,8 @@ export default async function PortalHomePage({ searchParams }: PageProps<"/[loca
     const [cards, tp] = await Promise.all([listChildCards(child.id), getTranslations("grades.periods")]);
     gradesLine = cards[0] ? cardTitle(cards[0], tp) : "";
   }
+  // Fees tile: only with the fees module and once the child has fee data; no amount here.
+  const feesDue = child && modules?.has("fees") ? childHasFeesDue(await listMyChildrenFees(), child.id) : null;
 
   return (
     <div className="flex flex-col gap-5">
@@ -59,7 +62,7 @@ export default async function PortalHomePage({ searchParams }: PageProps<"/[loca
       ) : (
         <>
           {home.toJustify && <JustifyAlertCard childId={child.id} absence={home.toJustify} today={clock.date} />}
-          <HomeTiles childId={child.id} hasClass={!!child.classId} home={home} todayWeekday={clock.weekday} gradesLine={gradesLine} />
+          <HomeTiles childId={child.id} hasClass={!!child.classId} home={home} todayWeekday={clock.weekday} gradesLine={gradesLine} feesDue={feesDue} />
           {home.announcements.latest && <LatestAnnouncement latest={home.announcements.latest} />}
         </>
       )}

@@ -3534,6 +3534,37 @@ export type Database = {
         }[]
       }
       import_students: { Args: { p_rows: Json }; Returns: number }
+      my_children_fees: {
+        Args: never
+        Returns: {
+          academic_year_id: string
+          charges: Json
+          is_current: boolean
+          receipts: Json
+          student_id: string
+          today: string
+          year_label: string
+        }[]
+      }
+      my_receipt: {
+        Args: { p_payment: string }
+        Returns: {
+          amount_centimes: number
+          class_name: string
+          code_massar: string
+          first_name: string
+          first_name_ar: string
+          last_name: string
+          last_name_ar: string
+          lines: Json
+          method: string
+          paid_on: string
+          payment_id: string
+          receipt_label: string
+          student_id: string
+          year_label: string
+        }[]
+      }
       my_school_suspension: { Args: never; Returns: string }
       publish_grades: {
         Args: { p_class: string; p_period: string; p_show_rank?: boolean }

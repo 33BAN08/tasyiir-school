@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { getLocale, getTranslations } from "next-intl/server";
 import { Suspense } from "react";
 
-import { ReceiptSheet } from "@/components/features/fees/receipt-sheet";
+import { RECEIPT_PRINT_CSS, ReceiptSheet } from "@/components/features/fees/receipt-sheet";
 import { ReceiptToolbar } from "@/components/features/fees/receipt-toolbar";
 import { redirect } from "@/i18n/navigation";
 import { getModules } from "@/lib/auth/modules";
@@ -55,12 +55,7 @@ async function PrintReceipt({ params, searchParams }: Pick<PageProps<"/[locale]/
 
   return (
     <>
-      {/* A5 portrait, 8 mm margins: the sheet is 132 × 194 mm. */}
-      <style>
-        {"@page { size: A5 portrait; margin: 8mm; }" +
-          "@media print { html, body { height: auto !important; min-height: 0 !important; background: none !important; }" +
-          " body > :not(main) { display: none !important; } }"}
-      </style>
+      <style>{RECEIPT_PRINT_CSS}</style>
       <ReceiptToolbar
         backHref={`/students/${receipt.student.id}`}
         switchHref={`/print/receipts/${id}?print=${print.id}`}

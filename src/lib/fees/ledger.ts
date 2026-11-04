@@ -19,13 +19,16 @@ export type LedgerCharge = {
   cancelled: { reason: string; note: string | null; at: string } | null;
 };
 
+/** What the rules below read of a charge. Parents' charges carry no cancel details: only whether it is cancelled. */
+export type ChargeCore = Pick<LedgerCharge, "id" | "kind" | "month" | "serviceId" | "dueOn" | "net" | "paid"> & { cancelled: unknown };
+
 export type MonthState = "paid" | "partial" | "unpaid" | "notDue" | "free" | "cancelled";
 
-export type MonthCell = {
+export type MonthCell<C extends ChargeCore = LedgerCharge> = {
   /** `registration`, or the month `yyyy-MM-01`. */
   key: string;
   month: string | null;
-  charges: LedgerCharge[];
+  charges: C[];
   net: number;
   paid: number;
   state: MonthState;
@@ -40,7 +43,7 @@ const KIND_ORDER: Record<ChargeKind, number> = { registration: 0, tuition: 1, se
  * month (none first), service, id. Postgres orders uuids like their lowercase
  * text, so plain string comparison gives the same result.
  */
-export function compareCharges(a: LedgerCharge, b: LedgerCharge): number {
+export function compareCharges(a: ChargeCore, b: ChargeCore): number {
   const text = (x: string | null, y: string | null) => (x === y ? 0 : x === null ? -1 : y === null ? 1 : x < y ? -1 : 1);
   return (
     text(a.dueOn, b.dueOn) ||
@@ -52,7 +55,7 @@ export function compareCharges(a: LedgerCharge, b: LedgerCharge): number {
   );
 }
 
-export const balanceOf = (c: LedgerCharge) => (c.cancelled ? 0 : Math.max(0, c.net - c.paid));
+export const balanceOf = (c: ChargeCore) => (c.cancelled ? 0 : Math.max(0, c.net - c.paid));
 
 /** Charges that can still take money, in record_payment's order. */
 export function openCharges(charges: LedgerCharge[]): LedgerCharge[] {
@@ -73,13 +76,13 @@ export function allocateOldestFirst(charges: LedgerCharge[], amount: number): Al
 }
 
 /** The registration fee, then one cell per month, each with its state on `today` (`yyyy-MM-dd`, from the database). */
-export function monthCells(charges: LedgerCharge[], today: string): MonthCell[] {
-  const groups = new Map<string, LedgerCharge[]>();
+export function monthCells<C extends ChargeCore>(charges: C[], today: string): MonthCell<C>[] {
+  const groups = new Map<string, C[]>();
   for (const c of [...charges].sort(compareCharges)) {
     const key = c.month ?? "registration";
     groups.set(key, [...(groups.get(key) ?? []), c]);
   }
-  const cells = [...groups.entries()].map(([key, list]): MonthCell => {
+  const cells = [...groups.entries()].map(([key, list]): MonthCell<C> => {
     const live = list.filter((c) => !c.cancelled);
     const net = live.reduce((s, c) => s + c.net, 0);
     const paid = live.reduce((s, c) => s + Math.min(c.paid, c.net), 0);
@@ -97,7 +100,7 @@ export function monthCells(charges: LedgerCharge[], today: string): MonthCell[] 
 
 export type LedgerTotals = { total: number; paid: number; balance: number; dueNow: number };
 
-export function ledgerTotals(charges: LedgerCharge[], today: string): LedgerTotals {
+export function ledgerTotals(charges: ChargeCore[], today: string): LedgerTotals {
   const live = charges.filter((c) => !c.cancelled);
   const total = live.reduce((s, c) => s + c.net, 0);
   const paid = live.reduce((s, c) => s + Math.min(c.paid, c.net), 0);
