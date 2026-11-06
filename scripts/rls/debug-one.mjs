@@ -7,7 +7,7 @@ import { report } from "./checks.mjs";
 import { anon, createFixtures, removeFixtures, signIn } from "./fixtures.mjs";
 
 const [file, name] = process.argv.slice(2);
-const baseUrl = process.env.TEST_APP_URL ?? "http://localhost:3000";
+const baseUrl = process.env.TEST_APP_URL ?? "http://localhost:3100";
 const fx = await createFixtures();
 try {
   const mod = await import(`./${file}`);

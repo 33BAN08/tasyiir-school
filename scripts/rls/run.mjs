@@ -2,7 +2,7 @@
 //   npm run test:rls      — database checks (RLS, grants, constraints) + rule unit checks
 //   npm run test:actions  — the same + Server Actions over HTTP; needs the app
 //                           running (`npm run build && npm start`), at
-//                           TEST_APP_URL (default http://localhost:3000)
+//                           TEST_APP_URL (default http://localhost:3100, the test port; 3000 is the dev server)
 // Creates temporary schools/users, runs every check as real signed-in users,
 // then deletes everything it created. Exit code 1 if any check fails.
 // First: refuses to go on against production (see guard.mjs).
@@ -115,7 +115,7 @@ import { lessonMoveActions } from "./actions-lesson-moves.mjs";
 import { lessonActions } from "./actions-lessons.mjs";
 
 const withActions = process.argv.includes("--actions");
-const baseUrl = process.env.TEST_APP_URL ?? "http://localhost:3000";
+const baseUrl = process.env.TEST_APP_URL ?? "http://localhost:3100";
 
 let fx;
 let failed = 1;

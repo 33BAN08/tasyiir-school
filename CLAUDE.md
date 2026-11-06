@@ -72,7 +72,7 @@ absences, emploi du temps, communication, grades, fees, transport, Massar export
 - Keep components small; no file over ~300 lines.
 
 ## Testing
-- `npm run test:rls` (DB / RLS) and `npm run test:actions` (Server Actions + pages, app running). Run the app for tests on port **3100** with `node node_modules/next/dist/bin/next start -p 3100` after a fresh build (not `npx next start`: stopping the wrapper leaves an old build answering; HTTP 409 "action not found" = old build). Port 3000 is the user's dev server. Check who listens: `Get-NetTCPConnection -LocalPort 3100`.
+- `npm run test:rls` (DB / RLS) and `npm run test:actions` (Server Actions + pages, app running). Run the app for tests on port **3100** (the default of `run.mjs`, `debug-one.mjs` and `scripts/browser/*`; no need to set `TEST_APP_URL`) with `node node_modules/next/dist/bin/next start -p 3100` after a fresh build (not `npx next start`: stopping the wrapper leaves an old build answering; HTTP 409 "action not found" = old build). Port 3000 is the user's dev server. Check who listens: `Get-NetTCPConnection -LocalPort 3100`.
 - The full `test:actions` run takes > 10 min: run it in the background. One suite: `node --env-file=.env.local scripts/rls/debug-one.mjs <file> <export>`. Interrupted run: `scripts/rls/cleanup-run.mjs <run>` (8-hex run id from the leftover `rls-test-a-<run>` slug).
 - Server Actions are only accepted on a page whose bundle uses them: call each on the page that renders it.
 - Lessons are Monday–Saturday: teacher same-day checks are SKIPPED on Sundays (printed, never counted as passed).
