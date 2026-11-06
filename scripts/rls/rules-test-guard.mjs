@@ -48,6 +48,7 @@ for (const [script, args] of [
   ["run.mjs", ["--actions"]],
   ["debug-one.mjs", ["actions-demo-requests.mjs", "demoRequestActions"]],
   ["cleanup-run.mjs", ["00000000"]],
+  ["../browser/parent-fees.mjs", []],
 ]) {
   const child = spawnSync(
     process.execPath,

@@ -1,5 +1,5 @@
 // Refuses to run any test suite against PRODUCTION. Imported FIRST by every entry
-// point (run.mjs, debug-one.mjs, cleanup-run.mjs) and by fixtures.mjs / app.mjs, so it
+// point (run.mjs, debug-one.mjs, cleanup-run.mjs, scripts/browser/*) and by fixtures.mjs / app.mjs, so it
 // runs before a single Supabase client exists. The suites create and delete schools,
 // accounts and files with the secret key: they may only ever touch DEV (or a local stack).
 
