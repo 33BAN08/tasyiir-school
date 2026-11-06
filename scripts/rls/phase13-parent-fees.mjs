@@ -67,7 +67,7 @@ export async function phase13ParentFees({ fx, as }) {
     school_id: A.id, label: `PF-${fx.run}`, start_date: monthAdd(thisMonth, -3), end_date: dayAdd(monthAdd(thisMonth, 5), -1), is_current: false,
   }), "year");
   const pastYear = await id(admin.from("academic_years").insert({
-    school_id: A.id, label: `PFOLD-${fx.run}`, start_date: "2020-09-01", end_date: "2021-06-30", is_current: false,
+    school_id: A.id, label: `PFOLD-${fx.run}`, start_date: "2018-09-01", end_date: "2019-06-30", is_current: false,
   }), "other year");
   must(await admin.from("fee_years").upsert({ school_id: A.id, academic_year_id: year, billing_months: [past2, past1, thisMonth, fut1], due_day: dueDay }), "fee year");
   const level = await id(admin.from("levels").insert({ school_id: A.id, cycle: "college", name: `PF ${fx.run}` }), "level");
@@ -118,7 +118,7 @@ export async function phase13ParentFees({ fx, as }) {
   const { data: samiCharge } = await admin.from("student_charges").select("id").eq("student_id", sibling).eq("academic_year_id", year).eq("kind", "tuition").eq("month", past2).single();
   must(await as.dirA.rpc("cancel_charge", { p_charge: samiCharge.id, p_reason: "other", p_note: SECRET.charge }), "cancel charge");
   // School B: its own parent and fees, the control for "B's own users do".
-  const yearB = await id(admin.from("academic_years").insert({ school_id: B.id, label: `PFB-${fx.run}`, start_date: "2052-09-01", end_date: "2053-06-30", is_current: false }), "year B");
+  const yearB = await id(admin.from("academic_years").insert({ school_id: B.id, label: `PFB-${fx.run}`, start_date: "2072-09-01", end_date: "2073-06-30", is_current: false }), "year B");
   const levelB = await id(admin.from("levels").insert({ school_id: B.id, cycle: "college", name: `PFB ${fx.run}` }), "level B");
   const clsB = await id(admin.from("classes").insert({ school_id: B.id, academic_year_id: yearB, level_id: levelB, name: `PFB ${fx.run}` }), "class B");
   const kidB = await id(admin.from("students").insert({ school_id: B.id, first_name: "Omar", last_name: `PFB ${fx.run}`, birth_date: "2014-01-01", gender: "male" }), "student B");
